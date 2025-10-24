@@ -70,6 +70,7 @@ body {
     }
     body {
         @apply bg-background text-foreground;
+        font-family: 'Oxanium', system-ui, Avenir, Helvetica, Arial, sans-serif;
     }
 }
 

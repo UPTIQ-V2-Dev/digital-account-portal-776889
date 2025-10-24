@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import type { AuthResponse, User } from '../types/user';
+import type { AuthResponse, User } from '@/types/user';
 import { API_BASE_URL, STORAGE_KEYS } from './constants';
 
 let isRefreshing = false;

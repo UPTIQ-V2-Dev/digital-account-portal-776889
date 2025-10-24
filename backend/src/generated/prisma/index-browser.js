@@ -152,12 +152,7 @@ exports.Prisma.ApplicationScalarFieldEnum = {
   completedAt: 'completedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  userAgent: 'userAgent',
-  ipAddress: 'ipAddress',
-  sessionId: 'sessionId',
-  startedAt: 'startedAt',
-  lastActivity: 'lastActivity',
-  source: 'source',
+  metadata: 'metadata',
   userId: 'userId'
 };
 
@@ -171,22 +166,12 @@ exports.Prisma.PersonalInfoScalarFieldEnum = {
   ssn: 'ssn',
   phone: 'phone',
   email: 'email',
+  mailingAddress: 'mailingAddress',
+  physicalAddress: 'physicalAddress',
   employmentStatus: 'employmentStatus',
   occupation: 'occupation',
   employer: 'employer',
   workPhone: 'workPhone',
-  mailingStreet: 'mailingStreet',
-  mailingCity: 'mailingCity',
-  mailingState: 'mailingState',
-  mailingZipCode: 'mailingZipCode',
-  mailingCountry: 'mailingCountry',
-  mailingApartment: 'mailingApartment',
-  physicalStreet: 'physicalStreet',
-  physicalCity: 'physicalCity',
-  physicalState: 'physicalState',
-  physicalZipCode: 'physicalZipCode',
-  physicalCountry: 'physicalCountry',
-  physicalApartment: 'physicalApartment',
   applicationId: 'applicationId'
 };
 
@@ -198,6 +183,8 @@ exports.Prisma.BusinessProfileScalarFieldEnum = {
   entityType: 'entityType',
   industryType: 'industryType',
   dateEstablished: 'dateEstablished',
+  businessAddress: 'businessAddress',
+  mailingAddress: 'mailingAddress',
   businessPhone: 'businessPhone',
   businessEmail: 'businessEmail',
   website: 'website',
@@ -206,18 +193,6 @@ exports.Prisma.BusinessProfileScalarFieldEnum = {
   monthlyTransactionVolume: 'monthlyTransactionVolume',
   monthlyTransactionCount: 'monthlyTransactionCount',
   expectedBalance: 'expectedBalance',
-  businessStreet: 'businessStreet',
-  businessCity: 'businessCity',
-  businessState: 'businessState',
-  businessZipCode: 'businessZipCode',
-  businessCountry: 'businessCountry',
-  businessApartment: 'businessApartment',
-  mailingStreet: 'mailingStreet',
-  mailingCity: 'mailingCity',
-  mailingState: 'mailingState',
-  mailingZipCode: 'mailingZipCode',
-  mailingCountry: 'mailingCountry',
-  mailingApartment: 'mailingApartment',
   applicationId: 'applicationId'
 };
 
@@ -228,23 +203,9 @@ exports.Prisma.FinancialProfileScalarFieldEnum = {
   employmentInfo: 'employmentInfo',
   assets: 'assets',
   liabilities: 'liabilities',
+  bankingRelationships: 'bankingRelationships',
+  accountActivities: 'accountActivities',
   applicationId: 'applicationId'
-};
-
-exports.Prisma.BankingRelationshipScalarFieldEnum = {
-  id: 'id',
-  bankName: 'bankName',
-  accountTypes: 'accountTypes',
-  yearsWithBank: 'yearsWithBank',
-  financialProfileId: 'financialProfileId'
-};
-
-exports.Prisma.AccountActivityScalarFieldEnum = {
-  id: 'id',
-  activity: 'activity',
-  frequency: 'frequency',
-  amount: 'amount',
-  financialProfileId: 'financialProfileId'
 };
 
 exports.Prisma.ProductScalarFieldEnum = {
@@ -257,17 +218,7 @@ exports.Prisma.ProductScalarFieldEnum = {
   monthlyFee: 'monthlyFee',
   interestRate: 'interestRate',
   isActive: 'isActive',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.EligibilityRuleScalarFieldEnum = {
-  id: 'id',
-  field: 'field',
-  operator: 'operator',
-  value: 'value',
-  description: 'description',
-  productId: 'productId'
+  eligibilityRules: 'eligibilityRules'
 };
 
 exports.Prisma.ProductSelectionScalarFieldEnum = {
@@ -286,13 +237,9 @@ exports.Prisma.DocumentScalarFieldEnum = {
   mimeType: 'mimeType',
   uploadedAt: 'uploadedAt',
   verificationStatus: 'verificationStatus',
-  verificationProvider: 'verificationProvider',
-  verificationConfidence: 'verificationConfidence',
-  extractedData: 'extractedData',
-  verificationId: 'verificationId',
-  verifiedAt: 'verifiedAt',
-  signerId: 'signerId',
-  applicationId: 'applicationId'
+  verificationDetails: 'verificationDetails',
+  applicationId: 'applicationId',
+  signerId: 'signerId'
 };
 
 exports.Prisma.KYCVerificationScalarFieldEnum = {
@@ -302,32 +249,18 @@ exports.Prisma.KYCVerificationScalarFieldEnum = {
   verificationId: 'verificationId',
   confidence: 'confidence',
   verifiedAt: 'verifiedAt',
-  identityPassed: 'identityPassed',
-  identityConfidence: 'identityConfidence',
-  addressPassed: 'addressPassed',
-  addressConfidence: 'addressConfidence',
-  phonePassed: 'phonePassed',
-  phoneConfidence: 'phoneConfidence',
-  emailPassed: 'emailPassed',
-  emailConfidence: 'emailConfidence',
-  ofacPassed: 'ofacPassed',
-  ofacMatches: 'ofacMatches',
+  results: 'results',
   applicationId: 'applicationId'
 };
 
 exports.Prisma.AdditionalSignerScalarFieldEnum = {
   id: 'id',
+  personalInfo: 'personalInfo',
   role: 'role',
   relationshipToBusiness: 'relationshipToBusiness',
   beneficialOwnershipPercentage: 'beneficialOwnershipPercentage',
   hasSigningAuthority: 'hasSigningAuthority',
   kycStatus: 'kycStatus',
-  firstName: 'firstName',
-  lastName: 'lastName',
-  dateOfBirth: 'dateOfBirth',
-  ssn: 'ssn',
-  phone: 'phone',
-  email: 'email',
   applicationId: 'applicationId'
 };
 
@@ -335,22 +268,12 @@ exports.Prisma.RiskAssessmentScalarFieldEnum = {
   id: 'id',
   overallRisk: 'overallRisk',
   riskScore: 'riskScore',
+  factors: 'factors',
   recommendations: 'recommendations',
   requiresManualReview: 'requiresManualReview',
   assessedAt: 'assessedAt',
   assessedBy: 'assessedBy',
   applicationId: 'applicationId'
-};
-
-exports.Prisma.RiskFactorScalarFieldEnum = {
-  id: 'id',
-  category: 'category',
-  factor: 'factor',
-  weight: 'weight',
-  score: 'score',
-  impact: 'impact',
-  description: 'description',
-  riskAssessmentId: 'riskAssessmentId'
 };
 
 exports.Prisma.DisclosureScalarFieldEnum = {
@@ -391,14 +314,21 @@ exports.Prisma.FundingSetupScalarFieldEnum = {
   method: 'method',
   amount: 'amount',
   status: 'status',
-  bankName: 'bankName',
-  accountNumber: 'accountNumber',
-  routingNumber: 'routingNumber',
-  accountType: 'accountType',
-  plaidAccountId: 'plaidAccountId',
-  wireInstructions: 'wireInstructions',
+  details: 'details',
   createdAt: 'createdAt',
   processedAt: 'processedAt',
+  applicationId: 'applicationId'
+};
+
+exports.Prisma.AuditTrailEntryScalarFieldEnum = {
+  id: 'id',
+  action: 'action',
+  description: 'description',
+  performedBy: 'performedBy',
+  performedAt: 'performedAt',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  changes: 'changes',
   applicationId: 'applicationId'
 };
 
@@ -407,12 +337,12 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.NullableJsonNullValueInput = {
-  DbNull: Prisma.DbNull,
+exports.Prisma.JsonNullValueInput = {
   JsonNull: Prisma.JsonNull
 };
 
-exports.Prisma.JsonNullValueInput = {
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull
 };
 
@@ -443,27 +373,6 @@ exports.TokenType = exports.$Enums.TokenType = {
   VERIFY_EMAIL: 'VERIFY_EMAIL'
 };
 
-exports.ProductType = exports.$Enums.ProductType = {
-  CHECKING: 'CHECKING',
-  SAVINGS: 'SAVINGS',
-  MONEY_MARKET: 'MONEY_MARKET',
-  CERTIFICATE_DEPOSIT: 'CERTIFICATE_DEPOSIT',
-  CREDIT_CARD: 'CREDIT_CARD',
-  LOAN: 'LOAN',
-  MORTGAGE: 'MORTGAGE',
-  INVESTMENT: 'INVESTMENT',
-  RETIREMENT: 'RETIREMENT'
-};
-
-exports.EligibilityOperator = exports.$Enums.EligibilityOperator = {
-  GREATER_THAN_OR_EQUAL: 'GREATER_THAN_OR_EQUAL',
-  LESS_THAN_OR_EQUAL: 'LESS_THAN_OR_EQUAL',
-  EQUAL: 'EQUAL',
-  NOT_EQUAL: 'NOT_EQUAL',
-  IN: 'IN',
-  NOT_IN: 'NOT_IN'
-};
-
 exports.Prisma.ModelName = {
   User: 'User',
   Token: 'Token',
@@ -471,20 +380,17 @@ exports.Prisma.ModelName = {
   PersonalInfo: 'PersonalInfo',
   BusinessProfile: 'BusinessProfile',
   FinancialProfile: 'FinancialProfile',
-  BankingRelationship: 'BankingRelationship',
-  AccountActivity: 'AccountActivity',
   Product: 'Product',
-  EligibilityRule: 'EligibilityRule',
   ProductSelection: 'ProductSelection',
   Document: 'Document',
   KYCVerification: 'KYCVerification',
   AdditionalSigner: 'AdditionalSigner',
   RiskAssessment: 'RiskAssessment',
-  RiskFactor: 'RiskFactor',
   Disclosure: 'Disclosure',
   Agreement: 'Agreement',
   ElectronicSignature: 'ElectronicSignature',
-  FundingSetup: 'FundingSetup'
+  FundingSetup: 'FundingSetup',
+  AuditTrailEntry: 'AuditTrailEntry'
 };
 
 /**

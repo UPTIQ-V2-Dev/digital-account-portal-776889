@@ -26,7 +26,7 @@ const loginUserWithEmailAndPassword = async (email: string, password: string): P
         'updatedAt'
     ]);
     if (!user || !(await isPasswordMatch(password, user.password as string))) {
-        throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect email or password');
+        throw new ApiError(httpStatus.UNAUTHORIZED, 'Invalid email or password');
     }
     return exclude(user, ['password']);
 };
@@ -45,7 +45,7 @@ const logout = async (refreshToken: string): Promise<void> => {
         }
     });
     if (!refreshTokenData) {
-        throw new ApiError(httpStatus.NOT_FOUND, 'Not found');
+        throw new ApiError(httpStatus.NOT_FOUND, 'Refresh token not found');
     }
     await prisma.token.delete({ where: { id: refreshTokenData.id } });
 };
@@ -62,7 +62,7 @@ const refreshAuth = async (refreshToken: string): Promise<AuthTokensResponse> =>
         await prisma.token.delete({ where: { id: refreshTokenData.id } });
         return tokenService.generateAuthTokens({ id: userId });
     } catch (error) {
-        throw new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate');
+        throw new ApiError(httpStatus.UNAUTHORIZED, 'Invalid refresh token');
     }
 };
 
@@ -83,7 +83,7 @@ const resetPassword = async (resetPasswordToken: string, newPassword: string): P
         await userService.updateUserById(user.id, { password: encryptedPassword });
         await prisma.token.deleteMany({ where: { userId: user.id, type: TokenType.RESET_PASSWORD } });
     } catch (error) {
-        throw new ApiError(httpStatus.UNAUTHORIZED, 'Password reset failed');
+        throw new ApiError(httpStatus.UNAUTHORIZED, 'Invalid or expired reset token');
     }
 };
 
@@ -100,7 +100,7 @@ const verifyEmail = async (verifyEmailToken: string): Promise<void> => {
         });
         await userService.updateUserById(verifyEmailTokenData.userId, { isEmailVerified: true });
     } catch (error) {
-        throw new ApiError(httpStatus.UNAUTHORIZED, 'Email verification failed');
+        throw new ApiError(httpStatus.UNAUTHORIZED, 'Invalid or expired verification token');
     }
 };
 

@@ -9,9 +9,14 @@ import httpStatus from 'http-status';
  * @param {Object} userBody
  * @returns {Promise<User>}
  */
-const createUser = async (email: string, password: string, name?: string, role: Role = Role.USER): Promise<User> => {
+const createUser = async (
+    email: string,
+    password: string,
+    name: string,
+    role: Role = Role.USER
+): Promise<Pick<User, 'id' | 'email' | 'name' | 'role' | 'isEmailVerified' | 'createdAt' | 'updatedAt'>> => {
     if (await getUserByEmail(email)) {
-        throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
+        throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid input or duplicate email');
     }
     return prisma.user.create({
         data: {
@@ -19,12 +24,21 @@ const createUser = async (email: string, password: string, name?: string, role: 
             name,
             password: await encryptPassword(password),
             role
+        },
+        select: {
+            id: true,
+            email: true,
+            name: true,
+            role: true,
+            isEmailVerified: true,
+            createdAt: true,
+            updatedAt: true
         }
     });
 };
 
 /**
- * Query for users
+ * Query for users with pagination
  * @param {Object} filter - Prisma filter
  * @param {Object} options - Query options
  * @param {string} [options.sortBy] - Sort option in the format: sortField:(desc|asc)
@@ -32,39 +46,77 @@ const createUser = async (email: string, password: string, name?: string, role: 
  * @param {number} [options.page] - Current page (default = 1)
  * @returns {Promise<QueryResult>}
  */
-const queryUsers = async <Key extends keyof User>(
-    filter: object,
+const queryUsers = async (
+    filter: any,
     options: {
         limit?: number;
         page?: number;
         sortBy?: string;
         sortType?: 'asc' | 'desc';
-    },
-    keys: Key[] = ['id', 'email', 'name', 'password', 'role', 'isEmailVerified', 'createdAt', 'updatedAt'] as Key[]
-): Promise<Pick<User, Key>[]> => {
+    }
+): Promise<{
+    results: Array<Pick<User, 'id' | 'email' | 'name' | 'role' | 'isEmailVerified' | 'createdAt' | 'updatedAt'>>;
+    page: number;
+    limit: number;
+    totalPages: number;
+    totalResults: number;
+}> => {
     const page = options.page ?? 1;
     const limit = options.limit ?? 10;
     const sortBy = options.sortBy;
     const sortType = options.sortType ?? 'desc';
+
+    // Build filter for name (case insensitive)
+    const whereClause: any = {};
+    if (filter.name) {
+        whereClause.name = {
+            contains: filter.name,
+            mode: 'insensitive'
+        };
+    }
+    if (filter.role) {
+        whereClause.role = filter.role;
+    }
+
+    // Get total count for pagination
+    const totalResults = await prisma.user.count({ where: whereClause });
+    const totalPages = Math.ceil(totalResults / limit);
+
+    // Get users
     const users = await prisma.user.findMany({
-        where: filter,
-        select: keys.reduce((obj, k) => ({ ...obj, [k]: true }), {}),
-        skip: page * limit,
+        where: whereClause,
+        select: {
+            id: true,
+            email: true,
+            name: true,
+            role: true,
+            isEmailVerified: true,
+            createdAt: true,
+            updatedAt: true
+        },
+        skip: (page - 1) * limit,
         take: limit,
-        orderBy: sortBy ? { [sortBy]: sortType } : undefined
+        orderBy: sortBy ? { [sortBy]: sortType } : { createdAt: 'desc' }
     });
-    return users as Pick<User, Key>[];
+
+    return {
+        results: users,
+        page,
+        limit,
+        totalPages,
+        totalResults
+    };
 };
 
 /**
  * Get user by id
- * @param {ObjectId} id
+ * @param {number} id
  * @param {Array<Key>} keys
  * @returns {Promise<Pick<User, Key> | null>}
  */
 const getUserById = async <Key extends keyof User>(
     id: number,
-    keys: Key[] = ['id', 'email', 'name', 'password', 'role', 'isEmailVerified', 'createdAt', 'updatedAt'] as Key[]
+    keys: Key[] = ['id', 'email', 'name', 'role', 'isEmailVerified', 'createdAt', 'updatedAt'] as Key[]
 ): Promise<Pick<User, Key> | null> => {
     return (await prisma.user.findUnique({
         where: { id },
@@ -80,7 +132,7 @@ const getUserById = async <Key extends keyof User>(
  */
 const getUserByEmail = async <Key extends keyof User>(
     email: string,
-    keys: Key[] = ['id', 'email', 'name', 'password', 'role', 'isEmailVerified', 'createdAt', 'updatedAt'] as Key[]
+    keys: Key[] = ['id', 'email', 'name', 'role', 'isEmailVerified', 'createdAt', 'updatedAt'] as Key[]
 ): Promise<Pick<User, Key> | null> => {
     return await (prisma.user.findUnique({
         where: { email },
@@ -90,25 +142,35 @@ const getUserByEmail = async <Key extends keyof User>(
 
 /**
  * Update user by id
- * @param {ObjectId} userId
+ * @param {number} userId
  * @param {Object} updateBody
  * @returns {Promise<User>}
  */
 const updateUserById = async <Key extends keyof User>(
     userId: number,
     updateBody: Prisma.UserUpdateInput,
-    keys: Key[] = ['id', 'email', 'name', 'role'] as Key[]
+    keys: Key[] = ['id', 'email', 'name', 'role', 'isEmailVerified', 'createdAt', 'updatedAt'] as Key[]
 ): Promise<Pick<User, Key> | null> => {
     const user = await getUserById(userId, ['id', 'email', 'name']);
     if (!user) {
         throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
     }
-    if (updateBody.email && (await getUserByEmail(updateBody.email as string))) {
-        throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
+    if (updateBody.email && updateBody.email !== user.email) {
+        const existingUser = await getUserByEmail(updateBody.email as string);
+        if (existingUser) {
+            throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid input or duplicate email');
+        }
     }
+
+    // Encrypt password if provided
+    const updateData = { ...updateBody };
+    if (updateData.password) {
+        updateData.password = await encryptPassword(updateData.password as string);
+    }
+
     const updatedUser = await prisma.user.update({
         where: { id: user.id },
-        data: updateBody,
+        data: updateData,
         select: keys.reduce((obj, k) => ({ ...obj, [k]: true }), {})
     });
     return updatedUser as Pick<User, Key> | null;

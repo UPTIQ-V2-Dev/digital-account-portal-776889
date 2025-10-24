@@ -14,6 +14,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  USER
+  ADMIN
+}
+
+enum TokenType {
+  ACCESS
+  REFRESH
+  RESET_PASSWORD
+  VERIFY_EMAIL
+}
+
 model User {
   id              Int           @id @default(autoincrement())
   email           String        @unique
@@ -23,7 +35,7 @@ model User {
   isEmailVerified Boolean       @default(false)
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
-  Token           Token[]
+  tokens          Token[]
   applications    Application[]
 }
 
@@ -38,18 +50,6 @@ model Token {
   userId      Int
 }
 
-enum Role {
-  USER
-  ADMIN
-}
-
-enum TokenType {
-  ACCESS
-  REFRESH
-  RESET_PASSWORD
-  VERIFY_EMAIL
-}
-
 model Application {
   id                String                @id @default(cuid())
   status            String                @default("draft")
@@ -61,55 +61,41 @@ model Application {
   completedAt       DateTime?
   createdAt         DateTime              @default(now())
   updatedAt         DateTime              @updatedAt
-  userAgent         String?
-  ipAddress         String?
-  sessionId         String?
-  startedAt         DateTime?
-  lastActivity      DateTime?
-  source            String?
-  user              User                  @relation(fields: [userId], references: [id])
-  userId            Int
   personalInfo      PersonalInfo?
   businessProfile   BusinessProfile?
   financialProfile  FinancialProfile?
   productSelections ProductSelection[]
   documents         Document[]
-  kycVerification   KYCVerification?
   additionalSigners AdditionalSigner[]
+  kycVerification   KYCVerification?
   riskAssessment    RiskAssessment?
   agreements        Agreement[]
   signatures        ElectronicSignature[]
   fundingSetup      FundingSetup?
+  metadata          Json
+  user              User                  @relation(fields: [userId], references: [id])
+  userId            Int
+  auditTrail        AuditTrailEntry[]
 }
 
 model PersonalInfo {
-  id                String      @id @default(cuid())
-  firstName         String
-  middleName        String?
-  lastName          String
-  suffix            String?
-  dateOfBirth       String
-  ssn               String
-  phone             String
-  email             String
-  employmentStatus  String
-  occupation        String?
-  employer          String?
-  workPhone         String?
-  mailingStreet     String
-  mailingCity       String
-  mailingState      String
-  mailingZipCode    String
-  mailingCountry    String
-  mailingApartment  String?
-  physicalStreet    String?
-  physicalCity      String?
-  physicalState     String?
-  physicalZipCode   String?
-  physicalCountry   String?
-  physicalApartment String?
-  application       Application @relation(fields: [applicationId], references: [id])
-  applicationId     String      @unique
+  id               String      @id @default(cuid())
+  firstName        String
+  middleName       String?
+  lastName         String
+  suffix           String?
+  dateOfBirth      String
+  ssn              String
+  phone            String
+  email            String
+  mailingAddress   Json
+  physicalAddress  Json?
+  employmentStatus String
+  occupation       String?
+  employer         String?
+  workPhone        String?
+  application      Application @relation(fields: [applicationId], references: [id])
+  applicationId    String      @unique
 }
 
 model BusinessProfile {
@@ -120,106 +106,45 @@ model BusinessProfile {
   entityType               String
   industryType             String
   dateEstablished          String
+  businessAddress          Json
+  mailingAddress           Json?
   businessPhone            String
   businessEmail            String
   website                  String?
   description              String
-  isCashIntensive          Boolean
+  isCashIntensive          Boolean     @default(false)
   monthlyTransactionVolume Float
   monthlyTransactionCount  Int
   expectedBalance          Float
-  businessStreet           String
-  businessCity             String
-  businessState            String
-  businessZipCode          String
-  businessCountry          String
-  businessApartment        String?
-  mailingStreet            String?
-  mailingCity              String?
-  mailingState             String?
-  mailingZipCode           String?
-  mailingCountry           String?
-  mailingApartment         String?
   application              Application @relation(fields: [applicationId], references: [id])
   applicationId            String      @unique
 }
 
 model FinancialProfile {
-  id                   String                @id @default(cuid())
+  id                   String      @id @default(cuid())
   annualIncome         Float
   incomeSource         String[]
   employmentInfo       Json?
   assets               Float
   liabilities          Float
-  application          Application           @relation(fields: [applicationId], references: [id])
-  applicationId        String                @unique
-  bankingRelationships BankingRelationship[]
-  accountActivities    AccountActivity[]
-}
-
-model BankingRelationship {
-  id                 String           @id @default(cuid())
-  bankName           String
-  accountTypes       String[]
-  yearsWithBank      Int
-  financialProfile   FinancialProfile @relation(fields: [financialProfileId], references: [id])
-  financialProfileId String
-}
-
-model AccountActivity {
-  id                 String           @id @default(cuid())
-  activity           String
-  frequency          String
-  amount             Float
-  financialProfile   FinancialProfile @relation(fields: [financialProfileId], references: [id])
-  financialProfileId String
-}
-
-enum ProductType {
-  CHECKING
-  SAVINGS
-  MONEY_MARKET
-  CERTIFICATE_DEPOSIT
-  CREDIT_CARD
-  LOAN
-  MORTGAGE
-  INVESTMENT
-  RETIREMENT
-}
-
-enum EligibilityOperator {
-  GREATER_THAN_OR_EQUAL
-  LESS_THAN_OR_EQUAL
-  EQUAL
-  NOT_EQUAL
-  IN
-  NOT_IN
+  bankingRelationships Json[]
+  accountActivities    Json[]
+  application          Application @relation(fields: [applicationId], references: [id])
+  applicationId        String      @unique
 }
 
 model Product {
-  id               String             @id @default(cuid())
-  name             String
-  type             ProductType
-  description      String
-  features         String[]
-  minimumBalance   Float
-  monthlyFee       Float
-  interestRate     Float?
-  isActive         Boolean            @default(true)
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
-  selections       ProductSelection[]
-  eligibilityRules EligibilityRule[]
-}
-
-model EligibilityRule {
-  id          String              @id @default(cuid())
-  field       String
-  operator    EligibilityOperator
-  value       Json
-  description String
-  product     Product             @relation(fields: [productId], references: [id])
-  productId   String
+  id                String             @id @default(cuid())
+  name              String             @unique
+  type              String
+  description       String
+  features          String[]
+  minimumBalance    Float
+  monthlyFee        Float
+  interestRate      Float?
+  isActive          Boolean            @default(true)
+  eligibilityRules  Json[]
+  productSelections ProductSelection[]
 }
 
 model ProductSelection {
@@ -233,84 +158,56 @@ model ProductSelection {
 }
 
 model Document {
-  id                     String      @id @default(cuid())
-  type                   String
-  fileName               String
-  fileSize               Int
-  mimeType               String
-  uploadedAt             DateTime    @default(now())
-  verificationStatus     String      @default("pending")
-  verificationProvider   String?
-  verificationConfidence Float?
-  extractedData          Json?
-  verificationId         String?
-  verifiedAt             DateTime?
-  signerId               String?
-  application            Application @relation(fields: [applicationId], references: [id])
-  applicationId          String
+  id                  String            @id @default(cuid())
+  type                String
+  fileName            String
+  fileSize            Int
+  mimeType            String
+  uploadedAt          DateTime          @default(now())
+  verificationStatus  String            @default("pending")
+  verificationDetails Json?
+  application         Application       @relation(fields: [applicationId], references: [id])
+  applicationId       String
+  signer              AdditionalSigner? @relation(fields: [signerId], references: [id])
+  signerId            String?
 }
 
 model KYCVerification {
-  id                 String      @id @default(cuid())
-  status             String      @default("pending")
-  provider           String
-  verificationId     String
-  confidence         Float
-  verifiedAt         DateTime?
-  identityPassed     Boolean?
-  identityConfidence Float?
-  addressPassed      Boolean?
-  addressConfidence  Float?
-  phonePassed        Boolean?
-  phoneConfidence    Float?
-  emailPassed        Boolean?
-  emailConfidence    Float?
-  ofacPassed         Boolean?
-  ofacMatches        Json?
-  application        Application @relation(fields: [applicationId], references: [id])
-  applicationId      String      @unique
+  id             String      @id @default(cuid())
+  status         String      @default("pending")
+  provider       String
+  verificationId String
+  confidence     Float
+  verifiedAt     DateTime?
+  results        Json
+  application    Application @relation(fields: [applicationId], references: [id])
+  applicationId  String      @unique
 }
 
 model AdditionalSigner {
   id                            String      @id @default(cuid())
+  personalInfo                  Json
   role                          String
   relationshipToBusiness        String?
   beneficialOwnershipPercentage Float?
   hasSigningAuthority           Boolean
   kycStatus                     String      @default("pending")
-  firstName                     String
-  lastName                      String
-  dateOfBirth                   String
-  ssn                           String
-  phone                         String
-  email                         String
+  documents                     Document[]
   application                   Application @relation(fields: [applicationId], references: [id])
   applicationId                 String
 }
 
 model RiskAssessment {
-  id                   String       @id @default(cuid())
+  id                   String      @id @default(cuid())
   overallRisk          String
   riskScore            Int
+  factors              Json[]
   recommendations      String[]
-  requiresManualReview Boolean
-  assessedAt           DateTime     @default(now())
+  requiresManualReview Boolean     @default(false)
+  assessedAt           DateTime    @default(now())
   assessedBy           String
-  application          Application  @relation(fields: [applicationId], references: [id])
-  applicationId        String       @unique
-  factors              RiskFactor[]
-}
-
-model RiskFactor {
-  id               String         @id @default(cuid())
-  category         String
-  factor           String
-  weight           Float
-  score            Int
-  impact           String
-  description      String
-  riskAssessment   RiskAssessment @relation(fields: [riskAssessmentId], references: [id])
-  riskAssessmentId String
+  application          Application @relation(fields: [applicationId], references: [id])
+  applicationId        String      @unique
 }
 
 model Disclosure {
@@ -319,8 +216,8 @@ model Disclosure {
   title         String
   content       String
   version       String
-  effectiveDate DateTime
-  required      Boolean
+  effectiveDate String
+  required      Boolean     @default(false)
   applicableFor String[]
   agreements    Agreement[]
 }
@@ -351,18 +248,26 @@ model ElectronicSignature {
 }
 
 model FundingSetup {
-  id               String      @id @default(cuid())
-  method           String
-  amount           Float
-  status           String      @default("pending")
-  bankName         String?
-  accountNumber    String?
-  routingNumber    String?
-  accountType      String?
-  plaidAccountId   String?
-  wireInstructions Json?
-  createdAt        DateTime    @default(now())
-  processedAt      DateTime?
-  application      Application @relation(fields: [applicationId], references: [id])
-  applicationId    String      @unique
+  id            String      @id @default(cuid())
+  method        String
+  amount        Float
+  status        String      @default("pending")
+  details       Json
+  createdAt     DateTime    @default(now())
+  processedAt   DateTime?
+  application   Application @relation(fields: [applicationId], references: [id])
+  applicationId String      @unique
+}
+
+model AuditTrailEntry {
+  id            String      @id @default(cuid())
+  action        String
+  description   String
+  performedBy   String
+  performedAt   DateTime    @default(now())
+  ipAddress     String
+  userAgent     String
+  changes       Json?
+  application   Application @relation(fields: [applicationId], references: [id])
+  applicationId String
 }

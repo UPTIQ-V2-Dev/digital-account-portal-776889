@@ -44,25 +44,10 @@ export type BusinessProfile = $Result.DefaultSelection<Prisma.$BusinessProfilePa
  */
 export type FinancialProfile = $Result.DefaultSelection<Prisma.$FinancialProfilePayload>
 /**
- * Model BankingRelationship
- * 
- */
-export type BankingRelationship = $Result.DefaultSelection<Prisma.$BankingRelationshipPayload>
-/**
- * Model AccountActivity
- * 
- */
-export type AccountActivity = $Result.DefaultSelection<Prisma.$AccountActivityPayload>
-/**
  * Model Product
  * 
  */
 export type Product = $Result.DefaultSelection<Prisma.$ProductPayload>
-/**
- * Model EligibilityRule
- * 
- */
-export type EligibilityRule = $Result.DefaultSelection<Prisma.$EligibilityRulePayload>
 /**
  * Model ProductSelection
  * 
@@ -89,11 +74,6 @@ export type AdditionalSigner = $Result.DefaultSelection<Prisma.$AdditionalSigner
  */
 export type RiskAssessment = $Result.DefaultSelection<Prisma.$RiskAssessmentPayload>
 /**
- * Model RiskFactor
- * 
- */
-export type RiskFactor = $Result.DefaultSelection<Prisma.$RiskFactorPayload>
-/**
  * Model Disclosure
  * 
  */
@@ -113,6 +93,11 @@ export type ElectronicSignature = $Result.DefaultSelection<Prisma.$ElectronicSig
  * 
  */
 export type FundingSetup = $Result.DefaultSelection<Prisma.$FundingSetupPayload>
+/**
+ * Model AuditTrailEntry
+ * 
+ */
+export type AuditTrailEntry = $Result.DefaultSelection<Prisma.$AuditTrailEntryPayload>
 
 /**
  * Enums
@@ -135,33 +120,6 @@ export const TokenType: {
 
 export type TokenType = (typeof TokenType)[keyof typeof TokenType]
 
-
-export const ProductType: {
-  CHECKING: 'CHECKING',
-  SAVINGS: 'SAVINGS',
-  MONEY_MARKET: 'MONEY_MARKET',
-  CERTIFICATE_DEPOSIT: 'CERTIFICATE_DEPOSIT',
-  CREDIT_CARD: 'CREDIT_CARD',
-  LOAN: 'LOAN',
-  MORTGAGE: 'MORTGAGE',
-  INVESTMENT: 'INVESTMENT',
-  RETIREMENT: 'RETIREMENT'
-};
-
-export type ProductType = (typeof ProductType)[keyof typeof ProductType]
-
-
-export const EligibilityOperator: {
-  GREATER_THAN_OR_EQUAL: 'GREATER_THAN_OR_EQUAL',
-  LESS_THAN_OR_EQUAL: 'LESS_THAN_OR_EQUAL',
-  EQUAL: 'EQUAL',
-  NOT_EQUAL: 'NOT_EQUAL',
-  IN: 'IN',
-  NOT_IN: 'NOT_IN'
-};
-
-export type EligibilityOperator = (typeof EligibilityOperator)[keyof typeof EligibilityOperator]
-
 }
 
 export type Role = $Enums.Role
@@ -171,14 +129,6 @@ export const Role: typeof $Enums.Role
 export type TokenType = $Enums.TokenType
 
 export const TokenType: typeof $Enums.TokenType
-
-export type ProductType = $Enums.ProductType
-
-export const ProductType: typeof $Enums.ProductType
-
-export type EligibilityOperator = $Enums.EligibilityOperator
-
-export const EligibilityOperator: typeof $Enums.EligibilityOperator
 
 /**
  * ##  Prisma Client ʲˢ
@@ -359,26 +309,6 @@ export class PrismaClient<
   get financialProfile(): Prisma.FinancialProfileDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.bankingRelationship`: Exposes CRUD operations for the **BankingRelationship** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more BankingRelationships
-    * const bankingRelationships = await prisma.bankingRelationship.findMany()
-    * ```
-    */
-  get bankingRelationship(): Prisma.BankingRelationshipDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.accountActivity`: Exposes CRUD operations for the **AccountActivity** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more AccountActivities
-    * const accountActivities = await prisma.accountActivity.findMany()
-    * ```
-    */
-  get accountActivity(): Prisma.AccountActivityDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.product`: Exposes CRUD operations for the **Product** model.
     * Example usage:
     * ```ts
@@ -387,16 +317,6 @@ export class PrismaClient<
     * ```
     */
   get product(): Prisma.ProductDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.eligibilityRule`: Exposes CRUD operations for the **EligibilityRule** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more EligibilityRules
-    * const eligibilityRules = await prisma.eligibilityRule.findMany()
-    * ```
-    */
-  get eligibilityRule(): Prisma.EligibilityRuleDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.productSelection`: Exposes CRUD operations for the **ProductSelection** model.
@@ -449,16 +369,6 @@ export class PrismaClient<
   get riskAssessment(): Prisma.RiskAssessmentDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.riskFactor`: Exposes CRUD operations for the **RiskFactor** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more RiskFactors
-    * const riskFactors = await prisma.riskFactor.findMany()
-    * ```
-    */
-  get riskFactor(): Prisma.RiskFactorDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.disclosure`: Exposes CRUD operations for the **Disclosure** model.
     * Example usage:
     * ```ts
@@ -497,6 +407,16 @@ export class PrismaClient<
     * ```
     */
   get fundingSetup(): Prisma.FundingSetupDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.auditTrailEntry`: Exposes CRUD operations for the **AuditTrailEntry** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AuditTrailEntries
+    * const auditTrailEntries = await prisma.auditTrailEntry.findMany()
+    * ```
+    */
+  get auditTrailEntry(): Prisma.AuditTrailEntryDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -943,20 +863,17 @@ export namespace Prisma {
     PersonalInfo: 'PersonalInfo',
     BusinessProfile: 'BusinessProfile',
     FinancialProfile: 'FinancialProfile',
-    BankingRelationship: 'BankingRelationship',
-    AccountActivity: 'AccountActivity',
     Product: 'Product',
-    EligibilityRule: 'EligibilityRule',
     ProductSelection: 'ProductSelection',
     Document: 'Document',
     KYCVerification: 'KYCVerification',
     AdditionalSigner: 'AdditionalSigner',
     RiskAssessment: 'RiskAssessment',
-    RiskFactor: 'RiskFactor',
     Disclosure: 'Disclosure',
     Agreement: 'Agreement',
     ElectronicSignature: 'ElectronicSignature',
-    FundingSetup: 'FundingSetup'
+    FundingSetup: 'FundingSetup',
+    AuditTrailEntry: 'AuditTrailEntry'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -975,7 +892,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "token" | "application" | "personalInfo" | "businessProfile" | "financialProfile" | "bankingRelationship" | "accountActivity" | "product" | "eligibilityRule" | "productSelection" | "document" | "kYCVerification" | "additionalSigner" | "riskAssessment" | "riskFactor" | "disclosure" | "agreement" | "electronicSignature" | "fundingSetup"
+      modelProps: "user" | "token" | "application" | "personalInfo" | "businessProfile" | "financialProfile" | "product" | "productSelection" | "document" | "kYCVerification" | "additionalSigner" | "riskAssessment" | "disclosure" | "agreement" | "electronicSignature" | "fundingSetup" | "auditTrailEntry"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1423,154 +1340,6 @@ export namespace Prisma {
           }
         }
       }
-      BankingRelationship: {
-        payload: Prisma.$BankingRelationshipPayload<ExtArgs>
-        fields: Prisma.BankingRelationshipFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.BankingRelationshipFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BankingRelationshipPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.BankingRelationshipFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BankingRelationshipPayload>
-          }
-          findFirst: {
-            args: Prisma.BankingRelationshipFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BankingRelationshipPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.BankingRelationshipFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BankingRelationshipPayload>
-          }
-          findMany: {
-            args: Prisma.BankingRelationshipFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BankingRelationshipPayload>[]
-          }
-          create: {
-            args: Prisma.BankingRelationshipCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BankingRelationshipPayload>
-          }
-          createMany: {
-            args: Prisma.BankingRelationshipCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.BankingRelationshipCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BankingRelationshipPayload>[]
-          }
-          delete: {
-            args: Prisma.BankingRelationshipDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BankingRelationshipPayload>
-          }
-          update: {
-            args: Prisma.BankingRelationshipUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BankingRelationshipPayload>
-          }
-          deleteMany: {
-            args: Prisma.BankingRelationshipDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.BankingRelationshipUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.BankingRelationshipUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BankingRelationshipPayload>[]
-          }
-          upsert: {
-            args: Prisma.BankingRelationshipUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$BankingRelationshipPayload>
-          }
-          aggregate: {
-            args: Prisma.BankingRelationshipAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateBankingRelationship>
-          }
-          groupBy: {
-            args: Prisma.BankingRelationshipGroupByArgs<ExtArgs>
-            result: $Utils.Optional<BankingRelationshipGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.BankingRelationshipCountArgs<ExtArgs>
-            result: $Utils.Optional<BankingRelationshipCountAggregateOutputType> | number
-          }
-        }
-      }
-      AccountActivity: {
-        payload: Prisma.$AccountActivityPayload<ExtArgs>
-        fields: Prisma.AccountActivityFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.AccountActivityFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AccountActivityPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.AccountActivityFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AccountActivityPayload>
-          }
-          findFirst: {
-            args: Prisma.AccountActivityFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AccountActivityPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.AccountActivityFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AccountActivityPayload>
-          }
-          findMany: {
-            args: Prisma.AccountActivityFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AccountActivityPayload>[]
-          }
-          create: {
-            args: Prisma.AccountActivityCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AccountActivityPayload>
-          }
-          createMany: {
-            args: Prisma.AccountActivityCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.AccountActivityCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AccountActivityPayload>[]
-          }
-          delete: {
-            args: Prisma.AccountActivityDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AccountActivityPayload>
-          }
-          update: {
-            args: Prisma.AccountActivityUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AccountActivityPayload>
-          }
-          deleteMany: {
-            args: Prisma.AccountActivityDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.AccountActivityUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.AccountActivityUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AccountActivityPayload>[]
-          }
-          upsert: {
-            args: Prisma.AccountActivityUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AccountActivityPayload>
-          }
-          aggregate: {
-            args: Prisma.AccountActivityAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateAccountActivity>
-          }
-          groupBy: {
-            args: Prisma.AccountActivityGroupByArgs<ExtArgs>
-            result: $Utils.Optional<AccountActivityGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.AccountActivityCountArgs<ExtArgs>
-            result: $Utils.Optional<AccountActivityCountAggregateOutputType> | number
-          }
-        }
-      }
       Product: {
         payload: Prisma.$ProductPayload<ExtArgs>
         fields: Prisma.ProductFieldRefs
@@ -1642,80 +1411,6 @@ export namespace Prisma {
           count: {
             args: Prisma.ProductCountArgs<ExtArgs>
             result: $Utils.Optional<ProductCountAggregateOutputType> | number
-          }
-        }
-      }
-      EligibilityRule: {
-        payload: Prisma.$EligibilityRulePayload<ExtArgs>
-        fields: Prisma.EligibilityRuleFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.EligibilityRuleFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EligibilityRulePayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.EligibilityRuleFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EligibilityRulePayload>
-          }
-          findFirst: {
-            args: Prisma.EligibilityRuleFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EligibilityRulePayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.EligibilityRuleFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EligibilityRulePayload>
-          }
-          findMany: {
-            args: Prisma.EligibilityRuleFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EligibilityRulePayload>[]
-          }
-          create: {
-            args: Prisma.EligibilityRuleCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EligibilityRulePayload>
-          }
-          createMany: {
-            args: Prisma.EligibilityRuleCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.EligibilityRuleCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EligibilityRulePayload>[]
-          }
-          delete: {
-            args: Prisma.EligibilityRuleDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EligibilityRulePayload>
-          }
-          update: {
-            args: Prisma.EligibilityRuleUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EligibilityRulePayload>
-          }
-          deleteMany: {
-            args: Prisma.EligibilityRuleDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.EligibilityRuleUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.EligibilityRuleUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EligibilityRulePayload>[]
-          }
-          upsert: {
-            args: Prisma.EligibilityRuleUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EligibilityRulePayload>
-          }
-          aggregate: {
-            args: Prisma.EligibilityRuleAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateEligibilityRule>
-          }
-          groupBy: {
-            args: Prisma.EligibilityRuleGroupByArgs<ExtArgs>
-            result: $Utils.Optional<EligibilityRuleGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.EligibilityRuleCountArgs<ExtArgs>
-            result: $Utils.Optional<EligibilityRuleCountAggregateOutputType> | number
           }
         }
       }
@@ -2089,80 +1784,6 @@ export namespace Prisma {
           }
         }
       }
-      RiskFactor: {
-        payload: Prisma.$RiskFactorPayload<ExtArgs>
-        fields: Prisma.RiskFactorFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.RiskFactorFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RiskFactorPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.RiskFactorFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RiskFactorPayload>
-          }
-          findFirst: {
-            args: Prisma.RiskFactorFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RiskFactorPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.RiskFactorFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RiskFactorPayload>
-          }
-          findMany: {
-            args: Prisma.RiskFactorFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RiskFactorPayload>[]
-          }
-          create: {
-            args: Prisma.RiskFactorCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RiskFactorPayload>
-          }
-          createMany: {
-            args: Prisma.RiskFactorCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.RiskFactorCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RiskFactorPayload>[]
-          }
-          delete: {
-            args: Prisma.RiskFactorDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RiskFactorPayload>
-          }
-          update: {
-            args: Prisma.RiskFactorUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RiskFactorPayload>
-          }
-          deleteMany: {
-            args: Prisma.RiskFactorDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.RiskFactorUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.RiskFactorUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RiskFactorPayload>[]
-          }
-          upsert: {
-            args: Prisma.RiskFactorUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$RiskFactorPayload>
-          }
-          aggregate: {
-            args: Prisma.RiskFactorAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateRiskFactor>
-          }
-          groupBy: {
-            args: Prisma.RiskFactorGroupByArgs<ExtArgs>
-            result: $Utils.Optional<RiskFactorGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.RiskFactorCountArgs<ExtArgs>
-            result: $Utils.Optional<RiskFactorCountAggregateOutputType> | number
-          }
-        }
-      }
       Disclosure: {
         payload: Prisma.$DisclosurePayload<ExtArgs>
         fields: Prisma.DisclosureFieldRefs
@@ -2459,6 +2080,80 @@ export namespace Prisma {
           }
         }
       }
+      AuditTrailEntry: {
+        payload: Prisma.$AuditTrailEntryPayload<ExtArgs>
+        fields: Prisma.AuditTrailEntryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AuditTrailEntryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditTrailEntryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AuditTrailEntryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditTrailEntryPayload>
+          }
+          findFirst: {
+            args: Prisma.AuditTrailEntryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditTrailEntryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AuditTrailEntryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditTrailEntryPayload>
+          }
+          findMany: {
+            args: Prisma.AuditTrailEntryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditTrailEntryPayload>[]
+          }
+          create: {
+            args: Prisma.AuditTrailEntryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditTrailEntryPayload>
+          }
+          createMany: {
+            args: Prisma.AuditTrailEntryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AuditTrailEntryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditTrailEntryPayload>[]
+          }
+          delete: {
+            args: Prisma.AuditTrailEntryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditTrailEntryPayload>
+          }
+          update: {
+            args: Prisma.AuditTrailEntryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditTrailEntryPayload>
+          }
+          deleteMany: {
+            args: Prisma.AuditTrailEntryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AuditTrailEntryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AuditTrailEntryUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditTrailEntryPayload>[]
+          }
+          upsert: {
+            args: Prisma.AuditTrailEntryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditTrailEntryPayload>
+          }
+          aggregate: {
+            args: Prisma.AuditTrailEntryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAuditTrailEntry>
+          }
+          groupBy: {
+            args: Prisma.AuditTrailEntryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AuditTrailEntryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AuditTrailEntryCountArgs<ExtArgs>
+            result: $Utils.Optional<AuditTrailEntryCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2561,20 +2256,17 @@ export namespace Prisma {
     personalInfo?: PersonalInfoOmit
     businessProfile?: BusinessProfileOmit
     financialProfile?: FinancialProfileOmit
-    bankingRelationship?: BankingRelationshipOmit
-    accountActivity?: AccountActivityOmit
     product?: ProductOmit
-    eligibilityRule?: EligibilityRuleOmit
     productSelection?: ProductSelectionOmit
     document?: DocumentOmit
     kYCVerification?: KYCVerificationOmit
     additionalSigner?: AdditionalSignerOmit
     riskAssessment?: RiskAssessmentOmit
-    riskFactor?: RiskFactorOmit
     disclosure?: DisclosureOmit
     agreement?: AgreementOmit
     electronicSignature?: ElectronicSignatureOmit
     fundingSetup?: FundingSetupOmit
+    auditTrailEntry?: AuditTrailEntryOmit
   }
 
   /* Types for Logging */
@@ -2655,12 +2347,12 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
-    Token: number
+    tokens: number
     applications: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Token?: boolean | UserCountOutputTypeCountTokenArgs
+    tokens?: boolean | UserCountOutputTypeCountTokensArgs
     applications?: boolean | UserCountOutputTypeCountApplicationsArgs
   }
 
@@ -2678,7 +2370,7 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountTokenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCountOutputTypeCountTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TokenWhereInput
   }
 
@@ -2700,6 +2392,7 @@ export namespace Prisma {
     additionalSigners: number
     agreements: number
     signatures: number
+    auditTrail: number
   }
 
   export type ApplicationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2708,6 +2401,7 @@ export namespace Prisma {
     additionalSigners?: boolean | ApplicationCountOutputTypeCountAdditionalSignersArgs
     agreements?: boolean | ApplicationCountOutputTypeCountAgreementsArgs
     signatures?: boolean | ApplicationCountOutputTypeCountSignaturesArgs
+    auditTrail?: boolean | ApplicationCountOutputTypeCountAuditTrailArgs
   }
 
   // Custom InputTypes
@@ -2756,44 +2450,11 @@ export namespace Prisma {
     where?: ElectronicSignatureWhereInput
   }
 
-
   /**
-   * Count Type FinancialProfileCountOutputType
+   * ApplicationCountOutputType without action
    */
-
-  export type FinancialProfileCountOutputType = {
-    bankingRelationships: number
-    accountActivities: number
-  }
-
-  export type FinancialProfileCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    bankingRelationships?: boolean | FinancialProfileCountOutputTypeCountBankingRelationshipsArgs
-    accountActivities?: boolean | FinancialProfileCountOutputTypeCountAccountActivitiesArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * FinancialProfileCountOutputType without action
-   */
-  export type FinancialProfileCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the FinancialProfileCountOutputType
-     */
-    select?: FinancialProfileCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * FinancialProfileCountOutputType without action
-   */
-  export type FinancialProfileCountOutputTypeCountBankingRelationshipsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: BankingRelationshipWhereInput
-  }
-
-  /**
-   * FinancialProfileCountOutputType without action
-   */
-  export type FinancialProfileCountOutputTypeCountAccountActivitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: AccountActivityWhereInput
+  export type ApplicationCountOutputTypeCountAuditTrailArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AuditTrailEntryWhereInput
   }
 
 
@@ -2802,13 +2463,11 @@ export namespace Prisma {
    */
 
   export type ProductCountOutputType = {
-    selections: number
-    eligibilityRules: number
+    productSelections: number
   }
 
   export type ProductCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    selections?: boolean | ProductCountOutputTypeCountSelectionsArgs
-    eligibilityRules?: boolean | ProductCountOutputTypeCountEligibilityRulesArgs
+    productSelections?: boolean | ProductCountOutputTypeCountProductSelectionsArgs
   }
 
   // Custom InputTypes
@@ -2825,46 +2484,39 @@ export namespace Prisma {
   /**
    * ProductCountOutputType without action
    */
-  export type ProductCountOutputTypeCountSelectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ProductCountOutputTypeCountProductSelectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ProductSelectionWhereInput
   }
 
-  /**
-   * ProductCountOutputType without action
-   */
-  export type ProductCountOutputTypeCountEligibilityRulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: EligibilityRuleWhereInput
-  }
-
 
   /**
-   * Count Type RiskAssessmentCountOutputType
+   * Count Type AdditionalSignerCountOutputType
    */
 
-  export type RiskAssessmentCountOutputType = {
-    factors: number
+  export type AdditionalSignerCountOutputType = {
+    documents: number
   }
 
-  export type RiskAssessmentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    factors?: boolean | RiskAssessmentCountOutputTypeCountFactorsArgs
+  export type AdditionalSignerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    documents?: boolean | AdditionalSignerCountOutputTypeCountDocumentsArgs
   }
 
   // Custom InputTypes
   /**
-   * RiskAssessmentCountOutputType without action
+   * AdditionalSignerCountOutputType without action
    */
-  export type RiskAssessmentCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type AdditionalSignerCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the RiskAssessmentCountOutputType
+     * Select specific fields to fetch from the AdditionalSignerCountOutputType
      */
-    select?: RiskAssessmentCountOutputTypeSelect<ExtArgs> | null
+    select?: AdditionalSignerCountOutputTypeSelect<ExtArgs> | null
   }
 
   /**
-   * RiskAssessmentCountOutputType without action
+   * AdditionalSignerCountOutputType without action
    */
-  export type RiskAssessmentCountOutputTypeCountFactorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: RiskFactorWhereInput
+  export type AdditionalSignerCountOutputTypeCountDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DocumentWhereInput
   }
 
 
@@ -3125,7 +2777,7 @@ export namespace Prisma {
     isEmailVerified?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    Token?: boolean | User$TokenArgs<ExtArgs>
+    tokens?: boolean | User$tokensArgs<ExtArgs>
     applications?: boolean | User$applicationsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -3165,7 +2817,7 @@ export namespace Prisma {
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "password" | "role" | "isEmailVerified" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Token?: boolean | User$TokenArgs<ExtArgs>
+    tokens?: boolean | User$tokensArgs<ExtArgs>
     applications?: boolean | User$applicationsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -3175,7 +2827,7 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      Token: Prisma.$TokenPayload<ExtArgs>[]
+      tokens: Prisma.$TokenPayload<ExtArgs>[]
       applications: Prisma.$ApplicationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -3581,7 +3233,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    Token<T extends User$TokenArgs<ExtArgs> = {}>(args?: Subset<T, User$TokenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    tokens<T extends User$tokensArgs<ExtArgs> = {}>(args?: Subset<T, User$tokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     applications<T extends User$applicationsArgs<ExtArgs> = {}>(args?: Subset<T, User$applicationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -4008,9 +3660,9 @@ export namespace Prisma {
   }
 
   /**
-   * User.Token
+   * User.tokens
    */
-  export type User$TokenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$tokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Token
      */
@@ -5227,12 +4879,6 @@ export namespace Prisma {
     completedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
-    userAgent: string | null
-    ipAddress: string | null
-    sessionId: string | null
-    startedAt: Date | null
-    lastActivity: Date | null
-    source: string | null
     userId: number | null
   }
 
@@ -5247,12 +4893,6 @@ export namespace Prisma {
     completedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
-    userAgent: string | null
-    ipAddress: string | null
-    sessionId: string | null
-    startedAt: Date | null
-    lastActivity: Date | null
-    source: string | null
     userId: number | null
   }
 
@@ -5267,12 +4907,7 @@ export namespace Prisma {
     completedAt: number
     createdAt: number
     updatedAt: number
-    userAgent: number
-    ipAddress: number
-    sessionId: number
-    startedAt: number
-    lastActivity: number
-    source: number
+    metadata: number
     userId: number
     _all: number
   }
@@ -5297,12 +4932,6 @@ export namespace Prisma {
     completedAt?: true
     createdAt?: true
     updatedAt?: true
-    userAgent?: true
-    ipAddress?: true
-    sessionId?: true
-    startedAt?: true
-    lastActivity?: true
-    source?: true
     userId?: true
   }
 
@@ -5317,12 +4946,6 @@ export namespace Prisma {
     completedAt?: true
     createdAt?: true
     updatedAt?: true
-    userAgent?: true
-    ipAddress?: true
-    sessionId?: true
-    startedAt?: true
-    lastActivity?: true
-    source?: true
     userId?: true
   }
 
@@ -5337,12 +4960,7 @@ export namespace Prisma {
     completedAt?: true
     createdAt?: true
     updatedAt?: true
-    userAgent?: true
-    ipAddress?: true
-    sessionId?: true
-    startedAt?: true
-    lastActivity?: true
-    source?: true
+    metadata?: true
     userId?: true
     _all?: true
   }
@@ -5444,12 +5062,7 @@ export namespace Prisma {
     completedAt: Date | null
     createdAt: Date
     updatedAt: Date
-    userAgent: string | null
-    ipAddress: string | null
-    sessionId: string | null
-    startedAt: Date | null
-    lastActivity: Date | null
-    source: string | null
+    metadata: JsonValue
     userId: number
     _count: ApplicationCountAggregateOutputType | null
     _avg: ApplicationAvgAggregateOutputType | null
@@ -5483,25 +5096,21 @@ export namespace Prisma {
     completedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    userAgent?: boolean
-    ipAddress?: boolean
-    sessionId?: boolean
-    startedAt?: boolean
-    lastActivity?: boolean
-    source?: boolean
+    metadata?: boolean
     userId?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     personalInfo?: boolean | Application$personalInfoArgs<ExtArgs>
     businessProfile?: boolean | Application$businessProfileArgs<ExtArgs>
     financialProfile?: boolean | Application$financialProfileArgs<ExtArgs>
     productSelections?: boolean | Application$productSelectionsArgs<ExtArgs>
     documents?: boolean | Application$documentsArgs<ExtArgs>
-    kycVerification?: boolean | Application$kycVerificationArgs<ExtArgs>
     additionalSigners?: boolean | Application$additionalSignersArgs<ExtArgs>
+    kycVerification?: boolean | Application$kycVerificationArgs<ExtArgs>
     riskAssessment?: boolean | Application$riskAssessmentArgs<ExtArgs>
     agreements?: boolean | Application$agreementsArgs<ExtArgs>
     signatures?: boolean | Application$signaturesArgs<ExtArgs>
     fundingSetup?: boolean | Application$fundingSetupArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    auditTrail?: boolean | Application$auditTrailArgs<ExtArgs>
     _count?: boolean | ApplicationCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["application"]>
 
@@ -5516,12 +5125,7 @@ export namespace Prisma {
     completedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    userAgent?: boolean
-    ipAddress?: boolean
-    sessionId?: boolean
-    startedAt?: boolean
-    lastActivity?: boolean
-    source?: boolean
+    metadata?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["application"]>
@@ -5537,12 +5141,7 @@ export namespace Prisma {
     completedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    userAgent?: boolean
-    ipAddress?: boolean
-    sessionId?: boolean
-    startedAt?: boolean
-    lastActivity?: boolean
-    source?: boolean
+    metadata?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["application"]>
@@ -5558,29 +5157,25 @@ export namespace Prisma {
     completedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    userAgent?: boolean
-    ipAddress?: boolean
-    sessionId?: boolean
-    startedAt?: boolean
-    lastActivity?: boolean
-    source?: boolean
+    metadata?: boolean
     userId?: boolean
   }
 
-  export type ApplicationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "status" | "currentStep" | "accountType" | "customerType" | "applicantId" | "submittedAt" | "completedAt" | "createdAt" | "updatedAt" | "userAgent" | "ipAddress" | "sessionId" | "startedAt" | "lastActivity" | "source" | "userId", ExtArgs["result"]["application"]>
+  export type ApplicationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "status" | "currentStep" | "accountType" | "customerType" | "applicantId" | "submittedAt" | "completedAt" | "createdAt" | "updatedAt" | "metadata" | "userId", ExtArgs["result"]["application"]>
   export type ApplicationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     personalInfo?: boolean | Application$personalInfoArgs<ExtArgs>
     businessProfile?: boolean | Application$businessProfileArgs<ExtArgs>
     financialProfile?: boolean | Application$financialProfileArgs<ExtArgs>
     productSelections?: boolean | Application$productSelectionsArgs<ExtArgs>
     documents?: boolean | Application$documentsArgs<ExtArgs>
-    kycVerification?: boolean | Application$kycVerificationArgs<ExtArgs>
     additionalSigners?: boolean | Application$additionalSignersArgs<ExtArgs>
+    kycVerification?: boolean | Application$kycVerificationArgs<ExtArgs>
     riskAssessment?: boolean | Application$riskAssessmentArgs<ExtArgs>
     agreements?: boolean | Application$agreementsArgs<ExtArgs>
     signatures?: boolean | Application$signaturesArgs<ExtArgs>
     fundingSetup?: boolean | Application$fundingSetupArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    auditTrail?: boolean | Application$auditTrailArgs<ExtArgs>
     _count?: boolean | ApplicationCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ApplicationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5593,18 +5188,19 @@ export namespace Prisma {
   export type $ApplicationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Application"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
       personalInfo: Prisma.$PersonalInfoPayload<ExtArgs> | null
       businessProfile: Prisma.$BusinessProfilePayload<ExtArgs> | null
       financialProfile: Prisma.$FinancialProfilePayload<ExtArgs> | null
       productSelections: Prisma.$ProductSelectionPayload<ExtArgs>[]
       documents: Prisma.$DocumentPayload<ExtArgs>[]
-      kycVerification: Prisma.$KYCVerificationPayload<ExtArgs> | null
       additionalSigners: Prisma.$AdditionalSignerPayload<ExtArgs>[]
+      kycVerification: Prisma.$KYCVerificationPayload<ExtArgs> | null
       riskAssessment: Prisma.$RiskAssessmentPayload<ExtArgs> | null
       agreements: Prisma.$AgreementPayload<ExtArgs>[]
       signatures: Prisma.$ElectronicSignaturePayload<ExtArgs>[]
       fundingSetup: Prisma.$FundingSetupPayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs>
+      auditTrail: Prisma.$AuditTrailEntryPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5617,12 +5213,7 @@ export namespace Prisma {
       completedAt: Date | null
       createdAt: Date
       updatedAt: Date
-      userAgent: string | null
-      ipAddress: string | null
-      sessionId: string | null
-      startedAt: Date | null
-      lastActivity: Date | null
-      source: string | null
+      metadata: Prisma.JsonValue
       userId: number
     }, ExtArgs["result"]["application"]>
     composites: {}
@@ -6018,18 +5609,19 @@ export namespace Prisma {
    */
   export interface Prisma__ApplicationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     personalInfo<T extends Application$personalInfoArgs<ExtArgs> = {}>(args?: Subset<T, Application$personalInfoArgs<ExtArgs>>): Prisma__PersonalInfoClient<$Result.GetResult<Prisma.$PersonalInfoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     businessProfile<T extends Application$businessProfileArgs<ExtArgs> = {}>(args?: Subset<T, Application$businessProfileArgs<ExtArgs>>): Prisma__BusinessProfileClient<$Result.GetResult<Prisma.$BusinessProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     financialProfile<T extends Application$financialProfileArgs<ExtArgs> = {}>(args?: Subset<T, Application$financialProfileArgs<ExtArgs>>): Prisma__FinancialProfileClient<$Result.GetResult<Prisma.$FinancialProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     productSelections<T extends Application$productSelectionsArgs<ExtArgs> = {}>(args?: Subset<T, Application$productSelectionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductSelectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     documents<T extends Application$documentsArgs<ExtArgs> = {}>(args?: Subset<T, Application$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    kycVerification<T extends Application$kycVerificationArgs<ExtArgs> = {}>(args?: Subset<T, Application$kycVerificationArgs<ExtArgs>>): Prisma__KYCVerificationClient<$Result.GetResult<Prisma.$KYCVerificationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     additionalSigners<T extends Application$additionalSignersArgs<ExtArgs> = {}>(args?: Subset<T, Application$additionalSignersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AdditionalSignerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    kycVerification<T extends Application$kycVerificationArgs<ExtArgs> = {}>(args?: Subset<T, Application$kycVerificationArgs<ExtArgs>>): Prisma__KYCVerificationClient<$Result.GetResult<Prisma.$KYCVerificationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     riskAssessment<T extends Application$riskAssessmentArgs<ExtArgs> = {}>(args?: Subset<T, Application$riskAssessmentArgs<ExtArgs>>): Prisma__RiskAssessmentClient<$Result.GetResult<Prisma.$RiskAssessmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     agreements<T extends Application$agreementsArgs<ExtArgs> = {}>(args?: Subset<T, Application$agreementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AgreementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     signatures<T extends Application$signaturesArgs<ExtArgs> = {}>(args?: Subset<T, Application$signaturesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ElectronicSignaturePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     fundingSetup<T extends Application$fundingSetupArgs<ExtArgs> = {}>(args?: Subset<T, Application$fundingSetupArgs<ExtArgs>>): Prisma__FundingSetupClient<$Result.GetResult<Prisma.$FundingSetupPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    auditTrail<T extends Application$auditTrailArgs<ExtArgs> = {}>(args?: Subset<T, Application$auditTrailArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditTrailEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6069,12 +5661,7 @@ export namespace Prisma {
     readonly completedAt: FieldRef<"Application", 'DateTime'>
     readonly createdAt: FieldRef<"Application", 'DateTime'>
     readonly updatedAt: FieldRef<"Application", 'DateTime'>
-    readonly userAgent: FieldRef<"Application", 'String'>
-    readonly ipAddress: FieldRef<"Application", 'String'>
-    readonly sessionId: FieldRef<"Application", 'String'>
-    readonly startedAt: FieldRef<"Application", 'DateTime'>
-    readonly lastActivity: FieldRef<"Application", 'DateTime'>
-    readonly source: FieldRef<"Application", 'String'>
+    readonly metadata: FieldRef<"Application", 'Json'>
     readonly userId: FieldRef<"Application", 'Int'>
   }
     
@@ -6577,25 +6164,6 @@ export namespace Prisma {
   }
 
   /**
-   * Application.kycVerification
-   */
-  export type Application$kycVerificationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the KYCVerification
-     */
-    select?: KYCVerificationSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the KYCVerification
-     */
-    omit?: KYCVerificationOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: KYCVerificationInclude<ExtArgs> | null
-    where?: KYCVerificationWhereInput
-  }
-
-  /**
    * Application.additionalSigners
    */
   export type Application$additionalSignersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6617,6 +6185,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AdditionalSignerScalarFieldEnum | AdditionalSignerScalarFieldEnum[]
+  }
+
+  /**
+   * Application.kycVerification
+   */
+  export type Application$kycVerificationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KYCVerification
+     */
+    select?: KYCVerificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the KYCVerification
+     */
+    omit?: KYCVerificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KYCVerificationInclude<ExtArgs> | null
+    where?: KYCVerificationWhereInput
   }
 
   /**
@@ -6706,6 +6293,30 @@ export namespace Prisma {
   }
 
   /**
+   * Application.auditTrail
+   */
+  export type Application$auditTrailArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditTrailEntry
+     */
+    select?: AuditTrailEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditTrailEntry
+     */
+    omit?: AuditTrailEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditTrailEntryInclude<ExtArgs> | null
+    where?: AuditTrailEntryWhereInput
+    orderBy?: AuditTrailEntryOrderByWithRelationInput | AuditTrailEntryOrderByWithRelationInput[]
+    cursor?: AuditTrailEntryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AuditTrailEntryScalarFieldEnum | AuditTrailEntryScalarFieldEnum[]
+  }
+
+  /**
    * Application without action
    */
   export type ApplicationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6748,18 +6359,6 @@ export namespace Prisma {
     occupation: string | null
     employer: string | null
     workPhone: string | null
-    mailingStreet: string | null
-    mailingCity: string | null
-    mailingState: string | null
-    mailingZipCode: string | null
-    mailingCountry: string | null
-    mailingApartment: string | null
-    physicalStreet: string | null
-    physicalCity: string | null
-    physicalState: string | null
-    physicalZipCode: string | null
-    physicalCountry: string | null
-    physicalApartment: string | null
     applicationId: string | null
   }
 
@@ -6777,18 +6376,6 @@ export namespace Prisma {
     occupation: string | null
     employer: string | null
     workPhone: string | null
-    mailingStreet: string | null
-    mailingCity: string | null
-    mailingState: string | null
-    mailingZipCode: string | null
-    mailingCountry: string | null
-    mailingApartment: string | null
-    physicalStreet: string | null
-    physicalCity: string | null
-    physicalState: string | null
-    physicalZipCode: string | null
-    physicalCountry: string | null
-    physicalApartment: string | null
     applicationId: string | null
   }
 
@@ -6802,22 +6389,12 @@ export namespace Prisma {
     ssn: number
     phone: number
     email: number
+    mailingAddress: number
+    physicalAddress: number
     employmentStatus: number
     occupation: number
     employer: number
     workPhone: number
-    mailingStreet: number
-    mailingCity: number
-    mailingState: number
-    mailingZipCode: number
-    mailingCountry: number
-    mailingApartment: number
-    physicalStreet: number
-    physicalCity: number
-    physicalState: number
-    physicalZipCode: number
-    physicalCountry: number
-    physicalApartment: number
     applicationId: number
     _all: number
   }
@@ -6837,18 +6414,6 @@ export namespace Prisma {
     occupation?: true
     employer?: true
     workPhone?: true
-    mailingStreet?: true
-    mailingCity?: true
-    mailingState?: true
-    mailingZipCode?: true
-    mailingCountry?: true
-    mailingApartment?: true
-    physicalStreet?: true
-    physicalCity?: true
-    physicalState?: true
-    physicalZipCode?: true
-    physicalCountry?: true
-    physicalApartment?: true
     applicationId?: true
   }
 
@@ -6866,18 +6431,6 @@ export namespace Prisma {
     occupation?: true
     employer?: true
     workPhone?: true
-    mailingStreet?: true
-    mailingCity?: true
-    mailingState?: true
-    mailingZipCode?: true
-    mailingCountry?: true
-    mailingApartment?: true
-    physicalStreet?: true
-    physicalCity?: true
-    physicalState?: true
-    physicalZipCode?: true
-    physicalCountry?: true
-    physicalApartment?: true
     applicationId?: true
   }
 
@@ -6891,22 +6444,12 @@ export namespace Prisma {
     ssn?: true
     phone?: true
     email?: true
+    mailingAddress?: true
+    physicalAddress?: true
     employmentStatus?: true
     occupation?: true
     employer?: true
     workPhone?: true
-    mailingStreet?: true
-    mailingCity?: true
-    mailingState?: true
-    mailingZipCode?: true
-    mailingCountry?: true
-    mailingApartment?: true
-    physicalStreet?: true
-    physicalCity?: true
-    physicalState?: true
-    physicalZipCode?: true
-    physicalCountry?: true
-    physicalApartment?: true
     applicationId?: true
     _all?: true
   }
@@ -6993,22 +6536,12 @@ export namespace Prisma {
     ssn: string
     phone: string
     email: string
+    mailingAddress: JsonValue
+    physicalAddress: JsonValue | null
     employmentStatus: string
     occupation: string | null
     employer: string | null
     workPhone: string | null
-    mailingStreet: string
-    mailingCity: string
-    mailingState: string
-    mailingZipCode: string
-    mailingCountry: string
-    mailingApartment: string | null
-    physicalStreet: string | null
-    physicalCity: string | null
-    physicalState: string | null
-    physicalZipCode: string | null
-    physicalCountry: string | null
-    physicalApartment: string | null
     applicationId: string
     _count: PersonalInfoCountAggregateOutputType | null
     _min: PersonalInfoMinAggregateOutputType | null
@@ -7039,22 +6572,12 @@ export namespace Prisma {
     ssn?: boolean
     phone?: boolean
     email?: boolean
+    mailingAddress?: boolean
+    physicalAddress?: boolean
     employmentStatus?: boolean
     occupation?: boolean
     employer?: boolean
     workPhone?: boolean
-    mailingStreet?: boolean
-    mailingCity?: boolean
-    mailingState?: boolean
-    mailingZipCode?: boolean
-    mailingCountry?: boolean
-    mailingApartment?: boolean
-    physicalStreet?: boolean
-    physicalCity?: boolean
-    physicalState?: boolean
-    physicalZipCode?: boolean
-    physicalCountry?: boolean
-    physicalApartment?: boolean
     applicationId?: boolean
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["personalInfo"]>
@@ -7069,22 +6592,12 @@ export namespace Prisma {
     ssn?: boolean
     phone?: boolean
     email?: boolean
+    mailingAddress?: boolean
+    physicalAddress?: boolean
     employmentStatus?: boolean
     occupation?: boolean
     employer?: boolean
     workPhone?: boolean
-    mailingStreet?: boolean
-    mailingCity?: boolean
-    mailingState?: boolean
-    mailingZipCode?: boolean
-    mailingCountry?: boolean
-    mailingApartment?: boolean
-    physicalStreet?: boolean
-    physicalCity?: boolean
-    physicalState?: boolean
-    physicalZipCode?: boolean
-    physicalCountry?: boolean
-    physicalApartment?: boolean
     applicationId?: boolean
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["personalInfo"]>
@@ -7099,22 +6612,12 @@ export namespace Prisma {
     ssn?: boolean
     phone?: boolean
     email?: boolean
+    mailingAddress?: boolean
+    physicalAddress?: boolean
     employmentStatus?: boolean
     occupation?: boolean
     employer?: boolean
     workPhone?: boolean
-    mailingStreet?: boolean
-    mailingCity?: boolean
-    mailingState?: boolean
-    mailingZipCode?: boolean
-    mailingCountry?: boolean
-    mailingApartment?: boolean
-    physicalStreet?: boolean
-    physicalCity?: boolean
-    physicalState?: boolean
-    physicalZipCode?: boolean
-    physicalCountry?: boolean
-    physicalApartment?: boolean
     applicationId?: boolean
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["personalInfo"]>
@@ -7129,26 +6632,16 @@ export namespace Prisma {
     ssn?: boolean
     phone?: boolean
     email?: boolean
+    mailingAddress?: boolean
+    physicalAddress?: boolean
     employmentStatus?: boolean
     occupation?: boolean
     employer?: boolean
     workPhone?: boolean
-    mailingStreet?: boolean
-    mailingCity?: boolean
-    mailingState?: boolean
-    mailingZipCode?: boolean
-    mailingCountry?: boolean
-    mailingApartment?: boolean
-    physicalStreet?: boolean
-    physicalCity?: boolean
-    physicalState?: boolean
-    physicalZipCode?: boolean
-    physicalCountry?: boolean
-    physicalApartment?: boolean
     applicationId?: boolean
   }
 
-  export type PersonalInfoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firstName" | "middleName" | "lastName" | "suffix" | "dateOfBirth" | "ssn" | "phone" | "email" | "employmentStatus" | "occupation" | "employer" | "workPhone" | "mailingStreet" | "mailingCity" | "mailingState" | "mailingZipCode" | "mailingCountry" | "mailingApartment" | "physicalStreet" | "physicalCity" | "physicalState" | "physicalZipCode" | "physicalCountry" | "physicalApartment" | "applicationId", ExtArgs["result"]["personalInfo"]>
+  export type PersonalInfoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firstName" | "middleName" | "lastName" | "suffix" | "dateOfBirth" | "ssn" | "phone" | "email" | "mailingAddress" | "physicalAddress" | "employmentStatus" | "occupation" | "employer" | "workPhone" | "applicationId", ExtArgs["result"]["personalInfo"]>
   export type PersonalInfoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
   }
@@ -7174,22 +6667,12 @@ export namespace Prisma {
       ssn: string
       phone: string
       email: string
+      mailingAddress: Prisma.JsonValue
+      physicalAddress: Prisma.JsonValue | null
       employmentStatus: string
       occupation: string | null
       employer: string | null
       workPhone: string | null
-      mailingStreet: string
-      mailingCity: string
-      mailingState: string
-      mailingZipCode: string
-      mailingCountry: string
-      mailingApartment: string | null
-      physicalStreet: string | null
-      physicalCity: string | null
-      physicalState: string | null
-      physicalZipCode: string | null
-      physicalCountry: string | null
-      physicalApartment: string | null
       applicationId: string
     }, ExtArgs["result"]["personalInfo"]>
     composites: {}
@@ -7624,22 +7107,12 @@ export namespace Prisma {
     readonly ssn: FieldRef<"PersonalInfo", 'String'>
     readonly phone: FieldRef<"PersonalInfo", 'String'>
     readonly email: FieldRef<"PersonalInfo", 'String'>
+    readonly mailingAddress: FieldRef<"PersonalInfo", 'Json'>
+    readonly physicalAddress: FieldRef<"PersonalInfo", 'Json'>
     readonly employmentStatus: FieldRef<"PersonalInfo", 'String'>
     readonly occupation: FieldRef<"PersonalInfo", 'String'>
     readonly employer: FieldRef<"PersonalInfo", 'String'>
     readonly workPhone: FieldRef<"PersonalInfo", 'String'>
-    readonly mailingStreet: FieldRef<"PersonalInfo", 'String'>
-    readonly mailingCity: FieldRef<"PersonalInfo", 'String'>
-    readonly mailingState: FieldRef<"PersonalInfo", 'String'>
-    readonly mailingZipCode: FieldRef<"PersonalInfo", 'String'>
-    readonly mailingCountry: FieldRef<"PersonalInfo", 'String'>
-    readonly mailingApartment: FieldRef<"PersonalInfo", 'String'>
-    readonly physicalStreet: FieldRef<"PersonalInfo", 'String'>
-    readonly physicalCity: FieldRef<"PersonalInfo", 'String'>
-    readonly physicalState: FieldRef<"PersonalInfo", 'String'>
-    readonly physicalZipCode: FieldRef<"PersonalInfo", 'String'>
-    readonly physicalCountry: FieldRef<"PersonalInfo", 'String'>
-    readonly physicalApartment: FieldRef<"PersonalInfo", 'String'>
     readonly applicationId: FieldRef<"PersonalInfo", 'String'>
   }
     
@@ -8095,18 +7568,6 @@ export namespace Prisma {
     monthlyTransactionVolume: number | null
     monthlyTransactionCount: number | null
     expectedBalance: number | null
-    businessStreet: string | null
-    businessCity: string | null
-    businessState: string | null
-    businessZipCode: string | null
-    businessCountry: string | null
-    businessApartment: string | null
-    mailingStreet: string | null
-    mailingCity: string | null
-    mailingState: string | null
-    mailingZipCode: string | null
-    mailingCountry: string | null
-    mailingApartment: string | null
     applicationId: string | null
   }
 
@@ -8126,18 +7587,6 @@ export namespace Prisma {
     monthlyTransactionVolume: number | null
     monthlyTransactionCount: number | null
     expectedBalance: number | null
-    businessStreet: string | null
-    businessCity: string | null
-    businessState: string | null
-    businessZipCode: string | null
-    businessCountry: string | null
-    businessApartment: string | null
-    mailingStreet: string | null
-    mailingCity: string | null
-    mailingState: string | null
-    mailingZipCode: string | null
-    mailingCountry: string | null
-    mailingApartment: string | null
     applicationId: string | null
   }
 
@@ -8149,6 +7598,8 @@ export namespace Prisma {
     entityType: number
     industryType: number
     dateEstablished: number
+    businessAddress: number
+    mailingAddress: number
     businessPhone: number
     businessEmail: number
     website: number
@@ -8157,18 +7608,6 @@ export namespace Prisma {
     monthlyTransactionVolume: number
     monthlyTransactionCount: number
     expectedBalance: number
-    businessStreet: number
-    businessCity: number
-    businessState: number
-    businessZipCode: number
-    businessCountry: number
-    businessApartment: number
-    mailingStreet: number
-    mailingCity: number
-    mailingState: number
-    mailingZipCode: number
-    mailingCountry: number
-    mailingApartment: number
     applicationId: number
     _all: number
   }
@@ -8202,18 +7641,6 @@ export namespace Prisma {
     monthlyTransactionVolume?: true
     monthlyTransactionCount?: true
     expectedBalance?: true
-    businessStreet?: true
-    businessCity?: true
-    businessState?: true
-    businessZipCode?: true
-    businessCountry?: true
-    businessApartment?: true
-    mailingStreet?: true
-    mailingCity?: true
-    mailingState?: true
-    mailingZipCode?: true
-    mailingCountry?: true
-    mailingApartment?: true
     applicationId?: true
   }
 
@@ -8233,18 +7660,6 @@ export namespace Prisma {
     monthlyTransactionVolume?: true
     monthlyTransactionCount?: true
     expectedBalance?: true
-    businessStreet?: true
-    businessCity?: true
-    businessState?: true
-    businessZipCode?: true
-    businessCountry?: true
-    businessApartment?: true
-    mailingStreet?: true
-    mailingCity?: true
-    mailingState?: true
-    mailingZipCode?: true
-    mailingCountry?: true
-    mailingApartment?: true
     applicationId?: true
   }
 
@@ -8256,6 +7671,8 @@ export namespace Prisma {
     entityType?: true
     industryType?: true
     dateEstablished?: true
+    businessAddress?: true
+    mailingAddress?: true
     businessPhone?: true
     businessEmail?: true
     website?: true
@@ -8264,18 +7681,6 @@ export namespace Prisma {
     monthlyTransactionVolume?: true
     monthlyTransactionCount?: true
     expectedBalance?: true
-    businessStreet?: true
-    businessCity?: true
-    businessState?: true
-    businessZipCode?: true
-    businessCountry?: true
-    businessApartment?: true
-    mailingStreet?: true
-    mailingCity?: true
-    mailingState?: true
-    mailingZipCode?: true
-    mailingCountry?: true
-    mailingApartment?: true
     applicationId?: true
     _all?: true
   }
@@ -8374,6 +7779,8 @@ export namespace Prisma {
     entityType: string
     industryType: string
     dateEstablished: string
+    businessAddress: JsonValue
+    mailingAddress: JsonValue | null
     businessPhone: string
     businessEmail: string
     website: string | null
@@ -8382,18 +7789,6 @@ export namespace Prisma {
     monthlyTransactionVolume: number
     monthlyTransactionCount: number
     expectedBalance: number
-    businessStreet: string
-    businessCity: string
-    businessState: string
-    businessZipCode: string
-    businessCountry: string
-    businessApartment: string | null
-    mailingStreet: string | null
-    mailingCity: string | null
-    mailingState: string | null
-    mailingZipCode: string | null
-    mailingCountry: string | null
-    mailingApartment: string | null
     applicationId: string
     _count: BusinessProfileCountAggregateOutputType | null
     _avg: BusinessProfileAvgAggregateOutputType | null
@@ -8424,6 +7819,8 @@ export namespace Prisma {
     entityType?: boolean
     industryType?: boolean
     dateEstablished?: boolean
+    businessAddress?: boolean
+    mailingAddress?: boolean
     businessPhone?: boolean
     businessEmail?: boolean
     website?: boolean
@@ -8432,18 +7829,6 @@ export namespace Prisma {
     monthlyTransactionVolume?: boolean
     monthlyTransactionCount?: boolean
     expectedBalance?: boolean
-    businessStreet?: boolean
-    businessCity?: boolean
-    businessState?: boolean
-    businessZipCode?: boolean
-    businessCountry?: boolean
-    businessApartment?: boolean
-    mailingStreet?: boolean
-    mailingCity?: boolean
-    mailingState?: boolean
-    mailingZipCode?: boolean
-    mailingCountry?: boolean
-    mailingApartment?: boolean
     applicationId?: boolean
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["businessProfile"]>
@@ -8456,6 +7841,8 @@ export namespace Prisma {
     entityType?: boolean
     industryType?: boolean
     dateEstablished?: boolean
+    businessAddress?: boolean
+    mailingAddress?: boolean
     businessPhone?: boolean
     businessEmail?: boolean
     website?: boolean
@@ -8464,18 +7851,6 @@ export namespace Prisma {
     monthlyTransactionVolume?: boolean
     monthlyTransactionCount?: boolean
     expectedBalance?: boolean
-    businessStreet?: boolean
-    businessCity?: boolean
-    businessState?: boolean
-    businessZipCode?: boolean
-    businessCountry?: boolean
-    businessApartment?: boolean
-    mailingStreet?: boolean
-    mailingCity?: boolean
-    mailingState?: boolean
-    mailingZipCode?: boolean
-    mailingCountry?: boolean
-    mailingApartment?: boolean
     applicationId?: boolean
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["businessProfile"]>
@@ -8488,6 +7863,8 @@ export namespace Prisma {
     entityType?: boolean
     industryType?: boolean
     dateEstablished?: boolean
+    businessAddress?: boolean
+    mailingAddress?: boolean
     businessPhone?: boolean
     businessEmail?: boolean
     website?: boolean
@@ -8496,18 +7873,6 @@ export namespace Prisma {
     monthlyTransactionVolume?: boolean
     monthlyTransactionCount?: boolean
     expectedBalance?: boolean
-    businessStreet?: boolean
-    businessCity?: boolean
-    businessState?: boolean
-    businessZipCode?: boolean
-    businessCountry?: boolean
-    businessApartment?: boolean
-    mailingStreet?: boolean
-    mailingCity?: boolean
-    mailingState?: boolean
-    mailingZipCode?: boolean
-    mailingCountry?: boolean
-    mailingApartment?: boolean
     applicationId?: boolean
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["businessProfile"]>
@@ -8520,6 +7885,8 @@ export namespace Prisma {
     entityType?: boolean
     industryType?: boolean
     dateEstablished?: boolean
+    businessAddress?: boolean
+    mailingAddress?: boolean
     businessPhone?: boolean
     businessEmail?: boolean
     website?: boolean
@@ -8528,22 +7895,10 @@ export namespace Prisma {
     monthlyTransactionVolume?: boolean
     monthlyTransactionCount?: boolean
     expectedBalance?: boolean
-    businessStreet?: boolean
-    businessCity?: boolean
-    businessState?: boolean
-    businessZipCode?: boolean
-    businessCountry?: boolean
-    businessApartment?: boolean
-    mailingStreet?: boolean
-    mailingCity?: boolean
-    mailingState?: boolean
-    mailingZipCode?: boolean
-    mailingCountry?: boolean
-    mailingApartment?: boolean
     applicationId?: boolean
   }
 
-  export type BusinessProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "businessName" | "dbaName" | "ein" | "entityType" | "industryType" | "dateEstablished" | "businessPhone" | "businessEmail" | "website" | "description" | "isCashIntensive" | "monthlyTransactionVolume" | "monthlyTransactionCount" | "expectedBalance" | "businessStreet" | "businessCity" | "businessState" | "businessZipCode" | "businessCountry" | "businessApartment" | "mailingStreet" | "mailingCity" | "mailingState" | "mailingZipCode" | "mailingCountry" | "mailingApartment" | "applicationId", ExtArgs["result"]["businessProfile"]>
+  export type BusinessProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "businessName" | "dbaName" | "ein" | "entityType" | "industryType" | "dateEstablished" | "businessAddress" | "mailingAddress" | "businessPhone" | "businessEmail" | "website" | "description" | "isCashIntensive" | "monthlyTransactionVolume" | "monthlyTransactionCount" | "expectedBalance" | "applicationId", ExtArgs["result"]["businessProfile"]>
   export type BusinessProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
   }
@@ -8567,6 +7922,8 @@ export namespace Prisma {
       entityType: string
       industryType: string
       dateEstablished: string
+      businessAddress: Prisma.JsonValue
+      mailingAddress: Prisma.JsonValue | null
       businessPhone: string
       businessEmail: string
       website: string | null
@@ -8575,18 +7932,6 @@ export namespace Prisma {
       monthlyTransactionVolume: number
       monthlyTransactionCount: number
       expectedBalance: number
-      businessStreet: string
-      businessCity: string
-      businessState: string
-      businessZipCode: string
-      businessCountry: string
-      businessApartment: string | null
-      mailingStreet: string | null
-      mailingCity: string | null
-      mailingState: string | null
-      mailingZipCode: string | null
-      mailingCountry: string | null
-      mailingApartment: string | null
       applicationId: string
     }, ExtArgs["result"]["businessProfile"]>
     composites: {}
@@ -9019,6 +8364,8 @@ export namespace Prisma {
     readonly entityType: FieldRef<"BusinessProfile", 'String'>
     readonly industryType: FieldRef<"BusinessProfile", 'String'>
     readonly dateEstablished: FieldRef<"BusinessProfile", 'String'>
+    readonly businessAddress: FieldRef<"BusinessProfile", 'Json'>
+    readonly mailingAddress: FieldRef<"BusinessProfile", 'Json'>
     readonly businessPhone: FieldRef<"BusinessProfile", 'String'>
     readonly businessEmail: FieldRef<"BusinessProfile", 'String'>
     readonly website: FieldRef<"BusinessProfile", 'String'>
@@ -9027,18 +8374,6 @@ export namespace Prisma {
     readonly monthlyTransactionVolume: FieldRef<"BusinessProfile", 'Float'>
     readonly monthlyTransactionCount: FieldRef<"BusinessProfile", 'Int'>
     readonly expectedBalance: FieldRef<"BusinessProfile", 'Float'>
-    readonly businessStreet: FieldRef<"BusinessProfile", 'String'>
-    readonly businessCity: FieldRef<"BusinessProfile", 'String'>
-    readonly businessState: FieldRef<"BusinessProfile", 'String'>
-    readonly businessZipCode: FieldRef<"BusinessProfile", 'String'>
-    readonly businessCountry: FieldRef<"BusinessProfile", 'String'>
-    readonly businessApartment: FieldRef<"BusinessProfile", 'String'>
-    readonly mailingStreet: FieldRef<"BusinessProfile", 'String'>
-    readonly mailingCity: FieldRef<"BusinessProfile", 'String'>
-    readonly mailingState: FieldRef<"BusinessProfile", 'String'>
-    readonly mailingZipCode: FieldRef<"BusinessProfile", 'String'>
-    readonly mailingCountry: FieldRef<"BusinessProfile", 'String'>
-    readonly mailingApartment: FieldRef<"BusinessProfile", 'String'>
     readonly applicationId: FieldRef<"BusinessProfile", 'String'>
   }
     
@@ -9501,6 +8836,8 @@ export namespace Prisma {
     employmentInfo: number
     assets: number
     liabilities: number
+    bankingRelationships: number
+    accountActivities: number
     applicationId: number
     _all: number
   }
@@ -9541,6 +8878,8 @@ export namespace Prisma {
     employmentInfo?: true
     assets?: true
     liabilities?: true
+    bankingRelationships?: true
+    accountActivities?: true
     applicationId?: true
     _all?: true
   }
@@ -9638,6 +8977,8 @@ export namespace Prisma {
     employmentInfo: JsonValue | null
     assets: number
     liabilities: number
+    bankingRelationships: JsonValue[]
+    accountActivities: JsonValue[]
     applicationId: string
     _count: FinancialProfileCountAggregateOutputType | null
     _avg: FinancialProfileAvgAggregateOutputType | null
@@ -9667,11 +9008,10 @@ export namespace Prisma {
     employmentInfo?: boolean
     assets?: boolean
     liabilities?: boolean
+    bankingRelationships?: boolean
+    accountActivities?: boolean
     applicationId?: boolean
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
-    bankingRelationships?: boolean | FinancialProfile$bankingRelationshipsArgs<ExtArgs>
-    accountActivities?: boolean | FinancialProfile$accountActivitiesArgs<ExtArgs>
-    _count?: boolean | FinancialProfileCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["financialProfile"]>
 
   export type FinancialProfileSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -9681,6 +9021,8 @@ export namespace Prisma {
     employmentInfo?: boolean
     assets?: boolean
     liabilities?: boolean
+    bankingRelationships?: boolean
+    accountActivities?: boolean
     applicationId?: boolean
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["financialProfile"]>
@@ -9692,6 +9034,8 @@ export namespace Prisma {
     employmentInfo?: boolean
     assets?: boolean
     liabilities?: boolean
+    bankingRelationships?: boolean
+    accountActivities?: boolean
     applicationId?: boolean
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["financialProfile"]>
@@ -9703,15 +9047,14 @@ export namespace Prisma {
     employmentInfo?: boolean
     assets?: boolean
     liabilities?: boolean
+    bankingRelationships?: boolean
+    accountActivities?: boolean
     applicationId?: boolean
   }
 
-  export type FinancialProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "annualIncome" | "incomeSource" | "employmentInfo" | "assets" | "liabilities" | "applicationId", ExtArgs["result"]["financialProfile"]>
+  export type FinancialProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "annualIncome" | "incomeSource" | "employmentInfo" | "assets" | "liabilities" | "bankingRelationships" | "accountActivities" | "applicationId", ExtArgs["result"]["financialProfile"]>
   export type FinancialProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
-    bankingRelationships?: boolean | FinancialProfile$bankingRelationshipsArgs<ExtArgs>
-    accountActivities?: boolean | FinancialProfile$accountActivitiesArgs<ExtArgs>
-    _count?: boolean | FinancialProfileCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type FinancialProfileIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
@@ -9724,8 +9067,6 @@ export namespace Prisma {
     name: "FinancialProfile"
     objects: {
       application: Prisma.$ApplicationPayload<ExtArgs>
-      bankingRelationships: Prisma.$BankingRelationshipPayload<ExtArgs>[]
-      accountActivities: Prisma.$AccountActivityPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9734,6 +9075,8 @@ export namespace Prisma {
       employmentInfo: Prisma.JsonValue | null
       assets: number
       liabilities: number
+      bankingRelationships: Prisma.JsonValue[]
+      accountActivities: Prisma.JsonValue[]
       applicationId: string
     }, ExtArgs["result"]["financialProfile"]>
     composites: {}
@@ -10130,8 +9473,6 @@ export namespace Prisma {
   export interface Prisma__FinancialProfileClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     application<T extends ApplicationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ApplicationDefaultArgs<ExtArgs>>): Prisma__ApplicationClient<$Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    bankingRelationships<T extends FinancialProfile$bankingRelationshipsArgs<ExtArgs> = {}>(args?: Subset<T, FinancialProfile$bankingRelationshipsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BankingRelationshipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    accountActivities<T extends FinancialProfile$accountActivitiesArgs<ExtArgs> = {}>(args?: Subset<T, FinancialProfile$accountActivitiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10167,6 +9508,8 @@ export namespace Prisma {
     readonly employmentInfo: FieldRef<"FinancialProfile", 'Json'>
     readonly assets: FieldRef<"FinancialProfile", 'Float'>
     readonly liabilities: FieldRef<"FinancialProfile", 'Float'>
+    readonly bankingRelationships: FieldRef<"FinancialProfile", 'Json[]'>
+    readonly accountActivities: FieldRef<"FinancialProfile", 'Json[]'>
     readonly applicationId: FieldRef<"FinancialProfile", 'String'>
   }
     
@@ -10564,54 +9907,6 @@ export namespace Prisma {
   }
 
   /**
-   * FinancialProfile.bankingRelationships
-   */
-  export type FinancialProfile$bankingRelationshipsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BankingRelationship
-     */
-    select?: BankingRelationshipSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BankingRelationship
-     */
-    omit?: BankingRelationshipOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BankingRelationshipInclude<ExtArgs> | null
-    where?: BankingRelationshipWhereInput
-    orderBy?: BankingRelationshipOrderByWithRelationInput | BankingRelationshipOrderByWithRelationInput[]
-    cursor?: BankingRelationshipWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: BankingRelationshipScalarFieldEnum | BankingRelationshipScalarFieldEnum[]
-  }
-
-  /**
-   * FinancialProfile.accountActivities
-   */
-  export type FinancialProfile$accountActivitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AccountActivity
-     */
-    select?: AccountActivitySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AccountActivity
-     */
-    omit?: AccountActivityOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AccountActivityInclude<ExtArgs> | null
-    where?: AccountActivityWhereInput
-    orderBy?: AccountActivityOrderByWithRelationInput | AccountActivityOrderByWithRelationInput[]
-    cursor?: AccountActivityWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: AccountActivityScalarFieldEnum | AccountActivityScalarFieldEnum[]
-  }
-
-  /**
    * FinancialProfile without action
    */
   export type FinancialProfileDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10627,2186 +9922,6 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: FinancialProfileInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model BankingRelationship
-   */
-
-  export type AggregateBankingRelationship = {
-    _count: BankingRelationshipCountAggregateOutputType | null
-    _avg: BankingRelationshipAvgAggregateOutputType | null
-    _sum: BankingRelationshipSumAggregateOutputType | null
-    _min: BankingRelationshipMinAggregateOutputType | null
-    _max: BankingRelationshipMaxAggregateOutputType | null
-  }
-
-  export type BankingRelationshipAvgAggregateOutputType = {
-    yearsWithBank: number | null
-  }
-
-  export type BankingRelationshipSumAggregateOutputType = {
-    yearsWithBank: number | null
-  }
-
-  export type BankingRelationshipMinAggregateOutputType = {
-    id: string | null
-    bankName: string | null
-    yearsWithBank: number | null
-    financialProfileId: string | null
-  }
-
-  export type BankingRelationshipMaxAggregateOutputType = {
-    id: string | null
-    bankName: string | null
-    yearsWithBank: number | null
-    financialProfileId: string | null
-  }
-
-  export type BankingRelationshipCountAggregateOutputType = {
-    id: number
-    bankName: number
-    accountTypes: number
-    yearsWithBank: number
-    financialProfileId: number
-    _all: number
-  }
-
-
-  export type BankingRelationshipAvgAggregateInputType = {
-    yearsWithBank?: true
-  }
-
-  export type BankingRelationshipSumAggregateInputType = {
-    yearsWithBank?: true
-  }
-
-  export type BankingRelationshipMinAggregateInputType = {
-    id?: true
-    bankName?: true
-    yearsWithBank?: true
-    financialProfileId?: true
-  }
-
-  export type BankingRelationshipMaxAggregateInputType = {
-    id?: true
-    bankName?: true
-    yearsWithBank?: true
-    financialProfileId?: true
-  }
-
-  export type BankingRelationshipCountAggregateInputType = {
-    id?: true
-    bankName?: true
-    accountTypes?: true
-    yearsWithBank?: true
-    financialProfileId?: true
-    _all?: true
-  }
-
-  export type BankingRelationshipAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which BankingRelationship to aggregate.
-     */
-    where?: BankingRelationshipWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of BankingRelationships to fetch.
-     */
-    orderBy?: BankingRelationshipOrderByWithRelationInput | BankingRelationshipOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: BankingRelationshipWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` BankingRelationships from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` BankingRelationships.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned BankingRelationships
-    **/
-    _count?: true | BankingRelationshipCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: BankingRelationshipAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: BankingRelationshipSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: BankingRelationshipMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: BankingRelationshipMaxAggregateInputType
-  }
-
-  export type GetBankingRelationshipAggregateType<T extends BankingRelationshipAggregateArgs> = {
-        [P in keyof T & keyof AggregateBankingRelationship]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateBankingRelationship[P]>
-      : GetScalarType<T[P], AggregateBankingRelationship[P]>
-  }
-
-
-
-
-  export type BankingRelationshipGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: BankingRelationshipWhereInput
-    orderBy?: BankingRelationshipOrderByWithAggregationInput | BankingRelationshipOrderByWithAggregationInput[]
-    by: BankingRelationshipScalarFieldEnum[] | BankingRelationshipScalarFieldEnum
-    having?: BankingRelationshipScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: BankingRelationshipCountAggregateInputType | true
-    _avg?: BankingRelationshipAvgAggregateInputType
-    _sum?: BankingRelationshipSumAggregateInputType
-    _min?: BankingRelationshipMinAggregateInputType
-    _max?: BankingRelationshipMaxAggregateInputType
-  }
-
-  export type BankingRelationshipGroupByOutputType = {
-    id: string
-    bankName: string
-    accountTypes: string[]
-    yearsWithBank: number
-    financialProfileId: string
-    _count: BankingRelationshipCountAggregateOutputType | null
-    _avg: BankingRelationshipAvgAggregateOutputType | null
-    _sum: BankingRelationshipSumAggregateOutputType | null
-    _min: BankingRelationshipMinAggregateOutputType | null
-    _max: BankingRelationshipMaxAggregateOutputType | null
-  }
-
-  type GetBankingRelationshipGroupByPayload<T extends BankingRelationshipGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<BankingRelationshipGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof BankingRelationshipGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], BankingRelationshipGroupByOutputType[P]>
-            : GetScalarType<T[P], BankingRelationshipGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type BankingRelationshipSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    bankName?: boolean
-    accountTypes?: boolean
-    yearsWithBank?: boolean
-    financialProfileId?: boolean
-    financialProfile?: boolean | FinancialProfileDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["bankingRelationship"]>
-
-  export type BankingRelationshipSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    bankName?: boolean
-    accountTypes?: boolean
-    yearsWithBank?: boolean
-    financialProfileId?: boolean
-    financialProfile?: boolean | FinancialProfileDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["bankingRelationship"]>
-
-  export type BankingRelationshipSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    bankName?: boolean
-    accountTypes?: boolean
-    yearsWithBank?: boolean
-    financialProfileId?: boolean
-    financialProfile?: boolean | FinancialProfileDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["bankingRelationship"]>
-
-  export type BankingRelationshipSelectScalar = {
-    id?: boolean
-    bankName?: boolean
-    accountTypes?: boolean
-    yearsWithBank?: boolean
-    financialProfileId?: boolean
-  }
-
-  export type BankingRelationshipOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "bankName" | "accountTypes" | "yearsWithBank" | "financialProfileId", ExtArgs["result"]["bankingRelationship"]>
-  export type BankingRelationshipInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    financialProfile?: boolean | FinancialProfileDefaultArgs<ExtArgs>
-  }
-  export type BankingRelationshipIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    financialProfile?: boolean | FinancialProfileDefaultArgs<ExtArgs>
-  }
-  export type BankingRelationshipIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    financialProfile?: boolean | FinancialProfileDefaultArgs<ExtArgs>
-  }
-
-  export type $BankingRelationshipPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "BankingRelationship"
-    objects: {
-      financialProfile: Prisma.$FinancialProfilePayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      bankName: string
-      accountTypes: string[]
-      yearsWithBank: number
-      financialProfileId: string
-    }, ExtArgs["result"]["bankingRelationship"]>
-    composites: {}
-  }
-
-  type BankingRelationshipGetPayload<S extends boolean | null | undefined | BankingRelationshipDefaultArgs> = $Result.GetResult<Prisma.$BankingRelationshipPayload, S>
-
-  type BankingRelationshipCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<BankingRelationshipFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: BankingRelationshipCountAggregateInputType | true
-    }
-
-  export interface BankingRelationshipDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BankingRelationship'], meta: { name: 'BankingRelationship' } }
-    /**
-     * Find zero or one BankingRelationship that matches the filter.
-     * @param {BankingRelationshipFindUniqueArgs} args - Arguments to find a BankingRelationship
-     * @example
-     * // Get one BankingRelationship
-     * const bankingRelationship = await prisma.bankingRelationship.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends BankingRelationshipFindUniqueArgs>(args: SelectSubset<T, BankingRelationshipFindUniqueArgs<ExtArgs>>): Prisma__BankingRelationshipClient<$Result.GetResult<Prisma.$BankingRelationshipPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one BankingRelationship that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {BankingRelationshipFindUniqueOrThrowArgs} args - Arguments to find a BankingRelationship
-     * @example
-     * // Get one BankingRelationship
-     * const bankingRelationship = await prisma.bankingRelationship.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends BankingRelationshipFindUniqueOrThrowArgs>(args: SelectSubset<T, BankingRelationshipFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BankingRelationshipClient<$Result.GetResult<Prisma.$BankingRelationshipPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first BankingRelationship that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BankingRelationshipFindFirstArgs} args - Arguments to find a BankingRelationship
-     * @example
-     * // Get one BankingRelationship
-     * const bankingRelationship = await prisma.bankingRelationship.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends BankingRelationshipFindFirstArgs>(args?: SelectSubset<T, BankingRelationshipFindFirstArgs<ExtArgs>>): Prisma__BankingRelationshipClient<$Result.GetResult<Prisma.$BankingRelationshipPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first BankingRelationship that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BankingRelationshipFindFirstOrThrowArgs} args - Arguments to find a BankingRelationship
-     * @example
-     * // Get one BankingRelationship
-     * const bankingRelationship = await prisma.bankingRelationship.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends BankingRelationshipFindFirstOrThrowArgs>(args?: SelectSubset<T, BankingRelationshipFindFirstOrThrowArgs<ExtArgs>>): Prisma__BankingRelationshipClient<$Result.GetResult<Prisma.$BankingRelationshipPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more BankingRelationships that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BankingRelationshipFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all BankingRelationships
-     * const bankingRelationships = await prisma.bankingRelationship.findMany()
-     * 
-     * // Get first 10 BankingRelationships
-     * const bankingRelationships = await prisma.bankingRelationship.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const bankingRelationshipWithIdOnly = await prisma.bankingRelationship.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends BankingRelationshipFindManyArgs>(args?: SelectSubset<T, BankingRelationshipFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BankingRelationshipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a BankingRelationship.
-     * @param {BankingRelationshipCreateArgs} args - Arguments to create a BankingRelationship.
-     * @example
-     * // Create one BankingRelationship
-     * const BankingRelationship = await prisma.bankingRelationship.create({
-     *   data: {
-     *     // ... data to create a BankingRelationship
-     *   }
-     * })
-     * 
-     */
-    create<T extends BankingRelationshipCreateArgs>(args: SelectSubset<T, BankingRelationshipCreateArgs<ExtArgs>>): Prisma__BankingRelationshipClient<$Result.GetResult<Prisma.$BankingRelationshipPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many BankingRelationships.
-     * @param {BankingRelationshipCreateManyArgs} args - Arguments to create many BankingRelationships.
-     * @example
-     * // Create many BankingRelationships
-     * const bankingRelationship = await prisma.bankingRelationship.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends BankingRelationshipCreateManyArgs>(args?: SelectSubset<T, BankingRelationshipCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many BankingRelationships and returns the data saved in the database.
-     * @param {BankingRelationshipCreateManyAndReturnArgs} args - Arguments to create many BankingRelationships.
-     * @example
-     * // Create many BankingRelationships
-     * const bankingRelationship = await prisma.bankingRelationship.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many BankingRelationships and only return the `id`
-     * const bankingRelationshipWithIdOnly = await prisma.bankingRelationship.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends BankingRelationshipCreateManyAndReturnArgs>(args?: SelectSubset<T, BankingRelationshipCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BankingRelationshipPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a BankingRelationship.
-     * @param {BankingRelationshipDeleteArgs} args - Arguments to delete one BankingRelationship.
-     * @example
-     * // Delete one BankingRelationship
-     * const BankingRelationship = await prisma.bankingRelationship.delete({
-     *   where: {
-     *     // ... filter to delete one BankingRelationship
-     *   }
-     * })
-     * 
-     */
-    delete<T extends BankingRelationshipDeleteArgs>(args: SelectSubset<T, BankingRelationshipDeleteArgs<ExtArgs>>): Prisma__BankingRelationshipClient<$Result.GetResult<Prisma.$BankingRelationshipPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one BankingRelationship.
-     * @param {BankingRelationshipUpdateArgs} args - Arguments to update one BankingRelationship.
-     * @example
-     * // Update one BankingRelationship
-     * const bankingRelationship = await prisma.bankingRelationship.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends BankingRelationshipUpdateArgs>(args: SelectSubset<T, BankingRelationshipUpdateArgs<ExtArgs>>): Prisma__BankingRelationshipClient<$Result.GetResult<Prisma.$BankingRelationshipPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more BankingRelationships.
-     * @param {BankingRelationshipDeleteManyArgs} args - Arguments to filter BankingRelationships to delete.
-     * @example
-     * // Delete a few BankingRelationships
-     * const { count } = await prisma.bankingRelationship.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends BankingRelationshipDeleteManyArgs>(args?: SelectSubset<T, BankingRelationshipDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more BankingRelationships.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BankingRelationshipUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many BankingRelationships
-     * const bankingRelationship = await prisma.bankingRelationship.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends BankingRelationshipUpdateManyArgs>(args: SelectSubset<T, BankingRelationshipUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more BankingRelationships and returns the data updated in the database.
-     * @param {BankingRelationshipUpdateManyAndReturnArgs} args - Arguments to update many BankingRelationships.
-     * @example
-     * // Update many BankingRelationships
-     * const bankingRelationship = await prisma.bankingRelationship.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more BankingRelationships and only return the `id`
-     * const bankingRelationshipWithIdOnly = await prisma.bankingRelationship.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends BankingRelationshipUpdateManyAndReturnArgs>(args: SelectSubset<T, BankingRelationshipUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BankingRelationshipPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one BankingRelationship.
-     * @param {BankingRelationshipUpsertArgs} args - Arguments to update or create a BankingRelationship.
-     * @example
-     * // Update or create a BankingRelationship
-     * const bankingRelationship = await prisma.bankingRelationship.upsert({
-     *   create: {
-     *     // ... data to create a BankingRelationship
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the BankingRelationship we want to update
-     *   }
-     * })
-     */
-    upsert<T extends BankingRelationshipUpsertArgs>(args: SelectSubset<T, BankingRelationshipUpsertArgs<ExtArgs>>): Prisma__BankingRelationshipClient<$Result.GetResult<Prisma.$BankingRelationshipPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of BankingRelationships.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BankingRelationshipCountArgs} args - Arguments to filter BankingRelationships to count.
-     * @example
-     * // Count the number of BankingRelationships
-     * const count = await prisma.bankingRelationship.count({
-     *   where: {
-     *     // ... the filter for the BankingRelationships we want to count
-     *   }
-     * })
-    **/
-    count<T extends BankingRelationshipCountArgs>(
-      args?: Subset<T, BankingRelationshipCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], BankingRelationshipCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a BankingRelationship.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BankingRelationshipAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends BankingRelationshipAggregateArgs>(args: Subset<T, BankingRelationshipAggregateArgs>): Prisma.PrismaPromise<GetBankingRelationshipAggregateType<T>>
-
-    /**
-     * Group by BankingRelationship.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BankingRelationshipGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends BankingRelationshipGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: BankingRelationshipGroupByArgs['orderBy'] }
-        : { orderBy?: BankingRelationshipGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, BankingRelationshipGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBankingRelationshipGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the BankingRelationship model
-   */
-  readonly fields: BankingRelationshipFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for BankingRelationship.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__BankingRelationshipClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    financialProfile<T extends FinancialProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FinancialProfileDefaultArgs<ExtArgs>>): Prisma__FinancialProfileClient<$Result.GetResult<Prisma.$FinancialProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the BankingRelationship model
-   */
-  interface BankingRelationshipFieldRefs {
-    readonly id: FieldRef<"BankingRelationship", 'String'>
-    readonly bankName: FieldRef<"BankingRelationship", 'String'>
-    readonly accountTypes: FieldRef<"BankingRelationship", 'String[]'>
-    readonly yearsWithBank: FieldRef<"BankingRelationship", 'Int'>
-    readonly financialProfileId: FieldRef<"BankingRelationship", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * BankingRelationship findUnique
-   */
-  export type BankingRelationshipFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BankingRelationship
-     */
-    select?: BankingRelationshipSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BankingRelationship
-     */
-    omit?: BankingRelationshipOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BankingRelationshipInclude<ExtArgs> | null
-    /**
-     * Filter, which BankingRelationship to fetch.
-     */
-    where: BankingRelationshipWhereUniqueInput
-  }
-
-  /**
-   * BankingRelationship findUniqueOrThrow
-   */
-  export type BankingRelationshipFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BankingRelationship
-     */
-    select?: BankingRelationshipSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BankingRelationship
-     */
-    omit?: BankingRelationshipOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BankingRelationshipInclude<ExtArgs> | null
-    /**
-     * Filter, which BankingRelationship to fetch.
-     */
-    where: BankingRelationshipWhereUniqueInput
-  }
-
-  /**
-   * BankingRelationship findFirst
-   */
-  export type BankingRelationshipFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BankingRelationship
-     */
-    select?: BankingRelationshipSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BankingRelationship
-     */
-    omit?: BankingRelationshipOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BankingRelationshipInclude<ExtArgs> | null
-    /**
-     * Filter, which BankingRelationship to fetch.
-     */
-    where?: BankingRelationshipWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of BankingRelationships to fetch.
-     */
-    orderBy?: BankingRelationshipOrderByWithRelationInput | BankingRelationshipOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for BankingRelationships.
-     */
-    cursor?: BankingRelationshipWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` BankingRelationships from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` BankingRelationships.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of BankingRelationships.
-     */
-    distinct?: BankingRelationshipScalarFieldEnum | BankingRelationshipScalarFieldEnum[]
-  }
-
-  /**
-   * BankingRelationship findFirstOrThrow
-   */
-  export type BankingRelationshipFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BankingRelationship
-     */
-    select?: BankingRelationshipSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BankingRelationship
-     */
-    omit?: BankingRelationshipOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BankingRelationshipInclude<ExtArgs> | null
-    /**
-     * Filter, which BankingRelationship to fetch.
-     */
-    where?: BankingRelationshipWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of BankingRelationships to fetch.
-     */
-    orderBy?: BankingRelationshipOrderByWithRelationInput | BankingRelationshipOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for BankingRelationships.
-     */
-    cursor?: BankingRelationshipWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` BankingRelationships from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` BankingRelationships.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of BankingRelationships.
-     */
-    distinct?: BankingRelationshipScalarFieldEnum | BankingRelationshipScalarFieldEnum[]
-  }
-
-  /**
-   * BankingRelationship findMany
-   */
-  export type BankingRelationshipFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BankingRelationship
-     */
-    select?: BankingRelationshipSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BankingRelationship
-     */
-    omit?: BankingRelationshipOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BankingRelationshipInclude<ExtArgs> | null
-    /**
-     * Filter, which BankingRelationships to fetch.
-     */
-    where?: BankingRelationshipWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of BankingRelationships to fetch.
-     */
-    orderBy?: BankingRelationshipOrderByWithRelationInput | BankingRelationshipOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing BankingRelationships.
-     */
-    cursor?: BankingRelationshipWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` BankingRelationships from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` BankingRelationships.
-     */
-    skip?: number
-    distinct?: BankingRelationshipScalarFieldEnum | BankingRelationshipScalarFieldEnum[]
-  }
-
-  /**
-   * BankingRelationship create
-   */
-  export type BankingRelationshipCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BankingRelationship
-     */
-    select?: BankingRelationshipSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BankingRelationship
-     */
-    omit?: BankingRelationshipOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BankingRelationshipInclude<ExtArgs> | null
-    /**
-     * The data needed to create a BankingRelationship.
-     */
-    data: XOR<BankingRelationshipCreateInput, BankingRelationshipUncheckedCreateInput>
-  }
-
-  /**
-   * BankingRelationship createMany
-   */
-  export type BankingRelationshipCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many BankingRelationships.
-     */
-    data: BankingRelationshipCreateManyInput | BankingRelationshipCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * BankingRelationship createManyAndReturn
-   */
-  export type BankingRelationshipCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BankingRelationship
-     */
-    select?: BankingRelationshipSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the BankingRelationship
-     */
-    omit?: BankingRelationshipOmit<ExtArgs> | null
-    /**
-     * The data used to create many BankingRelationships.
-     */
-    data: BankingRelationshipCreateManyInput | BankingRelationshipCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BankingRelationshipIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * BankingRelationship update
-   */
-  export type BankingRelationshipUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BankingRelationship
-     */
-    select?: BankingRelationshipSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BankingRelationship
-     */
-    omit?: BankingRelationshipOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BankingRelationshipInclude<ExtArgs> | null
-    /**
-     * The data needed to update a BankingRelationship.
-     */
-    data: XOR<BankingRelationshipUpdateInput, BankingRelationshipUncheckedUpdateInput>
-    /**
-     * Choose, which BankingRelationship to update.
-     */
-    where: BankingRelationshipWhereUniqueInput
-  }
-
-  /**
-   * BankingRelationship updateMany
-   */
-  export type BankingRelationshipUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update BankingRelationships.
-     */
-    data: XOR<BankingRelationshipUpdateManyMutationInput, BankingRelationshipUncheckedUpdateManyInput>
-    /**
-     * Filter which BankingRelationships to update
-     */
-    where?: BankingRelationshipWhereInput
-    /**
-     * Limit how many BankingRelationships to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * BankingRelationship updateManyAndReturn
-   */
-  export type BankingRelationshipUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BankingRelationship
-     */
-    select?: BankingRelationshipSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the BankingRelationship
-     */
-    omit?: BankingRelationshipOmit<ExtArgs> | null
-    /**
-     * The data used to update BankingRelationships.
-     */
-    data: XOR<BankingRelationshipUpdateManyMutationInput, BankingRelationshipUncheckedUpdateManyInput>
-    /**
-     * Filter which BankingRelationships to update
-     */
-    where?: BankingRelationshipWhereInput
-    /**
-     * Limit how many BankingRelationships to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BankingRelationshipIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * BankingRelationship upsert
-   */
-  export type BankingRelationshipUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BankingRelationship
-     */
-    select?: BankingRelationshipSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BankingRelationship
-     */
-    omit?: BankingRelationshipOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BankingRelationshipInclude<ExtArgs> | null
-    /**
-     * The filter to search for the BankingRelationship to update in case it exists.
-     */
-    where: BankingRelationshipWhereUniqueInput
-    /**
-     * In case the BankingRelationship found by the `where` argument doesn't exist, create a new BankingRelationship with this data.
-     */
-    create: XOR<BankingRelationshipCreateInput, BankingRelationshipUncheckedCreateInput>
-    /**
-     * In case the BankingRelationship was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<BankingRelationshipUpdateInput, BankingRelationshipUncheckedUpdateInput>
-  }
-
-  /**
-   * BankingRelationship delete
-   */
-  export type BankingRelationshipDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BankingRelationship
-     */
-    select?: BankingRelationshipSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BankingRelationship
-     */
-    omit?: BankingRelationshipOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BankingRelationshipInclude<ExtArgs> | null
-    /**
-     * Filter which BankingRelationship to delete.
-     */
-    where: BankingRelationshipWhereUniqueInput
-  }
-
-  /**
-   * BankingRelationship deleteMany
-   */
-  export type BankingRelationshipDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which BankingRelationships to delete
-     */
-    where?: BankingRelationshipWhereInput
-    /**
-     * Limit how many BankingRelationships to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * BankingRelationship without action
-   */
-  export type BankingRelationshipDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BankingRelationship
-     */
-    select?: BankingRelationshipSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BankingRelationship
-     */
-    omit?: BankingRelationshipOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BankingRelationshipInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model AccountActivity
-   */
-
-  export type AggregateAccountActivity = {
-    _count: AccountActivityCountAggregateOutputType | null
-    _avg: AccountActivityAvgAggregateOutputType | null
-    _sum: AccountActivitySumAggregateOutputType | null
-    _min: AccountActivityMinAggregateOutputType | null
-    _max: AccountActivityMaxAggregateOutputType | null
-  }
-
-  export type AccountActivityAvgAggregateOutputType = {
-    amount: number | null
-  }
-
-  export type AccountActivitySumAggregateOutputType = {
-    amount: number | null
-  }
-
-  export type AccountActivityMinAggregateOutputType = {
-    id: string | null
-    activity: string | null
-    frequency: string | null
-    amount: number | null
-    financialProfileId: string | null
-  }
-
-  export type AccountActivityMaxAggregateOutputType = {
-    id: string | null
-    activity: string | null
-    frequency: string | null
-    amount: number | null
-    financialProfileId: string | null
-  }
-
-  export type AccountActivityCountAggregateOutputType = {
-    id: number
-    activity: number
-    frequency: number
-    amount: number
-    financialProfileId: number
-    _all: number
-  }
-
-
-  export type AccountActivityAvgAggregateInputType = {
-    amount?: true
-  }
-
-  export type AccountActivitySumAggregateInputType = {
-    amount?: true
-  }
-
-  export type AccountActivityMinAggregateInputType = {
-    id?: true
-    activity?: true
-    frequency?: true
-    amount?: true
-    financialProfileId?: true
-  }
-
-  export type AccountActivityMaxAggregateInputType = {
-    id?: true
-    activity?: true
-    frequency?: true
-    amount?: true
-    financialProfileId?: true
-  }
-
-  export type AccountActivityCountAggregateInputType = {
-    id?: true
-    activity?: true
-    frequency?: true
-    amount?: true
-    financialProfileId?: true
-    _all?: true
-  }
-
-  export type AccountActivityAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which AccountActivity to aggregate.
-     */
-    where?: AccountActivityWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AccountActivities to fetch.
-     */
-    orderBy?: AccountActivityOrderByWithRelationInput | AccountActivityOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: AccountActivityWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AccountActivities from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AccountActivities.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned AccountActivities
-    **/
-    _count?: true | AccountActivityCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: AccountActivityAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: AccountActivitySumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: AccountActivityMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: AccountActivityMaxAggregateInputType
-  }
-
-  export type GetAccountActivityAggregateType<T extends AccountActivityAggregateArgs> = {
-        [P in keyof T & keyof AggregateAccountActivity]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateAccountActivity[P]>
-      : GetScalarType<T[P], AggregateAccountActivity[P]>
-  }
-
-
-
-
-  export type AccountActivityGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: AccountActivityWhereInput
-    orderBy?: AccountActivityOrderByWithAggregationInput | AccountActivityOrderByWithAggregationInput[]
-    by: AccountActivityScalarFieldEnum[] | AccountActivityScalarFieldEnum
-    having?: AccountActivityScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: AccountActivityCountAggregateInputType | true
-    _avg?: AccountActivityAvgAggregateInputType
-    _sum?: AccountActivitySumAggregateInputType
-    _min?: AccountActivityMinAggregateInputType
-    _max?: AccountActivityMaxAggregateInputType
-  }
-
-  export type AccountActivityGroupByOutputType = {
-    id: string
-    activity: string
-    frequency: string
-    amount: number
-    financialProfileId: string
-    _count: AccountActivityCountAggregateOutputType | null
-    _avg: AccountActivityAvgAggregateOutputType | null
-    _sum: AccountActivitySumAggregateOutputType | null
-    _min: AccountActivityMinAggregateOutputType | null
-    _max: AccountActivityMaxAggregateOutputType | null
-  }
-
-  type GetAccountActivityGroupByPayload<T extends AccountActivityGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<AccountActivityGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof AccountActivityGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], AccountActivityGroupByOutputType[P]>
-            : GetScalarType<T[P], AccountActivityGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type AccountActivitySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    activity?: boolean
-    frequency?: boolean
-    amount?: boolean
-    financialProfileId?: boolean
-    financialProfile?: boolean | FinancialProfileDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["accountActivity"]>
-
-  export type AccountActivitySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    activity?: boolean
-    frequency?: boolean
-    amount?: boolean
-    financialProfileId?: boolean
-    financialProfile?: boolean | FinancialProfileDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["accountActivity"]>
-
-  export type AccountActivitySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    activity?: boolean
-    frequency?: boolean
-    amount?: boolean
-    financialProfileId?: boolean
-    financialProfile?: boolean | FinancialProfileDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["accountActivity"]>
-
-  export type AccountActivitySelectScalar = {
-    id?: boolean
-    activity?: boolean
-    frequency?: boolean
-    amount?: boolean
-    financialProfileId?: boolean
-  }
-
-  export type AccountActivityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "activity" | "frequency" | "amount" | "financialProfileId", ExtArgs["result"]["accountActivity"]>
-  export type AccountActivityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    financialProfile?: boolean | FinancialProfileDefaultArgs<ExtArgs>
-  }
-  export type AccountActivityIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    financialProfile?: boolean | FinancialProfileDefaultArgs<ExtArgs>
-  }
-  export type AccountActivityIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    financialProfile?: boolean | FinancialProfileDefaultArgs<ExtArgs>
-  }
-
-  export type $AccountActivityPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "AccountActivity"
-    objects: {
-      financialProfile: Prisma.$FinancialProfilePayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      activity: string
-      frequency: string
-      amount: number
-      financialProfileId: string
-    }, ExtArgs["result"]["accountActivity"]>
-    composites: {}
-  }
-
-  type AccountActivityGetPayload<S extends boolean | null | undefined | AccountActivityDefaultArgs> = $Result.GetResult<Prisma.$AccountActivityPayload, S>
-
-  type AccountActivityCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<AccountActivityFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: AccountActivityCountAggregateInputType | true
-    }
-
-  export interface AccountActivityDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AccountActivity'], meta: { name: 'AccountActivity' } }
-    /**
-     * Find zero or one AccountActivity that matches the filter.
-     * @param {AccountActivityFindUniqueArgs} args - Arguments to find a AccountActivity
-     * @example
-     * // Get one AccountActivity
-     * const accountActivity = await prisma.accountActivity.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends AccountActivityFindUniqueArgs>(args: SelectSubset<T, AccountActivityFindUniqueArgs<ExtArgs>>): Prisma__AccountActivityClient<$Result.GetResult<Prisma.$AccountActivityPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one AccountActivity that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {AccountActivityFindUniqueOrThrowArgs} args - Arguments to find a AccountActivity
-     * @example
-     * // Get one AccountActivity
-     * const accountActivity = await prisma.accountActivity.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends AccountActivityFindUniqueOrThrowArgs>(args: SelectSubset<T, AccountActivityFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AccountActivityClient<$Result.GetResult<Prisma.$AccountActivityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first AccountActivity that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AccountActivityFindFirstArgs} args - Arguments to find a AccountActivity
-     * @example
-     * // Get one AccountActivity
-     * const accountActivity = await prisma.accountActivity.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends AccountActivityFindFirstArgs>(args?: SelectSubset<T, AccountActivityFindFirstArgs<ExtArgs>>): Prisma__AccountActivityClient<$Result.GetResult<Prisma.$AccountActivityPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first AccountActivity that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AccountActivityFindFirstOrThrowArgs} args - Arguments to find a AccountActivity
-     * @example
-     * // Get one AccountActivity
-     * const accountActivity = await prisma.accountActivity.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends AccountActivityFindFirstOrThrowArgs>(args?: SelectSubset<T, AccountActivityFindFirstOrThrowArgs<ExtArgs>>): Prisma__AccountActivityClient<$Result.GetResult<Prisma.$AccountActivityPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more AccountActivities that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AccountActivityFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all AccountActivities
-     * const accountActivities = await prisma.accountActivity.findMany()
-     * 
-     * // Get first 10 AccountActivities
-     * const accountActivities = await prisma.accountActivity.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const accountActivityWithIdOnly = await prisma.accountActivity.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends AccountActivityFindManyArgs>(args?: SelectSubset<T, AccountActivityFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a AccountActivity.
-     * @param {AccountActivityCreateArgs} args - Arguments to create a AccountActivity.
-     * @example
-     * // Create one AccountActivity
-     * const AccountActivity = await prisma.accountActivity.create({
-     *   data: {
-     *     // ... data to create a AccountActivity
-     *   }
-     * })
-     * 
-     */
-    create<T extends AccountActivityCreateArgs>(args: SelectSubset<T, AccountActivityCreateArgs<ExtArgs>>): Prisma__AccountActivityClient<$Result.GetResult<Prisma.$AccountActivityPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many AccountActivities.
-     * @param {AccountActivityCreateManyArgs} args - Arguments to create many AccountActivities.
-     * @example
-     * // Create many AccountActivities
-     * const accountActivity = await prisma.accountActivity.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends AccountActivityCreateManyArgs>(args?: SelectSubset<T, AccountActivityCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many AccountActivities and returns the data saved in the database.
-     * @param {AccountActivityCreateManyAndReturnArgs} args - Arguments to create many AccountActivities.
-     * @example
-     * // Create many AccountActivities
-     * const accountActivity = await prisma.accountActivity.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many AccountActivities and only return the `id`
-     * const accountActivityWithIdOnly = await prisma.accountActivity.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends AccountActivityCreateManyAndReturnArgs>(args?: SelectSubset<T, AccountActivityCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountActivityPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a AccountActivity.
-     * @param {AccountActivityDeleteArgs} args - Arguments to delete one AccountActivity.
-     * @example
-     * // Delete one AccountActivity
-     * const AccountActivity = await prisma.accountActivity.delete({
-     *   where: {
-     *     // ... filter to delete one AccountActivity
-     *   }
-     * })
-     * 
-     */
-    delete<T extends AccountActivityDeleteArgs>(args: SelectSubset<T, AccountActivityDeleteArgs<ExtArgs>>): Prisma__AccountActivityClient<$Result.GetResult<Prisma.$AccountActivityPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one AccountActivity.
-     * @param {AccountActivityUpdateArgs} args - Arguments to update one AccountActivity.
-     * @example
-     * // Update one AccountActivity
-     * const accountActivity = await prisma.accountActivity.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends AccountActivityUpdateArgs>(args: SelectSubset<T, AccountActivityUpdateArgs<ExtArgs>>): Prisma__AccountActivityClient<$Result.GetResult<Prisma.$AccountActivityPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more AccountActivities.
-     * @param {AccountActivityDeleteManyArgs} args - Arguments to filter AccountActivities to delete.
-     * @example
-     * // Delete a few AccountActivities
-     * const { count } = await prisma.accountActivity.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends AccountActivityDeleteManyArgs>(args?: SelectSubset<T, AccountActivityDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more AccountActivities.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AccountActivityUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many AccountActivities
-     * const accountActivity = await prisma.accountActivity.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends AccountActivityUpdateManyArgs>(args: SelectSubset<T, AccountActivityUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more AccountActivities and returns the data updated in the database.
-     * @param {AccountActivityUpdateManyAndReturnArgs} args - Arguments to update many AccountActivities.
-     * @example
-     * // Update many AccountActivities
-     * const accountActivity = await prisma.accountActivity.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more AccountActivities and only return the `id`
-     * const accountActivityWithIdOnly = await prisma.accountActivity.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends AccountActivityUpdateManyAndReturnArgs>(args: SelectSubset<T, AccountActivityUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountActivityPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one AccountActivity.
-     * @param {AccountActivityUpsertArgs} args - Arguments to update or create a AccountActivity.
-     * @example
-     * // Update or create a AccountActivity
-     * const accountActivity = await prisma.accountActivity.upsert({
-     *   create: {
-     *     // ... data to create a AccountActivity
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the AccountActivity we want to update
-     *   }
-     * })
-     */
-    upsert<T extends AccountActivityUpsertArgs>(args: SelectSubset<T, AccountActivityUpsertArgs<ExtArgs>>): Prisma__AccountActivityClient<$Result.GetResult<Prisma.$AccountActivityPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of AccountActivities.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AccountActivityCountArgs} args - Arguments to filter AccountActivities to count.
-     * @example
-     * // Count the number of AccountActivities
-     * const count = await prisma.accountActivity.count({
-     *   where: {
-     *     // ... the filter for the AccountActivities we want to count
-     *   }
-     * })
-    **/
-    count<T extends AccountActivityCountArgs>(
-      args?: Subset<T, AccountActivityCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], AccountActivityCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a AccountActivity.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AccountActivityAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends AccountActivityAggregateArgs>(args: Subset<T, AccountActivityAggregateArgs>): Prisma.PrismaPromise<GetAccountActivityAggregateType<T>>
-
-    /**
-     * Group by AccountActivity.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AccountActivityGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends AccountActivityGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: AccountActivityGroupByArgs['orderBy'] }
-        : { orderBy?: AccountActivityGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, AccountActivityGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAccountActivityGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the AccountActivity model
-   */
-  readonly fields: AccountActivityFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for AccountActivity.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__AccountActivityClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    financialProfile<T extends FinancialProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FinancialProfileDefaultArgs<ExtArgs>>): Prisma__FinancialProfileClient<$Result.GetResult<Prisma.$FinancialProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the AccountActivity model
-   */
-  interface AccountActivityFieldRefs {
-    readonly id: FieldRef<"AccountActivity", 'String'>
-    readonly activity: FieldRef<"AccountActivity", 'String'>
-    readonly frequency: FieldRef<"AccountActivity", 'String'>
-    readonly amount: FieldRef<"AccountActivity", 'Float'>
-    readonly financialProfileId: FieldRef<"AccountActivity", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * AccountActivity findUnique
-   */
-  export type AccountActivityFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AccountActivity
-     */
-    select?: AccountActivitySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AccountActivity
-     */
-    omit?: AccountActivityOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AccountActivityInclude<ExtArgs> | null
-    /**
-     * Filter, which AccountActivity to fetch.
-     */
-    where: AccountActivityWhereUniqueInput
-  }
-
-  /**
-   * AccountActivity findUniqueOrThrow
-   */
-  export type AccountActivityFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AccountActivity
-     */
-    select?: AccountActivitySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AccountActivity
-     */
-    omit?: AccountActivityOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AccountActivityInclude<ExtArgs> | null
-    /**
-     * Filter, which AccountActivity to fetch.
-     */
-    where: AccountActivityWhereUniqueInput
-  }
-
-  /**
-   * AccountActivity findFirst
-   */
-  export type AccountActivityFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AccountActivity
-     */
-    select?: AccountActivitySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AccountActivity
-     */
-    omit?: AccountActivityOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AccountActivityInclude<ExtArgs> | null
-    /**
-     * Filter, which AccountActivity to fetch.
-     */
-    where?: AccountActivityWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AccountActivities to fetch.
-     */
-    orderBy?: AccountActivityOrderByWithRelationInput | AccountActivityOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for AccountActivities.
-     */
-    cursor?: AccountActivityWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AccountActivities from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AccountActivities.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of AccountActivities.
-     */
-    distinct?: AccountActivityScalarFieldEnum | AccountActivityScalarFieldEnum[]
-  }
-
-  /**
-   * AccountActivity findFirstOrThrow
-   */
-  export type AccountActivityFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AccountActivity
-     */
-    select?: AccountActivitySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AccountActivity
-     */
-    omit?: AccountActivityOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AccountActivityInclude<ExtArgs> | null
-    /**
-     * Filter, which AccountActivity to fetch.
-     */
-    where?: AccountActivityWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AccountActivities to fetch.
-     */
-    orderBy?: AccountActivityOrderByWithRelationInput | AccountActivityOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for AccountActivities.
-     */
-    cursor?: AccountActivityWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AccountActivities from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AccountActivities.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of AccountActivities.
-     */
-    distinct?: AccountActivityScalarFieldEnum | AccountActivityScalarFieldEnum[]
-  }
-
-  /**
-   * AccountActivity findMany
-   */
-  export type AccountActivityFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AccountActivity
-     */
-    select?: AccountActivitySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AccountActivity
-     */
-    omit?: AccountActivityOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AccountActivityInclude<ExtArgs> | null
-    /**
-     * Filter, which AccountActivities to fetch.
-     */
-    where?: AccountActivityWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AccountActivities to fetch.
-     */
-    orderBy?: AccountActivityOrderByWithRelationInput | AccountActivityOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing AccountActivities.
-     */
-    cursor?: AccountActivityWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AccountActivities from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AccountActivities.
-     */
-    skip?: number
-    distinct?: AccountActivityScalarFieldEnum | AccountActivityScalarFieldEnum[]
-  }
-
-  /**
-   * AccountActivity create
-   */
-  export type AccountActivityCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AccountActivity
-     */
-    select?: AccountActivitySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AccountActivity
-     */
-    omit?: AccountActivityOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AccountActivityInclude<ExtArgs> | null
-    /**
-     * The data needed to create a AccountActivity.
-     */
-    data: XOR<AccountActivityCreateInput, AccountActivityUncheckedCreateInput>
-  }
-
-  /**
-   * AccountActivity createMany
-   */
-  export type AccountActivityCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many AccountActivities.
-     */
-    data: AccountActivityCreateManyInput | AccountActivityCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * AccountActivity createManyAndReturn
-   */
-  export type AccountActivityCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AccountActivity
-     */
-    select?: AccountActivitySelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the AccountActivity
-     */
-    omit?: AccountActivityOmit<ExtArgs> | null
-    /**
-     * The data used to create many AccountActivities.
-     */
-    data: AccountActivityCreateManyInput | AccountActivityCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AccountActivityIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * AccountActivity update
-   */
-  export type AccountActivityUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AccountActivity
-     */
-    select?: AccountActivitySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AccountActivity
-     */
-    omit?: AccountActivityOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AccountActivityInclude<ExtArgs> | null
-    /**
-     * The data needed to update a AccountActivity.
-     */
-    data: XOR<AccountActivityUpdateInput, AccountActivityUncheckedUpdateInput>
-    /**
-     * Choose, which AccountActivity to update.
-     */
-    where: AccountActivityWhereUniqueInput
-  }
-
-  /**
-   * AccountActivity updateMany
-   */
-  export type AccountActivityUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update AccountActivities.
-     */
-    data: XOR<AccountActivityUpdateManyMutationInput, AccountActivityUncheckedUpdateManyInput>
-    /**
-     * Filter which AccountActivities to update
-     */
-    where?: AccountActivityWhereInput
-    /**
-     * Limit how many AccountActivities to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * AccountActivity updateManyAndReturn
-   */
-  export type AccountActivityUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AccountActivity
-     */
-    select?: AccountActivitySelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the AccountActivity
-     */
-    omit?: AccountActivityOmit<ExtArgs> | null
-    /**
-     * The data used to update AccountActivities.
-     */
-    data: XOR<AccountActivityUpdateManyMutationInput, AccountActivityUncheckedUpdateManyInput>
-    /**
-     * Filter which AccountActivities to update
-     */
-    where?: AccountActivityWhereInput
-    /**
-     * Limit how many AccountActivities to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AccountActivityIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * AccountActivity upsert
-   */
-  export type AccountActivityUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AccountActivity
-     */
-    select?: AccountActivitySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AccountActivity
-     */
-    omit?: AccountActivityOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AccountActivityInclude<ExtArgs> | null
-    /**
-     * The filter to search for the AccountActivity to update in case it exists.
-     */
-    where: AccountActivityWhereUniqueInput
-    /**
-     * In case the AccountActivity found by the `where` argument doesn't exist, create a new AccountActivity with this data.
-     */
-    create: XOR<AccountActivityCreateInput, AccountActivityUncheckedCreateInput>
-    /**
-     * In case the AccountActivity was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<AccountActivityUpdateInput, AccountActivityUncheckedUpdateInput>
-  }
-
-  /**
-   * AccountActivity delete
-   */
-  export type AccountActivityDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AccountActivity
-     */
-    select?: AccountActivitySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AccountActivity
-     */
-    omit?: AccountActivityOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AccountActivityInclude<ExtArgs> | null
-    /**
-     * Filter which AccountActivity to delete.
-     */
-    where: AccountActivityWhereUniqueInput
-  }
-
-  /**
-   * AccountActivity deleteMany
-   */
-  export type AccountActivityDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which AccountActivities to delete
-     */
-    where?: AccountActivityWhereInput
-    /**
-     * Limit how many AccountActivities to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * AccountActivity without action
-   */
-  export type AccountActivityDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AccountActivity
-     */
-    select?: AccountActivitySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the AccountActivity
-     */
-    omit?: AccountActivityOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AccountActivityInclude<ExtArgs> | null
   }
 
 
@@ -12837,27 +9952,23 @@ export namespace Prisma {
   export type ProductMinAggregateOutputType = {
     id: string | null
     name: string | null
-    type: $Enums.ProductType | null
+    type: string | null
     description: string | null
     minimumBalance: number | null
     monthlyFee: number | null
     interestRate: number | null
     isActive: boolean | null
-    createdAt: Date | null
-    updatedAt: Date | null
   }
 
   export type ProductMaxAggregateOutputType = {
     id: string | null
     name: string | null
-    type: $Enums.ProductType | null
+    type: string | null
     description: string | null
     minimumBalance: number | null
     monthlyFee: number | null
     interestRate: number | null
     isActive: boolean | null
-    createdAt: Date | null
-    updatedAt: Date | null
   }
 
   export type ProductCountAggregateOutputType = {
@@ -12870,8 +9981,7 @@ export namespace Prisma {
     monthlyFee: number
     interestRate: number
     isActive: number
-    createdAt: number
-    updatedAt: number
+    eligibilityRules: number
     _all: number
   }
 
@@ -12897,8 +10007,6 @@ export namespace Prisma {
     monthlyFee?: true
     interestRate?: true
     isActive?: true
-    createdAt?: true
-    updatedAt?: true
   }
 
   export type ProductMaxAggregateInputType = {
@@ -12910,8 +10018,6 @@ export namespace Prisma {
     monthlyFee?: true
     interestRate?: true
     isActive?: true
-    createdAt?: true
-    updatedAt?: true
   }
 
   export type ProductCountAggregateInputType = {
@@ -12924,8 +10030,7 @@ export namespace Prisma {
     monthlyFee?: true
     interestRate?: true
     isActive?: true
-    createdAt?: true
-    updatedAt?: true
+    eligibilityRules?: true
     _all?: true
   }
 
@@ -13018,15 +10123,14 @@ export namespace Prisma {
   export type ProductGroupByOutputType = {
     id: string
     name: string
-    type: $Enums.ProductType
+    type: string
     description: string
     features: string[]
     minimumBalance: number
     monthlyFee: number
     interestRate: number | null
     isActive: boolean
-    createdAt: Date
-    updatedAt: Date
+    eligibilityRules: JsonValue[]
     _count: ProductCountAggregateOutputType | null
     _avg: ProductAvgAggregateOutputType | null
     _sum: ProductSumAggregateOutputType | null
@@ -13058,10 +10162,8 @@ export namespace Prisma {
     monthlyFee?: boolean
     interestRate?: boolean
     isActive?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    selections?: boolean | Product$selectionsArgs<ExtArgs>
-    eligibilityRules?: boolean | Product$eligibilityRulesArgs<ExtArgs>
+    eligibilityRules?: boolean
+    productSelections?: boolean | Product$productSelectionsArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
 
@@ -13075,8 +10177,7 @@ export namespace Prisma {
     monthlyFee?: boolean
     interestRate?: boolean
     isActive?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
+    eligibilityRules?: boolean
   }, ExtArgs["result"]["product"]>
 
   export type ProductSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -13089,8 +10190,7 @@ export namespace Prisma {
     monthlyFee?: boolean
     interestRate?: boolean
     isActive?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
+    eligibilityRules?: boolean
   }, ExtArgs["result"]["product"]>
 
   export type ProductSelectScalar = {
@@ -13103,14 +10203,12 @@ export namespace Prisma {
     monthlyFee?: boolean
     interestRate?: boolean
     isActive?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
+    eligibilityRules?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "type" | "description" | "features" | "minimumBalance" | "monthlyFee" | "interestRate" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "type" | "description" | "features" | "minimumBalance" | "monthlyFee" | "interestRate" | "isActive" | "eligibilityRules", ExtArgs["result"]["product"]>
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    selections?: boolean | Product$selectionsArgs<ExtArgs>
-    eligibilityRules?: boolean | Product$eligibilityRulesArgs<ExtArgs>
+    productSelections?: boolean | Product$productSelectionsArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ProductIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -13119,21 +10217,19 @@ export namespace Prisma {
   export type $ProductPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Product"
     objects: {
-      selections: Prisma.$ProductSelectionPayload<ExtArgs>[]
-      eligibilityRules: Prisma.$EligibilityRulePayload<ExtArgs>[]
+      productSelections: Prisma.$ProductSelectionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
-      type: $Enums.ProductType
+      type: string
       description: string
       features: string[]
       minimumBalance: number
       monthlyFee: number
       interestRate: number | null
       isActive: boolean
-      createdAt: Date
-      updatedAt: Date
+      eligibilityRules: Prisma.JsonValue[]
     }, ExtArgs["result"]["product"]>
     composites: {}
   }
@@ -13528,8 +10624,7 @@ export namespace Prisma {
    */
   export interface Prisma__ProductClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    selections<T extends Product$selectionsArgs<ExtArgs> = {}>(args?: Subset<T, Product$selectionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductSelectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    eligibilityRules<T extends Product$eligibilityRulesArgs<ExtArgs> = {}>(args?: Subset<T, Product$eligibilityRulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EligibilityRulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    productSelections<T extends Product$productSelectionsArgs<ExtArgs> = {}>(args?: Subset<T, Product$productSelectionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductSelectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13561,15 +10656,14 @@ export namespace Prisma {
   interface ProductFieldRefs {
     readonly id: FieldRef<"Product", 'String'>
     readonly name: FieldRef<"Product", 'String'>
-    readonly type: FieldRef<"Product", 'ProductType'>
+    readonly type: FieldRef<"Product", 'String'>
     readonly description: FieldRef<"Product", 'String'>
     readonly features: FieldRef<"Product", 'String[]'>
     readonly minimumBalance: FieldRef<"Product", 'Float'>
     readonly monthlyFee: FieldRef<"Product", 'Float'>
     readonly interestRate: FieldRef<"Product", 'Float'>
     readonly isActive: FieldRef<"Product", 'Boolean'>
-    readonly createdAt: FieldRef<"Product", 'DateTime'>
-    readonly updatedAt: FieldRef<"Product", 'DateTime'>
+    readonly eligibilityRules: FieldRef<"Product", 'Json[]'>
   }
     
 
@@ -13958,9 +11052,9 @@ export namespace Prisma {
   }
 
   /**
-   * Product.selections
+   * Product.productSelections
    */
-  export type Product$selectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Product$productSelectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the ProductSelection
      */
@@ -13982,30 +11076,6 @@ export namespace Prisma {
   }
 
   /**
-   * Product.eligibilityRules
-   */
-  export type Product$eligibilityRulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the EligibilityRule
-     */
-    select?: EligibilityRuleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the EligibilityRule
-     */
-    omit?: EligibilityRuleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EligibilityRuleInclude<ExtArgs> | null
-    where?: EligibilityRuleWhereInput
-    orderBy?: EligibilityRuleOrderByWithRelationInput | EligibilityRuleOrderByWithRelationInput[]
-    cursor?: EligibilityRuleWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: EligibilityRuleScalarFieldEnum | EligibilityRuleScalarFieldEnum[]
-  }
-
-  /**
    * Product without action
    */
   export type ProductDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -14021,1073 +11091,6 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: ProductInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model EligibilityRule
-   */
-
-  export type AggregateEligibilityRule = {
-    _count: EligibilityRuleCountAggregateOutputType | null
-    _min: EligibilityRuleMinAggregateOutputType | null
-    _max: EligibilityRuleMaxAggregateOutputType | null
-  }
-
-  export type EligibilityRuleMinAggregateOutputType = {
-    id: string | null
-    field: string | null
-    operator: $Enums.EligibilityOperator | null
-    description: string | null
-    productId: string | null
-  }
-
-  export type EligibilityRuleMaxAggregateOutputType = {
-    id: string | null
-    field: string | null
-    operator: $Enums.EligibilityOperator | null
-    description: string | null
-    productId: string | null
-  }
-
-  export type EligibilityRuleCountAggregateOutputType = {
-    id: number
-    field: number
-    operator: number
-    value: number
-    description: number
-    productId: number
-    _all: number
-  }
-
-
-  export type EligibilityRuleMinAggregateInputType = {
-    id?: true
-    field?: true
-    operator?: true
-    description?: true
-    productId?: true
-  }
-
-  export type EligibilityRuleMaxAggregateInputType = {
-    id?: true
-    field?: true
-    operator?: true
-    description?: true
-    productId?: true
-  }
-
-  export type EligibilityRuleCountAggregateInputType = {
-    id?: true
-    field?: true
-    operator?: true
-    value?: true
-    description?: true
-    productId?: true
-    _all?: true
-  }
-
-  export type EligibilityRuleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which EligibilityRule to aggregate.
-     */
-    where?: EligibilityRuleWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of EligibilityRules to fetch.
-     */
-    orderBy?: EligibilityRuleOrderByWithRelationInput | EligibilityRuleOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: EligibilityRuleWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` EligibilityRules from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` EligibilityRules.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned EligibilityRules
-    **/
-    _count?: true | EligibilityRuleCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: EligibilityRuleMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: EligibilityRuleMaxAggregateInputType
-  }
-
-  export type GetEligibilityRuleAggregateType<T extends EligibilityRuleAggregateArgs> = {
-        [P in keyof T & keyof AggregateEligibilityRule]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateEligibilityRule[P]>
-      : GetScalarType<T[P], AggregateEligibilityRule[P]>
-  }
-
-
-
-
-  export type EligibilityRuleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: EligibilityRuleWhereInput
-    orderBy?: EligibilityRuleOrderByWithAggregationInput | EligibilityRuleOrderByWithAggregationInput[]
-    by: EligibilityRuleScalarFieldEnum[] | EligibilityRuleScalarFieldEnum
-    having?: EligibilityRuleScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: EligibilityRuleCountAggregateInputType | true
-    _min?: EligibilityRuleMinAggregateInputType
-    _max?: EligibilityRuleMaxAggregateInputType
-  }
-
-  export type EligibilityRuleGroupByOutputType = {
-    id: string
-    field: string
-    operator: $Enums.EligibilityOperator
-    value: JsonValue
-    description: string
-    productId: string
-    _count: EligibilityRuleCountAggregateOutputType | null
-    _min: EligibilityRuleMinAggregateOutputType | null
-    _max: EligibilityRuleMaxAggregateOutputType | null
-  }
-
-  type GetEligibilityRuleGroupByPayload<T extends EligibilityRuleGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<EligibilityRuleGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof EligibilityRuleGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], EligibilityRuleGroupByOutputType[P]>
-            : GetScalarType<T[P], EligibilityRuleGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type EligibilityRuleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    field?: boolean
-    operator?: boolean
-    value?: boolean
-    description?: boolean
-    productId?: boolean
-    product?: boolean | ProductDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["eligibilityRule"]>
-
-  export type EligibilityRuleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    field?: boolean
-    operator?: boolean
-    value?: boolean
-    description?: boolean
-    productId?: boolean
-    product?: boolean | ProductDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["eligibilityRule"]>
-
-  export type EligibilityRuleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    field?: boolean
-    operator?: boolean
-    value?: boolean
-    description?: boolean
-    productId?: boolean
-    product?: boolean | ProductDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["eligibilityRule"]>
-
-  export type EligibilityRuleSelectScalar = {
-    id?: boolean
-    field?: boolean
-    operator?: boolean
-    value?: boolean
-    description?: boolean
-    productId?: boolean
-  }
-
-  export type EligibilityRuleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "field" | "operator" | "value" | "description" | "productId", ExtArgs["result"]["eligibilityRule"]>
-  export type EligibilityRuleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    product?: boolean | ProductDefaultArgs<ExtArgs>
-  }
-  export type EligibilityRuleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    product?: boolean | ProductDefaultArgs<ExtArgs>
-  }
-  export type EligibilityRuleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    product?: boolean | ProductDefaultArgs<ExtArgs>
-  }
-
-  export type $EligibilityRulePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "EligibilityRule"
-    objects: {
-      product: Prisma.$ProductPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      field: string
-      operator: $Enums.EligibilityOperator
-      value: Prisma.JsonValue
-      description: string
-      productId: string
-    }, ExtArgs["result"]["eligibilityRule"]>
-    composites: {}
-  }
-
-  type EligibilityRuleGetPayload<S extends boolean | null | undefined | EligibilityRuleDefaultArgs> = $Result.GetResult<Prisma.$EligibilityRulePayload, S>
-
-  type EligibilityRuleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<EligibilityRuleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: EligibilityRuleCountAggregateInputType | true
-    }
-
-  export interface EligibilityRuleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EligibilityRule'], meta: { name: 'EligibilityRule' } }
-    /**
-     * Find zero or one EligibilityRule that matches the filter.
-     * @param {EligibilityRuleFindUniqueArgs} args - Arguments to find a EligibilityRule
-     * @example
-     * // Get one EligibilityRule
-     * const eligibilityRule = await prisma.eligibilityRule.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends EligibilityRuleFindUniqueArgs>(args: SelectSubset<T, EligibilityRuleFindUniqueArgs<ExtArgs>>): Prisma__EligibilityRuleClient<$Result.GetResult<Prisma.$EligibilityRulePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one EligibilityRule that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {EligibilityRuleFindUniqueOrThrowArgs} args - Arguments to find a EligibilityRule
-     * @example
-     * // Get one EligibilityRule
-     * const eligibilityRule = await prisma.eligibilityRule.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends EligibilityRuleFindUniqueOrThrowArgs>(args: SelectSubset<T, EligibilityRuleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EligibilityRuleClient<$Result.GetResult<Prisma.$EligibilityRulePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first EligibilityRule that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {EligibilityRuleFindFirstArgs} args - Arguments to find a EligibilityRule
-     * @example
-     * // Get one EligibilityRule
-     * const eligibilityRule = await prisma.eligibilityRule.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends EligibilityRuleFindFirstArgs>(args?: SelectSubset<T, EligibilityRuleFindFirstArgs<ExtArgs>>): Prisma__EligibilityRuleClient<$Result.GetResult<Prisma.$EligibilityRulePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first EligibilityRule that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {EligibilityRuleFindFirstOrThrowArgs} args - Arguments to find a EligibilityRule
-     * @example
-     * // Get one EligibilityRule
-     * const eligibilityRule = await prisma.eligibilityRule.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends EligibilityRuleFindFirstOrThrowArgs>(args?: SelectSubset<T, EligibilityRuleFindFirstOrThrowArgs<ExtArgs>>): Prisma__EligibilityRuleClient<$Result.GetResult<Prisma.$EligibilityRulePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more EligibilityRules that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {EligibilityRuleFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all EligibilityRules
-     * const eligibilityRules = await prisma.eligibilityRule.findMany()
-     * 
-     * // Get first 10 EligibilityRules
-     * const eligibilityRules = await prisma.eligibilityRule.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const eligibilityRuleWithIdOnly = await prisma.eligibilityRule.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends EligibilityRuleFindManyArgs>(args?: SelectSubset<T, EligibilityRuleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EligibilityRulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a EligibilityRule.
-     * @param {EligibilityRuleCreateArgs} args - Arguments to create a EligibilityRule.
-     * @example
-     * // Create one EligibilityRule
-     * const EligibilityRule = await prisma.eligibilityRule.create({
-     *   data: {
-     *     // ... data to create a EligibilityRule
-     *   }
-     * })
-     * 
-     */
-    create<T extends EligibilityRuleCreateArgs>(args: SelectSubset<T, EligibilityRuleCreateArgs<ExtArgs>>): Prisma__EligibilityRuleClient<$Result.GetResult<Prisma.$EligibilityRulePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many EligibilityRules.
-     * @param {EligibilityRuleCreateManyArgs} args - Arguments to create many EligibilityRules.
-     * @example
-     * // Create many EligibilityRules
-     * const eligibilityRule = await prisma.eligibilityRule.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends EligibilityRuleCreateManyArgs>(args?: SelectSubset<T, EligibilityRuleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many EligibilityRules and returns the data saved in the database.
-     * @param {EligibilityRuleCreateManyAndReturnArgs} args - Arguments to create many EligibilityRules.
-     * @example
-     * // Create many EligibilityRules
-     * const eligibilityRule = await prisma.eligibilityRule.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many EligibilityRules and only return the `id`
-     * const eligibilityRuleWithIdOnly = await prisma.eligibilityRule.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends EligibilityRuleCreateManyAndReturnArgs>(args?: SelectSubset<T, EligibilityRuleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EligibilityRulePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a EligibilityRule.
-     * @param {EligibilityRuleDeleteArgs} args - Arguments to delete one EligibilityRule.
-     * @example
-     * // Delete one EligibilityRule
-     * const EligibilityRule = await prisma.eligibilityRule.delete({
-     *   where: {
-     *     // ... filter to delete one EligibilityRule
-     *   }
-     * })
-     * 
-     */
-    delete<T extends EligibilityRuleDeleteArgs>(args: SelectSubset<T, EligibilityRuleDeleteArgs<ExtArgs>>): Prisma__EligibilityRuleClient<$Result.GetResult<Prisma.$EligibilityRulePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one EligibilityRule.
-     * @param {EligibilityRuleUpdateArgs} args - Arguments to update one EligibilityRule.
-     * @example
-     * // Update one EligibilityRule
-     * const eligibilityRule = await prisma.eligibilityRule.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends EligibilityRuleUpdateArgs>(args: SelectSubset<T, EligibilityRuleUpdateArgs<ExtArgs>>): Prisma__EligibilityRuleClient<$Result.GetResult<Prisma.$EligibilityRulePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more EligibilityRules.
-     * @param {EligibilityRuleDeleteManyArgs} args - Arguments to filter EligibilityRules to delete.
-     * @example
-     * // Delete a few EligibilityRules
-     * const { count } = await prisma.eligibilityRule.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends EligibilityRuleDeleteManyArgs>(args?: SelectSubset<T, EligibilityRuleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more EligibilityRules.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {EligibilityRuleUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many EligibilityRules
-     * const eligibilityRule = await prisma.eligibilityRule.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends EligibilityRuleUpdateManyArgs>(args: SelectSubset<T, EligibilityRuleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more EligibilityRules and returns the data updated in the database.
-     * @param {EligibilityRuleUpdateManyAndReturnArgs} args - Arguments to update many EligibilityRules.
-     * @example
-     * // Update many EligibilityRules
-     * const eligibilityRule = await prisma.eligibilityRule.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more EligibilityRules and only return the `id`
-     * const eligibilityRuleWithIdOnly = await prisma.eligibilityRule.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends EligibilityRuleUpdateManyAndReturnArgs>(args: SelectSubset<T, EligibilityRuleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EligibilityRulePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one EligibilityRule.
-     * @param {EligibilityRuleUpsertArgs} args - Arguments to update or create a EligibilityRule.
-     * @example
-     * // Update or create a EligibilityRule
-     * const eligibilityRule = await prisma.eligibilityRule.upsert({
-     *   create: {
-     *     // ... data to create a EligibilityRule
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the EligibilityRule we want to update
-     *   }
-     * })
-     */
-    upsert<T extends EligibilityRuleUpsertArgs>(args: SelectSubset<T, EligibilityRuleUpsertArgs<ExtArgs>>): Prisma__EligibilityRuleClient<$Result.GetResult<Prisma.$EligibilityRulePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of EligibilityRules.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {EligibilityRuleCountArgs} args - Arguments to filter EligibilityRules to count.
-     * @example
-     * // Count the number of EligibilityRules
-     * const count = await prisma.eligibilityRule.count({
-     *   where: {
-     *     // ... the filter for the EligibilityRules we want to count
-     *   }
-     * })
-    **/
-    count<T extends EligibilityRuleCountArgs>(
-      args?: Subset<T, EligibilityRuleCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], EligibilityRuleCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a EligibilityRule.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {EligibilityRuleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends EligibilityRuleAggregateArgs>(args: Subset<T, EligibilityRuleAggregateArgs>): Prisma.PrismaPromise<GetEligibilityRuleAggregateType<T>>
-
-    /**
-     * Group by EligibilityRule.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {EligibilityRuleGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends EligibilityRuleGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: EligibilityRuleGroupByArgs['orderBy'] }
-        : { orderBy?: EligibilityRuleGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, EligibilityRuleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEligibilityRuleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the EligibilityRule model
-   */
-  readonly fields: EligibilityRuleFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for EligibilityRule.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__EligibilityRuleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    product<T extends ProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductDefaultArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the EligibilityRule model
-   */
-  interface EligibilityRuleFieldRefs {
-    readonly id: FieldRef<"EligibilityRule", 'String'>
-    readonly field: FieldRef<"EligibilityRule", 'String'>
-    readonly operator: FieldRef<"EligibilityRule", 'EligibilityOperator'>
-    readonly value: FieldRef<"EligibilityRule", 'Json'>
-    readonly description: FieldRef<"EligibilityRule", 'String'>
-    readonly productId: FieldRef<"EligibilityRule", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * EligibilityRule findUnique
-   */
-  export type EligibilityRuleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the EligibilityRule
-     */
-    select?: EligibilityRuleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the EligibilityRule
-     */
-    omit?: EligibilityRuleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EligibilityRuleInclude<ExtArgs> | null
-    /**
-     * Filter, which EligibilityRule to fetch.
-     */
-    where: EligibilityRuleWhereUniqueInput
-  }
-
-  /**
-   * EligibilityRule findUniqueOrThrow
-   */
-  export type EligibilityRuleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the EligibilityRule
-     */
-    select?: EligibilityRuleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the EligibilityRule
-     */
-    omit?: EligibilityRuleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EligibilityRuleInclude<ExtArgs> | null
-    /**
-     * Filter, which EligibilityRule to fetch.
-     */
-    where: EligibilityRuleWhereUniqueInput
-  }
-
-  /**
-   * EligibilityRule findFirst
-   */
-  export type EligibilityRuleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the EligibilityRule
-     */
-    select?: EligibilityRuleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the EligibilityRule
-     */
-    omit?: EligibilityRuleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EligibilityRuleInclude<ExtArgs> | null
-    /**
-     * Filter, which EligibilityRule to fetch.
-     */
-    where?: EligibilityRuleWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of EligibilityRules to fetch.
-     */
-    orderBy?: EligibilityRuleOrderByWithRelationInput | EligibilityRuleOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for EligibilityRules.
-     */
-    cursor?: EligibilityRuleWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` EligibilityRules from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` EligibilityRules.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of EligibilityRules.
-     */
-    distinct?: EligibilityRuleScalarFieldEnum | EligibilityRuleScalarFieldEnum[]
-  }
-
-  /**
-   * EligibilityRule findFirstOrThrow
-   */
-  export type EligibilityRuleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the EligibilityRule
-     */
-    select?: EligibilityRuleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the EligibilityRule
-     */
-    omit?: EligibilityRuleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EligibilityRuleInclude<ExtArgs> | null
-    /**
-     * Filter, which EligibilityRule to fetch.
-     */
-    where?: EligibilityRuleWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of EligibilityRules to fetch.
-     */
-    orderBy?: EligibilityRuleOrderByWithRelationInput | EligibilityRuleOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for EligibilityRules.
-     */
-    cursor?: EligibilityRuleWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` EligibilityRules from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` EligibilityRules.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of EligibilityRules.
-     */
-    distinct?: EligibilityRuleScalarFieldEnum | EligibilityRuleScalarFieldEnum[]
-  }
-
-  /**
-   * EligibilityRule findMany
-   */
-  export type EligibilityRuleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the EligibilityRule
-     */
-    select?: EligibilityRuleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the EligibilityRule
-     */
-    omit?: EligibilityRuleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EligibilityRuleInclude<ExtArgs> | null
-    /**
-     * Filter, which EligibilityRules to fetch.
-     */
-    where?: EligibilityRuleWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of EligibilityRules to fetch.
-     */
-    orderBy?: EligibilityRuleOrderByWithRelationInput | EligibilityRuleOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing EligibilityRules.
-     */
-    cursor?: EligibilityRuleWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` EligibilityRules from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` EligibilityRules.
-     */
-    skip?: number
-    distinct?: EligibilityRuleScalarFieldEnum | EligibilityRuleScalarFieldEnum[]
-  }
-
-  /**
-   * EligibilityRule create
-   */
-  export type EligibilityRuleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the EligibilityRule
-     */
-    select?: EligibilityRuleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the EligibilityRule
-     */
-    omit?: EligibilityRuleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EligibilityRuleInclude<ExtArgs> | null
-    /**
-     * The data needed to create a EligibilityRule.
-     */
-    data: XOR<EligibilityRuleCreateInput, EligibilityRuleUncheckedCreateInput>
-  }
-
-  /**
-   * EligibilityRule createMany
-   */
-  export type EligibilityRuleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many EligibilityRules.
-     */
-    data: EligibilityRuleCreateManyInput | EligibilityRuleCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * EligibilityRule createManyAndReturn
-   */
-  export type EligibilityRuleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the EligibilityRule
-     */
-    select?: EligibilityRuleSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the EligibilityRule
-     */
-    omit?: EligibilityRuleOmit<ExtArgs> | null
-    /**
-     * The data used to create many EligibilityRules.
-     */
-    data: EligibilityRuleCreateManyInput | EligibilityRuleCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EligibilityRuleIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * EligibilityRule update
-   */
-  export type EligibilityRuleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the EligibilityRule
-     */
-    select?: EligibilityRuleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the EligibilityRule
-     */
-    omit?: EligibilityRuleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EligibilityRuleInclude<ExtArgs> | null
-    /**
-     * The data needed to update a EligibilityRule.
-     */
-    data: XOR<EligibilityRuleUpdateInput, EligibilityRuleUncheckedUpdateInput>
-    /**
-     * Choose, which EligibilityRule to update.
-     */
-    where: EligibilityRuleWhereUniqueInput
-  }
-
-  /**
-   * EligibilityRule updateMany
-   */
-  export type EligibilityRuleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update EligibilityRules.
-     */
-    data: XOR<EligibilityRuleUpdateManyMutationInput, EligibilityRuleUncheckedUpdateManyInput>
-    /**
-     * Filter which EligibilityRules to update
-     */
-    where?: EligibilityRuleWhereInput
-    /**
-     * Limit how many EligibilityRules to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * EligibilityRule updateManyAndReturn
-   */
-  export type EligibilityRuleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the EligibilityRule
-     */
-    select?: EligibilityRuleSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the EligibilityRule
-     */
-    omit?: EligibilityRuleOmit<ExtArgs> | null
-    /**
-     * The data used to update EligibilityRules.
-     */
-    data: XOR<EligibilityRuleUpdateManyMutationInput, EligibilityRuleUncheckedUpdateManyInput>
-    /**
-     * Filter which EligibilityRules to update
-     */
-    where?: EligibilityRuleWhereInput
-    /**
-     * Limit how many EligibilityRules to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EligibilityRuleIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * EligibilityRule upsert
-   */
-  export type EligibilityRuleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the EligibilityRule
-     */
-    select?: EligibilityRuleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the EligibilityRule
-     */
-    omit?: EligibilityRuleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EligibilityRuleInclude<ExtArgs> | null
-    /**
-     * The filter to search for the EligibilityRule to update in case it exists.
-     */
-    where: EligibilityRuleWhereUniqueInput
-    /**
-     * In case the EligibilityRule found by the `where` argument doesn't exist, create a new EligibilityRule with this data.
-     */
-    create: XOR<EligibilityRuleCreateInput, EligibilityRuleUncheckedCreateInput>
-    /**
-     * In case the EligibilityRule was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<EligibilityRuleUpdateInput, EligibilityRuleUncheckedUpdateInput>
-  }
-
-  /**
-   * EligibilityRule delete
-   */
-  export type EligibilityRuleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the EligibilityRule
-     */
-    select?: EligibilityRuleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the EligibilityRule
-     */
-    omit?: EligibilityRuleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EligibilityRuleInclude<ExtArgs> | null
-    /**
-     * Filter which EligibilityRule to delete.
-     */
-    where: EligibilityRuleWhereUniqueInput
-  }
-
-  /**
-   * EligibilityRule deleteMany
-   */
-  export type EligibilityRuleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which EligibilityRules to delete
-     */
-    where?: EligibilityRuleWhereInput
-    /**
-     * Limit how many EligibilityRules to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * EligibilityRule without action
-   */
-  export type EligibilityRuleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the EligibilityRule
-     */
-    select?: EligibilityRuleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the EligibilityRule
-     */
-    omit?: EligibilityRuleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EligibilityRuleInclude<ExtArgs> | null
   }
 
 
@@ -16201,12 +12204,10 @@ export namespace Prisma {
 
   export type DocumentAvgAggregateOutputType = {
     fileSize: number | null
-    verificationConfidence: number | null
   }
 
   export type DocumentSumAggregateOutputType = {
     fileSize: number | null
-    verificationConfidence: number | null
   }
 
   export type DocumentMinAggregateOutputType = {
@@ -16217,12 +12218,8 @@ export namespace Prisma {
     mimeType: string | null
     uploadedAt: Date | null
     verificationStatus: string | null
-    verificationProvider: string | null
-    verificationConfidence: number | null
-    verificationId: string | null
-    verifiedAt: Date | null
-    signerId: string | null
     applicationId: string | null
+    signerId: string | null
   }
 
   export type DocumentMaxAggregateOutputType = {
@@ -16233,12 +12230,8 @@ export namespace Prisma {
     mimeType: string | null
     uploadedAt: Date | null
     verificationStatus: string | null
-    verificationProvider: string | null
-    verificationConfidence: number | null
-    verificationId: string | null
-    verifiedAt: Date | null
-    signerId: string | null
     applicationId: string | null
+    signerId: string | null
   }
 
   export type DocumentCountAggregateOutputType = {
@@ -16249,25 +12242,19 @@ export namespace Prisma {
     mimeType: number
     uploadedAt: number
     verificationStatus: number
-    verificationProvider: number
-    verificationConfidence: number
-    extractedData: number
-    verificationId: number
-    verifiedAt: number
-    signerId: number
+    verificationDetails: number
     applicationId: number
+    signerId: number
     _all: number
   }
 
 
   export type DocumentAvgAggregateInputType = {
     fileSize?: true
-    verificationConfidence?: true
   }
 
   export type DocumentSumAggregateInputType = {
     fileSize?: true
-    verificationConfidence?: true
   }
 
   export type DocumentMinAggregateInputType = {
@@ -16278,12 +12265,8 @@ export namespace Prisma {
     mimeType?: true
     uploadedAt?: true
     verificationStatus?: true
-    verificationProvider?: true
-    verificationConfidence?: true
-    verificationId?: true
-    verifiedAt?: true
-    signerId?: true
     applicationId?: true
+    signerId?: true
   }
 
   export type DocumentMaxAggregateInputType = {
@@ -16294,12 +12277,8 @@ export namespace Prisma {
     mimeType?: true
     uploadedAt?: true
     verificationStatus?: true
-    verificationProvider?: true
-    verificationConfidence?: true
-    verificationId?: true
-    verifiedAt?: true
-    signerId?: true
     applicationId?: true
+    signerId?: true
   }
 
   export type DocumentCountAggregateInputType = {
@@ -16310,13 +12289,9 @@ export namespace Prisma {
     mimeType?: true
     uploadedAt?: true
     verificationStatus?: true
-    verificationProvider?: true
-    verificationConfidence?: true
-    extractedData?: true
-    verificationId?: true
-    verifiedAt?: true
-    signerId?: true
+    verificationDetails?: true
     applicationId?: true
+    signerId?: true
     _all?: true
   }
 
@@ -16414,13 +12389,9 @@ export namespace Prisma {
     mimeType: string
     uploadedAt: Date
     verificationStatus: string
-    verificationProvider: string | null
-    verificationConfidence: number | null
-    extractedData: JsonValue | null
-    verificationId: string | null
-    verifiedAt: Date | null
-    signerId: string | null
+    verificationDetails: JsonValue | null
     applicationId: string
+    signerId: string | null
     _count: DocumentCountAggregateOutputType | null
     _avg: DocumentAvgAggregateOutputType | null
     _sum: DocumentSumAggregateOutputType | null
@@ -16450,14 +12421,11 @@ export namespace Prisma {
     mimeType?: boolean
     uploadedAt?: boolean
     verificationStatus?: boolean
-    verificationProvider?: boolean
-    verificationConfidence?: boolean
-    extractedData?: boolean
-    verificationId?: boolean
-    verifiedAt?: boolean
-    signerId?: boolean
+    verificationDetails?: boolean
     applicationId?: boolean
+    signerId?: boolean
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
+    signer?: boolean | Document$signerArgs<ExtArgs>
   }, ExtArgs["result"]["document"]>
 
   export type DocumentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -16468,14 +12436,11 @@ export namespace Prisma {
     mimeType?: boolean
     uploadedAt?: boolean
     verificationStatus?: boolean
-    verificationProvider?: boolean
-    verificationConfidence?: boolean
-    extractedData?: boolean
-    verificationId?: boolean
-    verifiedAt?: boolean
-    signerId?: boolean
+    verificationDetails?: boolean
     applicationId?: boolean
+    signerId?: boolean
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
+    signer?: boolean | Document$signerArgs<ExtArgs>
   }, ExtArgs["result"]["document"]>
 
   export type DocumentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -16486,14 +12451,11 @@ export namespace Prisma {
     mimeType?: boolean
     uploadedAt?: boolean
     verificationStatus?: boolean
-    verificationProvider?: boolean
-    verificationConfidence?: boolean
-    extractedData?: boolean
-    verificationId?: boolean
-    verifiedAt?: boolean
-    signerId?: boolean
+    verificationDetails?: boolean
     applicationId?: boolean
+    signerId?: boolean
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
+    signer?: boolean | Document$signerArgs<ExtArgs>
   }, ExtArgs["result"]["document"]>
 
   export type DocumentSelectScalar = {
@@ -16504,30 +12466,30 @@ export namespace Prisma {
     mimeType?: boolean
     uploadedAt?: boolean
     verificationStatus?: boolean
-    verificationProvider?: boolean
-    verificationConfidence?: boolean
-    extractedData?: boolean
-    verificationId?: boolean
-    verifiedAt?: boolean
-    signerId?: boolean
+    verificationDetails?: boolean
     applicationId?: boolean
+    signerId?: boolean
   }
 
-  export type DocumentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "fileName" | "fileSize" | "mimeType" | "uploadedAt" | "verificationStatus" | "verificationProvider" | "verificationConfidence" | "extractedData" | "verificationId" | "verifiedAt" | "signerId" | "applicationId", ExtArgs["result"]["document"]>
+  export type DocumentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "fileName" | "fileSize" | "mimeType" | "uploadedAt" | "verificationStatus" | "verificationDetails" | "applicationId" | "signerId", ExtArgs["result"]["document"]>
   export type DocumentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
+    signer?: boolean | Document$signerArgs<ExtArgs>
   }
   export type DocumentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
+    signer?: boolean | Document$signerArgs<ExtArgs>
   }
   export type DocumentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
+    signer?: boolean | Document$signerArgs<ExtArgs>
   }
 
   export type $DocumentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Document"
     objects: {
       application: Prisma.$ApplicationPayload<ExtArgs>
+      signer: Prisma.$AdditionalSignerPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -16537,13 +12499,9 @@ export namespace Prisma {
       mimeType: string
       uploadedAt: Date
       verificationStatus: string
-      verificationProvider: string | null
-      verificationConfidence: number | null
-      extractedData: Prisma.JsonValue | null
-      verificationId: string | null
-      verifiedAt: Date | null
-      signerId: string | null
+      verificationDetails: Prisma.JsonValue | null
       applicationId: string
+      signerId: string | null
     }, ExtArgs["result"]["document"]>
     composites: {}
   }
@@ -16939,6 +12897,7 @@ export namespace Prisma {
   export interface Prisma__DocumentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     application<T extends ApplicationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ApplicationDefaultArgs<ExtArgs>>): Prisma__ApplicationClient<$Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    signer<T extends Document$signerArgs<ExtArgs> = {}>(args?: Subset<T, Document$signerArgs<ExtArgs>>): Prisma__AdditionalSignerClient<$Result.GetResult<Prisma.$AdditionalSignerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -16975,13 +12934,9 @@ export namespace Prisma {
     readonly mimeType: FieldRef<"Document", 'String'>
     readonly uploadedAt: FieldRef<"Document", 'DateTime'>
     readonly verificationStatus: FieldRef<"Document", 'String'>
-    readonly verificationProvider: FieldRef<"Document", 'String'>
-    readonly verificationConfidence: FieldRef<"Document", 'Float'>
-    readonly extractedData: FieldRef<"Document", 'Json'>
-    readonly verificationId: FieldRef<"Document", 'String'>
-    readonly verifiedAt: FieldRef<"Document", 'DateTime'>
-    readonly signerId: FieldRef<"Document", 'String'>
+    readonly verificationDetails: FieldRef<"Document", 'Json'>
     readonly applicationId: FieldRef<"Document", 'String'>
+    readonly signerId: FieldRef<"Document", 'String'>
   }
     
 
@@ -17378,6 +13333,25 @@ export namespace Prisma {
   }
 
   /**
+   * Document.signer
+   */
+  export type Document$signerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AdditionalSigner
+     */
+    select?: AdditionalSignerSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AdditionalSigner
+     */
+    omit?: AdditionalSignerOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AdditionalSignerInclude<ExtArgs> | null
+    where?: AdditionalSignerWhereInput
+  }
+
+  /**
    * Document without action
    */
   export type DocumentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -17410,18 +13384,10 @@ export namespace Prisma {
 
   export type KYCVerificationAvgAggregateOutputType = {
     confidence: number | null
-    identityConfidence: number | null
-    addressConfidence: number | null
-    phoneConfidence: number | null
-    emailConfidence: number | null
   }
 
   export type KYCVerificationSumAggregateOutputType = {
     confidence: number | null
-    identityConfidence: number | null
-    addressConfidence: number | null
-    phoneConfidence: number | null
-    emailConfidence: number | null
   }
 
   export type KYCVerificationMinAggregateOutputType = {
@@ -17431,15 +13397,6 @@ export namespace Prisma {
     verificationId: string | null
     confidence: number | null
     verifiedAt: Date | null
-    identityPassed: boolean | null
-    identityConfidence: number | null
-    addressPassed: boolean | null
-    addressConfidence: number | null
-    phonePassed: boolean | null
-    phoneConfidence: number | null
-    emailPassed: boolean | null
-    emailConfidence: number | null
-    ofacPassed: boolean | null
     applicationId: string | null
   }
 
@@ -17450,15 +13407,6 @@ export namespace Prisma {
     verificationId: string | null
     confidence: number | null
     verifiedAt: Date | null
-    identityPassed: boolean | null
-    identityConfidence: number | null
-    addressPassed: boolean | null
-    addressConfidence: number | null
-    phonePassed: boolean | null
-    phoneConfidence: number | null
-    emailPassed: boolean | null
-    emailConfidence: number | null
-    ofacPassed: boolean | null
     applicationId: string | null
   }
 
@@ -17469,16 +13417,7 @@ export namespace Prisma {
     verificationId: number
     confidence: number
     verifiedAt: number
-    identityPassed: number
-    identityConfidence: number
-    addressPassed: number
-    addressConfidence: number
-    phonePassed: number
-    phoneConfidence: number
-    emailPassed: number
-    emailConfidence: number
-    ofacPassed: number
-    ofacMatches: number
+    results: number
     applicationId: number
     _all: number
   }
@@ -17486,18 +13425,10 @@ export namespace Prisma {
 
   export type KYCVerificationAvgAggregateInputType = {
     confidence?: true
-    identityConfidence?: true
-    addressConfidence?: true
-    phoneConfidence?: true
-    emailConfidence?: true
   }
 
   export type KYCVerificationSumAggregateInputType = {
     confidence?: true
-    identityConfidence?: true
-    addressConfidence?: true
-    phoneConfidence?: true
-    emailConfidence?: true
   }
 
   export type KYCVerificationMinAggregateInputType = {
@@ -17507,15 +13438,6 @@ export namespace Prisma {
     verificationId?: true
     confidence?: true
     verifiedAt?: true
-    identityPassed?: true
-    identityConfidence?: true
-    addressPassed?: true
-    addressConfidence?: true
-    phonePassed?: true
-    phoneConfidence?: true
-    emailPassed?: true
-    emailConfidence?: true
-    ofacPassed?: true
     applicationId?: true
   }
 
@@ -17526,15 +13448,6 @@ export namespace Prisma {
     verificationId?: true
     confidence?: true
     verifiedAt?: true
-    identityPassed?: true
-    identityConfidence?: true
-    addressPassed?: true
-    addressConfidence?: true
-    phonePassed?: true
-    phoneConfidence?: true
-    emailPassed?: true
-    emailConfidence?: true
-    ofacPassed?: true
     applicationId?: true
   }
 
@@ -17545,16 +13458,7 @@ export namespace Prisma {
     verificationId?: true
     confidence?: true
     verifiedAt?: true
-    identityPassed?: true
-    identityConfidence?: true
-    addressPassed?: true
-    addressConfidence?: true
-    phonePassed?: true
-    phoneConfidence?: true
-    emailPassed?: true
-    emailConfidence?: true
-    ofacPassed?: true
-    ofacMatches?: true
+    results?: true
     applicationId?: true
     _all?: true
   }
@@ -17652,16 +13556,7 @@ export namespace Prisma {
     verificationId: string
     confidence: number
     verifiedAt: Date | null
-    identityPassed: boolean | null
-    identityConfidence: number | null
-    addressPassed: boolean | null
-    addressConfidence: number | null
-    phonePassed: boolean | null
-    phoneConfidence: number | null
-    emailPassed: boolean | null
-    emailConfidence: number | null
-    ofacPassed: boolean | null
-    ofacMatches: JsonValue | null
+    results: JsonValue
     applicationId: string
     _count: KYCVerificationCountAggregateOutputType | null
     _avg: KYCVerificationAvgAggregateOutputType | null
@@ -17691,16 +13586,7 @@ export namespace Prisma {
     verificationId?: boolean
     confidence?: boolean
     verifiedAt?: boolean
-    identityPassed?: boolean
-    identityConfidence?: boolean
-    addressPassed?: boolean
-    addressConfidence?: boolean
-    phonePassed?: boolean
-    phoneConfidence?: boolean
-    emailPassed?: boolean
-    emailConfidence?: boolean
-    ofacPassed?: boolean
-    ofacMatches?: boolean
+    results?: boolean
     applicationId?: boolean
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["kYCVerification"]>
@@ -17712,16 +13598,7 @@ export namespace Prisma {
     verificationId?: boolean
     confidence?: boolean
     verifiedAt?: boolean
-    identityPassed?: boolean
-    identityConfidence?: boolean
-    addressPassed?: boolean
-    addressConfidence?: boolean
-    phonePassed?: boolean
-    phoneConfidence?: boolean
-    emailPassed?: boolean
-    emailConfidence?: boolean
-    ofacPassed?: boolean
-    ofacMatches?: boolean
+    results?: boolean
     applicationId?: boolean
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["kYCVerification"]>
@@ -17733,16 +13610,7 @@ export namespace Prisma {
     verificationId?: boolean
     confidence?: boolean
     verifiedAt?: boolean
-    identityPassed?: boolean
-    identityConfidence?: boolean
-    addressPassed?: boolean
-    addressConfidence?: boolean
-    phonePassed?: boolean
-    phoneConfidence?: boolean
-    emailPassed?: boolean
-    emailConfidence?: boolean
-    ofacPassed?: boolean
-    ofacMatches?: boolean
+    results?: boolean
     applicationId?: boolean
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["kYCVerification"]>
@@ -17754,20 +13622,11 @@ export namespace Prisma {
     verificationId?: boolean
     confidence?: boolean
     verifiedAt?: boolean
-    identityPassed?: boolean
-    identityConfidence?: boolean
-    addressPassed?: boolean
-    addressConfidence?: boolean
-    phonePassed?: boolean
-    phoneConfidence?: boolean
-    emailPassed?: boolean
-    emailConfidence?: boolean
-    ofacPassed?: boolean
-    ofacMatches?: boolean
+    results?: boolean
     applicationId?: boolean
   }
 
-  export type KYCVerificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "status" | "provider" | "verificationId" | "confidence" | "verifiedAt" | "identityPassed" | "identityConfidence" | "addressPassed" | "addressConfidence" | "phonePassed" | "phoneConfidence" | "emailPassed" | "emailConfidence" | "ofacPassed" | "ofacMatches" | "applicationId", ExtArgs["result"]["kYCVerification"]>
+  export type KYCVerificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "status" | "provider" | "verificationId" | "confidence" | "verifiedAt" | "results" | "applicationId", ExtArgs["result"]["kYCVerification"]>
   export type KYCVerificationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
   }
@@ -17790,16 +13649,7 @@ export namespace Prisma {
       verificationId: string
       confidence: number
       verifiedAt: Date | null
-      identityPassed: boolean | null
-      identityConfidence: number | null
-      addressPassed: boolean | null
-      addressConfidence: number | null
-      phonePassed: boolean | null
-      phoneConfidence: number | null
-      emailPassed: boolean | null
-      emailConfidence: number | null
-      ofacPassed: boolean | null
-      ofacMatches: Prisma.JsonValue | null
+      results: Prisma.JsonValue
       applicationId: string
     }, ExtArgs["result"]["kYCVerification"]>
     composites: {}
@@ -18231,16 +14081,7 @@ export namespace Prisma {
     readonly verificationId: FieldRef<"KYCVerification", 'String'>
     readonly confidence: FieldRef<"KYCVerification", 'Float'>
     readonly verifiedAt: FieldRef<"KYCVerification", 'DateTime'>
-    readonly identityPassed: FieldRef<"KYCVerification", 'Boolean'>
-    readonly identityConfidence: FieldRef<"KYCVerification", 'Float'>
-    readonly addressPassed: FieldRef<"KYCVerification", 'Boolean'>
-    readonly addressConfidence: FieldRef<"KYCVerification", 'Float'>
-    readonly phonePassed: FieldRef<"KYCVerification", 'Boolean'>
-    readonly phoneConfidence: FieldRef<"KYCVerification", 'Float'>
-    readonly emailPassed: FieldRef<"KYCVerification", 'Boolean'>
-    readonly emailConfidence: FieldRef<"KYCVerification", 'Float'>
-    readonly ofacPassed: FieldRef<"KYCVerification", 'Boolean'>
-    readonly ofacMatches: FieldRef<"KYCVerification", 'Json'>
+    readonly results: FieldRef<"KYCVerification", 'Json'>
     readonly applicationId: FieldRef<"KYCVerification", 'String'>
   }
     
@@ -18683,12 +14524,6 @@ export namespace Prisma {
     beneficialOwnershipPercentage: number | null
     hasSigningAuthority: boolean | null
     kycStatus: string | null
-    firstName: string | null
-    lastName: string | null
-    dateOfBirth: string | null
-    ssn: string | null
-    phone: string | null
-    email: string | null
     applicationId: string | null
   }
 
@@ -18699,28 +14534,17 @@ export namespace Prisma {
     beneficialOwnershipPercentage: number | null
     hasSigningAuthority: boolean | null
     kycStatus: string | null
-    firstName: string | null
-    lastName: string | null
-    dateOfBirth: string | null
-    ssn: string | null
-    phone: string | null
-    email: string | null
     applicationId: string | null
   }
 
   export type AdditionalSignerCountAggregateOutputType = {
     id: number
+    personalInfo: number
     role: number
     relationshipToBusiness: number
     beneficialOwnershipPercentage: number
     hasSigningAuthority: number
     kycStatus: number
-    firstName: number
-    lastName: number
-    dateOfBirth: number
-    ssn: number
-    phone: number
-    email: number
     applicationId: number
     _all: number
   }
@@ -18741,12 +14565,6 @@ export namespace Prisma {
     beneficialOwnershipPercentage?: true
     hasSigningAuthority?: true
     kycStatus?: true
-    firstName?: true
-    lastName?: true
-    dateOfBirth?: true
-    ssn?: true
-    phone?: true
-    email?: true
     applicationId?: true
   }
 
@@ -18757,28 +14575,17 @@ export namespace Prisma {
     beneficialOwnershipPercentage?: true
     hasSigningAuthority?: true
     kycStatus?: true
-    firstName?: true
-    lastName?: true
-    dateOfBirth?: true
-    ssn?: true
-    phone?: true
-    email?: true
     applicationId?: true
   }
 
   export type AdditionalSignerCountAggregateInputType = {
     id?: true
+    personalInfo?: true
     role?: true
     relationshipToBusiness?: true
     beneficialOwnershipPercentage?: true
     hasSigningAuthority?: true
     kycStatus?: true
-    firstName?: true
-    lastName?: true
-    dateOfBirth?: true
-    ssn?: true
-    phone?: true
-    email?: true
     applicationId?: true
     _all?: true
   }
@@ -18871,17 +14678,12 @@ export namespace Prisma {
 
   export type AdditionalSignerGroupByOutputType = {
     id: string
+    personalInfo: JsonValue
     role: string
     relationshipToBusiness: string | null
     beneficialOwnershipPercentage: number | null
     hasSigningAuthority: boolean
     kycStatus: string
-    firstName: string
-    lastName: string
-    dateOfBirth: string
-    ssn: string
-    phone: string
-    email: string
     applicationId: string
     _count: AdditionalSignerCountAggregateOutputType | null
     _avg: AdditionalSignerAvgAggregateOutputType | null
@@ -18906,74 +14708,58 @@ export namespace Prisma {
 
   export type AdditionalSignerSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    personalInfo?: boolean
     role?: boolean
     relationshipToBusiness?: boolean
     beneficialOwnershipPercentage?: boolean
     hasSigningAuthority?: boolean
     kycStatus?: boolean
-    firstName?: boolean
-    lastName?: boolean
-    dateOfBirth?: boolean
-    ssn?: boolean
-    phone?: boolean
-    email?: boolean
     applicationId?: boolean
+    documents?: boolean | AdditionalSigner$documentsArgs<ExtArgs>
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
+    _count?: boolean | AdditionalSignerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["additionalSigner"]>
 
   export type AdditionalSignerSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    personalInfo?: boolean
     role?: boolean
     relationshipToBusiness?: boolean
     beneficialOwnershipPercentage?: boolean
     hasSigningAuthority?: boolean
     kycStatus?: boolean
-    firstName?: boolean
-    lastName?: boolean
-    dateOfBirth?: boolean
-    ssn?: boolean
-    phone?: boolean
-    email?: boolean
     applicationId?: boolean
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["additionalSigner"]>
 
   export type AdditionalSignerSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    personalInfo?: boolean
     role?: boolean
     relationshipToBusiness?: boolean
     beneficialOwnershipPercentage?: boolean
     hasSigningAuthority?: boolean
     kycStatus?: boolean
-    firstName?: boolean
-    lastName?: boolean
-    dateOfBirth?: boolean
-    ssn?: boolean
-    phone?: boolean
-    email?: boolean
     applicationId?: boolean
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["additionalSigner"]>
 
   export type AdditionalSignerSelectScalar = {
     id?: boolean
+    personalInfo?: boolean
     role?: boolean
     relationshipToBusiness?: boolean
     beneficialOwnershipPercentage?: boolean
     hasSigningAuthority?: boolean
     kycStatus?: boolean
-    firstName?: boolean
-    lastName?: boolean
-    dateOfBirth?: boolean
-    ssn?: boolean
-    phone?: boolean
-    email?: boolean
     applicationId?: boolean
   }
 
-  export type AdditionalSignerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "role" | "relationshipToBusiness" | "beneficialOwnershipPercentage" | "hasSigningAuthority" | "kycStatus" | "firstName" | "lastName" | "dateOfBirth" | "ssn" | "phone" | "email" | "applicationId", ExtArgs["result"]["additionalSigner"]>
+  export type AdditionalSignerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "personalInfo" | "role" | "relationshipToBusiness" | "beneficialOwnershipPercentage" | "hasSigningAuthority" | "kycStatus" | "applicationId", ExtArgs["result"]["additionalSigner"]>
   export type AdditionalSignerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    documents?: boolean | AdditionalSigner$documentsArgs<ExtArgs>
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
+    _count?: boolean | AdditionalSignerCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AdditionalSignerIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
@@ -18985,21 +14771,17 @@ export namespace Prisma {
   export type $AdditionalSignerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "AdditionalSigner"
     objects: {
+      documents: Prisma.$DocumentPayload<ExtArgs>[]
       application: Prisma.$ApplicationPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      personalInfo: Prisma.JsonValue
       role: string
       relationshipToBusiness: string | null
       beneficialOwnershipPercentage: number | null
       hasSigningAuthority: boolean
       kycStatus: string
-      firstName: string
-      lastName: string
-      dateOfBirth: string
-      ssn: string
-      phone: string
-      email: string
       applicationId: string
     }, ExtArgs["result"]["additionalSigner"]>
     composites: {}
@@ -19395,6 +15177,7 @@ export namespace Prisma {
    */
   export interface Prisma__AdditionalSignerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    documents<T extends AdditionalSigner$documentsArgs<ExtArgs> = {}>(args?: Subset<T, AdditionalSigner$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     application<T extends ApplicationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ApplicationDefaultArgs<ExtArgs>>): Prisma__ApplicationClient<$Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -19426,17 +15209,12 @@ export namespace Prisma {
    */
   interface AdditionalSignerFieldRefs {
     readonly id: FieldRef<"AdditionalSigner", 'String'>
+    readonly personalInfo: FieldRef<"AdditionalSigner", 'Json'>
     readonly role: FieldRef<"AdditionalSigner", 'String'>
     readonly relationshipToBusiness: FieldRef<"AdditionalSigner", 'String'>
     readonly beneficialOwnershipPercentage: FieldRef<"AdditionalSigner", 'Float'>
     readonly hasSigningAuthority: FieldRef<"AdditionalSigner", 'Boolean'>
     readonly kycStatus: FieldRef<"AdditionalSigner", 'String'>
-    readonly firstName: FieldRef<"AdditionalSigner", 'String'>
-    readonly lastName: FieldRef<"AdditionalSigner", 'String'>
-    readonly dateOfBirth: FieldRef<"AdditionalSigner", 'String'>
-    readonly ssn: FieldRef<"AdditionalSigner", 'String'>
-    readonly phone: FieldRef<"AdditionalSigner", 'String'>
-    readonly email: FieldRef<"AdditionalSigner", 'String'>
     readonly applicationId: FieldRef<"AdditionalSigner", 'String'>
   }
     
@@ -19834,6 +15612,30 @@ export namespace Prisma {
   }
 
   /**
+   * AdditionalSigner.documents
+   */
+  export type AdditionalSigner$documentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Document
+     */
+    select?: DocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Document
+     */
+    omit?: DocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentInclude<ExtArgs> | null
+    where?: DocumentWhereInput
+    orderBy?: DocumentOrderByWithRelationInput | DocumentOrderByWithRelationInput[]
+    cursor?: DocumentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DocumentScalarFieldEnum | DocumentScalarFieldEnum[]
+  }
+
+  /**
    * AdditionalSigner without action
    */
   export type AdditionalSignerDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -19896,6 +15698,7 @@ export namespace Prisma {
     id: number
     overallRisk: number
     riskScore: number
+    factors: number
     recommendations: number
     requiresManualReview: number
     assessedAt: number
@@ -19937,6 +15740,7 @@ export namespace Prisma {
     id?: true
     overallRisk?: true
     riskScore?: true
+    factors?: true
     recommendations?: true
     requiresManualReview?: true
     assessedAt?: true
@@ -20035,6 +15839,7 @@ export namespace Prisma {
     id: string
     overallRisk: string
     riskScore: number
+    factors: JsonValue[]
     recommendations: string[]
     requiresManualReview: boolean
     assessedAt: Date
@@ -20065,20 +15870,20 @@ export namespace Prisma {
     id?: boolean
     overallRisk?: boolean
     riskScore?: boolean
+    factors?: boolean
     recommendations?: boolean
     requiresManualReview?: boolean
     assessedAt?: boolean
     assessedBy?: boolean
     applicationId?: boolean
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
-    factors?: boolean | RiskAssessment$factorsArgs<ExtArgs>
-    _count?: boolean | RiskAssessmentCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["riskAssessment"]>
 
   export type RiskAssessmentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     overallRisk?: boolean
     riskScore?: boolean
+    factors?: boolean
     recommendations?: boolean
     requiresManualReview?: boolean
     assessedAt?: boolean
@@ -20091,6 +15896,7 @@ export namespace Prisma {
     id?: boolean
     overallRisk?: boolean
     riskScore?: boolean
+    factors?: boolean
     recommendations?: boolean
     requiresManualReview?: boolean
     assessedAt?: boolean
@@ -20103,6 +15909,7 @@ export namespace Prisma {
     id?: boolean
     overallRisk?: boolean
     riskScore?: boolean
+    factors?: boolean
     recommendations?: boolean
     requiresManualReview?: boolean
     assessedAt?: boolean
@@ -20110,11 +15917,9 @@ export namespace Prisma {
     applicationId?: boolean
   }
 
-  export type RiskAssessmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "overallRisk" | "riskScore" | "recommendations" | "requiresManualReview" | "assessedAt" | "assessedBy" | "applicationId", ExtArgs["result"]["riskAssessment"]>
+  export type RiskAssessmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "overallRisk" | "riskScore" | "factors" | "recommendations" | "requiresManualReview" | "assessedAt" | "assessedBy" | "applicationId", ExtArgs["result"]["riskAssessment"]>
   export type RiskAssessmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
-    factors?: boolean | RiskAssessment$factorsArgs<ExtArgs>
-    _count?: boolean | RiskAssessmentCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type RiskAssessmentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
@@ -20127,12 +15932,12 @@ export namespace Prisma {
     name: "RiskAssessment"
     objects: {
       application: Prisma.$ApplicationPayload<ExtArgs>
-      factors: Prisma.$RiskFactorPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       overallRisk: string
       riskScore: number
+      factors: Prisma.JsonValue[]
       recommendations: string[]
       requiresManualReview: boolean
       assessedAt: Date
@@ -20533,7 +16338,6 @@ export namespace Prisma {
   export interface Prisma__RiskAssessmentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     application<T extends ApplicationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ApplicationDefaultArgs<ExtArgs>>): Prisma__ApplicationClient<$Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    factors<T extends RiskAssessment$factorsArgs<ExtArgs> = {}>(args?: Subset<T, RiskAssessment$factorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RiskFactorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -20566,6 +16370,7 @@ export namespace Prisma {
     readonly id: FieldRef<"RiskAssessment", 'String'>
     readonly overallRisk: FieldRef<"RiskAssessment", 'String'>
     readonly riskScore: FieldRef<"RiskAssessment", 'Int'>
+    readonly factors: FieldRef<"RiskAssessment", 'Json[]'>
     readonly recommendations: FieldRef<"RiskAssessment", 'String[]'>
     readonly requiresManualReview: FieldRef<"RiskAssessment", 'Boolean'>
     readonly assessedAt: FieldRef<"RiskAssessment", 'DateTime'>
@@ -20967,30 +16772,6 @@ export namespace Prisma {
   }
 
   /**
-   * RiskAssessment.factors
-   */
-  export type RiskAssessment$factorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the RiskFactor
-     */
-    select?: RiskFactorSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the RiskFactor
-     */
-    omit?: RiskFactorOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: RiskFactorInclude<ExtArgs> | null
-    where?: RiskFactorWhereInput
-    orderBy?: RiskFactorOrderByWithRelationInput | RiskFactorOrderByWithRelationInput[]
-    cursor?: RiskFactorWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: RiskFactorScalarFieldEnum | RiskFactorScalarFieldEnum[]
-  }
-
-  /**
    * RiskAssessment without action
    */
   export type RiskAssessmentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -21010,1141 +16791,6 @@ export namespace Prisma {
 
 
   /**
-   * Model RiskFactor
-   */
-
-  export type AggregateRiskFactor = {
-    _count: RiskFactorCountAggregateOutputType | null
-    _avg: RiskFactorAvgAggregateOutputType | null
-    _sum: RiskFactorSumAggregateOutputType | null
-    _min: RiskFactorMinAggregateOutputType | null
-    _max: RiskFactorMaxAggregateOutputType | null
-  }
-
-  export type RiskFactorAvgAggregateOutputType = {
-    weight: number | null
-    score: number | null
-  }
-
-  export type RiskFactorSumAggregateOutputType = {
-    weight: number | null
-    score: number | null
-  }
-
-  export type RiskFactorMinAggregateOutputType = {
-    id: string | null
-    category: string | null
-    factor: string | null
-    weight: number | null
-    score: number | null
-    impact: string | null
-    description: string | null
-    riskAssessmentId: string | null
-  }
-
-  export type RiskFactorMaxAggregateOutputType = {
-    id: string | null
-    category: string | null
-    factor: string | null
-    weight: number | null
-    score: number | null
-    impact: string | null
-    description: string | null
-    riskAssessmentId: string | null
-  }
-
-  export type RiskFactorCountAggregateOutputType = {
-    id: number
-    category: number
-    factor: number
-    weight: number
-    score: number
-    impact: number
-    description: number
-    riskAssessmentId: number
-    _all: number
-  }
-
-
-  export type RiskFactorAvgAggregateInputType = {
-    weight?: true
-    score?: true
-  }
-
-  export type RiskFactorSumAggregateInputType = {
-    weight?: true
-    score?: true
-  }
-
-  export type RiskFactorMinAggregateInputType = {
-    id?: true
-    category?: true
-    factor?: true
-    weight?: true
-    score?: true
-    impact?: true
-    description?: true
-    riskAssessmentId?: true
-  }
-
-  export type RiskFactorMaxAggregateInputType = {
-    id?: true
-    category?: true
-    factor?: true
-    weight?: true
-    score?: true
-    impact?: true
-    description?: true
-    riskAssessmentId?: true
-  }
-
-  export type RiskFactorCountAggregateInputType = {
-    id?: true
-    category?: true
-    factor?: true
-    weight?: true
-    score?: true
-    impact?: true
-    description?: true
-    riskAssessmentId?: true
-    _all?: true
-  }
-
-  export type RiskFactorAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which RiskFactor to aggregate.
-     */
-    where?: RiskFactorWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of RiskFactors to fetch.
-     */
-    orderBy?: RiskFactorOrderByWithRelationInput | RiskFactorOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: RiskFactorWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` RiskFactors from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` RiskFactors.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned RiskFactors
-    **/
-    _count?: true | RiskFactorCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: RiskFactorAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: RiskFactorSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: RiskFactorMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: RiskFactorMaxAggregateInputType
-  }
-
-  export type GetRiskFactorAggregateType<T extends RiskFactorAggregateArgs> = {
-        [P in keyof T & keyof AggregateRiskFactor]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateRiskFactor[P]>
-      : GetScalarType<T[P], AggregateRiskFactor[P]>
-  }
-
-
-
-
-  export type RiskFactorGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: RiskFactorWhereInput
-    orderBy?: RiskFactorOrderByWithAggregationInput | RiskFactorOrderByWithAggregationInput[]
-    by: RiskFactorScalarFieldEnum[] | RiskFactorScalarFieldEnum
-    having?: RiskFactorScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: RiskFactorCountAggregateInputType | true
-    _avg?: RiskFactorAvgAggregateInputType
-    _sum?: RiskFactorSumAggregateInputType
-    _min?: RiskFactorMinAggregateInputType
-    _max?: RiskFactorMaxAggregateInputType
-  }
-
-  export type RiskFactorGroupByOutputType = {
-    id: string
-    category: string
-    factor: string
-    weight: number
-    score: number
-    impact: string
-    description: string
-    riskAssessmentId: string
-    _count: RiskFactorCountAggregateOutputType | null
-    _avg: RiskFactorAvgAggregateOutputType | null
-    _sum: RiskFactorSumAggregateOutputType | null
-    _min: RiskFactorMinAggregateOutputType | null
-    _max: RiskFactorMaxAggregateOutputType | null
-  }
-
-  type GetRiskFactorGroupByPayload<T extends RiskFactorGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<RiskFactorGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof RiskFactorGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], RiskFactorGroupByOutputType[P]>
-            : GetScalarType<T[P], RiskFactorGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type RiskFactorSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    category?: boolean
-    factor?: boolean
-    weight?: boolean
-    score?: boolean
-    impact?: boolean
-    description?: boolean
-    riskAssessmentId?: boolean
-    riskAssessment?: boolean | RiskAssessmentDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["riskFactor"]>
-
-  export type RiskFactorSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    category?: boolean
-    factor?: boolean
-    weight?: boolean
-    score?: boolean
-    impact?: boolean
-    description?: boolean
-    riskAssessmentId?: boolean
-    riskAssessment?: boolean | RiskAssessmentDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["riskFactor"]>
-
-  export type RiskFactorSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    category?: boolean
-    factor?: boolean
-    weight?: boolean
-    score?: boolean
-    impact?: boolean
-    description?: boolean
-    riskAssessmentId?: boolean
-    riskAssessment?: boolean | RiskAssessmentDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["riskFactor"]>
-
-  export type RiskFactorSelectScalar = {
-    id?: boolean
-    category?: boolean
-    factor?: boolean
-    weight?: boolean
-    score?: boolean
-    impact?: boolean
-    description?: boolean
-    riskAssessmentId?: boolean
-  }
-
-  export type RiskFactorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "category" | "factor" | "weight" | "score" | "impact" | "description" | "riskAssessmentId", ExtArgs["result"]["riskFactor"]>
-  export type RiskFactorInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    riskAssessment?: boolean | RiskAssessmentDefaultArgs<ExtArgs>
-  }
-  export type RiskFactorIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    riskAssessment?: boolean | RiskAssessmentDefaultArgs<ExtArgs>
-  }
-  export type RiskFactorIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    riskAssessment?: boolean | RiskAssessmentDefaultArgs<ExtArgs>
-  }
-
-  export type $RiskFactorPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "RiskFactor"
-    objects: {
-      riskAssessment: Prisma.$RiskAssessmentPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      category: string
-      factor: string
-      weight: number
-      score: number
-      impact: string
-      description: string
-      riskAssessmentId: string
-    }, ExtArgs["result"]["riskFactor"]>
-    composites: {}
-  }
-
-  type RiskFactorGetPayload<S extends boolean | null | undefined | RiskFactorDefaultArgs> = $Result.GetResult<Prisma.$RiskFactorPayload, S>
-
-  type RiskFactorCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<RiskFactorFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: RiskFactorCountAggregateInputType | true
-    }
-
-  export interface RiskFactorDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['RiskFactor'], meta: { name: 'RiskFactor' } }
-    /**
-     * Find zero or one RiskFactor that matches the filter.
-     * @param {RiskFactorFindUniqueArgs} args - Arguments to find a RiskFactor
-     * @example
-     * // Get one RiskFactor
-     * const riskFactor = await prisma.riskFactor.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends RiskFactorFindUniqueArgs>(args: SelectSubset<T, RiskFactorFindUniqueArgs<ExtArgs>>): Prisma__RiskFactorClient<$Result.GetResult<Prisma.$RiskFactorPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one RiskFactor that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {RiskFactorFindUniqueOrThrowArgs} args - Arguments to find a RiskFactor
-     * @example
-     * // Get one RiskFactor
-     * const riskFactor = await prisma.riskFactor.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends RiskFactorFindUniqueOrThrowArgs>(args: SelectSubset<T, RiskFactorFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RiskFactorClient<$Result.GetResult<Prisma.$RiskFactorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first RiskFactor that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {RiskFactorFindFirstArgs} args - Arguments to find a RiskFactor
-     * @example
-     * // Get one RiskFactor
-     * const riskFactor = await prisma.riskFactor.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends RiskFactorFindFirstArgs>(args?: SelectSubset<T, RiskFactorFindFirstArgs<ExtArgs>>): Prisma__RiskFactorClient<$Result.GetResult<Prisma.$RiskFactorPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first RiskFactor that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {RiskFactorFindFirstOrThrowArgs} args - Arguments to find a RiskFactor
-     * @example
-     * // Get one RiskFactor
-     * const riskFactor = await prisma.riskFactor.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends RiskFactorFindFirstOrThrowArgs>(args?: SelectSubset<T, RiskFactorFindFirstOrThrowArgs<ExtArgs>>): Prisma__RiskFactorClient<$Result.GetResult<Prisma.$RiskFactorPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more RiskFactors that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {RiskFactorFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all RiskFactors
-     * const riskFactors = await prisma.riskFactor.findMany()
-     * 
-     * // Get first 10 RiskFactors
-     * const riskFactors = await prisma.riskFactor.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const riskFactorWithIdOnly = await prisma.riskFactor.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends RiskFactorFindManyArgs>(args?: SelectSubset<T, RiskFactorFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RiskFactorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a RiskFactor.
-     * @param {RiskFactorCreateArgs} args - Arguments to create a RiskFactor.
-     * @example
-     * // Create one RiskFactor
-     * const RiskFactor = await prisma.riskFactor.create({
-     *   data: {
-     *     // ... data to create a RiskFactor
-     *   }
-     * })
-     * 
-     */
-    create<T extends RiskFactorCreateArgs>(args: SelectSubset<T, RiskFactorCreateArgs<ExtArgs>>): Prisma__RiskFactorClient<$Result.GetResult<Prisma.$RiskFactorPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many RiskFactors.
-     * @param {RiskFactorCreateManyArgs} args - Arguments to create many RiskFactors.
-     * @example
-     * // Create many RiskFactors
-     * const riskFactor = await prisma.riskFactor.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends RiskFactorCreateManyArgs>(args?: SelectSubset<T, RiskFactorCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many RiskFactors and returns the data saved in the database.
-     * @param {RiskFactorCreateManyAndReturnArgs} args - Arguments to create many RiskFactors.
-     * @example
-     * // Create many RiskFactors
-     * const riskFactor = await prisma.riskFactor.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many RiskFactors and only return the `id`
-     * const riskFactorWithIdOnly = await prisma.riskFactor.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends RiskFactorCreateManyAndReturnArgs>(args?: SelectSubset<T, RiskFactorCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RiskFactorPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a RiskFactor.
-     * @param {RiskFactorDeleteArgs} args - Arguments to delete one RiskFactor.
-     * @example
-     * // Delete one RiskFactor
-     * const RiskFactor = await prisma.riskFactor.delete({
-     *   where: {
-     *     // ... filter to delete one RiskFactor
-     *   }
-     * })
-     * 
-     */
-    delete<T extends RiskFactorDeleteArgs>(args: SelectSubset<T, RiskFactorDeleteArgs<ExtArgs>>): Prisma__RiskFactorClient<$Result.GetResult<Prisma.$RiskFactorPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one RiskFactor.
-     * @param {RiskFactorUpdateArgs} args - Arguments to update one RiskFactor.
-     * @example
-     * // Update one RiskFactor
-     * const riskFactor = await prisma.riskFactor.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends RiskFactorUpdateArgs>(args: SelectSubset<T, RiskFactorUpdateArgs<ExtArgs>>): Prisma__RiskFactorClient<$Result.GetResult<Prisma.$RiskFactorPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more RiskFactors.
-     * @param {RiskFactorDeleteManyArgs} args - Arguments to filter RiskFactors to delete.
-     * @example
-     * // Delete a few RiskFactors
-     * const { count } = await prisma.riskFactor.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends RiskFactorDeleteManyArgs>(args?: SelectSubset<T, RiskFactorDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more RiskFactors.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {RiskFactorUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many RiskFactors
-     * const riskFactor = await prisma.riskFactor.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends RiskFactorUpdateManyArgs>(args: SelectSubset<T, RiskFactorUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more RiskFactors and returns the data updated in the database.
-     * @param {RiskFactorUpdateManyAndReturnArgs} args - Arguments to update many RiskFactors.
-     * @example
-     * // Update many RiskFactors
-     * const riskFactor = await prisma.riskFactor.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more RiskFactors and only return the `id`
-     * const riskFactorWithIdOnly = await prisma.riskFactor.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends RiskFactorUpdateManyAndReturnArgs>(args: SelectSubset<T, RiskFactorUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RiskFactorPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one RiskFactor.
-     * @param {RiskFactorUpsertArgs} args - Arguments to update or create a RiskFactor.
-     * @example
-     * // Update or create a RiskFactor
-     * const riskFactor = await prisma.riskFactor.upsert({
-     *   create: {
-     *     // ... data to create a RiskFactor
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the RiskFactor we want to update
-     *   }
-     * })
-     */
-    upsert<T extends RiskFactorUpsertArgs>(args: SelectSubset<T, RiskFactorUpsertArgs<ExtArgs>>): Prisma__RiskFactorClient<$Result.GetResult<Prisma.$RiskFactorPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of RiskFactors.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {RiskFactorCountArgs} args - Arguments to filter RiskFactors to count.
-     * @example
-     * // Count the number of RiskFactors
-     * const count = await prisma.riskFactor.count({
-     *   where: {
-     *     // ... the filter for the RiskFactors we want to count
-     *   }
-     * })
-    **/
-    count<T extends RiskFactorCountArgs>(
-      args?: Subset<T, RiskFactorCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], RiskFactorCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a RiskFactor.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {RiskFactorAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends RiskFactorAggregateArgs>(args: Subset<T, RiskFactorAggregateArgs>): Prisma.PrismaPromise<GetRiskFactorAggregateType<T>>
-
-    /**
-     * Group by RiskFactor.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {RiskFactorGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends RiskFactorGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: RiskFactorGroupByArgs['orderBy'] }
-        : { orderBy?: RiskFactorGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, RiskFactorGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRiskFactorGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the RiskFactor model
-   */
-  readonly fields: RiskFactorFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for RiskFactor.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__RiskFactorClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    riskAssessment<T extends RiskAssessmentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RiskAssessmentDefaultArgs<ExtArgs>>): Prisma__RiskAssessmentClient<$Result.GetResult<Prisma.$RiskAssessmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the RiskFactor model
-   */
-  interface RiskFactorFieldRefs {
-    readonly id: FieldRef<"RiskFactor", 'String'>
-    readonly category: FieldRef<"RiskFactor", 'String'>
-    readonly factor: FieldRef<"RiskFactor", 'String'>
-    readonly weight: FieldRef<"RiskFactor", 'Float'>
-    readonly score: FieldRef<"RiskFactor", 'Int'>
-    readonly impact: FieldRef<"RiskFactor", 'String'>
-    readonly description: FieldRef<"RiskFactor", 'String'>
-    readonly riskAssessmentId: FieldRef<"RiskFactor", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * RiskFactor findUnique
-   */
-  export type RiskFactorFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the RiskFactor
-     */
-    select?: RiskFactorSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the RiskFactor
-     */
-    omit?: RiskFactorOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: RiskFactorInclude<ExtArgs> | null
-    /**
-     * Filter, which RiskFactor to fetch.
-     */
-    where: RiskFactorWhereUniqueInput
-  }
-
-  /**
-   * RiskFactor findUniqueOrThrow
-   */
-  export type RiskFactorFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the RiskFactor
-     */
-    select?: RiskFactorSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the RiskFactor
-     */
-    omit?: RiskFactorOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: RiskFactorInclude<ExtArgs> | null
-    /**
-     * Filter, which RiskFactor to fetch.
-     */
-    where: RiskFactorWhereUniqueInput
-  }
-
-  /**
-   * RiskFactor findFirst
-   */
-  export type RiskFactorFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the RiskFactor
-     */
-    select?: RiskFactorSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the RiskFactor
-     */
-    omit?: RiskFactorOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: RiskFactorInclude<ExtArgs> | null
-    /**
-     * Filter, which RiskFactor to fetch.
-     */
-    where?: RiskFactorWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of RiskFactors to fetch.
-     */
-    orderBy?: RiskFactorOrderByWithRelationInput | RiskFactorOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for RiskFactors.
-     */
-    cursor?: RiskFactorWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` RiskFactors from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` RiskFactors.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of RiskFactors.
-     */
-    distinct?: RiskFactorScalarFieldEnum | RiskFactorScalarFieldEnum[]
-  }
-
-  /**
-   * RiskFactor findFirstOrThrow
-   */
-  export type RiskFactorFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the RiskFactor
-     */
-    select?: RiskFactorSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the RiskFactor
-     */
-    omit?: RiskFactorOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: RiskFactorInclude<ExtArgs> | null
-    /**
-     * Filter, which RiskFactor to fetch.
-     */
-    where?: RiskFactorWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of RiskFactors to fetch.
-     */
-    orderBy?: RiskFactorOrderByWithRelationInput | RiskFactorOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for RiskFactors.
-     */
-    cursor?: RiskFactorWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` RiskFactors from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` RiskFactors.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of RiskFactors.
-     */
-    distinct?: RiskFactorScalarFieldEnum | RiskFactorScalarFieldEnum[]
-  }
-
-  /**
-   * RiskFactor findMany
-   */
-  export type RiskFactorFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the RiskFactor
-     */
-    select?: RiskFactorSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the RiskFactor
-     */
-    omit?: RiskFactorOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: RiskFactorInclude<ExtArgs> | null
-    /**
-     * Filter, which RiskFactors to fetch.
-     */
-    where?: RiskFactorWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of RiskFactors to fetch.
-     */
-    orderBy?: RiskFactorOrderByWithRelationInput | RiskFactorOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing RiskFactors.
-     */
-    cursor?: RiskFactorWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` RiskFactors from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` RiskFactors.
-     */
-    skip?: number
-    distinct?: RiskFactorScalarFieldEnum | RiskFactorScalarFieldEnum[]
-  }
-
-  /**
-   * RiskFactor create
-   */
-  export type RiskFactorCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the RiskFactor
-     */
-    select?: RiskFactorSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the RiskFactor
-     */
-    omit?: RiskFactorOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: RiskFactorInclude<ExtArgs> | null
-    /**
-     * The data needed to create a RiskFactor.
-     */
-    data: XOR<RiskFactorCreateInput, RiskFactorUncheckedCreateInput>
-  }
-
-  /**
-   * RiskFactor createMany
-   */
-  export type RiskFactorCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many RiskFactors.
-     */
-    data: RiskFactorCreateManyInput | RiskFactorCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * RiskFactor createManyAndReturn
-   */
-  export type RiskFactorCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the RiskFactor
-     */
-    select?: RiskFactorSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the RiskFactor
-     */
-    omit?: RiskFactorOmit<ExtArgs> | null
-    /**
-     * The data used to create many RiskFactors.
-     */
-    data: RiskFactorCreateManyInput | RiskFactorCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: RiskFactorIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * RiskFactor update
-   */
-  export type RiskFactorUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the RiskFactor
-     */
-    select?: RiskFactorSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the RiskFactor
-     */
-    omit?: RiskFactorOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: RiskFactorInclude<ExtArgs> | null
-    /**
-     * The data needed to update a RiskFactor.
-     */
-    data: XOR<RiskFactorUpdateInput, RiskFactorUncheckedUpdateInput>
-    /**
-     * Choose, which RiskFactor to update.
-     */
-    where: RiskFactorWhereUniqueInput
-  }
-
-  /**
-   * RiskFactor updateMany
-   */
-  export type RiskFactorUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update RiskFactors.
-     */
-    data: XOR<RiskFactorUpdateManyMutationInput, RiskFactorUncheckedUpdateManyInput>
-    /**
-     * Filter which RiskFactors to update
-     */
-    where?: RiskFactorWhereInput
-    /**
-     * Limit how many RiskFactors to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * RiskFactor updateManyAndReturn
-   */
-  export type RiskFactorUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the RiskFactor
-     */
-    select?: RiskFactorSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the RiskFactor
-     */
-    omit?: RiskFactorOmit<ExtArgs> | null
-    /**
-     * The data used to update RiskFactors.
-     */
-    data: XOR<RiskFactorUpdateManyMutationInput, RiskFactorUncheckedUpdateManyInput>
-    /**
-     * Filter which RiskFactors to update
-     */
-    where?: RiskFactorWhereInput
-    /**
-     * Limit how many RiskFactors to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: RiskFactorIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * RiskFactor upsert
-   */
-  export type RiskFactorUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the RiskFactor
-     */
-    select?: RiskFactorSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the RiskFactor
-     */
-    omit?: RiskFactorOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: RiskFactorInclude<ExtArgs> | null
-    /**
-     * The filter to search for the RiskFactor to update in case it exists.
-     */
-    where: RiskFactorWhereUniqueInput
-    /**
-     * In case the RiskFactor found by the `where` argument doesn't exist, create a new RiskFactor with this data.
-     */
-    create: XOR<RiskFactorCreateInput, RiskFactorUncheckedCreateInput>
-    /**
-     * In case the RiskFactor was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<RiskFactorUpdateInput, RiskFactorUncheckedUpdateInput>
-  }
-
-  /**
-   * RiskFactor delete
-   */
-  export type RiskFactorDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the RiskFactor
-     */
-    select?: RiskFactorSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the RiskFactor
-     */
-    omit?: RiskFactorOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: RiskFactorInclude<ExtArgs> | null
-    /**
-     * Filter which RiskFactor to delete.
-     */
-    where: RiskFactorWhereUniqueInput
-  }
-
-  /**
-   * RiskFactor deleteMany
-   */
-  export type RiskFactorDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which RiskFactors to delete
-     */
-    where?: RiskFactorWhereInput
-    /**
-     * Limit how many RiskFactors to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * RiskFactor without action
-   */
-  export type RiskFactorDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the RiskFactor
-     */
-    select?: RiskFactorSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the RiskFactor
-     */
-    omit?: RiskFactorOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: RiskFactorInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Model Disclosure
    */
 
@@ -22160,7 +16806,7 @@ export namespace Prisma {
     title: string | null
     content: string | null
     version: string | null
-    effectiveDate: Date | null
+    effectiveDate: string | null
     required: boolean | null
   }
 
@@ -22170,7 +16816,7 @@ export namespace Prisma {
     title: string | null
     content: string | null
     version: string | null
-    effectiveDate: Date | null
+    effectiveDate: string | null
     required: boolean | null
   }
 
@@ -22297,7 +16943,7 @@ export namespace Prisma {
     title: string
     content: string
     version: string
-    effectiveDate: Date
+    effectiveDate: string
     required: boolean
     applicableFor: string[]
     _count: DisclosureCountAggregateOutputType | null
@@ -22384,7 +17030,7 @@ export namespace Prisma {
       title: string
       content: string
       version: string
-      effectiveDate: Date
+      effectiveDate: string
       required: boolean
       applicableFor: string[]
     }, ExtArgs["result"]["disclosure"]>
@@ -22816,7 +17462,7 @@ export namespace Prisma {
     readonly title: FieldRef<"Disclosure", 'String'>
     readonly content: FieldRef<"Disclosure", 'String'>
     readonly version: FieldRef<"Disclosure", 'String'>
-    readonly effectiveDate: FieldRef<"Disclosure", 'DateTime'>
+    readonly effectiveDate: FieldRef<"Disclosure", 'String'>
     readonly required: FieldRef<"Disclosure", 'Boolean'>
     readonly applicableFor: FieldRef<"Disclosure", 'String[]'>
   }
@@ -25472,11 +20118,6 @@ export namespace Prisma {
     method: string | null
     amount: number | null
     status: string | null
-    bankName: string | null
-    accountNumber: string | null
-    routingNumber: string | null
-    accountType: string | null
-    plaidAccountId: string | null
     createdAt: Date | null
     processedAt: Date | null
     applicationId: string | null
@@ -25487,11 +20128,6 @@ export namespace Prisma {
     method: string | null
     amount: number | null
     status: string | null
-    bankName: string | null
-    accountNumber: string | null
-    routingNumber: string | null
-    accountType: string | null
-    plaidAccountId: string | null
     createdAt: Date | null
     processedAt: Date | null
     applicationId: string | null
@@ -25502,12 +20138,7 @@ export namespace Prisma {
     method: number
     amount: number
     status: number
-    bankName: number
-    accountNumber: number
-    routingNumber: number
-    accountType: number
-    plaidAccountId: number
-    wireInstructions: number
+    details: number
     createdAt: number
     processedAt: number
     applicationId: number
@@ -25528,11 +20159,6 @@ export namespace Prisma {
     method?: true
     amount?: true
     status?: true
-    bankName?: true
-    accountNumber?: true
-    routingNumber?: true
-    accountType?: true
-    plaidAccountId?: true
     createdAt?: true
     processedAt?: true
     applicationId?: true
@@ -25543,11 +20169,6 @@ export namespace Prisma {
     method?: true
     amount?: true
     status?: true
-    bankName?: true
-    accountNumber?: true
-    routingNumber?: true
-    accountType?: true
-    plaidAccountId?: true
     createdAt?: true
     processedAt?: true
     applicationId?: true
@@ -25558,12 +20179,7 @@ export namespace Prisma {
     method?: true
     amount?: true
     status?: true
-    bankName?: true
-    accountNumber?: true
-    routingNumber?: true
-    accountType?: true
-    plaidAccountId?: true
-    wireInstructions?: true
+    details?: true
     createdAt?: true
     processedAt?: true
     applicationId?: true
@@ -25661,12 +20277,7 @@ export namespace Prisma {
     method: string
     amount: number
     status: string
-    bankName: string | null
-    accountNumber: string | null
-    routingNumber: string | null
-    accountType: string | null
-    plaidAccountId: string | null
-    wireInstructions: JsonValue | null
+    details: JsonValue
     createdAt: Date
     processedAt: Date | null
     applicationId: string
@@ -25696,12 +20307,7 @@ export namespace Prisma {
     method?: boolean
     amount?: boolean
     status?: boolean
-    bankName?: boolean
-    accountNumber?: boolean
-    routingNumber?: boolean
-    accountType?: boolean
-    plaidAccountId?: boolean
-    wireInstructions?: boolean
+    details?: boolean
     createdAt?: boolean
     processedAt?: boolean
     applicationId?: boolean
@@ -25713,12 +20319,7 @@ export namespace Prisma {
     method?: boolean
     amount?: boolean
     status?: boolean
-    bankName?: boolean
-    accountNumber?: boolean
-    routingNumber?: boolean
-    accountType?: boolean
-    plaidAccountId?: boolean
-    wireInstructions?: boolean
+    details?: boolean
     createdAt?: boolean
     processedAt?: boolean
     applicationId?: boolean
@@ -25730,12 +20331,7 @@ export namespace Prisma {
     method?: boolean
     amount?: boolean
     status?: boolean
-    bankName?: boolean
-    accountNumber?: boolean
-    routingNumber?: boolean
-    accountType?: boolean
-    plaidAccountId?: boolean
-    wireInstructions?: boolean
+    details?: boolean
     createdAt?: boolean
     processedAt?: boolean
     applicationId?: boolean
@@ -25747,18 +20343,13 @@ export namespace Prisma {
     method?: boolean
     amount?: boolean
     status?: boolean
-    bankName?: boolean
-    accountNumber?: boolean
-    routingNumber?: boolean
-    accountType?: boolean
-    plaidAccountId?: boolean
-    wireInstructions?: boolean
+    details?: boolean
     createdAt?: boolean
     processedAt?: boolean
     applicationId?: boolean
   }
 
-  export type FundingSetupOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "method" | "amount" | "status" | "bankName" | "accountNumber" | "routingNumber" | "accountType" | "plaidAccountId" | "wireInstructions" | "createdAt" | "processedAt" | "applicationId", ExtArgs["result"]["fundingSetup"]>
+  export type FundingSetupOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "method" | "amount" | "status" | "details" | "createdAt" | "processedAt" | "applicationId", ExtArgs["result"]["fundingSetup"]>
   export type FundingSetupInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     application?: boolean | ApplicationDefaultArgs<ExtArgs>
   }
@@ -25779,12 +20370,7 @@ export namespace Prisma {
       method: string
       amount: number
       status: string
-      bankName: string | null
-      accountNumber: string | null
-      routingNumber: string | null
-      accountType: string | null
-      plaidAccountId: string | null
-      wireInstructions: Prisma.JsonValue | null
+      details: Prisma.JsonValue
       createdAt: Date
       processedAt: Date | null
       applicationId: string
@@ -26216,12 +20802,7 @@ export namespace Prisma {
     readonly method: FieldRef<"FundingSetup", 'String'>
     readonly amount: FieldRef<"FundingSetup", 'Float'>
     readonly status: FieldRef<"FundingSetup", 'String'>
-    readonly bankName: FieldRef<"FundingSetup", 'String'>
-    readonly accountNumber: FieldRef<"FundingSetup", 'String'>
-    readonly routingNumber: FieldRef<"FundingSetup", 'String'>
-    readonly accountType: FieldRef<"FundingSetup", 'String'>
-    readonly plaidAccountId: FieldRef<"FundingSetup", 'String'>
-    readonly wireInstructions: FieldRef<"FundingSetup", 'Json'>
+    readonly details: FieldRef<"FundingSetup", 'Json'>
     readonly createdAt: FieldRef<"FundingSetup", 'DateTime'>
     readonly processedAt: FieldRef<"FundingSetup", 'DateTime'>
     readonly applicationId: FieldRef<"FundingSetup", 'String'>
@@ -26640,6 +21221,1112 @@ export namespace Prisma {
 
 
   /**
+   * Model AuditTrailEntry
+   */
+
+  export type AggregateAuditTrailEntry = {
+    _count: AuditTrailEntryCountAggregateOutputType | null
+    _min: AuditTrailEntryMinAggregateOutputType | null
+    _max: AuditTrailEntryMaxAggregateOutputType | null
+  }
+
+  export type AuditTrailEntryMinAggregateOutputType = {
+    id: string | null
+    action: string | null
+    description: string | null
+    performedBy: string | null
+    performedAt: Date | null
+    ipAddress: string | null
+    userAgent: string | null
+    applicationId: string | null
+  }
+
+  export type AuditTrailEntryMaxAggregateOutputType = {
+    id: string | null
+    action: string | null
+    description: string | null
+    performedBy: string | null
+    performedAt: Date | null
+    ipAddress: string | null
+    userAgent: string | null
+    applicationId: string | null
+  }
+
+  export type AuditTrailEntryCountAggregateOutputType = {
+    id: number
+    action: number
+    description: number
+    performedBy: number
+    performedAt: number
+    ipAddress: number
+    userAgent: number
+    changes: number
+    applicationId: number
+    _all: number
+  }
+
+
+  export type AuditTrailEntryMinAggregateInputType = {
+    id?: true
+    action?: true
+    description?: true
+    performedBy?: true
+    performedAt?: true
+    ipAddress?: true
+    userAgent?: true
+    applicationId?: true
+  }
+
+  export type AuditTrailEntryMaxAggregateInputType = {
+    id?: true
+    action?: true
+    description?: true
+    performedBy?: true
+    performedAt?: true
+    ipAddress?: true
+    userAgent?: true
+    applicationId?: true
+  }
+
+  export type AuditTrailEntryCountAggregateInputType = {
+    id?: true
+    action?: true
+    description?: true
+    performedBy?: true
+    performedAt?: true
+    ipAddress?: true
+    userAgent?: true
+    changes?: true
+    applicationId?: true
+    _all?: true
+  }
+
+  export type AuditTrailEntryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AuditTrailEntry to aggregate.
+     */
+    where?: AuditTrailEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditTrailEntries to fetch.
+     */
+    orderBy?: AuditTrailEntryOrderByWithRelationInput | AuditTrailEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AuditTrailEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditTrailEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditTrailEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AuditTrailEntries
+    **/
+    _count?: true | AuditTrailEntryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AuditTrailEntryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AuditTrailEntryMaxAggregateInputType
+  }
+
+  export type GetAuditTrailEntryAggregateType<T extends AuditTrailEntryAggregateArgs> = {
+        [P in keyof T & keyof AggregateAuditTrailEntry]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAuditTrailEntry[P]>
+      : GetScalarType<T[P], AggregateAuditTrailEntry[P]>
+  }
+
+
+
+
+  export type AuditTrailEntryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AuditTrailEntryWhereInput
+    orderBy?: AuditTrailEntryOrderByWithAggregationInput | AuditTrailEntryOrderByWithAggregationInput[]
+    by: AuditTrailEntryScalarFieldEnum[] | AuditTrailEntryScalarFieldEnum
+    having?: AuditTrailEntryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AuditTrailEntryCountAggregateInputType | true
+    _min?: AuditTrailEntryMinAggregateInputType
+    _max?: AuditTrailEntryMaxAggregateInputType
+  }
+
+  export type AuditTrailEntryGroupByOutputType = {
+    id: string
+    action: string
+    description: string
+    performedBy: string
+    performedAt: Date
+    ipAddress: string
+    userAgent: string
+    changes: JsonValue | null
+    applicationId: string
+    _count: AuditTrailEntryCountAggregateOutputType | null
+    _min: AuditTrailEntryMinAggregateOutputType | null
+    _max: AuditTrailEntryMaxAggregateOutputType | null
+  }
+
+  type GetAuditTrailEntryGroupByPayload<T extends AuditTrailEntryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AuditTrailEntryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AuditTrailEntryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AuditTrailEntryGroupByOutputType[P]>
+            : GetScalarType<T[P], AuditTrailEntryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AuditTrailEntrySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    action?: boolean
+    description?: boolean
+    performedBy?: boolean
+    performedAt?: boolean
+    ipAddress?: boolean
+    userAgent?: boolean
+    changes?: boolean
+    applicationId?: boolean
+    application?: boolean | ApplicationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["auditTrailEntry"]>
+
+  export type AuditTrailEntrySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    action?: boolean
+    description?: boolean
+    performedBy?: boolean
+    performedAt?: boolean
+    ipAddress?: boolean
+    userAgent?: boolean
+    changes?: boolean
+    applicationId?: boolean
+    application?: boolean | ApplicationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["auditTrailEntry"]>
+
+  export type AuditTrailEntrySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    action?: boolean
+    description?: boolean
+    performedBy?: boolean
+    performedAt?: boolean
+    ipAddress?: boolean
+    userAgent?: boolean
+    changes?: boolean
+    applicationId?: boolean
+    application?: boolean | ApplicationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["auditTrailEntry"]>
+
+  export type AuditTrailEntrySelectScalar = {
+    id?: boolean
+    action?: boolean
+    description?: boolean
+    performedBy?: boolean
+    performedAt?: boolean
+    ipAddress?: boolean
+    userAgent?: boolean
+    changes?: boolean
+    applicationId?: boolean
+  }
+
+  export type AuditTrailEntryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "action" | "description" | "performedBy" | "performedAt" | "ipAddress" | "userAgent" | "changes" | "applicationId", ExtArgs["result"]["auditTrailEntry"]>
+  export type AuditTrailEntryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    application?: boolean | ApplicationDefaultArgs<ExtArgs>
+  }
+  export type AuditTrailEntryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    application?: boolean | ApplicationDefaultArgs<ExtArgs>
+  }
+  export type AuditTrailEntryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    application?: boolean | ApplicationDefaultArgs<ExtArgs>
+  }
+
+  export type $AuditTrailEntryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AuditTrailEntry"
+    objects: {
+      application: Prisma.$ApplicationPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      action: string
+      description: string
+      performedBy: string
+      performedAt: Date
+      ipAddress: string
+      userAgent: string
+      changes: Prisma.JsonValue | null
+      applicationId: string
+    }, ExtArgs["result"]["auditTrailEntry"]>
+    composites: {}
+  }
+
+  type AuditTrailEntryGetPayload<S extends boolean | null | undefined | AuditTrailEntryDefaultArgs> = $Result.GetResult<Prisma.$AuditTrailEntryPayload, S>
+
+  type AuditTrailEntryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AuditTrailEntryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AuditTrailEntryCountAggregateInputType | true
+    }
+
+  export interface AuditTrailEntryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AuditTrailEntry'], meta: { name: 'AuditTrailEntry' } }
+    /**
+     * Find zero or one AuditTrailEntry that matches the filter.
+     * @param {AuditTrailEntryFindUniqueArgs} args - Arguments to find a AuditTrailEntry
+     * @example
+     * // Get one AuditTrailEntry
+     * const auditTrailEntry = await prisma.auditTrailEntry.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AuditTrailEntryFindUniqueArgs>(args: SelectSubset<T, AuditTrailEntryFindUniqueArgs<ExtArgs>>): Prisma__AuditTrailEntryClient<$Result.GetResult<Prisma.$AuditTrailEntryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AuditTrailEntry that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AuditTrailEntryFindUniqueOrThrowArgs} args - Arguments to find a AuditTrailEntry
+     * @example
+     * // Get one AuditTrailEntry
+     * const auditTrailEntry = await prisma.auditTrailEntry.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AuditTrailEntryFindUniqueOrThrowArgs>(args: SelectSubset<T, AuditTrailEntryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AuditTrailEntryClient<$Result.GetResult<Prisma.$AuditTrailEntryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AuditTrailEntry that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditTrailEntryFindFirstArgs} args - Arguments to find a AuditTrailEntry
+     * @example
+     * // Get one AuditTrailEntry
+     * const auditTrailEntry = await prisma.auditTrailEntry.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AuditTrailEntryFindFirstArgs>(args?: SelectSubset<T, AuditTrailEntryFindFirstArgs<ExtArgs>>): Prisma__AuditTrailEntryClient<$Result.GetResult<Prisma.$AuditTrailEntryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AuditTrailEntry that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditTrailEntryFindFirstOrThrowArgs} args - Arguments to find a AuditTrailEntry
+     * @example
+     * // Get one AuditTrailEntry
+     * const auditTrailEntry = await prisma.auditTrailEntry.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AuditTrailEntryFindFirstOrThrowArgs>(args?: SelectSubset<T, AuditTrailEntryFindFirstOrThrowArgs<ExtArgs>>): Prisma__AuditTrailEntryClient<$Result.GetResult<Prisma.$AuditTrailEntryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AuditTrailEntries that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditTrailEntryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AuditTrailEntries
+     * const auditTrailEntries = await prisma.auditTrailEntry.findMany()
+     * 
+     * // Get first 10 AuditTrailEntries
+     * const auditTrailEntries = await prisma.auditTrailEntry.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const auditTrailEntryWithIdOnly = await prisma.auditTrailEntry.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AuditTrailEntryFindManyArgs>(args?: SelectSubset<T, AuditTrailEntryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditTrailEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AuditTrailEntry.
+     * @param {AuditTrailEntryCreateArgs} args - Arguments to create a AuditTrailEntry.
+     * @example
+     * // Create one AuditTrailEntry
+     * const AuditTrailEntry = await prisma.auditTrailEntry.create({
+     *   data: {
+     *     // ... data to create a AuditTrailEntry
+     *   }
+     * })
+     * 
+     */
+    create<T extends AuditTrailEntryCreateArgs>(args: SelectSubset<T, AuditTrailEntryCreateArgs<ExtArgs>>): Prisma__AuditTrailEntryClient<$Result.GetResult<Prisma.$AuditTrailEntryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AuditTrailEntries.
+     * @param {AuditTrailEntryCreateManyArgs} args - Arguments to create many AuditTrailEntries.
+     * @example
+     * // Create many AuditTrailEntries
+     * const auditTrailEntry = await prisma.auditTrailEntry.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AuditTrailEntryCreateManyArgs>(args?: SelectSubset<T, AuditTrailEntryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AuditTrailEntries and returns the data saved in the database.
+     * @param {AuditTrailEntryCreateManyAndReturnArgs} args - Arguments to create many AuditTrailEntries.
+     * @example
+     * // Create many AuditTrailEntries
+     * const auditTrailEntry = await prisma.auditTrailEntry.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AuditTrailEntries and only return the `id`
+     * const auditTrailEntryWithIdOnly = await prisma.auditTrailEntry.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AuditTrailEntryCreateManyAndReturnArgs>(args?: SelectSubset<T, AuditTrailEntryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditTrailEntryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AuditTrailEntry.
+     * @param {AuditTrailEntryDeleteArgs} args - Arguments to delete one AuditTrailEntry.
+     * @example
+     * // Delete one AuditTrailEntry
+     * const AuditTrailEntry = await prisma.auditTrailEntry.delete({
+     *   where: {
+     *     // ... filter to delete one AuditTrailEntry
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AuditTrailEntryDeleteArgs>(args: SelectSubset<T, AuditTrailEntryDeleteArgs<ExtArgs>>): Prisma__AuditTrailEntryClient<$Result.GetResult<Prisma.$AuditTrailEntryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AuditTrailEntry.
+     * @param {AuditTrailEntryUpdateArgs} args - Arguments to update one AuditTrailEntry.
+     * @example
+     * // Update one AuditTrailEntry
+     * const auditTrailEntry = await prisma.auditTrailEntry.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AuditTrailEntryUpdateArgs>(args: SelectSubset<T, AuditTrailEntryUpdateArgs<ExtArgs>>): Prisma__AuditTrailEntryClient<$Result.GetResult<Prisma.$AuditTrailEntryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AuditTrailEntries.
+     * @param {AuditTrailEntryDeleteManyArgs} args - Arguments to filter AuditTrailEntries to delete.
+     * @example
+     * // Delete a few AuditTrailEntries
+     * const { count } = await prisma.auditTrailEntry.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AuditTrailEntryDeleteManyArgs>(args?: SelectSubset<T, AuditTrailEntryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AuditTrailEntries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditTrailEntryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AuditTrailEntries
+     * const auditTrailEntry = await prisma.auditTrailEntry.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AuditTrailEntryUpdateManyArgs>(args: SelectSubset<T, AuditTrailEntryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AuditTrailEntries and returns the data updated in the database.
+     * @param {AuditTrailEntryUpdateManyAndReturnArgs} args - Arguments to update many AuditTrailEntries.
+     * @example
+     * // Update many AuditTrailEntries
+     * const auditTrailEntry = await prisma.auditTrailEntry.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AuditTrailEntries and only return the `id`
+     * const auditTrailEntryWithIdOnly = await prisma.auditTrailEntry.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AuditTrailEntryUpdateManyAndReturnArgs>(args: SelectSubset<T, AuditTrailEntryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditTrailEntryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AuditTrailEntry.
+     * @param {AuditTrailEntryUpsertArgs} args - Arguments to update or create a AuditTrailEntry.
+     * @example
+     * // Update or create a AuditTrailEntry
+     * const auditTrailEntry = await prisma.auditTrailEntry.upsert({
+     *   create: {
+     *     // ... data to create a AuditTrailEntry
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AuditTrailEntry we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AuditTrailEntryUpsertArgs>(args: SelectSubset<T, AuditTrailEntryUpsertArgs<ExtArgs>>): Prisma__AuditTrailEntryClient<$Result.GetResult<Prisma.$AuditTrailEntryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AuditTrailEntries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditTrailEntryCountArgs} args - Arguments to filter AuditTrailEntries to count.
+     * @example
+     * // Count the number of AuditTrailEntries
+     * const count = await prisma.auditTrailEntry.count({
+     *   where: {
+     *     // ... the filter for the AuditTrailEntries we want to count
+     *   }
+     * })
+    **/
+    count<T extends AuditTrailEntryCountArgs>(
+      args?: Subset<T, AuditTrailEntryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AuditTrailEntryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AuditTrailEntry.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditTrailEntryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AuditTrailEntryAggregateArgs>(args: Subset<T, AuditTrailEntryAggregateArgs>): Prisma.PrismaPromise<GetAuditTrailEntryAggregateType<T>>
+
+    /**
+     * Group by AuditTrailEntry.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditTrailEntryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AuditTrailEntryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AuditTrailEntryGroupByArgs['orderBy'] }
+        : { orderBy?: AuditTrailEntryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AuditTrailEntryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAuditTrailEntryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AuditTrailEntry model
+   */
+  readonly fields: AuditTrailEntryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AuditTrailEntry.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AuditTrailEntryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    application<T extends ApplicationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ApplicationDefaultArgs<ExtArgs>>): Prisma__ApplicationClient<$Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AuditTrailEntry model
+   */
+  interface AuditTrailEntryFieldRefs {
+    readonly id: FieldRef<"AuditTrailEntry", 'String'>
+    readonly action: FieldRef<"AuditTrailEntry", 'String'>
+    readonly description: FieldRef<"AuditTrailEntry", 'String'>
+    readonly performedBy: FieldRef<"AuditTrailEntry", 'String'>
+    readonly performedAt: FieldRef<"AuditTrailEntry", 'DateTime'>
+    readonly ipAddress: FieldRef<"AuditTrailEntry", 'String'>
+    readonly userAgent: FieldRef<"AuditTrailEntry", 'String'>
+    readonly changes: FieldRef<"AuditTrailEntry", 'Json'>
+    readonly applicationId: FieldRef<"AuditTrailEntry", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AuditTrailEntry findUnique
+   */
+  export type AuditTrailEntryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditTrailEntry
+     */
+    select?: AuditTrailEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditTrailEntry
+     */
+    omit?: AuditTrailEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditTrailEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which AuditTrailEntry to fetch.
+     */
+    where: AuditTrailEntryWhereUniqueInput
+  }
+
+  /**
+   * AuditTrailEntry findUniqueOrThrow
+   */
+  export type AuditTrailEntryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditTrailEntry
+     */
+    select?: AuditTrailEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditTrailEntry
+     */
+    omit?: AuditTrailEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditTrailEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which AuditTrailEntry to fetch.
+     */
+    where: AuditTrailEntryWhereUniqueInput
+  }
+
+  /**
+   * AuditTrailEntry findFirst
+   */
+  export type AuditTrailEntryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditTrailEntry
+     */
+    select?: AuditTrailEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditTrailEntry
+     */
+    omit?: AuditTrailEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditTrailEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which AuditTrailEntry to fetch.
+     */
+    where?: AuditTrailEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditTrailEntries to fetch.
+     */
+    orderBy?: AuditTrailEntryOrderByWithRelationInput | AuditTrailEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AuditTrailEntries.
+     */
+    cursor?: AuditTrailEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditTrailEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditTrailEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AuditTrailEntries.
+     */
+    distinct?: AuditTrailEntryScalarFieldEnum | AuditTrailEntryScalarFieldEnum[]
+  }
+
+  /**
+   * AuditTrailEntry findFirstOrThrow
+   */
+  export type AuditTrailEntryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditTrailEntry
+     */
+    select?: AuditTrailEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditTrailEntry
+     */
+    omit?: AuditTrailEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditTrailEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which AuditTrailEntry to fetch.
+     */
+    where?: AuditTrailEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditTrailEntries to fetch.
+     */
+    orderBy?: AuditTrailEntryOrderByWithRelationInput | AuditTrailEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AuditTrailEntries.
+     */
+    cursor?: AuditTrailEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditTrailEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditTrailEntries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AuditTrailEntries.
+     */
+    distinct?: AuditTrailEntryScalarFieldEnum | AuditTrailEntryScalarFieldEnum[]
+  }
+
+  /**
+   * AuditTrailEntry findMany
+   */
+  export type AuditTrailEntryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditTrailEntry
+     */
+    select?: AuditTrailEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditTrailEntry
+     */
+    omit?: AuditTrailEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditTrailEntryInclude<ExtArgs> | null
+    /**
+     * Filter, which AuditTrailEntries to fetch.
+     */
+    where?: AuditTrailEntryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditTrailEntries to fetch.
+     */
+    orderBy?: AuditTrailEntryOrderByWithRelationInput | AuditTrailEntryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AuditTrailEntries.
+     */
+    cursor?: AuditTrailEntryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditTrailEntries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditTrailEntries.
+     */
+    skip?: number
+    distinct?: AuditTrailEntryScalarFieldEnum | AuditTrailEntryScalarFieldEnum[]
+  }
+
+  /**
+   * AuditTrailEntry create
+   */
+  export type AuditTrailEntryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditTrailEntry
+     */
+    select?: AuditTrailEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditTrailEntry
+     */
+    omit?: AuditTrailEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditTrailEntryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AuditTrailEntry.
+     */
+    data: XOR<AuditTrailEntryCreateInput, AuditTrailEntryUncheckedCreateInput>
+  }
+
+  /**
+   * AuditTrailEntry createMany
+   */
+  export type AuditTrailEntryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AuditTrailEntries.
+     */
+    data: AuditTrailEntryCreateManyInput | AuditTrailEntryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AuditTrailEntry createManyAndReturn
+   */
+  export type AuditTrailEntryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditTrailEntry
+     */
+    select?: AuditTrailEntrySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditTrailEntry
+     */
+    omit?: AuditTrailEntryOmit<ExtArgs> | null
+    /**
+     * The data used to create many AuditTrailEntries.
+     */
+    data: AuditTrailEntryCreateManyInput | AuditTrailEntryCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditTrailEntryIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AuditTrailEntry update
+   */
+  export type AuditTrailEntryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditTrailEntry
+     */
+    select?: AuditTrailEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditTrailEntry
+     */
+    omit?: AuditTrailEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditTrailEntryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AuditTrailEntry.
+     */
+    data: XOR<AuditTrailEntryUpdateInput, AuditTrailEntryUncheckedUpdateInput>
+    /**
+     * Choose, which AuditTrailEntry to update.
+     */
+    where: AuditTrailEntryWhereUniqueInput
+  }
+
+  /**
+   * AuditTrailEntry updateMany
+   */
+  export type AuditTrailEntryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AuditTrailEntries.
+     */
+    data: XOR<AuditTrailEntryUpdateManyMutationInput, AuditTrailEntryUncheckedUpdateManyInput>
+    /**
+     * Filter which AuditTrailEntries to update
+     */
+    where?: AuditTrailEntryWhereInput
+    /**
+     * Limit how many AuditTrailEntries to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AuditTrailEntry updateManyAndReturn
+   */
+  export type AuditTrailEntryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditTrailEntry
+     */
+    select?: AuditTrailEntrySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditTrailEntry
+     */
+    omit?: AuditTrailEntryOmit<ExtArgs> | null
+    /**
+     * The data used to update AuditTrailEntries.
+     */
+    data: XOR<AuditTrailEntryUpdateManyMutationInput, AuditTrailEntryUncheckedUpdateManyInput>
+    /**
+     * Filter which AuditTrailEntries to update
+     */
+    where?: AuditTrailEntryWhereInput
+    /**
+     * Limit how many AuditTrailEntries to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditTrailEntryIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AuditTrailEntry upsert
+   */
+  export type AuditTrailEntryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditTrailEntry
+     */
+    select?: AuditTrailEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditTrailEntry
+     */
+    omit?: AuditTrailEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditTrailEntryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AuditTrailEntry to update in case it exists.
+     */
+    where: AuditTrailEntryWhereUniqueInput
+    /**
+     * In case the AuditTrailEntry found by the `where` argument doesn't exist, create a new AuditTrailEntry with this data.
+     */
+    create: XOR<AuditTrailEntryCreateInput, AuditTrailEntryUncheckedCreateInput>
+    /**
+     * In case the AuditTrailEntry was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AuditTrailEntryUpdateInput, AuditTrailEntryUncheckedUpdateInput>
+  }
+
+  /**
+   * AuditTrailEntry delete
+   */
+  export type AuditTrailEntryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditTrailEntry
+     */
+    select?: AuditTrailEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditTrailEntry
+     */
+    omit?: AuditTrailEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditTrailEntryInclude<ExtArgs> | null
+    /**
+     * Filter which AuditTrailEntry to delete.
+     */
+    where: AuditTrailEntryWhereUniqueInput
+  }
+
+  /**
+   * AuditTrailEntry deleteMany
+   */
+  export type AuditTrailEntryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AuditTrailEntries to delete
+     */
+    where?: AuditTrailEntryWhereInput
+    /**
+     * Limit how many AuditTrailEntries to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AuditTrailEntry without action
+   */
+  export type AuditTrailEntryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditTrailEntry
+     */
+    select?: AuditTrailEntrySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditTrailEntry
+     */
+    omit?: AuditTrailEntryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditTrailEntryInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -26691,12 +22378,7 @@ export namespace Prisma {
     completedAt: 'completedAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    userAgent: 'userAgent',
-    ipAddress: 'ipAddress',
-    sessionId: 'sessionId',
-    startedAt: 'startedAt',
-    lastActivity: 'lastActivity',
-    source: 'source',
+    metadata: 'metadata',
     userId: 'userId'
   };
 
@@ -26713,22 +22395,12 @@ export namespace Prisma {
     ssn: 'ssn',
     phone: 'phone',
     email: 'email',
+    mailingAddress: 'mailingAddress',
+    physicalAddress: 'physicalAddress',
     employmentStatus: 'employmentStatus',
     occupation: 'occupation',
     employer: 'employer',
     workPhone: 'workPhone',
-    mailingStreet: 'mailingStreet',
-    mailingCity: 'mailingCity',
-    mailingState: 'mailingState',
-    mailingZipCode: 'mailingZipCode',
-    mailingCountry: 'mailingCountry',
-    mailingApartment: 'mailingApartment',
-    physicalStreet: 'physicalStreet',
-    physicalCity: 'physicalCity',
-    physicalState: 'physicalState',
-    physicalZipCode: 'physicalZipCode',
-    physicalCountry: 'physicalCountry',
-    physicalApartment: 'physicalApartment',
     applicationId: 'applicationId'
   };
 
@@ -26743,6 +22415,8 @@ export namespace Prisma {
     entityType: 'entityType',
     industryType: 'industryType',
     dateEstablished: 'dateEstablished',
+    businessAddress: 'businessAddress',
+    mailingAddress: 'mailingAddress',
     businessPhone: 'businessPhone',
     businessEmail: 'businessEmail',
     website: 'website',
@@ -26751,18 +22425,6 @@ export namespace Prisma {
     monthlyTransactionVolume: 'monthlyTransactionVolume',
     monthlyTransactionCount: 'monthlyTransactionCount',
     expectedBalance: 'expectedBalance',
-    businessStreet: 'businessStreet',
-    businessCity: 'businessCity',
-    businessState: 'businessState',
-    businessZipCode: 'businessZipCode',
-    businessCountry: 'businessCountry',
-    businessApartment: 'businessApartment',
-    mailingStreet: 'mailingStreet',
-    mailingCity: 'mailingCity',
-    mailingState: 'mailingState',
-    mailingZipCode: 'mailingZipCode',
-    mailingCountry: 'mailingCountry',
-    mailingApartment: 'mailingApartment',
     applicationId: 'applicationId'
   };
 
@@ -26776,32 +22438,12 @@ export namespace Prisma {
     employmentInfo: 'employmentInfo',
     assets: 'assets',
     liabilities: 'liabilities',
+    bankingRelationships: 'bankingRelationships',
+    accountActivities: 'accountActivities',
     applicationId: 'applicationId'
   };
 
   export type FinancialProfileScalarFieldEnum = (typeof FinancialProfileScalarFieldEnum)[keyof typeof FinancialProfileScalarFieldEnum]
-
-
-  export const BankingRelationshipScalarFieldEnum: {
-    id: 'id',
-    bankName: 'bankName',
-    accountTypes: 'accountTypes',
-    yearsWithBank: 'yearsWithBank',
-    financialProfileId: 'financialProfileId'
-  };
-
-  export type BankingRelationshipScalarFieldEnum = (typeof BankingRelationshipScalarFieldEnum)[keyof typeof BankingRelationshipScalarFieldEnum]
-
-
-  export const AccountActivityScalarFieldEnum: {
-    id: 'id',
-    activity: 'activity',
-    frequency: 'frequency',
-    amount: 'amount',
-    financialProfileId: 'financialProfileId'
-  };
-
-  export type AccountActivityScalarFieldEnum = (typeof AccountActivityScalarFieldEnum)[keyof typeof AccountActivityScalarFieldEnum]
 
 
   export const ProductScalarFieldEnum: {
@@ -26814,23 +22456,10 @@ export namespace Prisma {
     monthlyFee: 'monthlyFee',
     interestRate: 'interestRate',
     isActive: 'isActive',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    eligibilityRules: 'eligibilityRules'
   };
 
   export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
-
-
-  export const EligibilityRuleScalarFieldEnum: {
-    id: 'id',
-    field: 'field',
-    operator: 'operator',
-    value: 'value',
-    description: 'description',
-    productId: 'productId'
-  };
-
-  export type EligibilityRuleScalarFieldEnum = (typeof EligibilityRuleScalarFieldEnum)[keyof typeof EligibilityRuleScalarFieldEnum]
 
 
   export const ProductSelectionScalarFieldEnum: {
@@ -26852,13 +22481,9 @@ export namespace Prisma {
     mimeType: 'mimeType',
     uploadedAt: 'uploadedAt',
     verificationStatus: 'verificationStatus',
-    verificationProvider: 'verificationProvider',
-    verificationConfidence: 'verificationConfidence',
-    extractedData: 'extractedData',
-    verificationId: 'verificationId',
-    verifiedAt: 'verifiedAt',
-    signerId: 'signerId',
-    applicationId: 'applicationId'
+    verificationDetails: 'verificationDetails',
+    applicationId: 'applicationId',
+    signerId: 'signerId'
   };
 
   export type DocumentScalarFieldEnum = (typeof DocumentScalarFieldEnum)[keyof typeof DocumentScalarFieldEnum]
@@ -26871,16 +22496,7 @@ export namespace Prisma {
     verificationId: 'verificationId',
     confidence: 'confidence',
     verifiedAt: 'verifiedAt',
-    identityPassed: 'identityPassed',
-    identityConfidence: 'identityConfidence',
-    addressPassed: 'addressPassed',
-    addressConfidence: 'addressConfidence',
-    phonePassed: 'phonePassed',
-    phoneConfidence: 'phoneConfidence',
-    emailPassed: 'emailPassed',
-    emailConfidence: 'emailConfidence',
-    ofacPassed: 'ofacPassed',
-    ofacMatches: 'ofacMatches',
+    results: 'results',
     applicationId: 'applicationId'
   };
 
@@ -26889,17 +22505,12 @@ export namespace Prisma {
 
   export const AdditionalSignerScalarFieldEnum: {
     id: 'id',
+    personalInfo: 'personalInfo',
     role: 'role',
     relationshipToBusiness: 'relationshipToBusiness',
     beneficialOwnershipPercentage: 'beneficialOwnershipPercentage',
     hasSigningAuthority: 'hasSigningAuthority',
     kycStatus: 'kycStatus',
-    firstName: 'firstName',
-    lastName: 'lastName',
-    dateOfBirth: 'dateOfBirth',
-    ssn: 'ssn',
-    phone: 'phone',
-    email: 'email',
     applicationId: 'applicationId'
   };
 
@@ -26910,6 +22521,7 @@ export namespace Prisma {
     id: 'id',
     overallRisk: 'overallRisk',
     riskScore: 'riskScore',
+    factors: 'factors',
     recommendations: 'recommendations',
     requiresManualReview: 'requiresManualReview',
     assessedAt: 'assessedAt',
@@ -26918,20 +22530,6 @@ export namespace Prisma {
   };
 
   export type RiskAssessmentScalarFieldEnum = (typeof RiskAssessmentScalarFieldEnum)[keyof typeof RiskAssessmentScalarFieldEnum]
-
-
-  export const RiskFactorScalarFieldEnum: {
-    id: 'id',
-    category: 'category',
-    factor: 'factor',
-    weight: 'weight',
-    score: 'score',
-    impact: 'impact',
-    description: 'description',
-    riskAssessmentId: 'riskAssessmentId'
-  };
-
-  export type RiskFactorScalarFieldEnum = (typeof RiskFactorScalarFieldEnum)[keyof typeof RiskFactorScalarFieldEnum]
 
 
   export const DisclosureScalarFieldEnum: {
@@ -26981,18 +22579,28 @@ export namespace Prisma {
     method: 'method',
     amount: 'amount',
     status: 'status',
-    bankName: 'bankName',
-    accountNumber: 'accountNumber',
-    routingNumber: 'routingNumber',
-    accountType: 'accountType',
-    plaidAccountId: 'plaidAccountId',
-    wireInstructions: 'wireInstructions',
+    details: 'details',
     createdAt: 'createdAt',
     processedAt: 'processedAt',
     applicationId: 'applicationId'
   };
 
   export type FundingSetupScalarFieldEnum = (typeof FundingSetupScalarFieldEnum)[keyof typeof FundingSetupScalarFieldEnum]
+
+
+  export const AuditTrailEntryScalarFieldEnum: {
+    id: 'id',
+    action: 'action',
+    description: 'description',
+    performedBy: 'performedBy',
+    performedAt: 'performedAt',
+    ipAddress: 'ipAddress',
+    userAgent: 'userAgent',
+    changes: 'changes',
+    applicationId: 'applicationId'
+  };
+
+  export type AuditTrailEntryScalarFieldEnum = (typeof AuditTrailEntryScalarFieldEnum)[keyof typeof AuditTrailEntryScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -27003,19 +22611,19 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
   export const NullableJsonNullValueInput: {
     DbNull: typeof DbNull,
     JsonNull: typeof JsonNull
   };
 
   export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
-
-
-  export const JsonNullValueInput: {
-    JsonNull: typeof JsonNull
-  };
-
-  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
   export const QueryMode: {
@@ -27126,20 +22734,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Float'
-   */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float[]'
-   */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Json'
    */
   export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
@@ -27154,30 +22748,23 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'ProductType'
+   * Reference to a field of type 'Float'
    */
-  export type EnumProductTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductType'>
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
     
 
 
   /**
-   * Reference to a field of type 'ProductType[]'
+   * Reference to a field of type 'Float[]'
    */
-  export type ListEnumProductTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ProductType[]'>
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
 
 
   /**
-   * Reference to a field of type 'EligibilityOperator'
+   * Reference to a field of type 'Json[]'
    */
-  export type EnumEligibilityOperatorFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EligibilityOperator'>
-    
-
-
-  /**
-   * Reference to a field of type 'EligibilityOperator[]'
-   */
-  export type ListEnumEligibilityOperatorFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EligibilityOperator[]'>
+  export type ListJsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json[]'>
     
   /**
    * Deep Input Types
@@ -27196,7 +22783,7 @@ export namespace Prisma {
     isEmailVerified?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    Token?: TokenListRelationFilter
+    tokens?: TokenListRelationFilter
     applications?: ApplicationListRelationFilter
   }
 
@@ -27209,7 +22796,7 @@ export namespace Prisma {
     isEmailVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    Token?: TokenOrderByRelationAggregateInput
+    tokens?: TokenOrderByRelationAggregateInput
     applications?: ApplicationOrderByRelationAggregateInput
   }
 
@@ -27225,7 +22812,7 @@ export namespace Prisma {
     isEmailVerified?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    Token?: TokenListRelationFilter
+    tokens?: TokenListRelationFilter
     applications?: ApplicationListRelationFilter
   }, "id" | "email">
 
@@ -27340,25 +22927,21 @@ export namespace Prisma {
     completedAt?: DateTimeNullableFilter<"Application"> | Date | string | null
     createdAt?: DateTimeFilter<"Application"> | Date | string
     updatedAt?: DateTimeFilter<"Application"> | Date | string
-    userAgent?: StringNullableFilter<"Application"> | string | null
-    ipAddress?: StringNullableFilter<"Application"> | string | null
-    sessionId?: StringNullableFilter<"Application"> | string | null
-    startedAt?: DateTimeNullableFilter<"Application"> | Date | string | null
-    lastActivity?: DateTimeNullableFilter<"Application"> | Date | string | null
-    source?: StringNullableFilter<"Application"> | string | null
+    metadata?: JsonFilter<"Application">
     userId?: IntFilter<"Application"> | number
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     personalInfo?: XOR<PersonalInfoNullableScalarRelationFilter, PersonalInfoWhereInput> | null
     businessProfile?: XOR<BusinessProfileNullableScalarRelationFilter, BusinessProfileWhereInput> | null
     financialProfile?: XOR<FinancialProfileNullableScalarRelationFilter, FinancialProfileWhereInput> | null
     productSelections?: ProductSelectionListRelationFilter
     documents?: DocumentListRelationFilter
-    kycVerification?: XOR<KYCVerificationNullableScalarRelationFilter, KYCVerificationWhereInput> | null
     additionalSigners?: AdditionalSignerListRelationFilter
+    kycVerification?: XOR<KYCVerificationNullableScalarRelationFilter, KYCVerificationWhereInput> | null
     riskAssessment?: XOR<RiskAssessmentNullableScalarRelationFilter, RiskAssessmentWhereInput> | null
     agreements?: AgreementListRelationFilter
     signatures?: ElectronicSignatureListRelationFilter
     fundingSetup?: XOR<FundingSetupNullableScalarRelationFilter, FundingSetupWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    auditTrail?: AuditTrailEntryListRelationFilter
   }
 
   export type ApplicationOrderByWithRelationInput = {
@@ -27372,25 +22955,21 @@ export namespace Prisma {
     completedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    userAgent?: SortOrderInput | SortOrder
-    ipAddress?: SortOrderInput | SortOrder
-    sessionId?: SortOrderInput | SortOrder
-    startedAt?: SortOrderInput | SortOrder
-    lastActivity?: SortOrderInput | SortOrder
-    source?: SortOrderInput | SortOrder
+    metadata?: SortOrder
     userId?: SortOrder
-    user?: UserOrderByWithRelationInput
     personalInfo?: PersonalInfoOrderByWithRelationInput
     businessProfile?: BusinessProfileOrderByWithRelationInput
     financialProfile?: FinancialProfileOrderByWithRelationInput
     productSelections?: ProductSelectionOrderByRelationAggregateInput
     documents?: DocumentOrderByRelationAggregateInput
-    kycVerification?: KYCVerificationOrderByWithRelationInput
     additionalSigners?: AdditionalSignerOrderByRelationAggregateInput
+    kycVerification?: KYCVerificationOrderByWithRelationInput
     riskAssessment?: RiskAssessmentOrderByWithRelationInput
     agreements?: AgreementOrderByRelationAggregateInput
     signatures?: ElectronicSignatureOrderByRelationAggregateInput
     fundingSetup?: FundingSetupOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+    auditTrail?: AuditTrailEntryOrderByRelationAggregateInput
   }
 
   export type ApplicationWhereUniqueInput = Prisma.AtLeast<{
@@ -27407,25 +22986,21 @@ export namespace Prisma {
     completedAt?: DateTimeNullableFilter<"Application"> | Date | string | null
     createdAt?: DateTimeFilter<"Application"> | Date | string
     updatedAt?: DateTimeFilter<"Application"> | Date | string
-    userAgent?: StringNullableFilter<"Application"> | string | null
-    ipAddress?: StringNullableFilter<"Application"> | string | null
-    sessionId?: StringNullableFilter<"Application"> | string | null
-    startedAt?: DateTimeNullableFilter<"Application"> | Date | string | null
-    lastActivity?: DateTimeNullableFilter<"Application"> | Date | string | null
-    source?: StringNullableFilter<"Application"> | string | null
+    metadata?: JsonFilter<"Application">
     userId?: IntFilter<"Application"> | number
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     personalInfo?: XOR<PersonalInfoNullableScalarRelationFilter, PersonalInfoWhereInput> | null
     businessProfile?: XOR<BusinessProfileNullableScalarRelationFilter, BusinessProfileWhereInput> | null
     financialProfile?: XOR<FinancialProfileNullableScalarRelationFilter, FinancialProfileWhereInput> | null
     productSelections?: ProductSelectionListRelationFilter
     documents?: DocumentListRelationFilter
-    kycVerification?: XOR<KYCVerificationNullableScalarRelationFilter, KYCVerificationWhereInput> | null
     additionalSigners?: AdditionalSignerListRelationFilter
+    kycVerification?: XOR<KYCVerificationNullableScalarRelationFilter, KYCVerificationWhereInput> | null
     riskAssessment?: XOR<RiskAssessmentNullableScalarRelationFilter, RiskAssessmentWhereInput> | null
     agreements?: AgreementListRelationFilter
     signatures?: ElectronicSignatureListRelationFilter
     fundingSetup?: XOR<FundingSetupNullableScalarRelationFilter, FundingSetupWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    auditTrail?: AuditTrailEntryListRelationFilter
   }, "id">
 
   export type ApplicationOrderByWithAggregationInput = {
@@ -27439,12 +23014,7 @@ export namespace Prisma {
     completedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    userAgent?: SortOrderInput | SortOrder
-    ipAddress?: SortOrderInput | SortOrder
-    sessionId?: SortOrderInput | SortOrder
-    startedAt?: SortOrderInput | SortOrder
-    lastActivity?: SortOrderInput | SortOrder
-    source?: SortOrderInput | SortOrder
+    metadata?: SortOrder
     userId?: SortOrder
     _count?: ApplicationCountOrderByAggregateInput
     _avg?: ApplicationAvgOrderByAggregateInput
@@ -27467,12 +23037,7 @@ export namespace Prisma {
     completedAt?: DateTimeNullableWithAggregatesFilter<"Application"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Application"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Application"> | Date | string
-    userAgent?: StringNullableWithAggregatesFilter<"Application"> | string | null
-    ipAddress?: StringNullableWithAggregatesFilter<"Application"> | string | null
-    sessionId?: StringNullableWithAggregatesFilter<"Application"> | string | null
-    startedAt?: DateTimeNullableWithAggregatesFilter<"Application"> | Date | string | null
-    lastActivity?: DateTimeNullableWithAggregatesFilter<"Application"> | Date | string | null
-    source?: StringNullableWithAggregatesFilter<"Application"> | string | null
+    metadata?: JsonWithAggregatesFilter<"Application">
     userId?: IntWithAggregatesFilter<"Application"> | number
   }
 
@@ -27489,22 +23054,12 @@ export namespace Prisma {
     ssn?: StringFilter<"PersonalInfo"> | string
     phone?: StringFilter<"PersonalInfo"> | string
     email?: StringFilter<"PersonalInfo"> | string
+    mailingAddress?: JsonFilter<"PersonalInfo">
+    physicalAddress?: JsonNullableFilter<"PersonalInfo">
     employmentStatus?: StringFilter<"PersonalInfo"> | string
     occupation?: StringNullableFilter<"PersonalInfo"> | string | null
     employer?: StringNullableFilter<"PersonalInfo"> | string | null
     workPhone?: StringNullableFilter<"PersonalInfo"> | string | null
-    mailingStreet?: StringFilter<"PersonalInfo"> | string
-    mailingCity?: StringFilter<"PersonalInfo"> | string
-    mailingState?: StringFilter<"PersonalInfo"> | string
-    mailingZipCode?: StringFilter<"PersonalInfo"> | string
-    mailingCountry?: StringFilter<"PersonalInfo"> | string
-    mailingApartment?: StringNullableFilter<"PersonalInfo"> | string | null
-    physicalStreet?: StringNullableFilter<"PersonalInfo"> | string | null
-    physicalCity?: StringNullableFilter<"PersonalInfo"> | string | null
-    physicalState?: StringNullableFilter<"PersonalInfo"> | string | null
-    physicalZipCode?: StringNullableFilter<"PersonalInfo"> | string | null
-    physicalCountry?: StringNullableFilter<"PersonalInfo"> | string | null
-    physicalApartment?: StringNullableFilter<"PersonalInfo"> | string | null
     applicationId?: StringFilter<"PersonalInfo"> | string
     application?: XOR<ApplicationScalarRelationFilter, ApplicationWhereInput>
   }
@@ -27519,22 +23074,12 @@ export namespace Prisma {
     ssn?: SortOrder
     phone?: SortOrder
     email?: SortOrder
+    mailingAddress?: SortOrder
+    physicalAddress?: SortOrderInput | SortOrder
     employmentStatus?: SortOrder
     occupation?: SortOrderInput | SortOrder
     employer?: SortOrderInput | SortOrder
     workPhone?: SortOrderInput | SortOrder
-    mailingStreet?: SortOrder
-    mailingCity?: SortOrder
-    mailingState?: SortOrder
-    mailingZipCode?: SortOrder
-    mailingCountry?: SortOrder
-    mailingApartment?: SortOrderInput | SortOrder
-    physicalStreet?: SortOrderInput | SortOrder
-    physicalCity?: SortOrderInput | SortOrder
-    physicalState?: SortOrderInput | SortOrder
-    physicalZipCode?: SortOrderInput | SortOrder
-    physicalCountry?: SortOrderInput | SortOrder
-    physicalApartment?: SortOrderInput | SortOrder
     applicationId?: SortOrder
     application?: ApplicationOrderByWithRelationInput
   }
@@ -27553,22 +23098,12 @@ export namespace Prisma {
     ssn?: StringFilter<"PersonalInfo"> | string
     phone?: StringFilter<"PersonalInfo"> | string
     email?: StringFilter<"PersonalInfo"> | string
+    mailingAddress?: JsonFilter<"PersonalInfo">
+    physicalAddress?: JsonNullableFilter<"PersonalInfo">
     employmentStatus?: StringFilter<"PersonalInfo"> | string
     occupation?: StringNullableFilter<"PersonalInfo"> | string | null
     employer?: StringNullableFilter<"PersonalInfo"> | string | null
     workPhone?: StringNullableFilter<"PersonalInfo"> | string | null
-    mailingStreet?: StringFilter<"PersonalInfo"> | string
-    mailingCity?: StringFilter<"PersonalInfo"> | string
-    mailingState?: StringFilter<"PersonalInfo"> | string
-    mailingZipCode?: StringFilter<"PersonalInfo"> | string
-    mailingCountry?: StringFilter<"PersonalInfo"> | string
-    mailingApartment?: StringNullableFilter<"PersonalInfo"> | string | null
-    physicalStreet?: StringNullableFilter<"PersonalInfo"> | string | null
-    physicalCity?: StringNullableFilter<"PersonalInfo"> | string | null
-    physicalState?: StringNullableFilter<"PersonalInfo"> | string | null
-    physicalZipCode?: StringNullableFilter<"PersonalInfo"> | string | null
-    physicalCountry?: StringNullableFilter<"PersonalInfo"> | string | null
-    physicalApartment?: StringNullableFilter<"PersonalInfo"> | string | null
     application?: XOR<ApplicationScalarRelationFilter, ApplicationWhereInput>
   }, "id" | "applicationId">
 
@@ -27582,22 +23117,12 @@ export namespace Prisma {
     ssn?: SortOrder
     phone?: SortOrder
     email?: SortOrder
+    mailingAddress?: SortOrder
+    physicalAddress?: SortOrderInput | SortOrder
     employmentStatus?: SortOrder
     occupation?: SortOrderInput | SortOrder
     employer?: SortOrderInput | SortOrder
     workPhone?: SortOrderInput | SortOrder
-    mailingStreet?: SortOrder
-    mailingCity?: SortOrder
-    mailingState?: SortOrder
-    mailingZipCode?: SortOrder
-    mailingCountry?: SortOrder
-    mailingApartment?: SortOrderInput | SortOrder
-    physicalStreet?: SortOrderInput | SortOrder
-    physicalCity?: SortOrderInput | SortOrder
-    physicalState?: SortOrderInput | SortOrder
-    physicalZipCode?: SortOrderInput | SortOrder
-    physicalCountry?: SortOrderInput | SortOrder
-    physicalApartment?: SortOrderInput | SortOrder
     applicationId?: SortOrder
     _count?: PersonalInfoCountOrderByAggregateInput
     _max?: PersonalInfoMaxOrderByAggregateInput
@@ -27617,22 +23142,12 @@ export namespace Prisma {
     ssn?: StringWithAggregatesFilter<"PersonalInfo"> | string
     phone?: StringWithAggregatesFilter<"PersonalInfo"> | string
     email?: StringWithAggregatesFilter<"PersonalInfo"> | string
+    mailingAddress?: JsonWithAggregatesFilter<"PersonalInfo">
+    physicalAddress?: JsonNullableWithAggregatesFilter<"PersonalInfo">
     employmentStatus?: StringWithAggregatesFilter<"PersonalInfo"> | string
     occupation?: StringNullableWithAggregatesFilter<"PersonalInfo"> | string | null
     employer?: StringNullableWithAggregatesFilter<"PersonalInfo"> | string | null
     workPhone?: StringNullableWithAggregatesFilter<"PersonalInfo"> | string | null
-    mailingStreet?: StringWithAggregatesFilter<"PersonalInfo"> | string
-    mailingCity?: StringWithAggregatesFilter<"PersonalInfo"> | string
-    mailingState?: StringWithAggregatesFilter<"PersonalInfo"> | string
-    mailingZipCode?: StringWithAggregatesFilter<"PersonalInfo"> | string
-    mailingCountry?: StringWithAggregatesFilter<"PersonalInfo"> | string
-    mailingApartment?: StringNullableWithAggregatesFilter<"PersonalInfo"> | string | null
-    physicalStreet?: StringNullableWithAggregatesFilter<"PersonalInfo"> | string | null
-    physicalCity?: StringNullableWithAggregatesFilter<"PersonalInfo"> | string | null
-    physicalState?: StringNullableWithAggregatesFilter<"PersonalInfo"> | string | null
-    physicalZipCode?: StringNullableWithAggregatesFilter<"PersonalInfo"> | string | null
-    physicalCountry?: StringNullableWithAggregatesFilter<"PersonalInfo"> | string | null
-    physicalApartment?: StringNullableWithAggregatesFilter<"PersonalInfo"> | string | null
     applicationId?: StringWithAggregatesFilter<"PersonalInfo"> | string
   }
 
@@ -27647,6 +23162,8 @@ export namespace Prisma {
     entityType?: StringFilter<"BusinessProfile"> | string
     industryType?: StringFilter<"BusinessProfile"> | string
     dateEstablished?: StringFilter<"BusinessProfile"> | string
+    businessAddress?: JsonFilter<"BusinessProfile">
+    mailingAddress?: JsonNullableFilter<"BusinessProfile">
     businessPhone?: StringFilter<"BusinessProfile"> | string
     businessEmail?: StringFilter<"BusinessProfile"> | string
     website?: StringNullableFilter<"BusinessProfile"> | string | null
@@ -27655,18 +23172,6 @@ export namespace Prisma {
     monthlyTransactionVolume?: FloatFilter<"BusinessProfile"> | number
     monthlyTransactionCount?: IntFilter<"BusinessProfile"> | number
     expectedBalance?: FloatFilter<"BusinessProfile"> | number
-    businessStreet?: StringFilter<"BusinessProfile"> | string
-    businessCity?: StringFilter<"BusinessProfile"> | string
-    businessState?: StringFilter<"BusinessProfile"> | string
-    businessZipCode?: StringFilter<"BusinessProfile"> | string
-    businessCountry?: StringFilter<"BusinessProfile"> | string
-    businessApartment?: StringNullableFilter<"BusinessProfile"> | string | null
-    mailingStreet?: StringNullableFilter<"BusinessProfile"> | string | null
-    mailingCity?: StringNullableFilter<"BusinessProfile"> | string | null
-    mailingState?: StringNullableFilter<"BusinessProfile"> | string | null
-    mailingZipCode?: StringNullableFilter<"BusinessProfile"> | string | null
-    mailingCountry?: StringNullableFilter<"BusinessProfile"> | string | null
-    mailingApartment?: StringNullableFilter<"BusinessProfile"> | string | null
     applicationId?: StringFilter<"BusinessProfile"> | string
     application?: XOR<ApplicationScalarRelationFilter, ApplicationWhereInput>
   }
@@ -27679,6 +23184,8 @@ export namespace Prisma {
     entityType?: SortOrder
     industryType?: SortOrder
     dateEstablished?: SortOrder
+    businessAddress?: SortOrder
+    mailingAddress?: SortOrderInput | SortOrder
     businessPhone?: SortOrder
     businessEmail?: SortOrder
     website?: SortOrderInput | SortOrder
@@ -27687,18 +23194,6 @@ export namespace Prisma {
     monthlyTransactionVolume?: SortOrder
     monthlyTransactionCount?: SortOrder
     expectedBalance?: SortOrder
-    businessStreet?: SortOrder
-    businessCity?: SortOrder
-    businessState?: SortOrder
-    businessZipCode?: SortOrder
-    businessCountry?: SortOrder
-    businessApartment?: SortOrderInput | SortOrder
-    mailingStreet?: SortOrderInput | SortOrder
-    mailingCity?: SortOrderInput | SortOrder
-    mailingState?: SortOrderInput | SortOrder
-    mailingZipCode?: SortOrderInput | SortOrder
-    mailingCountry?: SortOrderInput | SortOrder
-    mailingApartment?: SortOrderInput | SortOrder
     applicationId?: SortOrder
     application?: ApplicationOrderByWithRelationInput
   }
@@ -27715,6 +23210,8 @@ export namespace Prisma {
     entityType?: StringFilter<"BusinessProfile"> | string
     industryType?: StringFilter<"BusinessProfile"> | string
     dateEstablished?: StringFilter<"BusinessProfile"> | string
+    businessAddress?: JsonFilter<"BusinessProfile">
+    mailingAddress?: JsonNullableFilter<"BusinessProfile">
     businessPhone?: StringFilter<"BusinessProfile"> | string
     businessEmail?: StringFilter<"BusinessProfile"> | string
     website?: StringNullableFilter<"BusinessProfile"> | string | null
@@ -27723,18 +23220,6 @@ export namespace Prisma {
     monthlyTransactionVolume?: FloatFilter<"BusinessProfile"> | number
     monthlyTransactionCount?: IntFilter<"BusinessProfile"> | number
     expectedBalance?: FloatFilter<"BusinessProfile"> | number
-    businessStreet?: StringFilter<"BusinessProfile"> | string
-    businessCity?: StringFilter<"BusinessProfile"> | string
-    businessState?: StringFilter<"BusinessProfile"> | string
-    businessZipCode?: StringFilter<"BusinessProfile"> | string
-    businessCountry?: StringFilter<"BusinessProfile"> | string
-    businessApartment?: StringNullableFilter<"BusinessProfile"> | string | null
-    mailingStreet?: StringNullableFilter<"BusinessProfile"> | string | null
-    mailingCity?: StringNullableFilter<"BusinessProfile"> | string | null
-    mailingState?: StringNullableFilter<"BusinessProfile"> | string | null
-    mailingZipCode?: StringNullableFilter<"BusinessProfile"> | string | null
-    mailingCountry?: StringNullableFilter<"BusinessProfile"> | string | null
-    mailingApartment?: StringNullableFilter<"BusinessProfile"> | string | null
     application?: XOR<ApplicationScalarRelationFilter, ApplicationWhereInput>
   }, "id" | "applicationId">
 
@@ -27746,6 +23231,8 @@ export namespace Prisma {
     entityType?: SortOrder
     industryType?: SortOrder
     dateEstablished?: SortOrder
+    businessAddress?: SortOrder
+    mailingAddress?: SortOrderInput | SortOrder
     businessPhone?: SortOrder
     businessEmail?: SortOrder
     website?: SortOrderInput | SortOrder
@@ -27754,18 +23241,6 @@ export namespace Prisma {
     monthlyTransactionVolume?: SortOrder
     monthlyTransactionCount?: SortOrder
     expectedBalance?: SortOrder
-    businessStreet?: SortOrder
-    businessCity?: SortOrder
-    businessState?: SortOrder
-    businessZipCode?: SortOrder
-    businessCountry?: SortOrder
-    businessApartment?: SortOrderInput | SortOrder
-    mailingStreet?: SortOrderInput | SortOrder
-    mailingCity?: SortOrderInput | SortOrder
-    mailingState?: SortOrderInput | SortOrder
-    mailingZipCode?: SortOrderInput | SortOrder
-    mailingCountry?: SortOrderInput | SortOrder
-    mailingApartment?: SortOrderInput | SortOrder
     applicationId?: SortOrder
     _count?: BusinessProfileCountOrderByAggregateInput
     _avg?: BusinessProfileAvgOrderByAggregateInput
@@ -27785,6 +23260,8 @@ export namespace Prisma {
     entityType?: StringWithAggregatesFilter<"BusinessProfile"> | string
     industryType?: StringWithAggregatesFilter<"BusinessProfile"> | string
     dateEstablished?: StringWithAggregatesFilter<"BusinessProfile"> | string
+    businessAddress?: JsonWithAggregatesFilter<"BusinessProfile">
+    mailingAddress?: JsonNullableWithAggregatesFilter<"BusinessProfile">
     businessPhone?: StringWithAggregatesFilter<"BusinessProfile"> | string
     businessEmail?: StringWithAggregatesFilter<"BusinessProfile"> | string
     website?: StringNullableWithAggregatesFilter<"BusinessProfile"> | string | null
@@ -27793,18 +23270,6 @@ export namespace Prisma {
     monthlyTransactionVolume?: FloatWithAggregatesFilter<"BusinessProfile"> | number
     monthlyTransactionCount?: IntWithAggregatesFilter<"BusinessProfile"> | number
     expectedBalance?: FloatWithAggregatesFilter<"BusinessProfile"> | number
-    businessStreet?: StringWithAggregatesFilter<"BusinessProfile"> | string
-    businessCity?: StringWithAggregatesFilter<"BusinessProfile"> | string
-    businessState?: StringWithAggregatesFilter<"BusinessProfile"> | string
-    businessZipCode?: StringWithAggregatesFilter<"BusinessProfile"> | string
-    businessCountry?: StringWithAggregatesFilter<"BusinessProfile"> | string
-    businessApartment?: StringNullableWithAggregatesFilter<"BusinessProfile"> | string | null
-    mailingStreet?: StringNullableWithAggregatesFilter<"BusinessProfile"> | string | null
-    mailingCity?: StringNullableWithAggregatesFilter<"BusinessProfile"> | string | null
-    mailingState?: StringNullableWithAggregatesFilter<"BusinessProfile"> | string | null
-    mailingZipCode?: StringNullableWithAggregatesFilter<"BusinessProfile"> | string | null
-    mailingCountry?: StringNullableWithAggregatesFilter<"BusinessProfile"> | string | null
-    mailingApartment?: StringNullableWithAggregatesFilter<"BusinessProfile"> | string | null
     applicationId?: StringWithAggregatesFilter<"BusinessProfile"> | string
   }
 
@@ -27818,10 +23283,10 @@ export namespace Prisma {
     employmentInfo?: JsonNullableFilter<"FinancialProfile">
     assets?: FloatFilter<"FinancialProfile"> | number
     liabilities?: FloatFilter<"FinancialProfile"> | number
+    bankingRelationships?: JsonNullableListFilter<"FinancialProfile">
+    accountActivities?: JsonNullableListFilter<"FinancialProfile">
     applicationId?: StringFilter<"FinancialProfile"> | string
     application?: XOR<ApplicationScalarRelationFilter, ApplicationWhereInput>
-    bankingRelationships?: BankingRelationshipListRelationFilter
-    accountActivities?: AccountActivityListRelationFilter
   }
 
   export type FinancialProfileOrderByWithRelationInput = {
@@ -27831,10 +23296,10 @@ export namespace Prisma {
     employmentInfo?: SortOrderInput | SortOrder
     assets?: SortOrder
     liabilities?: SortOrder
+    bankingRelationships?: SortOrder
+    accountActivities?: SortOrder
     applicationId?: SortOrder
     application?: ApplicationOrderByWithRelationInput
-    bankingRelationships?: BankingRelationshipOrderByRelationAggregateInput
-    accountActivities?: AccountActivityOrderByRelationAggregateInput
   }
 
   export type FinancialProfileWhereUniqueInput = Prisma.AtLeast<{
@@ -27848,9 +23313,9 @@ export namespace Prisma {
     employmentInfo?: JsonNullableFilter<"FinancialProfile">
     assets?: FloatFilter<"FinancialProfile"> | number
     liabilities?: FloatFilter<"FinancialProfile"> | number
+    bankingRelationships?: JsonNullableListFilter<"FinancialProfile">
+    accountActivities?: JsonNullableListFilter<"FinancialProfile">
     application?: XOR<ApplicationScalarRelationFilter, ApplicationWhereInput>
-    bankingRelationships?: BankingRelationshipListRelationFilter
-    accountActivities?: AccountActivityListRelationFilter
   }, "id" | "applicationId">
 
   export type FinancialProfileOrderByWithAggregationInput = {
@@ -27860,6 +23325,8 @@ export namespace Prisma {
     employmentInfo?: SortOrderInput | SortOrder
     assets?: SortOrder
     liabilities?: SortOrder
+    bankingRelationships?: SortOrder
+    accountActivities?: SortOrder
     applicationId?: SortOrder
     _count?: FinancialProfileCountOrderByAggregateInput
     _avg?: FinancialProfileAvgOrderByAggregateInput
@@ -27878,121 +23345,9 @@ export namespace Prisma {
     employmentInfo?: JsonNullableWithAggregatesFilter<"FinancialProfile">
     assets?: FloatWithAggregatesFilter<"FinancialProfile"> | number
     liabilities?: FloatWithAggregatesFilter<"FinancialProfile"> | number
+    bankingRelationships?: JsonNullableListFilter<"FinancialProfile">
+    accountActivities?: JsonNullableListFilter<"FinancialProfile">
     applicationId?: StringWithAggregatesFilter<"FinancialProfile"> | string
-  }
-
-  export type BankingRelationshipWhereInput = {
-    AND?: BankingRelationshipWhereInput | BankingRelationshipWhereInput[]
-    OR?: BankingRelationshipWhereInput[]
-    NOT?: BankingRelationshipWhereInput | BankingRelationshipWhereInput[]
-    id?: StringFilter<"BankingRelationship"> | string
-    bankName?: StringFilter<"BankingRelationship"> | string
-    accountTypes?: StringNullableListFilter<"BankingRelationship">
-    yearsWithBank?: IntFilter<"BankingRelationship"> | number
-    financialProfileId?: StringFilter<"BankingRelationship"> | string
-    financialProfile?: XOR<FinancialProfileScalarRelationFilter, FinancialProfileWhereInput>
-  }
-
-  export type BankingRelationshipOrderByWithRelationInput = {
-    id?: SortOrder
-    bankName?: SortOrder
-    accountTypes?: SortOrder
-    yearsWithBank?: SortOrder
-    financialProfileId?: SortOrder
-    financialProfile?: FinancialProfileOrderByWithRelationInput
-  }
-
-  export type BankingRelationshipWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: BankingRelationshipWhereInput | BankingRelationshipWhereInput[]
-    OR?: BankingRelationshipWhereInput[]
-    NOT?: BankingRelationshipWhereInput | BankingRelationshipWhereInput[]
-    bankName?: StringFilter<"BankingRelationship"> | string
-    accountTypes?: StringNullableListFilter<"BankingRelationship">
-    yearsWithBank?: IntFilter<"BankingRelationship"> | number
-    financialProfileId?: StringFilter<"BankingRelationship"> | string
-    financialProfile?: XOR<FinancialProfileScalarRelationFilter, FinancialProfileWhereInput>
-  }, "id">
-
-  export type BankingRelationshipOrderByWithAggregationInput = {
-    id?: SortOrder
-    bankName?: SortOrder
-    accountTypes?: SortOrder
-    yearsWithBank?: SortOrder
-    financialProfileId?: SortOrder
-    _count?: BankingRelationshipCountOrderByAggregateInput
-    _avg?: BankingRelationshipAvgOrderByAggregateInput
-    _max?: BankingRelationshipMaxOrderByAggregateInput
-    _min?: BankingRelationshipMinOrderByAggregateInput
-    _sum?: BankingRelationshipSumOrderByAggregateInput
-  }
-
-  export type BankingRelationshipScalarWhereWithAggregatesInput = {
-    AND?: BankingRelationshipScalarWhereWithAggregatesInput | BankingRelationshipScalarWhereWithAggregatesInput[]
-    OR?: BankingRelationshipScalarWhereWithAggregatesInput[]
-    NOT?: BankingRelationshipScalarWhereWithAggregatesInput | BankingRelationshipScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"BankingRelationship"> | string
-    bankName?: StringWithAggregatesFilter<"BankingRelationship"> | string
-    accountTypes?: StringNullableListFilter<"BankingRelationship">
-    yearsWithBank?: IntWithAggregatesFilter<"BankingRelationship"> | number
-    financialProfileId?: StringWithAggregatesFilter<"BankingRelationship"> | string
-  }
-
-  export type AccountActivityWhereInput = {
-    AND?: AccountActivityWhereInput | AccountActivityWhereInput[]
-    OR?: AccountActivityWhereInput[]
-    NOT?: AccountActivityWhereInput | AccountActivityWhereInput[]
-    id?: StringFilter<"AccountActivity"> | string
-    activity?: StringFilter<"AccountActivity"> | string
-    frequency?: StringFilter<"AccountActivity"> | string
-    amount?: FloatFilter<"AccountActivity"> | number
-    financialProfileId?: StringFilter<"AccountActivity"> | string
-    financialProfile?: XOR<FinancialProfileScalarRelationFilter, FinancialProfileWhereInput>
-  }
-
-  export type AccountActivityOrderByWithRelationInput = {
-    id?: SortOrder
-    activity?: SortOrder
-    frequency?: SortOrder
-    amount?: SortOrder
-    financialProfileId?: SortOrder
-    financialProfile?: FinancialProfileOrderByWithRelationInput
-  }
-
-  export type AccountActivityWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: AccountActivityWhereInput | AccountActivityWhereInput[]
-    OR?: AccountActivityWhereInput[]
-    NOT?: AccountActivityWhereInput | AccountActivityWhereInput[]
-    activity?: StringFilter<"AccountActivity"> | string
-    frequency?: StringFilter<"AccountActivity"> | string
-    amount?: FloatFilter<"AccountActivity"> | number
-    financialProfileId?: StringFilter<"AccountActivity"> | string
-    financialProfile?: XOR<FinancialProfileScalarRelationFilter, FinancialProfileWhereInput>
-  }, "id">
-
-  export type AccountActivityOrderByWithAggregationInput = {
-    id?: SortOrder
-    activity?: SortOrder
-    frequency?: SortOrder
-    amount?: SortOrder
-    financialProfileId?: SortOrder
-    _count?: AccountActivityCountOrderByAggregateInput
-    _avg?: AccountActivityAvgOrderByAggregateInput
-    _max?: AccountActivityMaxOrderByAggregateInput
-    _min?: AccountActivityMinOrderByAggregateInput
-    _sum?: AccountActivitySumOrderByAggregateInput
-  }
-
-  export type AccountActivityScalarWhereWithAggregatesInput = {
-    AND?: AccountActivityScalarWhereWithAggregatesInput | AccountActivityScalarWhereWithAggregatesInput[]
-    OR?: AccountActivityScalarWhereWithAggregatesInput[]
-    NOT?: AccountActivityScalarWhereWithAggregatesInput | AccountActivityScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"AccountActivity"> | string
-    activity?: StringWithAggregatesFilter<"AccountActivity"> | string
-    frequency?: StringWithAggregatesFilter<"AccountActivity"> | string
-    amount?: FloatWithAggregatesFilter<"AccountActivity"> | number
-    financialProfileId?: StringWithAggregatesFilter<"AccountActivity"> | string
   }
 
   export type ProductWhereInput = {
@@ -28001,17 +23356,15 @@ export namespace Prisma {
     NOT?: ProductWhereInput | ProductWhereInput[]
     id?: StringFilter<"Product"> | string
     name?: StringFilter<"Product"> | string
-    type?: EnumProductTypeFilter<"Product"> | $Enums.ProductType
+    type?: StringFilter<"Product"> | string
     description?: StringFilter<"Product"> | string
     features?: StringNullableListFilter<"Product">
     minimumBalance?: FloatFilter<"Product"> | number
     monthlyFee?: FloatFilter<"Product"> | number
     interestRate?: FloatNullableFilter<"Product"> | number | null
     isActive?: BoolFilter<"Product"> | boolean
-    createdAt?: DateTimeFilter<"Product"> | Date | string
-    updatedAt?: DateTimeFilter<"Product"> | Date | string
-    selections?: ProductSelectionListRelationFilter
-    eligibilityRules?: EligibilityRuleListRelationFilter
+    eligibilityRules?: JsonNullableListFilter<"Product">
+    productSelections?: ProductSelectionListRelationFilter
   }
 
   export type ProductOrderByWithRelationInput = {
@@ -28024,30 +23377,26 @@ export namespace Prisma {
     monthlyFee?: SortOrder
     interestRate?: SortOrderInput | SortOrder
     isActive?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    selections?: ProductSelectionOrderByRelationAggregateInput
-    eligibilityRules?: EligibilityRuleOrderByRelationAggregateInput
+    eligibilityRules?: SortOrder
+    productSelections?: ProductSelectionOrderByRelationAggregateInput
   }
 
   export type ProductWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    name?: string
     AND?: ProductWhereInput | ProductWhereInput[]
     OR?: ProductWhereInput[]
     NOT?: ProductWhereInput | ProductWhereInput[]
-    name?: StringFilter<"Product"> | string
-    type?: EnumProductTypeFilter<"Product"> | $Enums.ProductType
+    type?: StringFilter<"Product"> | string
     description?: StringFilter<"Product"> | string
     features?: StringNullableListFilter<"Product">
     minimumBalance?: FloatFilter<"Product"> | number
     monthlyFee?: FloatFilter<"Product"> | number
     interestRate?: FloatNullableFilter<"Product"> | number | null
     isActive?: BoolFilter<"Product"> | boolean
-    createdAt?: DateTimeFilter<"Product"> | Date | string
-    updatedAt?: DateTimeFilter<"Product"> | Date | string
-    selections?: ProductSelectionListRelationFilter
-    eligibilityRules?: EligibilityRuleListRelationFilter
-  }, "id">
+    eligibilityRules?: JsonNullableListFilter<"Product">
+    productSelections?: ProductSelectionListRelationFilter
+  }, "id" | "name">
 
   export type ProductOrderByWithAggregationInput = {
     id?: SortOrder
@@ -28059,8 +23408,7 @@ export namespace Prisma {
     monthlyFee?: SortOrder
     interestRate?: SortOrderInput | SortOrder
     isActive?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
+    eligibilityRules?: SortOrder
     _count?: ProductCountOrderByAggregateInput
     _avg?: ProductAvgOrderByAggregateInput
     _max?: ProductMaxOrderByAggregateInput
@@ -28074,75 +23422,14 @@ export namespace Prisma {
     NOT?: ProductScalarWhereWithAggregatesInput | ProductScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Product"> | string
     name?: StringWithAggregatesFilter<"Product"> | string
-    type?: EnumProductTypeWithAggregatesFilter<"Product"> | $Enums.ProductType
+    type?: StringWithAggregatesFilter<"Product"> | string
     description?: StringWithAggregatesFilter<"Product"> | string
     features?: StringNullableListFilter<"Product">
     minimumBalance?: FloatWithAggregatesFilter<"Product"> | number
     monthlyFee?: FloatWithAggregatesFilter<"Product"> | number
     interestRate?: FloatNullableWithAggregatesFilter<"Product"> | number | null
     isActive?: BoolWithAggregatesFilter<"Product"> | boolean
-    createdAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
-  }
-
-  export type EligibilityRuleWhereInput = {
-    AND?: EligibilityRuleWhereInput | EligibilityRuleWhereInput[]
-    OR?: EligibilityRuleWhereInput[]
-    NOT?: EligibilityRuleWhereInput | EligibilityRuleWhereInput[]
-    id?: StringFilter<"EligibilityRule"> | string
-    field?: StringFilter<"EligibilityRule"> | string
-    operator?: EnumEligibilityOperatorFilter<"EligibilityRule"> | $Enums.EligibilityOperator
-    value?: JsonFilter<"EligibilityRule">
-    description?: StringFilter<"EligibilityRule"> | string
-    productId?: StringFilter<"EligibilityRule"> | string
-    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
-  }
-
-  export type EligibilityRuleOrderByWithRelationInput = {
-    id?: SortOrder
-    field?: SortOrder
-    operator?: SortOrder
-    value?: SortOrder
-    description?: SortOrder
-    productId?: SortOrder
-    product?: ProductOrderByWithRelationInput
-  }
-
-  export type EligibilityRuleWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: EligibilityRuleWhereInput | EligibilityRuleWhereInput[]
-    OR?: EligibilityRuleWhereInput[]
-    NOT?: EligibilityRuleWhereInput | EligibilityRuleWhereInput[]
-    field?: StringFilter<"EligibilityRule"> | string
-    operator?: EnumEligibilityOperatorFilter<"EligibilityRule"> | $Enums.EligibilityOperator
-    value?: JsonFilter<"EligibilityRule">
-    description?: StringFilter<"EligibilityRule"> | string
-    productId?: StringFilter<"EligibilityRule"> | string
-    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
-  }, "id">
-
-  export type EligibilityRuleOrderByWithAggregationInput = {
-    id?: SortOrder
-    field?: SortOrder
-    operator?: SortOrder
-    value?: SortOrder
-    description?: SortOrder
-    productId?: SortOrder
-    _count?: EligibilityRuleCountOrderByAggregateInput
-    _max?: EligibilityRuleMaxOrderByAggregateInput
-    _min?: EligibilityRuleMinOrderByAggregateInput
-  }
-
-  export type EligibilityRuleScalarWhereWithAggregatesInput = {
-    AND?: EligibilityRuleScalarWhereWithAggregatesInput | EligibilityRuleScalarWhereWithAggregatesInput[]
-    OR?: EligibilityRuleScalarWhereWithAggregatesInput[]
-    NOT?: EligibilityRuleScalarWhereWithAggregatesInput | EligibilityRuleScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"EligibilityRule"> | string
-    field?: StringWithAggregatesFilter<"EligibilityRule"> | string
-    operator?: EnumEligibilityOperatorWithAggregatesFilter<"EligibilityRule"> | $Enums.EligibilityOperator
-    value?: JsonWithAggregatesFilter<"EligibilityRule">
-    description?: StringWithAggregatesFilter<"EligibilityRule"> | string
-    productId?: StringWithAggregatesFilter<"EligibilityRule"> | string
+    eligibilityRules?: JsonNullableListFilter<"Product">
   }
 
   export type ProductSelectionWhereInput = {
@@ -28216,14 +23503,11 @@ export namespace Prisma {
     mimeType?: StringFilter<"Document"> | string
     uploadedAt?: DateTimeFilter<"Document"> | Date | string
     verificationStatus?: StringFilter<"Document"> | string
-    verificationProvider?: StringNullableFilter<"Document"> | string | null
-    verificationConfidence?: FloatNullableFilter<"Document"> | number | null
-    extractedData?: JsonNullableFilter<"Document">
-    verificationId?: StringNullableFilter<"Document"> | string | null
-    verifiedAt?: DateTimeNullableFilter<"Document"> | Date | string | null
-    signerId?: StringNullableFilter<"Document"> | string | null
+    verificationDetails?: JsonNullableFilter<"Document">
     applicationId?: StringFilter<"Document"> | string
+    signerId?: StringNullableFilter<"Document"> | string | null
     application?: XOR<ApplicationScalarRelationFilter, ApplicationWhereInput>
+    signer?: XOR<AdditionalSignerNullableScalarRelationFilter, AdditionalSignerWhereInput> | null
   }
 
   export type DocumentOrderByWithRelationInput = {
@@ -28234,14 +23518,11 @@ export namespace Prisma {
     mimeType?: SortOrder
     uploadedAt?: SortOrder
     verificationStatus?: SortOrder
-    verificationProvider?: SortOrderInput | SortOrder
-    verificationConfidence?: SortOrderInput | SortOrder
-    extractedData?: SortOrderInput | SortOrder
-    verificationId?: SortOrderInput | SortOrder
-    verifiedAt?: SortOrderInput | SortOrder
-    signerId?: SortOrderInput | SortOrder
+    verificationDetails?: SortOrderInput | SortOrder
     applicationId?: SortOrder
+    signerId?: SortOrderInput | SortOrder
     application?: ApplicationOrderByWithRelationInput
+    signer?: AdditionalSignerOrderByWithRelationInput
   }
 
   export type DocumentWhereUniqueInput = Prisma.AtLeast<{
@@ -28255,14 +23536,11 @@ export namespace Prisma {
     mimeType?: StringFilter<"Document"> | string
     uploadedAt?: DateTimeFilter<"Document"> | Date | string
     verificationStatus?: StringFilter<"Document"> | string
-    verificationProvider?: StringNullableFilter<"Document"> | string | null
-    verificationConfidence?: FloatNullableFilter<"Document"> | number | null
-    extractedData?: JsonNullableFilter<"Document">
-    verificationId?: StringNullableFilter<"Document"> | string | null
-    verifiedAt?: DateTimeNullableFilter<"Document"> | Date | string | null
-    signerId?: StringNullableFilter<"Document"> | string | null
+    verificationDetails?: JsonNullableFilter<"Document">
     applicationId?: StringFilter<"Document"> | string
+    signerId?: StringNullableFilter<"Document"> | string | null
     application?: XOR<ApplicationScalarRelationFilter, ApplicationWhereInput>
+    signer?: XOR<AdditionalSignerNullableScalarRelationFilter, AdditionalSignerWhereInput> | null
   }, "id">
 
   export type DocumentOrderByWithAggregationInput = {
@@ -28273,13 +23551,9 @@ export namespace Prisma {
     mimeType?: SortOrder
     uploadedAt?: SortOrder
     verificationStatus?: SortOrder
-    verificationProvider?: SortOrderInput | SortOrder
-    verificationConfidence?: SortOrderInput | SortOrder
-    extractedData?: SortOrderInput | SortOrder
-    verificationId?: SortOrderInput | SortOrder
-    verifiedAt?: SortOrderInput | SortOrder
-    signerId?: SortOrderInput | SortOrder
+    verificationDetails?: SortOrderInput | SortOrder
     applicationId?: SortOrder
+    signerId?: SortOrderInput | SortOrder
     _count?: DocumentCountOrderByAggregateInput
     _avg?: DocumentAvgOrderByAggregateInput
     _max?: DocumentMaxOrderByAggregateInput
@@ -28298,13 +23572,9 @@ export namespace Prisma {
     mimeType?: StringWithAggregatesFilter<"Document"> | string
     uploadedAt?: DateTimeWithAggregatesFilter<"Document"> | Date | string
     verificationStatus?: StringWithAggregatesFilter<"Document"> | string
-    verificationProvider?: StringNullableWithAggregatesFilter<"Document"> | string | null
-    verificationConfidence?: FloatNullableWithAggregatesFilter<"Document"> | number | null
-    extractedData?: JsonNullableWithAggregatesFilter<"Document">
-    verificationId?: StringNullableWithAggregatesFilter<"Document"> | string | null
-    verifiedAt?: DateTimeNullableWithAggregatesFilter<"Document"> | Date | string | null
-    signerId?: StringNullableWithAggregatesFilter<"Document"> | string | null
+    verificationDetails?: JsonNullableWithAggregatesFilter<"Document">
     applicationId?: StringWithAggregatesFilter<"Document"> | string
+    signerId?: StringNullableWithAggregatesFilter<"Document"> | string | null
   }
 
   export type KYCVerificationWhereInput = {
@@ -28317,16 +23587,7 @@ export namespace Prisma {
     verificationId?: StringFilter<"KYCVerification"> | string
     confidence?: FloatFilter<"KYCVerification"> | number
     verifiedAt?: DateTimeNullableFilter<"KYCVerification"> | Date | string | null
-    identityPassed?: BoolNullableFilter<"KYCVerification"> | boolean | null
-    identityConfidence?: FloatNullableFilter<"KYCVerification"> | number | null
-    addressPassed?: BoolNullableFilter<"KYCVerification"> | boolean | null
-    addressConfidence?: FloatNullableFilter<"KYCVerification"> | number | null
-    phonePassed?: BoolNullableFilter<"KYCVerification"> | boolean | null
-    phoneConfidence?: FloatNullableFilter<"KYCVerification"> | number | null
-    emailPassed?: BoolNullableFilter<"KYCVerification"> | boolean | null
-    emailConfidence?: FloatNullableFilter<"KYCVerification"> | number | null
-    ofacPassed?: BoolNullableFilter<"KYCVerification"> | boolean | null
-    ofacMatches?: JsonNullableFilter<"KYCVerification">
+    results?: JsonFilter<"KYCVerification">
     applicationId?: StringFilter<"KYCVerification"> | string
     application?: XOR<ApplicationScalarRelationFilter, ApplicationWhereInput>
   }
@@ -28338,16 +23599,7 @@ export namespace Prisma {
     verificationId?: SortOrder
     confidence?: SortOrder
     verifiedAt?: SortOrderInput | SortOrder
-    identityPassed?: SortOrderInput | SortOrder
-    identityConfidence?: SortOrderInput | SortOrder
-    addressPassed?: SortOrderInput | SortOrder
-    addressConfidence?: SortOrderInput | SortOrder
-    phonePassed?: SortOrderInput | SortOrder
-    phoneConfidence?: SortOrderInput | SortOrder
-    emailPassed?: SortOrderInput | SortOrder
-    emailConfidence?: SortOrderInput | SortOrder
-    ofacPassed?: SortOrderInput | SortOrder
-    ofacMatches?: SortOrderInput | SortOrder
+    results?: SortOrder
     applicationId?: SortOrder
     application?: ApplicationOrderByWithRelationInput
   }
@@ -28363,16 +23615,7 @@ export namespace Prisma {
     verificationId?: StringFilter<"KYCVerification"> | string
     confidence?: FloatFilter<"KYCVerification"> | number
     verifiedAt?: DateTimeNullableFilter<"KYCVerification"> | Date | string | null
-    identityPassed?: BoolNullableFilter<"KYCVerification"> | boolean | null
-    identityConfidence?: FloatNullableFilter<"KYCVerification"> | number | null
-    addressPassed?: BoolNullableFilter<"KYCVerification"> | boolean | null
-    addressConfidence?: FloatNullableFilter<"KYCVerification"> | number | null
-    phonePassed?: BoolNullableFilter<"KYCVerification"> | boolean | null
-    phoneConfidence?: FloatNullableFilter<"KYCVerification"> | number | null
-    emailPassed?: BoolNullableFilter<"KYCVerification"> | boolean | null
-    emailConfidence?: FloatNullableFilter<"KYCVerification"> | number | null
-    ofacPassed?: BoolNullableFilter<"KYCVerification"> | boolean | null
-    ofacMatches?: JsonNullableFilter<"KYCVerification">
+    results?: JsonFilter<"KYCVerification">
     application?: XOR<ApplicationScalarRelationFilter, ApplicationWhereInput>
   }, "id" | "applicationId">
 
@@ -28383,16 +23626,7 @@ export namespace Prisma {
     verificationId?: SortOrder
     confidence?: SortOrder
     verifiedAt?: SortOrderInput | SortOrder
-    identityPassed?: SortOrderInput | SortOrder
-    identityConfidence?: SortOrderInput | SortOrder
-    addressPassed?: SortOrderInput | SortOrder
-    addressConfidence?: SortOrderInput | SortOrder
-    phonePassed?: SortOrderInput | SortOrder
-    phoneConfidence?: SortOrderInput | SortOrder
-    emailPassed?: SortOrderInput | SortOrder
-    emailConfidence?: SortOrderInput | SortOrder
-    ofacPassed?: SortOrderInput | SortOrder
-    ofacMatches?: SortOrderInput | SortOrder
+    results?: SortOrder
     applicationId?: SortOrder
     _count?: KYCVerificationCountOrderByAggregateInput
     _avg?: KYCVerificationAvgOrderByAggregateInput
@@ -28411,16 +23645,7 @@ export namespace Prisma {
     verificationId?: StringWithAggregatesFilter<"KYCVerification"> | string
     confidence?: FloatWithAggregatesFilter<"KYCVerification"> | number
     verifiedAt?: DateTimeNullableWithAggregatesFilter<"KYCVerification"> | Date | string | null
-    identityPassed?: BoolNullableWithAggregatesFilter<"KYCVerification"> | boolean | null
-    identityConfidence?: FloatNullableWithAggregatesFilter<"KYCVerification"> | number | null
-    addressPassed?: BoolNullableWithAggregatesFilter<"KYCVerification"> | boolean | null
-    addressConfidence?: FloatNullableWithAggregatesFilter<"KYCVerification"> | number | null
-    phonePassed?: BoolNullableWithAggregatesFilter<"KYCVerification"> | boolean | null
-    phoneConfidence?: FloatNullableWithAggregatesFilter<"KYCVerification"> | number | null
-    emailPassed?: BoolNullableWithAggregatesFilter<"KYCVerification"> | boolean | null
-    emailConfidence?: FloatNullableWithAggregatesFilter<"KYCVerification"> | number | null
-    ofacPassed?: BoolNullableWithAggregatesFilter<"KYCVerification"> | boolean | null
-    ofacMatches?: JsonNullableWithAggregatesFilter<"KYCVerification">
+    results?: JsonWithAggregatesFilter<"KYCVerification">
     applicationId?: StringWithAggregatesFilter<"KYCVerification"> | string
   }
 
@@ -28429,35 +23654,27 @@ export namespace Prisma {
     OR?: AdditionalSignerWhereInput[]
     NOT?: AdditionalSignerWhereInput | AdditionalSignerWhereInput[]
     id?: StringFilter<"AdditionalSigner"> | string
+    personalInfo?: JsonFilter<"AdditionalSigner">
     role?: StringFilter<"AdditionalSigner"> | string
     relationshipToBusiness?: StringNullableFilter<"AdditionalSigner"> | string | null
     beneficialOwnershipPercentage?: FloatNullableFilter<"AdditionalSigner"> | number | null
     hasSigningAuthority?: BoolFilter<"AdditionalSigner"> | boolean
     kycStatus?: StringFilter<"AdditionalSigner"> | string
-    firstName?: StringFilter<"AdditionalSigner"> | string
-    lastName?: StringFilter<"AdditionalSigner"> | string
-    dateOfBirth?: StringFilter<"AdditionalSigner"> | string
-    ssn?: StringFilter<"AdditionalSigner"> | string
-    phone?: StringFilter<"AdditionalSigner"> | string
-    email?: StringFilter<"AdditionalSigner"> | string
     applicationId?: StringFilter<"AdditionalSigner"> | string
+    documents?: DocumentListRelationFilter
     application?: XOR<ApplicationScalarRelationFilter, ApplicationWhereInput>
   }
 
   export type AdditionalSignerOrderByWithRelationInput = {
     id?: SortOrder
+    personalInfo?: SortOrder
     role?: SortOrder
     relationshipToBusiness?: SortOrderInput | SortOrder
     beneficialOwnershipPercentage?: SortOrderInput | SortOrder
     hasSigningAuthority?: SortOrder
     kycStatus?: SortOrder
-    firstName?: SortOrder
-    lastName?: SortOrder
-    dateOfBirth?: SortOrder
-    ssn?: SortOrder
-    phone?: SortOrder
-    email?: SortOrder
     applicationId?: SortOrder
+    documents?: DocumentOrderByRelationAggregateInput
     application?: ApplicationOrderByWithRelationInput
   }
 
@@ -28466,34 +23683,25 @@ export namespace Prisma {
     AND?: AdditionalSignerWhereInput | AdditionalSignerWhereInput[]
     OR?: AdditionalSignerWhereInput[]
     NOT?: AdditionalSignerWhereInput | AdditionalSignerWhereInput[]
+    personalInfo?: JsonFilter<"AdditionalSigner">
     role?: StringFilter<"AdditionalSigner"> | string
     relationshipToBusiness?: StringNullableFilter<"AdditionalSigner"> | string | null
     beneficialOwnershipPercentage?: FloatNullableFilter<"AdditionalSigner"> | number | null
     hasSigningAuthority?: BoolFilter<"AdditionalSigner"> | boolean
     kycStatus?: StringFilter<"AdditionalSigner"> | string
-    firstName?: StringFilter<"AdditionalSigner"> | string
-    lastName?: StringFilter<"AdditionalSigner"> | string
-    dateOfBirth?: StringFilter<"AdditionalSigner"> | string
-    ssn?: StringFilter<"AdditionalSigner"> | string
-    phone?: StringFilter<"AdditionalSigner"> | string
-    email?: StringFilter<"AdditionalSigner"> | string
     applicationId?: StringFilter<"AdditionalSigner"> | string
+    documents?: DocumentListRelationFilter
     application?: XOR<ApplicationScalarRelationFilter, ApplicationWhereInput>
   }, "id">
 
   export type AdditionalSignerOrderByWithAggregationInput = {
     id?: SortOrder
+    personalInfo?: SortOrder
     role?: SortOrder
     relationshipToBusiness?: SortOrderInput | SortOrder
     beneficialOwnershipPercentage?: SortOrderInput | SortOrder
     hasSigningAuthority?: SortOrder
     kycStatus?: SortOrder
-    firstName?: SortOrder
-    lastName?: SortOrder
-    dateOfBirth?: SortOrder
-    ssn?: SortOrder
-    phone?: SortOrder
-    email?: SortOrder
     applicationId?: SortOrder
     _count?: AdditionalSignerCountOrderByAggregateInput
     _avg?: AdditionalSignerAvgOrderByAggregateInput
@@ -28507,17 +23715,12 @@ export namespace Prisma {
     OR?: AdditionalSignerScalarWhereWithAggregatesInput[]
     NOT?: AdditionalSignerScalarWhereWithAggregatesInput | AdditionalSignerScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"AdditionalSigner"> | string
+    personalInfo?: JsonWithAggregatesFilter<"AdditionalSigner">
     role?: StringWithAggregatesFilter<"AdditionalSigner"> | string
     relationshipToBusiness?: StringNullableWithAggregatesFilter<"AdditionalSigner"> | string | null
     beneficialOwnershipPercentage?: FloatNullableWithAggregatesFilter<"AdditionalSigner"> | number | null
     hasSigningAuthority?: BoolWithAggregatesFilter<"AdditionalSigner"> | boolean
     kycStatus?: StringWithAggregatesFilter<"AdditionalSigner"> | string
-    firstName?: StringWithAggregatesFilter<"AdditionalSigner"> | string
-    lastName?: StringWithAggregatesFilter<"AdditionalSigner"> | string
-    dateOfBirth?: StringWithAggregatesFilter<"AdditionalSigner"> | string
-    ssn?: StringWithAggregatesFilter<"AdditionalSigner"> | string
-    phone?: StringWithAggregatesFilter<"AdditionalSigner"> | string
-    email?: StringWithAggregatesFilter<"AdditionalSigner"> | string
     applicationId?: StringWithAggregatesFilter<"AdditionalSigner"> | string
   }
 
@@ -28528,26 +23731,26 @@ export namespace Prisma {
     id?: StringFilter<"RiskAssessment"> | string
     overallRisk?: StringFilter<"RiskAssessment"> | string
     riskScore?: IntFilter<"RiskAssessment"> | number
+    factors?: JsonNullableListFilter<"RiskAssessment">
     recommendations?: StringNullableListFilter<"RiskAssessment">
     requiresManualReview?: BoolFilter<"RiskAssessment"> | boolean
     assessedAt?: DateTimeFilter<"RiskAssessment"> | Date | string
     assessedBy?: StringFilter<"RiskAssessment"> | string
     applicationId?: StringFilter<"RiskAssessment"> | string
     application?: XOR<ApplicationScalarRelationFilter, ApplicationWhereInput>
-    factors?: RiskFactorListRelationFilter
   }
 
   export type RiskAssessmentOrderByWithRelationInput = {
     id?: SortOrder
     overallRisk?: SortOrder
     riskScore?: SortOrder
+    factors?: SortOrder
     recommendations?: SortOrder
     requiresManualReview?: SortOrder
     assessedAt?: SortOrder
     assessedBy?: SortOrder
     applicationId?: SortOrder
     application?: ApplicationOrderByWithRelationInput
-    factors?: RiskFactorOrderByRelationAggregateInput
   }
 
   export type RiskAssessmentWhereUniqueInput = Prisma.AtLeast<{
@@ -28558,18 +23761,19 @@ export namespace Prisma {
     NOT?: RiskAssessmentWhereInput | RiskAssessmentWhereInput[]
     overallRisk?: StringFilter<"RiskAssessment"> | string
     riskScore?: IntFilter<"RiskAssessment"> | number
+    factors?: JsonNullableListFilter<"RiskAssessment">
     recommendations?: StringNullableListFilter<"RiskAssessment">
     requiresManualReview?: BoolFilter<"RiskAssessment"> | boolean
     assessedAt?: DateTimeFilter<"RiskAssessment"> | Date | string
     assessedBy?: StringFilter<"RiskAssessment"> | string
     application?: XOR<ApplicationScalarRelationFilter, ApplicationWhereInput>
-    factors?: RiskFactorListRelationFilter
   }, "id" | "applicationId">
 
   export type RiskAssessmentOrderByWithAggregationInput = {
     id?: SortOrder
     overallRisk?: SortOrder
     riskScore?: SortOrder
+    factors?: SortOrder
     recommendations?: SortOrder
     requiresManualReview?: SortOrder
     assessedAt?: SortOrder
@@ -28589,83 +23793,12 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"RiskAssessment"> | string
     overallRisk?: StringWithAggregatesFilter<"RiskAssessment"> | string
     riskScore?: IntWithAggregatesFilter<"RiskAssessment"> | number
+    factors?: JsonNullableListFilter<"RiskAssessment">
     recommendations?: StringNullableListFilter<"RiskAssessment">
     requiresManualReview?: BoolWithAggregatesFilter<"RiskAssessment"> | boolean
     assessedAt?: DateTimeWithAggregatesFilter<"RiskAssessment"> | Date | string
     assessedBy?: StringWithAggregatesFilter<"RiskAssessment"> | string
     applicationId?: StringWithAggregatesFilter<"RiskAssessment"> | string
-  }
-
-  export type RiskFactorWhereInput = {
-    AND?: RiskFactorWhereInput | RiskFactorWhereInput[]
-    OR?: RiskFactorWhereInput[]
-    NOT?: RiskFactorWhereInput | RiskFactorWhereInput[]
-    id?: StringFilter<"RiskFactor"> | string
-    category?: StringFilter<"RiskFactor"> | string
-    factor?: StringFilter<"RiskFactor"> | string
-    weight?: FloatFilter<"RiskFactor"> | number
-    score?: IntFilter<"RiskFactor"> | number
-    impact?: StringFilter<"RiskFactor"> | string
-    description?: StringFilter<"RiskFactor"> | string
-    riskAssessmentId?: StringFilter<"RiskFactor"> | string
-    riskAssessment?: XOR<RiskAssessmentScalarRelationFilter, RiskAssessmentWhereInput>
-  }
-
-  export type RiskFactorOrderByWithRelationInput = {
-    id?: SortOrder
-    category?: SortOrder
-    factor?: SortOrder
-    weight?: SortOrder
-    score?: SortOrder
-    impact?: SortOrder
-    description?: SortOrder
-    riskAssessmentId?: SortOrder
-    riskAssessment?: RiskAssessmentOrderByWithRelationInput
-  }
-
-  export type RiskFactorWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: RiskFactorWhereInput | RiskFactorWhereInput[]
-    OR?: RiskFactorWhereInput[]
-    NOT?: RiskFactorWhereInput | RiskFactorWhereInput[]
-    category?: StringFilter<"RiskFactor"> | string
-    factor?: StringFilter<"RiskFactor"> | string
-    weight?: FloatFilter<"RiskFactor"> | number
-    score?: IntFilter<"RiskFactor"> | number
-    impact?: StringFilter<"RiskFactor"> | string
-    description?: StringFilter<"RiskFactor"> | string
-    riskAssessmentId?: StringFilter<"RiskFactor"> | string
-    riskAssessment?: XOR<RiskAssessmentScalarRelationFilter, RiskAssessmentWhereInput>
-  }, "id">
-
-  export type RiskFactorOrderByWithAggregationInput = {
-    id?: SortOrder
-    category?: SortOrder
-    factor?: SortOrder
-    weight?: SortOrder
-    score?: SortOrder
-    impact?: SortOrder
-    description?: SortOrder
-    riskAssessmentId?: SortOrder
-    _count?: RiskFactorCountOrderByAggregateInput
-    _avg?: RiskFactorAvgOrderByAggregateInput
-    _max?: RiskFactorMaxOrderByAggregateInput
-    _min?: RiskFactorMinOrderByAggregateInput
-    _sum?: RiskFactorSumOrderByAggregateInput
-  }
-
-  export type RiskFactorScalarWhereWithAggregatesInput = {
-    AND?: RiskFactorScalarWhereWithAggregatesInput | RiskFactorScalarWhereWithAggregatesInput[]
-    OR?: RiskFactorScalarWhereWithAggregatesInput[]
-    NOT?: RiskFactorScalarWhereWithAggregatesInput | RiskFactorScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"RiskFactor"> | string
-    category?: StringWithAggregatesFilter<"RiskFactor"> | string
-    factor?: StringWithAggregatesFilter<"RiskFactor"> | string
-    weight?: FloatWithAggregatesFilter<"RiskFactor"> | number
-    score?: IntWithAggregatesFilter<"RiskFactor"> | number
-    impact?: StringWithAggregatesFilter<"RiskFactor"> | string
-    description?: StringWithAggregatesFilter<"RiskFactor"> | string
-    riskAssessmentId?: StringWithAggregatesFilter<"RiskFactor"> | string
   }
 
   export type DisclosureWhereInput = {
@@ -28677,7 +23810,7 @@ export namespace Prisma {
     title?: StringFilter<"Disclosure"> | string
     content?: StringFilter<"Disclosure"> | string
     version?: StringFilter<"Disclosure"> | string
-    effectiveDate?: DateTimeFilter<"Disclosure"> | Date | string
+    effectiveDate?: StringFilter<"Disclosure"> | string
     required?: BoolFilter<"Disclosure"> | boolean
     applicableFor?: StringNullableListFilter<"Disclosure">
     agreements?: AgreementListRelationFilter
@@ -28704,7 +23837,7 @@ export namespace Prisma {
     title?: StringFilter<"Disclosure"> | string
     content?: StringFilter<"Disclosure"> | string
     version?: StringFilter<"Disclosure"> | string
-    effectiveDate?: DateTimeFilter<"Disclosure"> | Date | string
+    effectiveDate?: StringFilter<"Disclosure"> | string
     required?: BoolFilter<"Disclosure"> | boolean
     applicableFor?: StringNullableListFilter<"Disclosure">
     agreements?: AgreementListRelationFilter
@@ -28733,7 +23866,7 @@ export namespace Prisma {
     title?: StringWithAggregatesFilter<"Disclosure"> | string
     content?: StringWithAggregatesFilter<"Disclosure"> | string
     version?: StringWithAggregatesFilter<"Disclosure"> | string
-    effectiveDate?: DateTimeWithAggregatesFilter<"Disclosure"> | Date | string
+    effectiveDate?: StringWithAggregatesFilter<"Disclosure"> | string
     required?: BoolWithAggregatesFilter<"Disclosure"> | boolean
     applicableFor?: StringNullableListFilter<"Disclosure">
   }
@@ -28889,12 +24022,7 @@ export namespace Prisma {
     method?: StringFilter<"FundingSetup"> | string
     amount?: FloatFilter<"FundingSetup"> | number
     status?: StringFilter<"FundingSetup"> | string
-    bankName?: StringNullableFilter<"FundingSetup"> | string | null
-    accountNumber?: StringNullableFilter<"FundingSetup"> | string | null
-    routingNumber?: StringNullableFilter<"FundingSetup"> | string | null
-    accountType?: StringNullableFilter<"FundingSetup"> | string | null
-    plaidAccountId?: StringNullableFilter<"FundingSetup"> | string | null
-    wireInstructions?: JsonNullableFilter<"FundingSetup">
+    details?: JsonFilter<"FundingSetup">
     createdAt?: DateTimeFilter<"FundingSetup"> | Date | string
     processedAt?: DateTimeNullableFilter<"FundingSetup"> | Date | string | null
     applicationId?: StringFilter<"FundingSetup"> | string
@@ -28906,12 +24034,7 @@ export namespace Prisma {
     method?: SortOrder
     amount?: SortOrder
     status?: SortOrder
-    bankName?: SortOrderInput | SortOrder
-    accountNumber?: SortOrderInput | SortOrder
-    routingNumber?: SortOrderInput | SortOrder
-    accountType?: SortOrderInput | SortOrder
-    plaidAccountId?: SortOrderInput | SortOrder
-    wireInstructions?: SortOrderInput | SortOrder
+    details?: SortOrder
     createdAt?: SortOrder
     processedAt?: SortOrderInput | SortOrder
     applicationId?: SortOrder
@@ -28927,12 +24050,7 @@ export namespace Prisma {
     method?: StringFilter<"FundingSetup"> | string
     amount?: FloatFilter<"FundingSetup"> | number
     status?: StringFilter<"FundingSetup"> | string
-    bankName?: StringNullableFilter<"FundingSetup"> | string | null
-    accountNumber?: StringNullableFilter<"FundingSetup"> | string | null
-    routingNumber?: StringNullableFilter<"FundingSetup"> | string | null
-    accountType?: StringNullableFilter<"FundingSetup"> | string | null
-    plaidAccountId?: StringNullableFilter<"FundingSetup"> | string | null
-    wireInstructions?: JsonNullableFilter<"FundingSetup">
+    details?: JsonFilter<"FundingSetup">
     createdAt?: DateTimeFilter<"FundingSetup"> | Date | string
     processedAt?: DateTimeNullableFilter<"FundingSetup"> | Date | string | null
     application?: XOR<ApplicationScalarRelationFilter, ApplicationWhereInput>
@@ -28943,12 +24061,7 @@ export namespace Prisma {
     method?: SortOrder
     amount?: SortOrder
     status?: SortOrder
-    bankName?: SortOrderInput | SortOrder
-    accountNumber?: SortOrderInput | SortOrder
-    routingNumber?: SortOrderInput | SortOrder
-    accountType?: SortOrderInput | SortOrder
-    plaidAccountId?: SortOrderInput | SortOrder
-    wireInstructions?: SortOrderInput | SortOrder
+    details?: SortOrder
     createdAt?: SortOrder
     processedAt?: SortOrderInput | SortOrder
     applicationId?: SortOrder
@@ -28967,15 +24080,85 @@ export namespace Prisma {
     method?: StringWithAggregatesFilter<"FundingSetup"> | string
     amount?: FloatWithAggregatesFilter<"FundingSetup"> | number
     status?: StringWithAggregatesFilter<"FundingSetup"> | string
-    bankName?: StringNullableWithAggregatesFilter<"FundingSetup"> | string | null
-    accountNumber?: StringNullableWithAggregatesFilter<"FundingSetup"> | string | null
-    routingNumber?: StringNullableWithAggregatesFilter<"FundingSetup"> | string | null
-    accountType?: StringNullableWithAggregatesFilter<"FundingSetup"> | string | null
-    plaidAccountId?: StringNullableWithAggregatesFilter<"FundingSetup"> | string | null
-    wireInstructions?: JsonNullableWithAggregatesFilter<"FundingSetup">
+    details?: JsonWithAggregatesFilter<"FundingSetup">
     createdAt?: DateTimeWithAggregatesFilter<"FundingSetup"> | Date | string
     processedAt?: DateTimeNullableWithAggregatesFilter<"FundingSetup"> | Date | string | null
     applicationId?: StringWithAggregatesFilter<"FundingSetup"> | string
+  }
+
+  export type AuditTrailEntryWhereInput = {
+    AND?: AuditTrailEntryWhereInput | AuditTrailEntryWhereInput[]
+    OR?: AuditTrailEntryWhereInput[]
+    NOT?: AuditTrailEntryWhereInput | AuditTrailEntryWhereInput[]
+    id?: StringFilter<"AuditTrailEntry"> | string
+    action?: StringFilter<"AuditTrailEntry"> | string
+    description?: StringFilter<"AuditTrailEntry"> | string
+    performedBy?: StringFilter<"AuditTrailEntry"> | string
+    performedAt?: DateTimeFilter<"AuditTrailEntry"> | Date | string
+    ipAddress?: StringFilter<"AuditTrailEntry"> | string
+    userAgent?: StringFilter<"AuditTrailEntry"> | string
+    changes?: JsonNullableFilter<"AuditTrailEntry">
+    applicationId?: StringFilter<"AuditTrailEntry"> | string
+    application?: XOR<ApplicationScalarRelationFilter, ApplicationWhereInput>
+  }
+
+  export type AuditTrailEntryOrderByWithRelationInput = {
+    id?: SortOrder
+    action?: SortOrder
+    description?: SortOrder
+    performedBy?: SortOrder
+    performedAt?: SortOrder
+    ipAddress?: SortOrder
+    userAgent?: SortOrder
+    changes?: SortOrderInput | SortOrder
+    applicationId?: SortOrder
+    application?: ApplicationOrderByWithRelationInput
+  }
+
+  export type AuditTrailEntryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AuditTrailEntryWhereInput | AuditTrailEntryWhereInput[]
+    OR?: AuditTrailEntryWhereInput[]
+    NOT?: AuditTrailEntryWhereInput | AuditTrailEntryWhereInput[]
+    action?: StringFilter<"AuditTrailEntry"> | string
+    description?: StringFilter<"AuditTrailEntry"> | string
+    performedBy?: StringFilter<"AuditTrailEntry"> | string
+    performedAt?: DateTimeFilter<"AuditTrailEntry"> | Date | string
+    ipAddress?: StringFilter<"AuditTrailEntry"> | string
+    userAgent?: StringFilter<"AuditTrailEntry"> | string
+    changes?: JsonNullableFilter<"AuditTrailEntry">
+    applicationId?: StringFilter<"AuditTrailEntry"> | string
+    application?: XOR<ApplicationScalarRelationFilter, ApplicationWhereInput>
+  }, "id">
+
+  export type AuditTrailEntryOrderByWithAggregationInput = {
+    id?: SortOrder
+    action?: SortOrder
+    description?: SortOrder
+    performedBy?: SortOrder
+    performedAt?: SortOrder
+    ipAddress?: SortOrder
+    userAgent?: SortOrder
+    changes?: SortOrderInput | SortOrder
+    applicationId?: SortOrder
+    _count?: AuditTrailEntryCountOrderByAggregateInput
+    _max?: AuditTrailEntryMaxOrderByAggregateInput
+    _min?: AuditTrailEntryMinOrderByAggregateInput
+  }
+
+  export type AuditTrailEntryScalarWhereWithAggregatesInput = {
+    AND?: AuditTrailEntryScalarWhereWithAggregatesInput | AuditTrailEntryScalarWhereWithAggregatesInput[]
+    OR?: AuditTrailEntryScalarWhereWithAggregatesInput[]
+    NOT?: AuditTrailEntryScalarWhereWithAggregatesInput | AuditTrailEntryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AuditTrailEntry"> | string
+    action?: StringWithAggregatesFilter<"AuditTrailEntry"> | string
+    description?: StringWithAggregatesFilter<"AuditTrailEntry"> | string
+    performedBy?: StringWithAggregatesFilter<"AuditTrailEntry"> | string
+    performedAt?: DateTimeWithAggregatesFilter<"AuditTrailEntry"> | Date | string
+    ipAddress?: StringWithAggregatesFilter<"AuditTrailEntry"> | string
+    userAgent?: StringWithAggregatesFilter<"AuditTrailEntry"> | string
+    changes?: JsonNullableWithAggregatesFilter<"AuditTrailEntry">
+    applicationId?: StringWithAggregatesFilter<"AuditTrailEntry"> | string
   }
 
   export type UserCreateInput = {
@@ -28986,7 +24169,7 @@ export namespace Prisma {
     isEmailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    Token?: TokenCreateNestedManyWithoutUserInput
+    tokens?: TokenCreateNestedManyWithoutUserInput
     applications?: ApplicationCreateNestedManyWithoutUserInput
   }
 
@@ -28999,7 +24182,7 @@ export namespace Prisma {
     isEmailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    Token?: TokenUncheckedCreateNestedManyWithoutUserInput
+    tokens?: TokenUncheckedCreateNestedManyWithoutUserInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -29011,7 +24194,7 @@ export namespace Prisma {
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Token?: TokenUpdateManyWithoutUserNestedInput
+    tokens?: TokenUpdateManyWithoutUserNestedInput
     applications?: ApplicationUpdateManyWithoutUserNestedInput
   }
 
@@ -29024,7 +24207,7 @@ export namespace Prisma {
     isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Token?: TokenUncheckedUpdateManyWithoutUserNestedInput
+    tokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -29066,7 +24249,7 @@ export namespace Prisma {
     expires: Date | string
     blacklisted: boolean
     createdAt?: Date | string
-    user: UserCreateNestedOneWithoutTokenInput
+    user: UserCreateNestedOneWithoutTokensInput
   }
 
   export type TokenUncheckedCreateInput = {
@@ -29085,7 +24268,7 @@ export namespace Prisma {
     expires?: DateTimeFieldUpdateOperationsInput | Date | string
     blacklisted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutTokenNestedInput
+    user?: UserUpdateOneRequiredWithoutTokensNestedInput
   }
 
   export type TokenUncheckedUpdateInput = {
@@ -29137,24 +24320,20 @@ export namespace Prisma {
     completedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    userAgent?: string | null
-    ipAddress?: string | null
-    sessionId?: string | null
-    startedAt?: Date | string | null
-    lastActivity?: Date | string | null
-    source?: string | null
-    user: UserCreateNestedOneWithoutApplicationsInput
+    metadata: JsonNullValueInput | InputJsonValue
     personalInfo?: PersonalInfoCreateNestedOneWithoutApplicationInput
     businessProfile?: BusinessProfileCreateNestedOneWithoutApplicationInput
     financialProfile?: FinancialProfileCreateNestedOneWithoutApplicationInput
     productSelections?: ProductSelectionCreateNestedManyWithoutApplicationInput
     documents?: DocumentCreateNestedManyWithoutApplicationInput
-    kycVerification?: KYCVerificationCreateNestedOneWithoutApplicationInput
     additionalSigners?: AdditionalSignerCreateNestedManyWithoutApplicationInput
+    kycVerification?: KYCVerificationCreateNestedOneWithoutApplicationInput
     riskAssessment?: RiskAssessmentCreateNestedOneWithoutApplicationInput
     agreements?: AgreementCreateNestedManyWithoutApplicationInput
     signatures?: ElectronicSignatureCreateNestedManyWithoutApplicationInput
     fundingSetup?: FundingSetupCreateNestedOneWithoutApplicationInput
+    user: UserCreateNestedOneWithoutApplicationsInput
+    auditTrail?: AuditTrailEntryCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationUncheckedCreateInput = {
@@ -29168,24 +24347,20 @@ export namespace Prisma {
     completedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    userAgent?: string | null
-    ipAddress?: string | null
-    sessionId?: string | null
-    startedAt?: Date | string | null
-    lastActivity?: Date | string | null
-    source?: string | null
+    metadata: JsonNullValueInput | InputJsonValue
     userId: number
     personalInfo?: PersonalInfoUncheckedCreateNestedOneWithoutApplicationInput
     businessProfile?: BusinessProfileUncheckedCreateNestedOneWithoutApplicationInput
     financialProfile?: FinancialProfileUncheckedCreateNestedOneWithoutApplicationInput
     productSelections?: ProductSelectionUncheckedCreateNestedManyWithoutApplicationInput
     documents?: DocumentUncheckedCreateNestedManyWithoutApplicationInput
-    kycVerification?: KYCVerificationUncheckedCreateNestedOneWithoutApplicationInput
     additionalSigners?: AdditionalSignerUncheckedCreateNestedManyWithoutApplicationInput
+    kycVerification?: KYCVerificationUncheckedCreateNestedOneWithoutApplicationInput
     riskAssessment?: RiskAssessmentUncheckedCreateNestedOneWithoutApplicationInput
     agreements?: AgreementUncheckedCreateNestedManyWithoutApplicationInput
     signatures?: ElectronicSignatureUncheckedCreateNestedManyWithoutApplicationInput
     fundingSetup?: FundingSetupUncheckedCreateNestedOneWithoutApplicationInput
+    auditTrail?: AuditTrailEntryUncheckedCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationUpdateInput = {
@@ -29199,24 +24374,20 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastActivity?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    source?: NullableStringFieldUpdateOperationsInput | string | null
-    user?: UserUpdateOneRequiredWithoutApplicationsNestedInput
+    metadata?: JsonNullValueInput | InputJsonValue
     personalInfo?: PersonalInfoUpdateOneWithoutApplicationNestedInput
     businessProfile?: BusinessProfileUpdateOneWithoutApplicationNestedInput
     financialProfile?: FinancialProfileUpdateOneWithoutApplicationNestedInput
     productSelections?: ProductSelectionUpdateManyWithoutApplicationNestedInput
     documents?: DocumentUpdateManyWithoutApplicationNestedInput
-    kycVerification?: KYCVerificationUpdateOneWithoutApplicationNestedInput
     additionalSigners?: AdditionalSignerUpdateManyWithoutApplicationNestedInput
+    kycVerification?: KYCVerificationUpdateOneWithoutApplicationNestedInput
     riskAssessment?: RiskAssessmentUpdateOneWithoutApplicationNestedInput
     agreements?: AgreementUpdateManyWithoutApplicationNestedInput
     signatures?: ElectronicSignatureUpdateManyWithoutApplicationNestedInput
     fundingSetup?: FundingSetupUpdateOneWithoutApplicationNestedInput
+    user?: UserUpdateOneRequiredWithoutApplicationsNestedInput
+    auditTrail?: AuditTrailEntryUpdateManyWithoutApplicationNestedInput
   }
 
   export type ApplicationUncheckedUpdateInput = {
@@ -29230,24 +24401,20 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastActivity?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    source?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
     userId?: IntFieldUpdateOperationsInput | number
     personalInfo?: PersonalInfoUncheckedUpdateOneWithoutApplicationNestedInput
     businessProfile?: BusinessProfileUncheckedUpdateOneWithoutApplicationNestedInput
     financialProfile?: FinancialProfileUncheckedUpdateOneWithoutApplicationNestedInput
     productSelections?: ProductSelectionUncheckedUpdateManyWithoutApplicationNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutApplicationNestedInput
-    kycVerification?: KYCVerificationUncheckedUpdateOneWithoutApplicationNestedInput
     additionalSigners?: AdditionalSignerUncheckedUpdateManyWithoutApplicationNestedInput
+    kycVerification?: KYCVerificationUncheckedUpdateOneWithoutApplicationNestedInput
     riskAssessment?: RiskAssessmentUncheckedUpdateOneWithoutApplicationNestedInput
     agreements?: AgreementUncheckedUpdateManyWithoutApplicationNestedInput
     signatures?: ElectronicSignatureUncheckedUpdateManyWithoutApplicationNestedInput
     fundingSetup?: FundingSetupUncheckedUpdateOneWithoutApplicationNestedInput
+    auditTrail?: AuditTrailEntryUncheckedUpdateManyWithoutApplicationNestedInput
   }
 
   export type ApplicationCreateManyInput = {
@@ -29261,12 +24428,7 @@ export namespace Prisma {
     completedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    userAgent?: string | null
-    ipAddress?: string | null
-    sessionId?: string | null
-    startedAt?: Date | string | null
-    lastActivity?: Date | string | null
-    source?: string | null
+    metadata: JsonNullValueInput | InputJsonValue
     userId: number
   }
 
@@ -29281,12 +24443,7 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastActivity?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    source?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
   }
 
   export type ApplicationUncheckedUpdateManyInput = {
@@ -29300,12 +24457,7 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastActivity?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    source?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
     userId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -29319,22 +24471,12 @@ export namespace Prisma {
     ssn: string
     phone: string
     email: string
+    mailingAddress: JsonNullValueInput | InputJsonValue
+    physicalAddress?: NullableJsonNullValueInput | InputJsonValue
     employmentStatus: string
     occupation?: string | null
     employer?: string | null
     workPhone?: string | null
-    mailingStreet: string
-    mailingCity: string
-    mailingState: string
-    mailingZipCode: string
-    mailingCountry: string
-    mailingApartment?: string | null
-    physicalStreet?: string | null
-    physicalCity?: string | null
-    physicalState?: string | null
-    physicalZipCode?: string | null
-    physicalCountry?: string | null
-    physicalApartment?: string | null
     application: ApplicationCreateNestedOneWithoutPersonalInfoInput
   }
 
@@ -29348,22 +24490,12 @@ export namespace Prisma {
     ssn: string
     phone: string
     email: string
+    mailingAddress: JsonNullValueInput | InputJsonValue
+    physicalAddress?: NullableJsonNullValueInput | InputJsonValue
     employmentStatus: string
     occupation?: string | null
     employer?: string | null
     workPhone?: string | null
-    mailingStreet: string
-    mailingCity: string
-    mailingState: string
-    mailingZipCode: string
-    mailingCountry: string
-    mailingApartment?: string | null
-    physicalStreet?: string | null
-    physicalCity?: string | null
-    physicalState?: string | null
-    physicalZipCode?: string | null
-    physicalCountry?: string | null
-    physicalApartment?: string | null
     applicationId: string
   }
 
@@ -29377,22 +24509,12 @@ export namespace Prisma {
     ssn?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    mailingAddress?: JsonNullValueInput | InputJsonValue
+    physicalAddress?: NullableJsonNullValueInput | InputJsonValue
     employmentStatus?: StringFieldUpdateOperationsInput | string
     occupation?: NullableStringFieldUpdateOperationsInput | string | null
     employer?: NullableStringFieldUpdateOperationsInput | string | null
     workPhone?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingStreet?: StringFieldUpdateOperationsInput | string
-    mailingCity?: StringFieldUpdateOperationsInput | string
-    mailingState?: StringFieldUpdateOperationsInput | string
-    mailingZipCode?: StringFieldUpdateOperationsInput | string
-    mailingCountry?: StringFieldUpdateOperationsInput | string
-    mailingApartment?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalStreet?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalCity?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalState?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalZipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalCountry?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalApartment?: NullableStringFieldUpdateOperationsInput | string | null
     application?: ApplicationUpdateOneRequiredWithoutPersonalInfoNestedInput
   }
 
@@ -29406,22 +24528,12 @@ export namespace Prisma {
     ssn?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    mailingAddress?: JsonNullValueInput | InputJsonValue
+    physicalAddress?: NullableJsonNullValueInput | InputJsonValue
     employmentStatus?: StringFieldUpdateOperationsInput | string
     occupation?: NullableStringFieldUpdateOperationsInput | string | null
     employer?: NullableStringFieldUpdateOperationsInput | string | null
     workPhone?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingStreet?: StringFieldUpdateOperationsInput | string
-    mailingCity?: StringFieldUpdateOperationsInput | string
-    mailingState?: StringFieldUpdateOperationsInput | string
-    mailingZipCode?: StringFieldUpdateOperationsInput | string
-    mailingCountry?: StringFieldUpdateOperationsInput | string
-    mailingApartment?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalStreet?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalCity?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalState?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalZipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalCountry?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalApartment?: NullableStringFieldUpdateOperationsInput | string | null
     applicationId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -29435,22 +24547,12 @@ export namespace Prisma {
     ssn: string
     phone: string
     email: string
+    mailingAddress: JsonNullValueInput | InputJsonValue
+    physicalAddress?: NullableJsonNullValueInput | InputJsonValue
     employmentStatus: string
     occupation?: string | null
     employer?: string | null
     workPhone?: string | null
-    mailingStreet: string
-    mailingCity: string
-    mailingState: string
-    mailingZipCode: string
-    mailingCountry: string
-    mailingApartment?: string | null
-    physicalStreet?: string | null
-    physicalCity?: string | null
-    physicalState?: string | null
-    physicalZipCode?: string | null
-    physicalCountry?: string | null
-    physicalApartment?: string | null
     applicationId: string
   }
 
@@ -29464,22 +24566,12 @@ export namespace Prisma {
     ssn?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    mailingAddress?: JsonNullValueInput | InputJsonValue
+    physicalAddress?: NullableJsonNullValueInput | InputJsonValue
     employmentStatus?: StringFieldUpdateOperationsInput | string
     occupation?: NullableStringFieldUpdateOperationsInput | string | null
     employer?: NullableStringFieldUpdateOperationsInput | string | null
     workPhone?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingStreet?: StringFieldUpdateOperationsInput | string
-    mailingCity?: StringFieldUpdateOperationsInput | string
-    mailingState?: StringFieldUpdateOperationsInput | string
-    mailingZipCode?: StringFieldUpdateOperationsInput | string
-    mailingCountry?: StringFieldUpdateOperationsInput | string
-    mailingApartment?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalStreet?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalCity?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalState?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalZipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalCountry?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalApartment?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PersonalInfoUncheckedUpdateManyInput = {
@@ -29492,22 +24584,12 @@ export namespace Prisma {
     ssn?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    mailingAddress?: JsonNullValueInput | InputJsonValue
+    physicalAddress?: NullableJsonNullValueInput | InputJsonValue
     employmentStatus?: StringFieldUpdateOperationsInput | string
     occupation?: NullableStringFieldUpdateOperationsInput | string | null
     employer?: NullableStringFieldUpdateOperationsInput | string | null
     workPhone?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingStreet?: StringFieldUpdateOperationsInput | string
-    mailingCity?: StringFieldUpdateOperationsInput | string
-    mailingState?: StringFieldUpdateOperationsInput | string
-    mailingZipCode?: StringFieldUpdateOperationsInput | string
-    mailingCountry?: StringFieldUpdateOperationsInput | string
-    mailingApartment?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalStreet?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalCity?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalState?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalZipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalCountry?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalApartment?: NullableStringFieldUpdateOperationsInput | string | null
     applicationId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -29519,26 +24601,16 @@ export namespace Prisma {
     entityType: string
     industryType: string
     dateEstablished: string
+    businessAddress: JsonNullValueInput | InputJsonValue
+    mailingAddress?: NullableJsonNullValueInput | InputJsonValue
     businessPhone: string
     businessEmail: string
     website?: string | null
     description: string
-    isCashIntensive: boolean
+    isCashIntensive?: boolean
     monthlyTransactionVolume: number
     monthlyTransactionCount: number
     expectedBalance: number
-    businessStreet: string
-    businessCity: string
-    businessState: string
-    businessZipCode: string
-    businessCountry: string
-    businessApartment?: string | null
-    mailingStreet?: string | null
-    mailingCity?: string | null
-    mailingState?: string | null
-    mailingZipCode?: string | null
-    mailingCountry?: string | null
-    mailingApartment?: string | null
     application: ApplicationCreateNestedOneWithoutBusinessProfileInput
   }
 
@@ -29550,26 +24622,16 @@ export namespace Prisma {
     entityType: string
     industryType: string
     dateEstablished: string
+    businessAddress: JsonNullValueInput | InputJsonValue
+    mailingAddress?: NullableJsonNullValueInput | InputJsonValue
     businessPhone: string
     businessEmail: string
     website?: string | null
     description: string
-    isCashIntensive: boolean
+    isCashIntensive?: boolean
     monthlyTransactionVolume: number
     monthlyTransactionCount: number
     expectedBalance: number
-    businessStreet: string
-    businessCity: string
-    businessState: string
-    businessZipCode: string
-    businessCountry: string
-    businessApartment?: string | null
-    mailingStreet?: string | null
-    mailingCity?: string | null
-    mailingState?: string | null
-    mailingZipCode?: string | null
-    mailingCountry?: string | null
-    mailingApartment?: string | null
     applicationId: string
   }
 
@@ -29581,6 +24643,8 @@ export namespace Prisma {
     entityType?: StringFieldUpdateOperationsInput | string
     industryType?: StringFieldUpdateOperationsInput | string
     dateEstablished?: StringFieldUpdateOperationsInput | string
+    businessAddress?: JsonNullValueInput | InputJsonValue
+    mailingAddress?: NullableJsonNullValueInput | InputJsonValue
     businessPhone?: StringFieldUpdateOperationsInput | string
     businessEmail?: StringFieldUpdateOperationsInput | string
     website?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29589,18 +24653,6 @@ export namespace Prisma {
     monthlyTransactionVolume?: FloatFieldUpdateOperationsInput | number
     monthlyTransactionCount?: IntFieldUpdateOperationsInput | number
     expectedBalance?: FloatFieldUpdateOperationsInput | number
-    businessStreet?: StringFieldUpdateOperationsInput | string
-    businessCity?: StringFieldUpdateOperationsInput | string
-    businessState?: StringFieldUpdateOperationsInput | string
-    businessZipCode?: StringFieldUpdateOperationsInput | string
-    businessCountry?: StringFieldUpdateOperationsInput | string
-    businessApartment?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingStreet?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingCity?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingState?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingZipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingCountry?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingApartment?: NullableStringFieldUpdateOperationsInput | string | null
     application?: ApplicationUpdateOneRequiredWithoutBusinessProfileNestedInput
   }
 
@@ -29612,6 +24664,8 @@ export namespace Prisma {
     entityType?: StringFieldUpdateOperationsInput | string
     industryType?: StringFieldUpdateOperationsInput | string
     dateEstablished?: StringFieldUpdateOperationsInput | string
+    businessAddress?: JsonNullValueInput | InputJsonValue
+    mailingAddress?: NullableJsonNullValueInput | InputJsonValue
     businessPhone?: StringFieldUpdateOperationsInput | string
     businessEmail?: StringFieldUpdateOperationsInput | string
     website?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29620,18 +24674,6 @@ export namespace Prisma {
     monthlyTransactionVolume?: FloatFieldUpdateOperationsInput | number
     monthlyTransactionCount?: IntFieldUpdateOperationsInput | number
     expectedBalance?: FloatFieldUpdateOperationsInput | number
-    businessStreet?: StringFieldUpdateOperationsInput | string
-    businessCity?: StringFieldUpdateOperationsInput | string
-    businessState?: StringFieldUpdateOperationsInput | string
-    businessZipCode?: StringFieldUpdateOperationsInput | string
-    businessCountry?: StringFieldUpdateOperationsInput | string
-    businessApartment?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingStreet?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingCity?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingState?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingZipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingCountry?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingApartment?: NullableStringFieldUpdateOperationsInput | string | null
     applicationId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -29643,26 +24685,16 @@ export namespace Prisma {
     entityType: string
     industryType: string
     dateEstablished: string
+    businessAddress: JsonNullValueInput | InputJsonValue
+    mailingAddress?: NullableJsonNullValueInput | InputJsonValue
     businessPhone: string
     businessEmail: string
     website?: string | null
     description: string
-    isCashIntensive: boolean
+    isCashIntensive?: boolean
     monthlyTransactionVolume: number
     monthlyTransactionCount: number
     expectedBalance: number
-    businessStreet: string
-    businessCity: string
-    businessState: string
-    businessZipCode: string
-    businessCountry: string
-    businessApartment?: string | null
-    mailingStreet?: string | null
-    mailingCity?: string | null
-    mailingState?: string | null
-    mailingZipCode?: string | null
-    mailingCountry?: string | null
-    mailingApartment?: string | null
     applicationId: string
   }
 
@@ -29674,6 +24706,8 @@ export namespace Prisma {
     entityType?: StringFieldUpdateOperationsInput | string
     industryType?: StringFieldUpdateOperationsInput | string
     dateEstablished?: StringFieldUpdateOperationsInput | string
+    businessAddress?: JsonNullValueInput | InputJsonValue
+    mailingAddress?: NullableJsonNullValueInput | InputJsonValue
     businessPhone?: StringFieldUpdateOperationsInput | string
     businessEmail?: StringFieldUpdateOperationsInput | string
     website?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29682,18 +24716,6 @@ export namespace Prisma {
     monthlyTransactionVolume?: FloatFieldUpdateOperationsInput | number
     monthlyTransactionCount?: IntFieldUpdateOperationsInput | number
     expectedBalance?: FloatFieldUpdateOperationsInput | number
-    businessStreet?: StringFieldUpdateOperationsInput | string
-    businessCity?: StringFieldUpdateOperationsInput | string
-    businessState?: StringFieldUpdateOperationsInput | string
-    businessZipCode?: StringFieldUpdateOperationsInput | string
-    businessCountry?: StringFieldUpdateOperationsInput | string
-    businessApartment?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingStreet?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingCity?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingState?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingZipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingCountry?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingApartment?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BusinessProfileUncheckedUpdateManyInput = {
@@ -29704,6 +24726,8 @@ export namespace Prisma {
     entityType?: StringFieldUpdateOperationsInput | string
     industryType?: StringFieldUpdateOperationsInput | string
     dateEstablished?: StringFieldUpdateOperationsInput | string
+    businessAddress?: JsonNullValueInput | InputJsonValue
+    mailingAddress?: NullableJsonNullValueInput | InputJsonValue
     businessPhone?: StringFieldUpdateOperationsInput | string
     businessEmail?: StringFieldUpdateOperationsInput | string
     website?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29712,18 +24736,6 @@ export namespace Prisma {
     monthlyTransactionVolume?: FloatFieldUpdateOperationsInput | number
     monthlyTransactionCount?: IntFieldUpdateOperationsInput | number
     expectedBalance?: FloatFieldUpdateOperationsInput | number
-    businessStreet?: StringFieldUpdateOperationsInput | string
-    businessCity?: StringFieldUpdateOperationsInput | string
-    businessState?: StringFieldUpdateOperationsInput | string
-    businessZipCode?: StringFieldUpdateOperationsInput | string
-    businessCountry?: StringFieldUpdateOperationsInput | string
-    businessApartment?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingStreet?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingCity?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingState?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingZipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingCountry?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingApartment?: NullableStringFieldUpdateOperationsInput | string | null
     applicationId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -29734,9 +24746,9 @@ export namespace Prisma {
     employmentInfo?: NullableJsonNullValueInput | InputJsonValue
     assets: number
     liabilities: number
+    bankingRelationships?: FinancialProfileCreatebankingRelationshipsInput | InputJsonValue[]
+    accountActivities?: FinancialProfileCreateaccountActivitiesInput | InputJsonValue[]
     application: ApplicationCreateNestedOneWithoutFinancialProfileInput
-    bankingRelationships?: BankingRelationshipCreateNestedManyWithoutFinancialProfileInput
-    accountActivities?: AccountActivityCreateNestedManyWithoutFinancialProfileInput
   }
 
   export type FinancialProfileUncheckedCreateInput = {
@@ -29746,9 +24758,9 @@ export namespace Prisma {
     employmentInfo?: NullableJsonNullValueInput | InputJsonValue
     assets: number
     liabilities: number
+    bankingRelationships?: FinancialProfileCreatebankingRelationshipsInput | InputJsonValue[]
+    accountActivities?: FinancialProfileCreateaccountActivitiesInput | InputJsonValue[]
     applicationId: string
-    bankingRelationships?: BankingRelationshipUncheckedCreateNestedManyWithoutFinancialProfileInput
-    accountActivities?: AccountActivityUncheckedCreateNestedManyWithoutFinancialProfileInput
   }
 
   export type FinancialProfileUpdateInput = {
@@ -29758,9 +24770,9 @@ export namespace Prisma {
     employmentInfo?: NullableJsonNullValueInput | InputJsonValue
     assets?: FloatFieldUpdateOperationsInput | number
     liabilities?: FloatFieldUpdateOperationsInput | number
+    bankingRelationships?: FinancialProfileUpdatebankingRelationshipsInput | InputJsonValue[]
+    accountActivities?: FinancialProfileUpdateaccountActivitiesInput | InputJsonValue[]
     application?: ApplicationUpdateOneRequiredWithoutFinancialProfileNestedInput
-    bankingRelationships?: BankingRelationshipUpdateManyWithoutFinancialProfileNestedInput
-    accountActivities?: AccountActivityUpdateManyWithoutFinancialProfileNestedInput
   }
 
   export type FinancialProfileUncheckedUpdateInput = {
@@ -29770,9 +24782,9 @@ export namespace Prisma {
     employmentInfo?: NullableJsonNullValueInput | InputJsonValue
     assets?: FloatFieldUpdateOperationsInput | number
     liabilities?: FloatFieldUpdateOperationsInput | number
+    bankingRelationships?: FinancialProfileUpdatebankingRelationshipsInput | InputJsonValue[]
+    accountActivities?: FinancialProfileUpdateaccountActivitiesInput | InputJsonValue[]
     applicationId?: StringFieldUpdateOperationsInput | string
-    bankingRelationships?: BankingRelationshipUncheckedUpdateManyWithoutFinancialProfileNestedInput
-    accountActivities?: AccountActivityUncheckedUpdateManyWithoutFinancialProfileNestedInput
   }
 
   export type FinancialProfileCreateManyInput = {
@@ -29782,6 +24794,8 @@ export namespace Prisma {
     employmentInfo?: NullableJsonNullValueInput | InputJsonValue
     assets: number
     liabilities: number
+    bankingRelationships?: FinancialProfileCreatebankingRelationshipsInput | InputJsonValue[]
+    accountActivities?: FinancialProfileCreateaccountActivitiesInput | InputJsonValue[]
     applicationId: string
   }
 
@@ -29792,6 +24806,8 @@ export namespace Prisma {
     employmentInfo?: NullableJsonNullValueInput | InputJsonValue
     assets?: FloatFieldUpdateOperationsInput | number
     liabilities?: FloatFieldUpdateOperationsInput | number
+    bankingRelationships?: FinancialProfileUpdatebankingRelationshipsInput | InputJsonValue[]
+    accountActivities?: FinancialProfileUpdateaccountActivitiesInput | InputJsonValue[]
   }
 
   export type FinancialProfileUncheckedUpdateManyInput = {
@@ -29801,285 +24817,104 @@ export namespace Prisma {
     employmentInfo?: NullableJsonNullValueInput | InputJsonValue
     assets?: FloatFieldUpdateOperationsInput | number
     liabilities?: FloatFieldUpdateOperationsInput | number
+    bankingRelationships?: FinancialProfileUpdatebankingRelationshipsInput | InputJsonValue[]
+    accountActivities?: FinancialProfileUpdateaccountActivitiesInput | InputJsonValue[]
     applicationId?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type BankingRelationshipCreateInput = {
-    id?: string
-    bankName: string
-    accountTypes?: BankingRelationshipCreateaccountTypesInput | string[]
-    yearsWithBank: number
-    financialProfile: FinancialProfileCreateNestedOneWithoutBankingRelationshipsInput
-  }
-
-  export type BankingRelationshipUncheckedCreateInput = {
-    id?: string
-    bankName: string
-    accountTypes?: BankingRelationshipCreateaccountTypesInput | string[]
-    yearsWithBank: number
-    financialProfileId: string
-  }
-
-  export type BankingRelationshipUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    bankName?: StringFieldUpdateOperationsInput | string
-    accountTypes?: BankingRelationshipUpdateaccountTypesInput | string[]
-    yearsWithBank?: IntFieldUpdateOperationsInput | number
-    financialProfile?: FinancialProfileUpdateOneRequiredWithoutBankingRelationshipsNestedInput
-  }
-
-  export type BankingRelationshipUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    bankName?: StringFieldUpdateOperationsInput | string
-    accountTypes?: BankingRelationshipUpdateaccountTypesInput | string[]
-    yearsWithBank?: IntFieldUpdateOperationsInput | number
-    financialProfileId?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type BankingRelationshipCreateManyInput = {
-    id?: string
-    bankName: string
-    accountTypes?: BankingRelationshipCreateaccountTypesInput | string[]
-    yearsWithBank: number
-    financialProfileId: string
-  }
-
-  export type BankingRelationshipUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    bankName?: StringFieldUpdateOperationsInput | string
-    accountTypes?: BankingRelationshipUpdateaccountTypesInput | string[]
-    yearsWithBank?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type BankingRelationshipUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    bankName?: StringFieldUpdateOperationsInput | string
-    accountTypes?: BankingRelationshipUpdateaccountTypesInput | string[]
-    yearsWithBank?: IntFieldUpdateOperationsInput | number
-    financialProfileId?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type AccountActivityCreateInput = {
-    id?: string
-    activity: string
-    frequency: string
-    amount: number
-    financialProfile: FinancialProfileCreateNestedOneWithoutAccountActivitiesInput
-  }
-
-  export type AccountActivityUncheckedCreateInput = {
-    id?: string
-    activity: string
-    frequency: string
-    amount: number
-    financialProfileId: string
-  }
-
-  export type AccountActivityUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    activity?: StringFieldUpdateOperationsInput | string
-    frequency?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
-    financialProfile?: FinancialProfileUpdateOneRequiredWithoutAccountActivitiesNestedInput
-  }
-
-  export type AccountActivityUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    activity?: StringFieldUpdateOperationsInput | string
-    frequency?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
-    financialProfileId?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type AccountActivityCreateManyInput = {
-    id?: string
-    activity: string
-    frequency: string
-    amount: number
-    financialProfileId: string
-  }
-
-  export type AccountActivityUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    activity?: StringFieldUpdateOperationsInput | string
-    frequency?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
-  }
-
-  export type AccountActivityUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    activity?: StringFieldUpdateOperationsInput | string
-    frequency?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
-    financialProfileId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProductCreateInput = {
     id?: string
     name: string
-    type: $Enums.ProductType
+    type: string
     description: string
     features?: ProductCreatefeaturesInput | string[]
     minimumBalance: number
     monthlyFee: number
     interestRate?: number | null
     isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    selections?: ProductSelectionCreateNestedManyWithoutProductInput
-    eligibilityRules?: EligibilityRuleCreateNestedManyWithoutProductInput
+    eligibilityRules?: ProductCreateeligibilityRulesInput | InputJsonValue[]
+    productSelections?: ProductSelectionCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateInput = {
     id?: string
     name: string
-    type: $Enums.ProductType
+    type: string
     description: string
     features?: ProductCreatefeaturesInput | string[]
     minimumBalance: number
     monthlyFee: number
     interestRate?: number | null
     isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    selections?: ProductSelectionUncheckedCreateNestedManyWithoutProductInput
-    eligibilityRules?: EligibilityRuleUncheckedCreateNestedManyWithoutProductInput
+    eligibilityRules?: ProductCreateeligibilityRulesInput | InputJsonValue[]
+    productSelections?: ProductSelectionUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    type?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
+    type?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     features?: ProductUpdatefeaturesInput | string[]
     minimumBalance?: FloatFieldUpdateOperationsInput | number
     monthlyFee?: FloatFieldUpdateOperationsInput | number
     interestRate?: NullableFloatFieldUpdateOperationsInput | number | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    selections?: ProductSelectionUpdateManyWithoutProductNestedInput
-    eligibilityRules?: EligibilityRuleUpdateManyWithoutProductNestedInput
+    eligibilityRules?: ProductUpdateeligibilityRulesInput | InputJsonValue[]
+    productSelections?: ProductSelectionUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    type?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
+    type?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     features?: ProductUpdatefeaturesInput | string[]
     minimumBalance?: FloatFieldUpdateOperationsInput | number
     monthlyFee?: FloatFieldUpdateOperationsInput | number
     interestRate?: NullableFloatFieldUpdateOperationsInput | number | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    selections?: ProductSelectionUncheckedUpdateManyWithoutProductNestedInput
-    eligibilityRules?: EligibilityRuleUncheckedUpdateManyWithoutProductNestedInput
+    eligibilityRules?: ProductUpdateeligibilityRulesInput | InputJsonValue[]
+    productSelections?: ProductSelectionUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductCreateManyInput = {
     id?: string
     name: string
-    type: $Enums.ProductType
+    type: string
     description: string
     features?: ProductCreatefeaturesInput | string[]
     minimumBalance: number
     monthlyFee: number
     interestRate?: number | null
     isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    eligibilityRules?: ProductCreateeligibilityRulesInput | InputJsonValue[]
   }
 
   export type ProductUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    type?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
+    type?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     features?: ProductUpdatefeaturesInput | string[]
     minimumBalance?: FloatFieldUpdateOperationsInput | number
     monthlyFee?: FloatFieldUpdateOperationsInput | number
     interestRate?: NullableFloatFieldUpdateOperationsInput | number | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    eligibilityRules?: ProductUpdateeligibilityRulesInput | InputJsonValue[]
   }
 
   export type ProductUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    type?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
+    type?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     features?: ProductUpdatefeaturesInput | string[]
     minimumBalance?: FloatFieldUpdateOperationsInput | number
     monthlyFee?: FloatFieldUpdateOperationsInput | number
     interestRate?: NullableFloatFieldUpdateOperationsInput | number | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type EligibilityRuleCreateInput = {
-    id?: string
-    field: string
-    operator: $Enums.EligibilityOperator
-    value: JsonNullValueInput | InputJsonValue
-    description: string
-    product: ProductCreateNestedOneWithoutEligibilityRulesInput
-  }
-
-  export type EligibilityRuleUncheckedCreateInput = {
-    id?: string
-    field: string
-    operator: $Enums.EligibilityOperator
-    value: JsonNullValueInput | InputJsonValue
-    description: string
-    productId: string
-  }
-
-  export type EligibilityRuleUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    field?: StringFieldUpdateOperationsInput | string
-    operator?: EnumEligibilityOperatorFieldUpdateOperationsInput | $Enums.EligibilityOperator
-    value?: JsonNullValueInput | InputJsonValue
-    description?: StringFieldUpdateOperationsInput | string
-    product?: ProductUpdateOneRequiredWithoutEligibilityRulesNestedInput
-  }
-
-  export type EligibilityRuleUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    field?: StringFieldUpdateOperationsInput | string
-    operator?: EnumEligibilityOperatorFieldUpdateOperationsInput | $Enums.EligibilityOperator
-    value?: JsonNullValueInput | InputJsonValue
-    description?: StringFieldUpdateOperationsInput | string
-    productId?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type EligibilityRuleCreateManyInput = {
-    id?: string
-    field: string
-    operator: $Enums.EligibilityOperator
-    value: JsonNullValueInput | InputJsonValue
-    description: string
-    productId: string
-  }
-
-  export type EligibilityRuleUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    field?: StringFieldUpdateOperationsInput | string
-    operator?: EnumEligibilityOperatorFieldUpdateOperationsInput | $Enums.EligibilityOperator
-    value?: JsonNullValueInput | InputJsonValue
-    description?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type EligibilityRuleUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    field?: StringFieldUpdateOperationsInput | string
-    operator?: EnumEligibilityOperatorFieldUpdateOperationsInput | $Enums.EligibilityOperator
-    value?: JsonNullValueInput | InputJsonValue
-    description?: StringFieldUpdateOperationsInput | string
-    productId?: StringFieldUpdateOperationsInput | string
+    eligibilityRules?: ProductUpdateeligibilityRulesInput | InputJsonValue[]
   }
 
   export type ProductSelectionCreateInput = {
@@ -30087,7 +24922,7 @@ export namespace Prisma {
     selectedFeatures?: ProductSelectionCreateselectedFeaturesInput | string[]
     initialDeposit?: number | null
     application: ApplicationCreateNestedOneWithoutProductSelectionsInput
-    product: ProductCreateNestedOneWithoutSelectionsInput
+    product: ProductCreateNestedOneWithoutProductSelectionsInput
   }
 
   export type ProductSelectionUncheckedCreateInput = {
@@ -30103,7 +24938,7 @@ export namespace Prisma {
     selectedFeatures?: ProductSelectionUpdateselectedFeaturesInput | string[]
     initialDeposit?: NullableFloatFieldUpdateOperationsInput | number | null
     application?: ApplicationUpdateOneRequiredWithoutProductSelectionsNestedInput
-    product?: ProductUpdateOneRequiredWithoutSelectionsNestedInput
+    product?: ProductUpdateOneRequiredWithoutProductSelectionsNestedInput
   }
 
   export type ProductSelectionUncheckedUpdateInput = {
@@ -30144,13 +24979,9 @@ export namespace Prisma {
     mimeType: string
     uploadedAt?: Date | string
     verificationStatus?: string
-    verificationProvider?: string | null
-    verificationConfidence?: number | null
-    extractedData?: NullableJsonNullValueInput | InputJsonValue
-    verificationId?: string | null
-    verifiedAt?: Date | string | null
-    signerId?: string | null
+    verificationDetails?: NullableJsonNullValueInput | InputJsonValue
     application: ApplicationCreateNestedOneWithoutDocumentsInput
+    signer?: AdditionalSignerCreateNestedOneWithoutDocumentsInput
   }
 
   export type DocumentUncheckedCreateInput = {
@@ -30161,13 +24992,9 @@ export namespace Prisma {
     mimeType: string
     uploadedAt?: Date | string
     verificationStatus?: string
-    verificationProvider?: string | null
-    verificationConfidence?: number | null
-    extractedData?: NullableJsonNullValueInput | InputJsonValue
-    verificationId?: string | null
-    verifiedAt?: Date | string | null
-    signerId?: string | null
+    verificationDetails?: NullableJsonNullValueInput | InputJsonValue
     applicationId: string
+    signerId?: string | null
   }
 
   export type DocumentUpdateInput = {
@@ -30178,13 +25005,9 @@ export namespace Prisma {
     mimeType?: StringFieldUpdateOperationsInput | string
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     verificationStatus?: StringFieldUpdateOperationsInput | string
-    verificationProvider?: NullableStringFieldUpdateOperationsInput | string | null
-    verificationConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    extractedData?: NullableJsonNullValueInput | InputJsonValue
-    verificationId?: NullableStringFieldUpdateOperationsInput | string | null
-    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    signerId?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationDetails?: NullableJsonNullValueInput | InputJsonValue
     application?: ApplicationUpdateOneRequiredWithoutDocumentsNestedInput
+    signer?: AdditionalSignerUpdateOneWithoutDocumentsNestedInput
   }
 
   export type DocumentUncheckedUpdateInput = {
@@ -30195,13 +25018,9 @@ export namespace Prisma {
     mimeType?: StringFieldUpdateOperationsInput | string
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     verificationStatus?: StringFieldUpdateOperationsInput | string
-    verificationProvider?: NullableStringFieldUpdateOperationsInput | string | null
-    verificationConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    extractedData?: NullableJsonNullValueInput | InputJsonValue
-    verificationId?: NullableStringFieldUpdateOperationsInput | string | null
-    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    signerId?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationDetails?: NullableJsonNullValueInput | InputJsonValue
     applicationId?: StringFieldUpdateOperationsInput | string
+    signerId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type DocumentCreateManyInput = {
@@ -30212,13 +25031,9 @@ export namespace Prisma {
     mimeType: string
     uploadedAt?: Date | string
     verificationStatus?: string
-    verificationProvider?: string | null
-    verificationConfidence?: number | null
-    extractedData?: NullableJsonNullValueInput | InputJsonValue
-    verificationId?: string | null
-    verifiedAt?: Date | string | null
-    signerId?: string | null
+    verificationDetails?: NullableJsonNullValueInput | InputJsonValue
     applicationId: string
+    signerId?: string | null
   }
 
   export type DocumentUpdateManyMutationInput = {
@@ -30229,12 +25044,7 @@ export namespace Prisma {
     mimeType?: StringFieldUpdateOperationsInput | string
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     verificationStatus?: StringFieldUpdateOperationsInput | string
-    verificationProvider?: NullableStringFieldUpdateOperationsInput | string | null
-    verificationConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    extractedData?: NullableJsonNullValueInput | InputJsonValue
-    verificationId?: NullableStringFieldUpdateOperationsInput | string | null
-    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    signerId?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationDetails?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type DocumentUncheckedUpdateManyInput = {
@@ -30245,13 +25055,9 @@ export namespace Prisma {
     mimeType?: StringFieldUpdateOperationsInput | string
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     verificationStatus?: StringFieldUpdateOperationsInput | string
-    verificationProvider?: NullableStringFieldUpdateOperationsInput | string | null
-    verificationConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    extractedData?: NullableJsonNullValueInput | InputJsonValue
-    verificationId?: NullableStringFieldUpdateOperationsInput | string | null
-    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    signerId?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationDetails?: NullableJsonNullValueInput | InputJsonValue
     applicationId?: StringFieldUpdateOperationsInput | string
+    signerId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type KYCVerificationCreateInput = {
@@ -30261,16 +25067,7 @@ export namespace Prisma {
     verificationId: string
     confidence: number
     verifiedAt?: Date | string | null
-    identityPassed?: boolean | null
-    identityConfidence?: number | null
-    addressPassed?: boolean | null
-    addressConfidence?: number | null
-    phonePassed?: boolean | null
-    phoneConfidence?: number | null
-    emailPassed?: boolean | null
-    emailConfidence?: number | null
-    ofacPassed?: boolean | null
-    ofacMatches?: NullableJsonNullValueInput | InputJsonValue
+    results: JsonNullValueInput | InputJsonValue
     application: ApplicationCreateNestedOneWithoutKycVerificationInput
   }
 
@@ -30281,16 +25078,7 @@ export namespace Prisma {
     verificationId: string
     confidence: number
     verifiedAt?: Date | string | null
-    identityPassed?: boolean | null
-    identityConfidence?: number | null
-    addressPassed?: boolean | null
-    addressConfidence?: number | null
-    phonePassed?: boolean | null
-    phoneConfidence?: number | null
-    emailPassed?: boolean | null
-    emailConfidence?: number | null
-    ofacPassed?: boolean | null
-    ofacMatches?: NullableJsonNullValueInput | InputJsonValue
+    results: JsonNullValueInput | InputJsonValue
     applicationId: string
   }
 
@@ -30301,16 +25089,7 @@ export namespace Prisma {
     verificationId?: StringFieldUpdateOperationsInput | string
     confidence?: FloatFieldUpdateOperationsInput | number
     verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    identityPassed?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    identityConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    addressPassed?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    addressConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    phonePassed?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    phoneConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    emailPassed?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    emailConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    ofacPassed?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    ofacMatches?: NullableJsonNullValueInput | InputJsonValue
+    results?: JsonNullValueInput | InputJsonValue
     application?: ApplicationUpdateOneRequiredWithoutKycVerificationNestedInput
   }
 
@@ -30321,16 +25100,7 @@ export namespace Prisma {
     verificationId?: StringFieldUpdateOperationsInput | string
     confidence?: FloatFieldUpdateOperationsInput | number
     verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    identityPassed?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    identityConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    addressPassed?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    addressConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    phonePassed?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    phoneConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    emailPassed?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    emailConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    ofacPassed?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    ofacMatches?: NullableJsonNullValueInput | InputJsonValue
+    results?: JsonNullValueInput | InputJsonValue
     applicationId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -30341,16 +25111,7 @@ export namespace Prisma {
     verificationId: string
     confidence: number
     verifiedAt?: Date | string | null
-    identityPassed?: boolean | null
-    identityConfidence?: number | null
-    addressPassed?: boolean | null
-    addressConfidence?: number | null
-    phonePassed?: boolean | null
-    phoneConfidence?: number | null
-    emailPassed?: boolean | null
-    emailConfidence?: number | null
-    ofacPassed?: boolean | null
-    ofacMatches?: NullableJsonNullValueInput | InputJsonValue
+    results: JsonNullValueInput | InputJsonValue
     applicationId: string
   }
 
@@ -30361,16 +25122,7 @@ export namespace Prisma {
     verificationId?: StringFieldUpdateOperationsInput | string
     confidence?: FloatFieldUpdateOperationsInput | number
     verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    identityPassed?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    identityConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    addressPassed?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    addressConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    phonePassed?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    phoneConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    emailPassed?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    emailConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    ofacPassed?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    ofacMatches?: NullableJsonNullValueInput | InputJsonValue
+    results?: JsonNullValueInput | InputJsonValue
   }
 
   export type KYCVerificationUncheckedUpdateManyInput = {
@@ -30380,127 +25132,87 @@ export namespace Prisma {
     verificationId?: StringFieldUpdateOperationsInput | string
     confidence?: FloatFieldUpdateOperationsInput | number
     verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    identityPassed?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    identityConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    addressPassed?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    addressConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    phonePassed?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    phoneConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    emailPassed?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    emailConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    ofacPassed?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    ofacMatches?: NullableJsonNullValueInput | InputJsonValue
+    results?: JsonNullValueInput | InputJsonValue
     applicationId?: StringFieldUpdateOperationsInput | string
   }
 
   export type AdditionalSignerCreateInput = {
     id?: string
+    personalInfo: JsonNullValueInput | InputJsonValue
     role: string
     relationshipToBusiness?: string | null
     beneficialOwnershipPercentage?: number | null
     hasSigningAuthority: boolean
     kycStatus?: string
-    firstName: string
-    lastName: string
-    dateOfBirth: string
-    ssn: string
-    phone: string
-    email: string
+    documents?: DocumentCreateNestedManyWithoutSignerInput
     application: ApplicationCreateNestedOneWithoutAdditionalSignersInput
   }
 
   export type AdditionalSignerUncheckedCreateInput = {
     id?: string
+    personalInfo: JsonNullValueInput | InputJsonValue
     role: string
     relationshipToBusiness?: string | null
     beneficialOwnershipPercentage?: number | null
     hasSigningAuthority: boolean
     kycStatus?: string
-    firstName: string
-    lastName: string
-    dateOfBirth: string
-    ssn: string
-    phone: string
-    email: string
     applicationId: string
+    documents?: DocumentUncheckedCreateNestedManyWithoutSignerInput
   }
 
   export type AdditionalSignerUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    personalInfo?: JsonNullValueInput | InputJsonValue
     role?: StringFieldUpdateOperationsInput | string
     relationshipToBusiness?: NullableStringFieldUpdateOperationsInput | string | null
     beneficialOwnershipPercentage?: NullableFloatFieldUpdateOperationsInput | number | null
     hasSigningAuthority?: BoolFieldUpdateOperationsInput | boolean
     kycStatus?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    dateOfBirth?: StringFieldUpdateOperationsInput | string
-    ssn?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    documents?: DocumentUpdateManyWithoutSignerNestedInput
     application?: ApplicationUpdateOneRequiredWithoutAdditionalSignersNestedInput
   }
 
   export type AdditionalSignerUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    personalInfo?: JsonNullValueInput | InputJsonValue
     role?: StringFieldUpdateOperationsInput | string
     relationshipToBusiness?: NullableStringFieldUpdateOperationsInput | string | null
     beneficialOwnershipPercentage?: NullableFloatFieldUpdateOperationsInput | number | null
     hasSigningAuthority?: BoolFieldUpdateOperationsInput | boolean
     kycStatus?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    dateOfBirth?: StringFieldUpdateOperationsInput | string
-    ssn?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
     applicationId?: StringFieldUpdateOperationsInput | string
+    documents?: DocumentUncheckedUpdateManyWithoutSignerNestedInput
   }
 
   export type AdditionalSignerCreateManyInput = {
     id?: string
+    personalInfo: JsonNullValueInput | InputJsonValue
     role: string
     relationshipToBusiness?: string | null
     beneficialOwnershipPercentage?: number | null
     hasSigningAuthority: boolean
     kycStatus?: string
-    firstName: string
-    lastName: string
-    dateOfBirth: string
-    ssn: string
-    phone: string
-    email: string
     applicationId: string
   }
 
   export type AdditionalSignerUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    personalInfo?: JsonNullValueInput | InputJsonValue
     role?: StringFieldUpdateOperationsInput | string
     relationshipToBusiness?: NullableStringFieldUpdateOperationsInput | string | null
     beneficialOwnershipPercentage?: NullableFloatFieldUpdateOperationsInput | number | null
     hasSigningAuthority?: BoolFieldUpdateOperationsInput | boolean
     kycStatus?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    dateOfBirth?: StringFieldUpdateOperationsInput | string
-    ssn?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
   }
 
   export type AdditionalSignerUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    personalInfo?: JsonNullValueInput | InputJsonValue
     role?: StringFieldUpdateOperationsInput | string
     relationshipToBusiness?: NullableStringFieldUpdateOperationsInput | string | null
     beneficialOwnershipPercentage?: NullableFloatFieldUpdateOperationsInput | number | null
     hasSigningAuthority?: BoolFieldUpdateOperationsInput | boolean
     kycStatus?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    dateOfBirth?: StringFieldUpdateOperationsInput | string
-    ssn?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
     applicationId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -30508,56 +25220,57 @@ export namespace Prisma {
     id?: string
     overallRisk: string
     riskScore: number
+    factors?: RiskAssessmentCreatefactorsInput | InputJsonValue[]
     recommendations?: RiskAssessmentCreaterecommendationsInput | string[]
-    requiresManualReview: boolean
+    requiresManualReview?: boolean
     assessedAt?: Date | string
     assessedBy: string
     application: ApplicationCreateNestedOneWithoutRiskAssessmentInput
-    factors?: RiskFactorCreateNestedManyWithoutRiskAssessmentInput
   }
 
   export type RiskAssessmentUncheckedCreateInput = {
     id?: string
     overallRisk: string
     riskScore: number
+    factors?: RiskAssessmentCreatefactorsInput | InputJsonValue[]
     recommendations?: RiskAssessmentCreaterecommendationsInput | string[]
-    requiresManualReview: boolean
+    requiresManualReview?: boolean
     assessedAt?: Date | string
     assessedBy: string
     applicationId: string
-    factors?: RiskFactorUncheckedCreateNestedManyWithoutRiskAssessmentInput
   }
 
   export type RiskAssessmentUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     overallRisk?: StringFieldUpdateOperationsInput | string
     riskScore?: IntFieldUpdateOperationsInput | number
+    factors?: RiskAssessmentUpdatefactorsInput | InputJsonValue[]
     recommendations?: RiskAssessmentUpdaterecommendationsInput | string[]
     requiresManualReview?: BoolFieldUpdateOperationsInput | boolean
     assessedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assessedBy?: StringFieldUpdateOperationsInput | string
     application?: ApplicationUpdateOneRequiredWithoutRiskAssessmentNestedInput
-    factors?: RiskFactorUpdateManyWithoutRiskAssessmentNestedInput
   }
 
   export type RiskAssessmentUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     overallRisk?: StringFieldUpdateOperationsInput | string
     riskScore?: IntFieldUpdateOperationsInput | number
+    factors?: RiskAssessmentUpdatefactorsInput | InputJsonValue[]
     recommendations?: RiskAssessmentUpdaterecommendationsInput | string[]
     requiresManualReview?: BoolFieldUpdateOperationsInput | boolean
     assessedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assessedBy?: StringFieldUpdateOperationsInput | string
     applicationId?: StringFieldUpdateOperationsInput | string
-    factors?: RiskFactorUncheckedUpdateManyWithoutRiskAssessmentNestedInput
   }
 
   export type RiskAssessmentCreateManyInput = {
     id?: string
     overallRisk: string
     riskScore: number
+    factors?: RiskAssessmentCreatefactorsInput | InputJsonValue[]
     recommendations?: RiskAssessmentCreaterecommendationsInput | string[]
-    requiresManualReview: boolean
+    requiresManualReview?: boolean
     assessedAt?: Date | string
     assessedBy: string
     applicationId: string
@@ -30567,6 +25280,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     overallRisk?: StringFieldUpdateOperationsInput | string
     riskScore?: IntFieldUpdateOperationsInput | number
+    factors?: RiskAssessmentUpdatefactorsInput | InputJsonValue[]
     recommendations?: RiskAssessmentUpdaterecommendationsInput | string[]
     requiresManualReview?: BoolFieldUpdateOperationsInput | boolean
     assessedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -30577,87 +25291,12 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     overallRisk?: StringFieldUpdateOperationsInput | string
     riskScore?: IntFieldUpdateOperationsInput | number
+    factors?: RiskAssessmentUpdatefactorsInput | InputJsonValue[]
     recommendations?: RiskAssessmentUpdaterecommendationsInput | string[]
     requiresManualReview?: BoolFieldUpdateOperationsInput | boolean
     assessedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assessedBy?: StringFieldUpdateOperationsInput | string
     applicationId?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type RiskFactorCreateInput = {
-    id?: string
-    category: string
-    factor: string
-    weight: number
-    score: number
-    impact: string
-    description: string
-    riskAssessment: RiskAssessmentCreateNestedOneWithoutFactorsInput
-  }
-
-  export type RiskFactorUncheckedCreateInput = {
-    id?: string
-    category: string
-    factor: string
-    weight: number
-    score: number
-    impact: string
-    description: string
-    riskAssessmentId: string
-  }
-
-  export type RiskFactorUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    category?: StringFieldUpdateOperationsInput | string
-    factor?: StringFieldUpdateOperationsInput | string
-    weight?: FloatFieldUpdateOperationsInput | number
-    score?: IntFieldUpdateOperationsInput | number
-    impact?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    riskAssessment?: RiskAssessmentUpdateOneRequiredWithoutFactorsNestedInput
-  }
-
-  export type RiskFactorUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    category?: StringFieldUpdateOperationsInput | string
-    factor?: StringFieldUpdateOperationsInput | string
-    weight?: FloatFieldUpdateOperationsInput | number
-    score?: IntFieldUpdateOperationsInput | number
-    impact?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    riskAssessmentId?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type RiskFactorCreateManyInput = {
-    id?: string
-    category: string
-    factor: string
-    weight: number
-    score: number
-    impact: string
-    description: string
-    riskAssessmentId: string
-  }
-
-  export type RiskFactorUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    category?: StringFieldUpdateOperationsInput | string
-    factor?: StringFieldUpdateOperationsInput | string
-    weight?: FloatFieldUpdateOperationsInput | number
-    score?: IntFieldUpdateOperationsInput | number
-    impact?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type RiskFactorUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    category?: StringFieldUpdateOperationsInput | string
-    factor?: StringFieldUpdateOperationsInput | string
-    weight?: FloatFieldUpdateOperationsInput | number
-    score?: IntFieldUpdateOperationsInput | number
-    impact?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    riskAssessmentId?: StringFieldUpdateOperationsInput | string
   }
 
   export type DisclosureCreateInput = {
@@ -30666,8 +25305,8 @@ export namespace Prisma {
     title: string
     content: string
     version: string
-    effectiveDate: Date | string
-    required: boolean
+    effectiveDate: string
+    required?: boolean
     applicableFor?: DisclosureCreateapplicableForInput | string[]
     agreements?: AgreementCreateNestedManyWithoutDisclosureInput
   }
@@ -30678,8 +25317,8 @@ export namespace Prisma {
     title: string
     content: string
     version: string
-    effectiveDate: Date | string
-    required: boolean
+    effectiveDate: string
+    required?: boolean
     applicableFor?: DisclosureCreateapplicableForInput | string[]
     agreements?: AgreementUncheckedCreateNestedManyWithoutDisclosureInput
   }
@@ -30690,7 +25329,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
-    effectiveDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    effectiveDate?: StringFieldUpdateOperationsInput | string
     required?: BoolFieldUpdateOperationsInput | boolean
     applicableFor?: DisclosureUpdateapplicableForInput | string[]
     agreements?: AgreementUpdateManyWithoutDisclosureNestedInput
@@ -30702,7 +25341,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
-    effectiveDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    effectiveDate?: StringFieldUpdateOperationsInput | string
     required?: BoolFieldUpdateOperationsInput | boolean
     applicableFor?: DisclosureUpdateapplicableForInput | string[]
     agreements?: AgreementUncheckedUpdateManyWithoutDisclosureNestedInput
@@ -30714,8 +25353,8 @@ export namespace Prisma {
     title: string
     content: string
     version: string
-    effectiveDate: Date | string
-    required: boolean
+    effectiveDate: string
+    required?: boolean
     applicableFor?: DisclosureCreateapplicableForInput | string[]
   }
 
@@ -30725,7 +25364,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
-    effectiveDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    effectiveDate?: StringFieldUpdateOperationsInput | string
     required?: BoolFieldUpdateOperationsInput | boolean
     applicableFor?: DisclosureUpdateapplicableForInput | string[]
   }
@@ -30736,7 +25375,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
-    effectiveDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    effectiveDate?: StringFieldUpdateOperationsInput | string
     required?: BoolFieldUpdateOperationsInput | boolean
     applicableFor?: DisclosureUpdateapplicableForInput | string[]
   }
@@ -30897,12 +25536,7 @@ export namespace Prisma {
     method: string
     amount: number
     status?: string
-    bankName?: string | null
-    accountNumber?: string | null
-    routingNumber?: string | null
-    accountType?: string | null
-    plaidAccountId?: string | null
-    wireInstructions?: NullableJsonNullValueInput | InputJsonValue
+    details: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     processedAt?: Date | string | null
     application: ApplicationCreateNestedOneWithoutFundingSetupInput
@@ -30913,12 +25547,7 @@ export namespace Prisma {
     method: string
     amount: number
     status?: string
-    bankName?: string | null
-    accountNumber?: string | null
-    routingNumber?: string | null
-    accountType?: string | null
-    plaidAccountId?: string | null
-    wireInstructions?: NullableJsonNullValueInput | InputJsonValue
+    details: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     processedAt?: Date | string | null
     applicationId: string
@@ -30929,12 +25558,7 @@ export namespace Prisma {
     method?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
-    bankName?: NullableStringFieldUpdateOperationsInput | string | null
-    accountNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    routingNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    accountType?: NullableStringFieldUpdateOperationsInput | string | null
-    plaidAccountId?: NullableStringFieldUpdateOperationsInput | string | null
-    wireInstructions?: NullableJsonNullValueInput | InputJsonValue
+    details?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     application?: ApplicationUpdateOneRequiredWithoutFundingSetupNestedInput
@@ -30945,12 +25569,7 @@ export namespace Prisma {
     method?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
-    bankName?: NullableStringFieldUpdateOperationsInput | string | null
-    accountNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    routingNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    accountType?: NullableStringFieldUpdateOperationsInput | string | null
-    plaidAccountId?: NullableStringFieldUpdateOperationsInput | string | null
-    wireInstructions?: NullableJsonNullValueInput | InputJsonValue
+    details?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     applicationId?: StringFieldUpdateOperationsInput | string
@@ -30961,12 +25580,7 @@ export namespace Prisma {
     method: string
     amount: number
     status?: string
-    bankName?: string | null
-    accountNumber?: string | null
-    routingNumber?: string | null
-    accountType?: string | null
-    plaidAccountId?: string | null
-    wireInstructions?: NullableJsonNullValueInput | InputJsonValue
+    details: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     processedAt?: Date | string | null
     applicationId: string
@@ -30977,12 +25591,7 @@ export namespace Prisma {
     method?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
-    bankName?: NullableStringFieldUpdateOperationsInput | string | null
-    accountNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    routingNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    accountType?: NullableStringFieldUpdateOperationsInput | string | null
-    plaidAccountId?: NullableStringFieldUpdateOperationsInput | string | null
-    wireInstructions?: NullableJsonNullValueInput | InputJsonValue
+    details?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -30992,14 +25601,92 @@ export namespace Prisma {
     method?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
-    bankName?: NullableStringFieldUpdateOperationsInput | string | null
-    accountNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    routingNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    accountType?: NullableStringFieldUpdateOperationsInput | string | null
-    plaidAccountId?: NullableStringFieldUpdateOperationsInput | string | null
-    wireInstructions?: NullableJsonNullValueInput | InputJsonValue
+    details?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    applicationId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AuditTrailEntryCreateInput = {
+    id?: string
+    action: string
+    description: string
+    performedBy: string
+    performedAt?: Date | string
+    ipAddress: string
+    userAgent: string
+    changes?: NullableJsonNullValueInput | InputJsonValue
+    application: ApplicationCreateNestedOneWithoutAuditTrailInput
+  }
+
+  export type AuditTrailEntryUncheckedCreateInput = {
+    id?: string
+    action: string
+    description: string
+    performedBy: string
+    performedAt?: Date | string
+    ipAddress: string
+    userAgent: string
+    changes?: NullableJsonNullValueInput | InputJsonValue
+    applicationId: string
+  }
+
+  export type AuditTrailEntryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    performedBy?: StringFieldUpdateOperationsInput | string
+    performedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ipAddress?: StringFieldUpdateOperationsInput | string
+    userAgent?: StringFieldUpdateOperationsInput | string
+    changes?: NullableJsonNullValueInput | InputJsonValue
+    application?: ApplicationUpdateOneRequiredWithoutAuditTrailNestedInput
+  }
+
+  export type AuditTrailEntryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    performedBy?: StringFieldUpdateOperationsInput | string
+    performedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ipAddress?: StringFieldUpdateOperationsInput | string
+    userAgent?: StringFieldUpdateOperationsInput | string
+    changes?: NullableJsonNullValueInput | InputJsonValue
+    applicationId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AuditTrailEntryCreateManyInput = {
+    id?: string
+    action: string
+    description: string
+    performedBy: string
+    performedAt?: Date | string
+    ipAddress: string
+    userAgent: string
+    changes?: NullableJsonNullValueInput | InputJsonValue
+    applicationId: string
+  }
+
+  export type AuditTrailEntryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    performedBy?: StringFieldUpdateOperationsInput | string
+    performedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ipAddress?: StringFieldUpdateOperationsInput | string
+    userAgent?: StringFieldUpdateOperationsInput | string
+    changes?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type AuditTrailEntryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    performedBy?: StringFieldUpdateOperationsInput | string
+    performedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ipAddress?: StringFieldUpdateOperationsInput | string
+    userAgent?: StringFieldUpdateOperationsInput | string
+    changes?: NullableJsonNullValueInput | InputJsonValue
     applicationId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -31289,6 +25976,29 @@ export namespace Prisma {
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type PersonalInfoNullableScalarRelationFilter = {
     is?: PersonalInfoWhereInput | null
@@ -31317,15 +26027,15 @@ export namespace Prisma {
     none?: DocumentWhereInput
   }
 
-  export type KYCVerificationNullableScalarRelationFilter = {
-    is?: KYCVerificationWhereInput | null
-    isNot?: KYCVerificationWhereInput | null
-  }
-
   export type AdditionalSignerListRelationFilter = {
     every?: AdditionalSignerWhereInput
     some?: AdditionalSignerWhereInput
     none?: AdditionalSignerWhereInput
+  }
+
+  export type KYCVerificationNullableScalarRelationFilter = {
+    is?: KYCVerificationWhereInput | null
+    isNot?: KYCVerificationWhereInput | null
   }
 
   export type RiskAssessmentNullableScalarRelationFilter = {
@@ -31350,6 +26060,12 @@ export namespace Prisma {
     isNot?: FundingSetupWhereInput | null
   }
 
+  export type AuditTrailEntryListRelationFilter = {
+    every?: AuditTrailEntryWhereInput
+    some?: AuditTrailEntryWhereInput
+    none?: AuditTrailEntryWhereInput
+  }
+
   export type ProductSelectionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -31370,6 +26086,10 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type AuditTrailEntryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type ApplicationCountOrderByAggregateInput = {
     id?: SortOrder
     status?: SortOrder
@@ -31381,12 +26101,7 @@ export namespace Prisma {
     completedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    userAgent?: SortOrder
-    ipAddress?: SortOrder
-    sessionId?: SortOrder
-    startedAt?: SortOrder
-    lastActivity?: SortOrder
-    source?: SortOrder
+    metadata?: SortOrder
     userId?: SortOrder
   }
 
@@ -31405,12 +26120,6 @@ export namespace Prisma {
     completedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    userAgent?: SortOrder
-    ipAddress?: SortOrder
-    sessionId?: SortOrder
-    startedAt?: SortOrder
-    lastActivity?: SortOrder
-    source?: SortOrder
     userId?: SortOrder
   }
 
@@ -31425,12 +26134,6 @@ export namespace Prisma {
     completedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    userAgent?: SortOrder
-    ipAddress?: SortOrder
-    sessionId?: SortOrder
-    startedAt?: SortOrder
-    lastActivity?: SortOrder
-    source?: SortOrder
     userId?: SortOrder
   }
 
@@ -31451,6 +26154,55 @@ export namespace Prisma {
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
+  }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type ApplicationScalarRelationFilter = {
     is?: ApplicationWhereInput
@@ -31467,22 +26219,12 @@ export namespace Prisma {
     ssn?: SortOrder
     phone?: SortOrder
     email?: SortOrder
+    mailingAddress?: SortOrder
+    physicalAddress?: SortOrder
     employmentStatus?: SortOrder
     occupation?: SortOrder
     employer?: SortOrder
     workPhone?: SortOrder
-    mailingStreet?: SortOrder
-    mailingCity?: SortOrder
-    mailingState?: SortOrder
-    mailingZipCode?: SortOrder
-    mailingCountry?: SortOrder
-    mailingApartment?: SortOrder
-    physicalStreet?: SortOrder
-    physicalCity?: SortOrder
-    physicalState?: SortOrder
-    physicalZipCode?: SortOrder
-    physicalCountry?: SortOrder
-    physicalApartment?: SortOrder
     applicationId?: SortOrder
   }
 
@@ -31500,18 +26242,6 @@ export namespace Prisma {
     occupation?: SortOrder
     employer?: SortOrder
     workPhone?: SortOrder
-    mailingStreet?: SortOrder
-    mailingCity?: SortOrder
-    mailingState?: SortOrder
-    mailingZipCode?: SortOrder
-    mailingCountry?: SortOrder
-    mailingApartment?: SortOrder
-    physicalStreet?: SortOrder
-    physicalCity?: SortOrder
-    physicalState?: SortOrder
-    physicalZipCode?: SortOrder
-    physicalCountry?: SortOrder
-    physicalApartment?: SortOrder
     applicationId?: SortOrder
   }
 
@@ -31529,19 +26259,33 @@ export namespace Prisma {
     occupation?: SortOrder
     employer?: SortOrder
     workPhone?: SortOrder
-    mailingStreet?: SortOrder
-    mailingCity?: SortOrder
-    mailingState?: SortOrder
-    mailingZipCode?: SortOrder
-    mailingCountry?: SortOrder
-    mailingApartment?: SortOrder
-    physicalStreet?: SortOrder
-    physicalCity?: SortOrder
-    physicalState?: SortOrder
-    physicalZipCode?: SortOrder
-    physicalCountry?: SortOrder
-    physicalApartment?: SortOrder
     applicationId?: SortOrder
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type FloatFilter<$PrismaModel = never> = {
@@ -31563,6 +26307,8 @@ export namespace Prisma {
     entityType?: SortOrder
     industryType?: SortOrder
     dateEstablished?: SortOrder
+    businessAddress?: SortOrder
+    mailingAddress?: SortOrder
     businessPhone?: SortOrder
     businessEmail?: SortOrder
     website?: SortOrder
@@ -31571,18 +26317,6 @@ export namespace Prisma {
     monthlyTransactionVolume?: SortOrder
     monthlyTransactionCount?: SortOrder
     expectedBalance?: SortOrder
-    businessStreet?: SortOrder
-    businessCity?: SortOrder
-    businessState?: SortOrder
-    businessZipCode?: SortOrder
-    businessCountry?: SortOrder
-    businessApartment?: SortOrder
-    mailingStreet?: SortOrder
-    mailingCity?: SortOrder
-    mailingState?: SortOrder
-    mailingZipCode?: SortOrder
-    mailingCountry?: SortOrder
-    mailingApartment?: SortOrder
     applicationId?: SortOrder
   }
 
@@ -31608,18 +26342,6 @@ export namespace Prisma {
     monthlyTransactionVolume?: SortOrder
     monthlyTransactionCount?: SortOrder
     expectedBalance?: SortOrder
-    businessStreet?: SortOrder
-    businessCity?: SortOrder
-    businessState?: SortOrder
-    businessZipCode?: SortOrder
-    businessCountry?: SortOrder
-    businessApartment?: SortOrder
-    mailingStreet?: SortOrder
-    mailingCity?: SortOrder
-    mailingState?: SortOrder
-    mailingZipCode?: SortOrder
-    mailingCountry?: SortOrder
-    mailingApartment?: SortOrder
     applicationId?: SortOrder
   }
 
@@ -31639,18 +26361,6 @@ export namespace Prisma {
     monthlyTransactionVolume?: SortOrder
     monthlyTransactionCount?: SortOrder
     expectedBalance?: SortOrder
-    businessStreet?: SortOrder
-    businessCity?: SortOrder
-    businessState?: SortOrder
-    businessZipCode?: SortOrder
-    businessCountry?: SortOrder
-    businessApartment?: SortOrder
-    mailingStreet?: SortOrder
-    mailingCity?: SortOrder
-    mailingState?: SortOrder
-    mailingZipCode?: SortOrder
-    mailingCountry?: SortOrder
-    mailingApartment?: SortOrder
     applicationId?: SortOrder
   }
 
@@ -31683,48 +26393,19 @@ export namespace Prisma {
     hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
     isEmpty?: boolean
   }
-  export type JsonNullableFilter<$PrismaModel = never> =
+  export type JsonNullableListFilter<$PrismaModel = never> =
     | PatchUndefined<
-        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableFilterBase<$PrismaModel>>
+        Either<Required<JsonNullableListFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableListFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableListFilterBase<$PrismaModel>>
       >
-    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+    | OptionalFlat<Omit<Required<JsonNullableListFilterBase<$PrismaModel>>, 'path'>>
 
-  export type JsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
-
-  export type BankingRelationshipListRelationFilter = {
-    every?: BankingRelationshipWhereInput
-    some?: BankingRelationshipWhereInput
-    none?: BankingRelationshipWhereInput
-  }
-
-  export type AccountActivityListRelationFilter = {
-    every?: AccountActivityWhereInput
-    some?: AccountActivityWhereInput
-    none?: AccountActivityWhereInput
-  }
-
-  export type BankingRelationshipOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type AccountActivityOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type JsonNullableListFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue[] | ListJsonFieldRefInput<$PrismaModel> | null
+    has?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    hasEvery?: InputJsonValue[] | ListJsonFieldRefInput<$PrismaModel>
+    hasSome?: InputJsonValue[] | ListJsonFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
   }
 
   export type FinancialProfileCountOrderByAggregateInput = {
@@ -31734,6 +26415,8 @@ export namespace Prisma {
     employmentInfo?: SortOrder
     assets?: SortOrder
     liabilities?: SortOrder
+    bankingRelationships?: SortOrder
+    accountActivities?: SortOrder
     applicationId?: SortOrder
   }
 
@@ -31764,106 +26447,6 @@ export namespace Prisma {
     assets?: SortOrder
     liabilities?: SortOrder
   }
-  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedJsonNullableFilter<$PrismaModel>
-    _max?: NestedJsonNullableFilter<$PrismaModel>
-  }
-
-  export type FinancialProfileScalarRelationFilter = {
-    is?: FinancialProfileWhereInput
-    isNot?: FinancialProfileWhereInput
-  }
-
-  export type BankingRelationshipCountOrderByAggregateInput = {
-    id?: SortOrder
-    bankName?: SortOrder
-    accountTypes?: SortOrder
-    yearsWithBank?: SortOrder
-    financialProfileId?: SortOrder
-  }
-
-  export type BankingRelationshipAvgOrderByAggregateInput = {
-    yearsWithBank?: SortOrder
-  }
-
-  export type BankingRelationshipMaxOrderByAggregateInput = {
-    id?: SortOrder
-    bankName?: SortOrder
-    yearsWithBank?: SortOrder
-    financialProfileId?: SortOrder
-  }
-
-  export type BankingRelationshipMinOrderByAggregateInput = {
-    id?: SortOrder
-    bankName?: SortOrder
-    yearsWithBank?: SortOrder
-    financialProfileId?: SortOrder
-  }
-
-  export type BankingRelationshipSumOrderByAggregateInput = {
-    yearsWithBank?: SortOrder
-  }
-
-  export type AccountActivityCountOrderByAggregateInput = {
-    id?: SortOrder
-    activity?: SortOrder
-    frequency?: SortOrder
-    amount?: SortOrder
-    financialProfileId?: SortOrder
-  }
-
-  export type AccountActivityAvgOrderByAggregateInput = {
-    amount?: SortOrder
-  }
-
-  export type AccountActivityMaxOrderByAggregateInput = {
-    id?: SortOrder
-    activity?: SortOrder
-    frequency?: SortOrder
-    amount?: SortOrder
-    financialProfileId?: SortOrder
-  }
-
-  export type AccountActivityMinOrderByAggregateInput = {
-    id?: SortOrder
-    activity?: SortOrder
-    frequency?: SortOrder
-    amount?: SortOrder
-    financialProfileId?: SortOrder
-  }
-
-  export type AccountActivitySumOrderByAggregateInput = {
-    amount?: SortOrder
-  }
-
-  export type EnumProductTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.ProductType | EnumProductTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumProductTypeFilter<$PrismaModel> | $Enums.ProductType
-  }
 
   export type FloatNullableFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
@@ -31876,16 +26459,6 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
-  export type EligibilityRuleListRelationFilter = {
-    every?: EligibilityRuleWhereInput
-    some?: EligibilityRuleWhereInput
-    none?: EligibilityRuleWhereInput
-  }
-
-  export type EligibilityRuleOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type ProductCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -31896,8 +26469,7 @@ export namespace Prisma {
     monthlyFee?: SortOrder
     interestRate?: SortOrder
     isActive?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
+    eligibilityRules?: SortOrder
   }
 
   export type ProductAvgOrderByAggregateInput = {
@@ -31915,8 +26487,6 @@ export namespace Prisma {
     monthlyFee?: SortOrder
     interestRate?: SortOrder
     isActive?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
   }
 
   export type ProductMinOrderByAggregateInput = {
@@ -31928,24 +26498,12 @@ export namespace Prisma {
     monthlyFee?: SortOrder
     interestRate?: SortOrder
     isActive?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
   }
 
   export type ProductSumOrderByAggregateInput = {
     minimumBalance?: SortOrder
     monthlyFee?: SortOrder
     interestRate?: SortOrder
-  }
-
-  export type EnumProductTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.ProductType | EnumProductTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumProductTypeWithAggregatesFilter<$PrismaModel> | $Enums.ProductType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumProductTypeFilter<$PrismaModel>
-    _max?: NestedEnumProductTypeFilter<$PrismaModel>
   }
 
   export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -31964,100 +26522,9 @@ export namespace Prisma {
     _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
-  export type EnumEligibilityOperatorFilter<$PrismaModel = never> = {
-    equals?: $Enums.EligibilityOperator | EnumEligibilityOperatorFieldRefInput<$PrismaModel>
-    in?: $Enums.EligibilityOperator[] | ListEnumEligibilityOperatorFieldRefInput<$PrismaModel>
-    notIn?: $Enums.EligibilityOperator[] | ListEnumEligibilityOperatorFieldRefInput<$PrismaModel>
-    not?: NestedEnumEligibilityOperatorFilter<$PrismaModel> | $Enums.EligibilityOperator
-  }
-  export type JsonFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
-
   export type ProductScalarRelationFilter = {
     is?: ProductWhereInput
     isNot?: ProductWhereInput
-  }
-
-  export type EligibilityRuleCountOrderByAggregateInput = {
-    id?: SortOrder
-    field?: SortOrder
-    operator?: SortOrder
-    value?: SortOrder
-    description?: SortOrder
-    productId?: SortOrder
-  }
-
-  export type EligibilityRuleMaxOrderByAggregateInput = {
-    id?: SortOrder
-    field?: SortOrder
-    operator?: SortOrder
-    description?: SortOrder
-    productId?: SortOrder
-  }
-
-  export type EligibilityRuleMinOrderByAggregateInput = {
-    id?: SortOrder
-    field?: SortOrder
-    operator?: SortOrder
-    description?: SortOrder
-    productId?: SortOrder
-  }
-
-  export type EnumEligibilityOperatorWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.EligibilityOperator | EnumEligibilityOperatorFieldRefInput<$PrismaModel>
-    in?: $Enums.EligibilityOperator[] | ListEnumEligibilityOperatorFieldRefInput<$PrismaModel>
-    notIn?: $Enums.EligibilityOperator[] | ListEnumEligibilityOperatorFieldRefInput<$PrismaModel>
-    not?: NestedEnumEligibilityOperatorWithAggregatesFilter<$PrismaModel> | $Enums.EligibilityOperator
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumEligibilityOperatorFilter<$PrismaModel>
-    _max?: NestedEnumEligibilityOperatorFilter<$PrismaModel>
-  }
-  export type JsonWithAggregatesFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedJsonFilter<$PrismaModel>
-    _max?: NestedJsonFilter<$PrismaModel>
   }
 
   export type ProductSelectionCountOrderByAggregateInput = {
@@ -32090,6 +26557,11 @@ export namespace Prisma {
     initialDeposit?: SortOrder
   }
 
+  export type AdditionalSignerNullableScalarRelationFilter = {
+    is?: AdditionalSignerWhereInput | null
+    isNot?: AdditionalSignerWhereInput | null
+  }
+
   export type DocumentCountOrderByAggregateInput = {
     id?: SortOrder
     type?: SortOrder
@@ -32098,18 +26570,13 @@ export namespace Prisma {
     mimeType?: SortOrder
     uploadedAt?: SortOrder
     verificationStatus?: SortOrder
-    verificationProvider?: SortOrder
-    verificationConfidence?: SortOrder
-    extractedData?: SortOrder
-    verificationId?: SortOrder
-    verifiedAt?: SortOrder
-    signerId?: SortOrder
+    verificationDetails?: SortOrder
     applicationId?: SortOrder
+    signerId?: SortOrder
   }
 
   export type DocumentAvgOrderByAggregateInput = {
     fileSize?: SortOrder
-    verificationConfidence?: SortOrder
   }
 
   export type DocumentMaxOrderByAggregateInput = {
@@ -32120,12 +26587,8 @@ export namespace Prisma {
     mimeType?: SortOrder
     uploadedAt?: SortOrder
     verificationStatus?: SortOrder
-    verificationProvider?: SortOrder
-    verificationConfidence?: SortOrder
-    verificationId?: SortOrder
-    verifiedAt?: SortOrder
-    signerId?: SortOrder
     applicationId?: SortOrder
+    signerId?: SortOrder
   }
 
   export type DocumentMinOrderByAggregateInput = {
@@ -32136,22 +26599,12 @@ export namespace Prisma {
     mimeType?: SortOrder
     uploadedAt?: SortOrder
     verificationStatus?: SortOrder
-    verificationProvider?: SortOrder
-    verificationConfidence?: SortOrder
-    verificationId?: SortOrder
-    verifiedAt?: SortOrder
-    signerId?: SortOrder
     applicationId?: SortOrder
+    signerId?: SortOrder
   }
 
   export type DocumentSumOrderByAggregateInput = {
     fileSize?: SortOrder
-    verificationConfidence?: SortOrder
-  }
-
-  export type BoolNullableFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
   }
 
   export type KYCVerificationCountOrderByAggregateInput = {
@@ -32161,25 +26614,12 @@ export namespace Prisma {
     verificationId?: SortOrder
     confidence?: SortOrder
     verifiedAt?: SortOrder
-    identityPassed?: SortOrder
-    identityConfidence?: SortOrder
-    addressPassed?: SortOrder
-    addressConfidence?: SortOrder
-    phonePassed?: SortOrder
-    phoneConfidence?: SortOrder
-    emailPassed?: SortOrder
-    emailConfidence?: SortOrder
-    ofacPassed?: SortOrder
-    ofacMatches?: SortOrder
+    results?: SortOrder
     applicationId?: SortOrder
   }
 
   export type KYCVerificationAvgOrderByAggregateInput = {
     confidence?: SortOrder
-    identityConfidence?: SortOrder
-    addressConfidence?: SortOrder
-    phoneConfidence?: SortOrder
-    emailConfidence?: SortOrder
   }
 
   export type KYCVerificationMaxOrderByAggregateInput = {
@@ -32189,15 +26629,6 @@ export namespace Prisma {
     verificationId?: SortOrder
     confidence?: SortOrder
     verifiedAt?: SortOrder
-    identityPassed?: SortOrder
-    identityConfidence?: SortOrder
-    addressPassed?: SortOrder
-    addressConfidence?: SortOrder
-    phonePassed?: SortOrder
-    phoneConfidence?: SortOrder
-    emailPassed?: SortOrder
-    emailConfidence?: SortOrder
-    ofacPassed?: SortOrder
     applicationId?: SortOrder
   }
 
@@ -32208,47 +26639,21 @@ export namespace Prisma {
     verificationId?: SortOrder
     confidence?: SortOrder
     verifiedAt?: SortOrder
-    identityPassed?: SortOrder
-    identityConfidence?: SortOrder
-    addressPassed?: SortOrder
-    addressConfidence?: SortOrder
-    phonePassed?: SortOrder
-    phoneConfidence?: SortOrder
-    emailPassed?: SortOrder
-    emailConfidence?: SortOrder
-    ofacPassed?: SortOrder
     applicationId?: SortOrder
   }
 
   export type KYCVerificationSumOrderByAggregateInput = {
     confidence?: SortOrder
-    identityConfidence?: SortOrder
-    addressConfidence?: SortOrder
-    phoneConfidence?: SortOrder
-    emailConfidence?: SortOrder
-  }
-
-  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedBoolNullableFilter<$PrismaModel>
-    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type AdditionalSignerCountOrderByAggregateInput = {
     id?: SortOrder
+    personalInfo?: SortOrder
     role?: SortOrder
     relationshipToBusiness?: SortOrder
     beneficialOwnershipPercentage?: SortOrder
     hasSigningAuthority?: SortOrder
     kycStatus?: SortOrder
-    firstName?: SortOrder
-    lastName?: SortOrder
-    dateOfBirth?: SortOrder
-    ssn?: SortOrder
-    phone?: SortOrder
-    email?: SortOrder
     applicationId?: SortOrder
   }
 
@@ -32263,12 +26668,6 @@ export namespace Prisma {
     beneficialOwnershipPercentage?: SortOrder
     hasSigningAuthority?: SortOrder
     kycStatus?: SortOrder
-    firstName?: SortOrder
-    lastName?: SortOrder
-    dateOfBirth?: SortOrder
-    ssn?: SortOrder
-    phone?: SortOrder
-    email?: SortOrder
     applicationId?: SortOrder
   }
 
@@ -32279,12 +26678,6 @@ export namespace Prisma {
     beneficialOwnershipPercentage?: SortOrder
     hasSigningAuthority?: SortOrder
     kycStatus?: SortOrder
-    firstName?: SortOrder
-    lastName?: SortOrder
-    dateOfBirth?: SortOrder
-    ssn?: SortOrder
-    phone?: SortOrder
-    email?: SortOrder
     applicationId?: SortOrder
   }
 
@@ -32292,20 +26685,11 @@ export namespace Prisma {
     beneficialOwnershipPercentage?: SortOrder
   }
 
-  export type RiskFactorListRelationFilter = {
-    every?: RiskFactorWhereInput
-    some?: RiskFactorWhereInput
-    none?: RiskFactorWhereInput
-  }
-
-  export type RiskFactorOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type RiskAssessmentCountOrderByAggregateInput = {
     id?: SortOrder
     overallRisk?: SortOrder
     riskScore?: SortOrder
+    factors?: SortOrder
     recommendations?: SortOrder
     requiresManualReview?: SortOrder
     assessedAt?: SortOrder
@@ -32339,54 +26723,6 @@ export namespace Prisma {
 
   export type RiskAssessmentSumOrderByAggregateInput = {
     riskScore?: SortOrder
-  }
-
-  export type RiskAssessmentScalarRelationFilter = {
-    is?: RiskAssessmentWhereInput
-    isNot?: RiskAssessmentWhereInput
-  }
-
-  export type RiskFactorCountOrderByAggregateInput = {
-    id?: SortOrder
-    category?: SortOrder
-    factor?: SortOrder
-    weight?: SortOrder
-    score?: SortOrder
-    impact?: SortOrder
-    description?: SortOrder
-    riskAssessmentId?: SortOrder
-  }
-
-  export type RiskFactorAvgOrderByAggregateInput = {
-    weight?: SortOrder
-    score?: SortOrder
-  }
-
-  export type RiskFactorMaxOrderByAggregateInput = {
-    id?: SortOrder
-    category?: SortOrder
-    factor?: SortOrder
-    weight?: SortOrder
-    score?: SortOrder
-    impact?: SortOrder
-    description?: SortOrder
-    riskAssessmentId?: SortOrder
-  }
-
-  export type RiskFactorMinOrderByAggregateInput = {
-    id?: SortOrder
-    category?: SortOrder
-    factor?: SortOrder
-    weight?: SortOrder
-    score?: SortOrder
-    impact?: SortOrder
-    description?: SortOrder
-    riskAssessmentId?: SortOrder
-  }
-
-  export type RiskFactorSumOrderByAggregateInput = {
-    weight?: SortOrder
-    score?: SortOrder
   }
 
   export type DisclosureCountOrderByAggregateInput = {
@@ -32494,12 +26830,7 @@ export namespace Prisma {
     method?: SortOrder
     amount?: SortOrder
     status?: SortOrder
-    bankName?: SortOrder
-    accountNumber?: SortOrder
-    routingNumber?: SortOrder
-    accountType?: SortOrder
-    plaidAccountId?: SortOrder
-    wireInstructions?: SortOrder
+    details?: SortOrder
     createdAt?: SortOrder
     processedAt?: SortOrder
     applicationId?: SortOrder
@@ -32514,11 +26845,6 @@ export namespace Prisma {
     method?: SortOrder
     amount?: SortOrder
     status?: SortOrder
-    bankName?: SortOrder
-    accountNumber?: SortOrder
-    routingNumber?: SortOrder
-    accountType?: SortOrder
-    plaidAccountId?: SortOrder
     createdAt?: SortOrder
     processedAt?: SortOrder
     applicationId?: SortOrder
@@ -32529,11 +26855,6 @@ export namespace Prisma {
     method?: SortOrder
     amount?: SortOrder
     status?: SortOrder
-    bankName?: SortOrder
-    accountNumber?: SortOrder
-    routingNumber?: SortOrder
-    accountType?: SortOrder
-    plaidAccountId?: SortOrder
     createdAt?: SortOrder
     processedAt?: SortOrder
     applicationId?: SortOrder
@@ -32541,6 +26862,40 @@ export namespace Prisma {
 
   export type FundingSetupSumOrderByAggregateInput = {
     amount?: SortOrder
+  }
+
+  export type AuditTrailEntryCountOrderByAggregateInput = {
+    id?: SortOrder
+    action?: SortOrder
+    description?: SortOrder
+    performedBy?: SortOrder
+    performedAt?: SortOrder
+    ipAddress?: SortOrder
+    userAgent?: SortOrder
+    changes?: SortOrder
+    applicationId?: SortOrder
+  }
+
+  export type AuditTrailEntryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    action?: SortOrder
+    description?: SortOrder
+    performedBy?: SortOrder
+    performedAt?: SortOrder
+    ipAddress?: SortOrder
+    userAgent?: SortOrder
+    applicationId?: SortOrder
+  }
+
+  export type AuditTrailEntryMinOrderByAggregateInput = {
+    id?: SortOrder
+    action?: SortOrder
+    description?: SortOrder
+    performedBy?: SortOrder
+    performedAt?: SortOrder
+    ipAddress?: SortOrder
+    userAgent?: SortOrder
+    applicationId?: SortOrder
   }
 
   export type TokenCreateNestedManyWithoutUserInput = {
@@ -32655,9 +27010,9 @@ export namespace Prisma {
     deleteMany?: ApplicationScalarWhereInput | ApplicationScalarWhereInput[]
   }
 
-  export type UserCreateNestedOneWithoutTokenInput = {
-    create?: XOR<UserCreateWithoutTokenInput, UserUncheckedCreateWithoutTokenInput>
-    connectOrCreate?: UserCreateOrConnectWithoutTokenInput
+  export type UserCreateNestedOneWithoutTokensInput = {
+    create?: XOR<UserCreateWithoutTokensInput, UserUncheckedCreateWithoutTokensInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTokensInput
     connect?: UserWhereUniqueInput
   }
 
@@ -32665,18 +27020,12 @@ export namespace Prisma {
     set?: $Enums.TokenType
   }
 
-  export type UserUpdateOneRequiredWithoutTokenNestedInput = {
-    create?: XOR<UserCreateWithoutTokenInput, UserUncheckedCreateWithoutTokenInput>
-    connectOrCreate?: UserCreateOrConnectWithoutTokenInput
-    upsert?: UserUpsertWithoutTokenInput
+  export type UserUpdateOneRequiredWithoutTokensNestedInput = {
+    create?: XOR<UserCreateWithoutTokensInput, UserUncheckedCreateWithoutTokensInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTokensInput
+    upsert?: UserUpsertWithoutTokensInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTokenInput, UserUpdateWithoutTokenInput>, UserUncheckedUpdateWithoutTokenInput>
-  }
-
-  export type UserCreateNestedOneWithoutApplicationsInput = {
-    create?: XOR<UserCreateWithoutApplicationsInput, UserUncheckedCreateWithoutApplicationsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutApplicationsInput
-    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTokensInput, UserUpdateWithoutTokensInput>, UserUncheckedUpdateWithoutTokensInput>
   }
 
   export type PersonalInfoCreateNestedOneWithoutApplicationInput = {
@@ -32711,17 +27060,17 @@ export namespace Prisma {
     connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
   }
 
-  export type KYCVerificationCreateNestedOneWithoutApplicationInput = {
-    create?: XOR<KYCVerificationCreateWithoutApplicationInput, KYCVerificationUncheckedCreateWithoutApplicationInput>
-    connectOrCreate?: KYCVerificationCreateOrConnectWithoutApplicationInput
-    connect?: KYCVerificationWhereUniqueInput
-  }
-
   export type AdditionalSignerCreateNestedManyWithoutApplicationInput = {
     create?: XOR<AdditionalSignerCreateWithoutApplicationInput, AdditionalSignerUncheckedCreateWithoutApplicationInput> | AdditionalSignerCreateWithoutApplicationInput[] | AdditionalSignerUncheckedCreateWithoutApplicationInput[]
     connectOrCreate?: AdditionalSignerCreateOrConnectWithoutApplicationInput | AdditionalSignerCreateOrConnectWithoutApplicationInput[]
     createMany?: AdditionalSignerCreateManyApplicationInputEnvelope
     connect?: AdditionalSignerWhereUniqueInput | AdditionalSignerWhereUniqueInput[]
+  }
+
+  export type KYCVerificationCreateNestedOneWithoutApplicationInput = {
+    create?: XOR<KYCVerificationCreateWithoutApplicationInput, KYCVerificationUncheckedCreateWithoutApplicationInput>
+    connectOrCreate?: KYCVerificationCreateOrConnectWithoutApplicationInput
+    connect?: KYCVerificationWhereUniqueInput
   }
 
   export type RiskAssessmentCreateNestedOneWithoutApplicationInput = {
@@ -32748,6 +27097,19 @@ export namespace Prisma {
     create?: XOR<FundingSetupCreateWithoutApplicationInput, FundingSetupUncheckedCreateWithoutApplicationInput>
     connectOrCreate?: FundingSetupCreateOrConnectWithoutApplicationInput
     connect?: FundingSetupWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutApplicationsInput = {
+    create?: XOR<UserCreateWithoutApplicationsInput, UserUncheckedCreateWithoutApplicationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutApplicationsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type AuditTrailEntryCreateNestedManyWithoutApplicationInput = {
+    create?: XOR<AuditTrailEntryCreateWithoutApplicationInput, AuditTrailEntryUncheckedCreateWithoutApplicationInput> | AuditTrailEntryCreateWithoutApplicationInput[] | AuditTrailEntryUncheckedCreateWithoutApplicationInput[]
+    connectOrCreate?: AuditTrailEntryCreateOrConnectWithoutApplicationInput | AuditTrailEntryCreateOrConnectWithoutApplicationInput[]
+    createMany?: AuditTrailEntryCreateManyApplicationInputEnvelope
+    connect?: AuditTrailEntryWhereUniqueInput | AuditTrailEntryWhereUniqueInput[]
   }
 
   export type PersonalInfoUncheckedCreateNestedOneWithoutApplicationInput = {
@@ -32782,17 +27144,17 @@ export namespace Prisma {
     connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
   }
 
-  export type KYCVerificationUncheckedCreateNestedOneWithoutApplicationInput = {
-    create?: XOR<KYCVerificationCreateWithoutApplicationInput, KYCVerificationUncheckedCreateWithoutApplicationInput>
-    connectOrCreate?: KYCVerificationCreateOrConnectWithoutApplicationInput
-    connect?: KYCVerificationWhereUniqueInput
-  }
-
   export type AdditionalSignerUncheckedCreateNestedManyWithoutApplicationInput = {
     create?: XOR<AdditionalSignerCreateWithoutApplicationInput, AdditionalSignerUncheckedCreateWithoutApplicationInput> | AdditionalSignerCreateWithoutApplicationInput[] | AdditionalSignerUncheckedCreateWithoutApplicationInput[]
     connectOrCreate?: AdditionalSignerCreateOrConnectWithoutApplicationInput | AdditionalSignerCreateOrConnectWithoutApplicationInput[]
     createMany?: AdditionalSignerCreateManyApplicationInputEnvelope
     connect?: AdditionalSignerWhereUniqueInput | AdditionalSignerWhereUniqueInput[]
+  }
+
+  export type KYCVerificationUncheckedCreateNestedOneWithoutApplicationInput = {
+    create?: XOR<KYCVerificationCreateWithoutApplicationInput, KYCVerificationUncheckedCreateWithoutApplicationInput>
+    connectOrCreate?: KYCVerificationCreateOrConnectWithoutApplicationInput
+    connect?: KYCVerificationWhereUniqueInput
   }
 
   export type RiskAssessmentUncheckedCreateNestedOneWithoutApplicationInput = {
@@ -32821,16 +27183,15 @@ export namespace Prisma {
     connect?: FundingSetupWhereUniqueInput
   }
 
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
+  export type AuditTrailEntryUncheckedCreateNestedManyWithoutApplicationInput = {
+    create?: XOR<AuditTrailEntryCreateWithoutApplicationInput, AuditTrailEntryUncheckedCreateWithoutApplicationInput> | AuditTrailEntryCreateWithoutApplicationInput[] | AuditTrailEntryUncheckedCreateWithoutApplicationInput[]
+    connectOrCreate?: AuditTrailEntryCreateOrConnectWithoutApplicationInput | AuditTrailEntryCreateOrConnectWithoutApplicationInput[]
+    createMany?: AuditTrailEntryCreateManyApplicationInputEnvelope
+    connect?: AuditTrailEntryWhereUniqueInput | AuditTrailEntryWhereUniqueInput[]
   }
 
-  export type UserUpdateOneRequiredWithoutApplicationsNestedInput = {
-    create?: XOR<UserCreateWithoutApplicationsInput, UserUncheckedCreateWithoutApplicationsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutApplicationsInput
-    upsert?: UserUpsertWithoutApplicationsInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutApplicationsInput, UserUpdateWithoutApplicationsInput>, UserUncheckedUpdateWithoutApplicationsInput>
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type PersonalInfoUpdateOneWithoutApplicationNestedInput = {
@@ -32891,16 +27252,6 @@ export namespace Prisma {
     deleteMany?: DocumentScalarWhereInput | DocumentScalarWhereInput[]
   }
 
-  export type KYCVerificationUpdateOneWithoutApplicationNestedInput = {
-    create?: XOR<KYCVerificationCreateWithoutApplicationInput, KYCVerificationUncheckedCreateWithoutApplicationInput>
-    connectOrCreate?: KYCVerificationCreateOrConnectWithoutApplicationInput
-    upsert?: KYCVerificationUpsertWithoutApplicationInput
-    disconnect?: KYCVerificationWhereInput | boolean
-    delete?: KYCVerificationWhereInput | boolean
-    connect?: KYCVerificationWhereUniqueInput
-    update?: XOR<XOR<KYCVerificationUpdateToOneWithWhereWithoutApplicationInput, KYCVerificationUpdateWithoutApplicationInput>, KYCVerificationUncheckedUpdateWithoutApplicationInput>
-  }
-
   export type AdditionalSignerUpdateManyWithoutApplicationNestedInput = {
     create?: XOR<AdditionalSignerCreateWithoutApplicationInput, AdditionalSignerUncheckedCreateWithoutApplicationInput> | AdditionalSignerCreateWithoutApplicationInput[] | AdditionalSignerUncheckedCreateWithoutApplicationInput[]
     connectOrCreate?: AdditionalSignerCreateOrConnectWithoutApplicationInput | AdditionalSignerCreateOrConnectWithoutApplicationInput[]
@@ -32913,6 +27264,16 @@ export namespace Prisma {
     update?: AdditionalSignerUpdateWithWhereUniqueWithoutApplicationInput | AdditionalSignerUpdateWithWhereUniqueWithoutApplicationInput[]
     updateMany?: AdditionalSignerUpdateManyWithWhereWithoutApplicationInput | AdditionalSignerUpdateManyWithWhereWithoutApplicationInput[]
     deleteMany?: AdditionalSignerScalarWhereInput | AdditionalSignerScalarWhereInput[]
+  }
+
+  export type KYCVerificationUpdateOneWithoutApplicationNestedInput = {
+    create?: XOR<KYCVerificationCreateWithoutApplicationInput, KYCVerificationUncheckedCreateWithoutApplicationInput>
+    connectOrCreate?: KYCVerificationCreateOrConnectWithoutApplicationInput
+    upsert?: KYCVerificationUpsertWithoutApplicationInput
+    disconnect?: KYCVerificationWhereInput | boolean
+    delete?: KYCVerificationWhereInput | boolean
+    connect?: KYCVerificationWhereUniqueInput
+    update?: XOR<XOR<KYCVerificationUpdateToOneWithWhereWithoutApplicationInput, KYCVerificationUpdateWithoutApplicationInput>, KYCVerificationUncheckedUpdateWithoutApplicationInput>
   }
 
   export type RiskAssessmentUpdateOneWithoutApplicationNestedInput = {
@@ -32961,6 +27322,28 @@ export namespace Prisma {
     delete?: FundingSetupWhereInput | boolean
     connect?: FundingSetupWhereUniqueInput
     update?: XOR<XOR<FundingSetupUpdateToOneWithWhereWithoutApplicationInput, FundingSetupUpdateWithoutApplicationInput>, FundingSetupUncheckedUpdateWithoutApplicationInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutApplicationsNestedInput = {
+    create?: XOR<UserCreateWithoutApplicationsInput, UserUncheckedCreateWithoutApplicationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutApplicationsInput
+    upsert?: UserUpsertWithoutApplicationsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutApplicationsInput, UserUpdateWithoutApplicationsInput>, UserUncheckedUpdateWithoutApplicationsInput>
+  }
+
+  export type AuditTrailEntryUpdateManyWithoutApplicationNestedInput = {
+    create?: XOR<AuditTrailEntryCreateWithoutApplicationInput, AuditTrailEntryUncheckedCreateWithoutApplicationInput> | AuditTrailEntryCreateWithoutApplicationInput[] | AuditTrailEntryUncheckedCreateWithoutApplicationInput[]
+    connectOrCreate?: AuditTrailEntryCreateOrConnectWithoutApplicationInput | AuditTrailEntryCreateOrConnectWithoutApplicationInput[]
+    upsert?: AuditTrailEntryUpsertWithWhereUniqueWithoutApplicationInput | AuditTrailEntryUpsertWithWhereUniqueWithoutApplicationInput[]
+    createMany?: AuditTrailEntryCreateManyApplicationInputEnvelope
+    set?: AuditTrailEntryWhereUniqueInput | AuditTrailEntryWhereUniqueInput[]
+    disconnect?: AuditTrailEntryWhereUniqueInput | AuditTrailEntryWhereUniqueInput[]
+    delete?: AuditTrailEntryWhereUniqueInput | AuditTrailEntryWhereUniqueInput[]
+    connect?: AuditTrailEntryWhereUniqueInput | AuditTrailEntryWhereUniqueInput[]
+    update?: AuditTrailEntryUpdateWithWhereUniqueWithoutApplicationInput | AuditTrailEntryUpdateWithWhereUniqueWithoutApplicationInput[]
+    updateMany?: AuditTrailEntryUpdateManyWithWhereWithoutApplicationInput | AuditTrailEntryUpdateManyWithWhereWithoutApplicationInput[]
+    deleteMany?: AuditTrailEntryScalarWhereInput | AuditTrailEntryScalarWhereInput[]
   }
 
   export type PersonalInfoUncheckedUpdateOneWithoutApplicationNestedInput = {
@@ -33021,16 +27404,6 @@ export namespace Prisma {
     deleteMany?: DocumentScalarWhereInput | DocumentScalarWhereInput[]
   }
 
-  export type KYCVerificationUncheckedUpdateOneWithoutApplicationNestedInput = {
-    create?: XOR<KYCVerificationCreateWithoutApplicationInput, KYCVerificationUncheckedCreateWithoutApplicationInput>
-    connectOrCreate?: KYCVerificationCreateOrConnectWithoutApplicationInput
-    upsert?: KYCVerificationUpsertWithoutApplicationInput
-    disconnect?: KYCVerificationWhereInput | boolean
-    delete?: KYCVerificationWhereInput | boolean
-    connect?: KYCVerificationWhereUniqueInput
-    update?: XOR<XOR<KYCVerificationUpdateToOneWithWhereWithoutApplicationInput, KYCVerificationUpdateWithoutApplicationInput>, KYCVerificationUncheckedUpdateWithoutApplicationInput>
-  }
-
   export type AdditionalSignerUncheckedUpdateManyWithoutApplicationNestedInput = {
     create?: XOR<AdditionalSignerCreateWithoutApplicationInput, AdditionalSignerUncheckedCreateWithoutApplicationInput> | AdditionalSignerCreateWithoutApplicationInput[] | AdditionalSignerUncheckedCreateWithoutApplicationInput[]
     connectOrCreate?: AdditionalSignerCreateOrConnectWithoutApplicationInput | AdditionalSignerCreateOrConnectWithoutApplicationInput[]
@@ -33043,6 +27416,16 @@ export namespace Prisma {
     update?: AdditionalSignerUpdateWithWhereUniqueWithoutApplicationInput | AdditionalSignerUpdateWithWhereUniqueWithoutApplicationInput[]
     updateMany?: AdditionalSignerUpdateManyWithWhereWithoutApplicationInput | AdditionalSignerUpdateManyWithWhereWithoutApplicationInput[]
     deleteMany?: AdditionalSignerScalarWhereInput | AdditionalSignerScalarWhereInput[]
+  }
+
+  export type KYCVerificationUncheckedUpdateOneWithoutApplicationNestedInput = {
+    create?: XOR<KYCVerificationCreateWithoutApplicationInput, KYCVerificationUncheckedCreateWithoutApplicationInput>
+    connectOrCreate?: KYCVerificationCreateOrConnectWithoutApplicationInput
+    upsert?: KYCVerificationUpsertWithoutApplicationInput
+    disconnect?: KYCVerificationWhereInput | boolean
+    delete?: KYCVerificationWhereInput | boolean
+    connect?: KYCVerificationWhereUniqueInput
+    update?: XOR<XOR<KYCVerificationUpdateToOneWithWhereWithoutApplicationInput, KYCVerificationUpdateWithoutApplicationInput>, KYCVerificationUncheckedUpdateWithoutApplicationInput>
   }
 
   export type RiskAssessmentUncheckedUpdateOneWithoutApplicationNestedInput = {
@@ -33093,6 +27476,20 @@ export namespace Prisma {
     update?: XOR<XOR<FundingSetupUpdateToOneWithWhereWithoutApplicationInput, FundingSetupUpdateWithoutApplicationInput>, FundingSetupUncheckedUpdateWithoutApplicationInput>
   }
 
+  export type AuditTrailEntryUncheckedUpdateManyWithoutApplicationNestedInput = {
+    create?: XOR<AuditTrailEntryCreateWithoutApplicationInput, AuditTrailEntryUncheckedCreateWithoutApplicationInput> | AuditTrailEntryCreateWithoutApplicationInput[] | AuditTrailEntryUncheckedCreateWithoutApplicationInput[]
+    connectOrCreate?: AuditTrailEntryCreateOrConnectWithoutApplicationInput | AuditTrailEntryCreateOrConnectWithoutApplicationInput[]
+    upsert?: AuditTrailEntryUpsertWithWhereUniqueWithoutApplicationInput | AuditTrailEntryUpsertWithWhereUniqueWithoutApplicationInput[]
+    createMany?: AuditTrailEntryCreateManyApplicationInputEnvelope
+    set?: AuditTrailEntryWhereUniqueInput | AuditTrailEntryWhereUniqueInput[]
+    disconnect?: AuditTrailEntryWhereUniqueInput | AuditTrailEntryWhereUniqueInput[]
+    delete?: AuditTrailEntryWhereUniqueInput | AuditTrailEntryWhereUniqueInput[]
+    connect?: AuditTrailEntryWhereUniqueInput | AuditTrailEntryWhereUniqueInput[]
+    update?: AuditTrailEntryUpdateWithWhereUniqueWithoutApplicationInput | AuditTrailEntryUpdateWithWhereUniqueWithoutApplicationInput[]
+    updateMany?: AuditTrailEntryUpdateManyWithWhereWithoutApplicationInput | AuditTrailEntryUpdateManyWithWhereWithoutApplicationInput[]
+    deleteMany?: AuditTrailEntryScalarWhereInput | AuditTrailEntryScalarWhereInput[]
+  }
+
   export type ApplicationCreateNestedOneWithoutPersonalInfoInput = {
     create?: XOR<ApplicationCreateWithoutPersonalInfoInput, ApplicationUncheckedCreateWithoutPersonalInfoInput>
     connectOrCreate?: ApplicationCreateOrConnectWithoutPersonalInfoInput
@@ -33133,43 +27530,33 @@ export namespace Prisma {
     set: string[]
   }
 
+  export type FinancialProfileCreatebankingRelationshipsInput = {
+    set: InputJsonValue[]
+  }
+
+  export type FinancialProfileCreateaccountActivitiesInput = {
+    set: InputJsonValue[]
+  }
+
   export type ApplicationCreateNestedOneWithoutFinancialProfileInput = {
     create?: XOR<ApplicationCreateWithoutFinancialProfileInput, ApplicationUncheckedCreateWithoutFinancialProfileInput>
     connectOrCreate?: ApplicationCreateOrConnectWithoutFinancialProfileInput
     connect?: ApplicationWhereUniqueInput
   }
 
-  export type BankingRelationshipCreateNestedManyWithoutFinancialProfileInput = {
-    create?: XOR<BankingRelationshipCreateWithoutFinancialProfileInput, BankingRelationshipUncheckedCreateWithoutFinancialProfileInput> | BankingRelationshipCreateWithoutFinancialProfileInput[] | BankingRelationshipUncheckedCreateWithoutFinancialProfileInput[]
-    connectOrCreate?: BankingRelationshipCreateOrConnectWithoutFinancialProfileInput | BankingRelationshipCreateOrConnectWithoutFinancialProfileInput[]
-    createMany?: BankingRelationshipCreateManyFinancialProfileInputEnvelope
-    connect?: BankingRelationshipWhereUniqueInput | BankingRelationshipWhereUniqueInput[]
-  }
-
-  export type AccountActivityCreateNestedManyWithoutFinancialProfileInput = {
-    create?: XOR<AccountActivityCreateWithoutFinancialProfileInput, AccountActivityUncheckedCreateWithoutFinancialProfileInput> | AccountActivityCreateWithoutFinancialProfileInput[] | AccountActivityUncheckedCreateWithoutFinancialProfileInput[]
-    connectOrCreate?: AccountActivityCreateOrConnectWithoutFinancialProfileInput | AccountActivityCreateOrConnectWithoutFinancialProfileInput[]
-    createMany?: AccountActivityCreateManyFinancialProfileInputEnvelope
-    connect?: AccountActivityWhereUniqueInput | AccountActivityWhereUniqueInput[]
-  }
-
-  export type BankingRelationshipUncheckedCreateNestedManyWithoutFinancialProfileInput = {
-    create?: XOR<BankingRelationshipCreateWithoutFinancialProfileInput, BankingRelationshipUncheckedCreateWithoutFinancialProfileInput> | BankingRelationshipCreateWithoutFinancialProfileInput[] | BankingRelationshipUncheckedCreateWithoutFinancialProfileInput[]
-    connectOrCreate?: BankingRelationshipCreateOrConnectWithoutFinancialProfileInput | BankingRelationshipCreateOrConnectWithoutFinancialProfileInput[]
-    createMany?: BankingRelationshipCreateManyFinancialProfileInputEnvelope
-    connect?: BankingRelationshipWhereUniqueInput | BankingRelationshipWhereUniqueInput[]
-  }
-
-  export type AccountActivityUncheckedCreateNestedManyWithoutFinancialProfileInput = {
-    create?: XOR<AccountActivityCreateWithoutFinancialProfileInput, AccountActivityUncheckedCreateWithoutFinancialProfileInput> | AccountActivityCreateWithoutFinancialProfileInput[] | AccountActivityUncheckedCreateWithoutFinancialProfileInput[]
-    connectOrCreate?: AccountActivityCreateOrConnectWithoutFinancialProfileInput | AccountActivityCreateOrConnectWithoutFinancialProfileInput[]
-    createMany?: AccountActivityCreateManyFinancialProfileInputEnvelope
-    connect?: AccountActivityWhereUniqueInput | AccountActivityWhereUniqueInput[]
-  }
-
   export type FinancialProfileUpdateincomeSourceInput = {
     set?: string[]
     push?: string | string[]
+  }
+
+  export type FinancialProfileUpdatebankingRelationshipsInput = {
+    set?: InputJsonValue[]
+    push?: InputJsonValue | InputJsonValue[]
+  }
+
+  export type FinancialProfileUpdateaccountActivitiesInput = {
+    set?: InputJsonValue[]
+    push?: InputJsonValue | InputJsonValue[]
   }
 
   export type ApplicationUpdateOneRequiredWithoutFinancialProfileNestedInput = {
@@ -33180,101 +27567,12 @@ export namespace Prisma {
     update?: XOR<XOR<ApplicationUpdateToOneWithWhereWithoutFinancialProfileInput, ApplicationUpdateWithoutFinancialProfileInput>, ApplicationUncheckedUpdateWithoutFinancialProfileInput>
   }
 
-  export type BankingRelationshipUpdateManyWithoutFinancialProfileNestedInput = {
-    create?: XOR<BankingRelationshipCreateWithoutFinancialProfileInput, BankingRelationshipUncheckedCreateWithoutFinancialProfileInput> | BankingRelationshipCreateWithoutFinancialProfileInput[] | BankingRelationshipUncheckedCreateWithoutFinancialProfileInput[]
-    connectOrCreate?: BankingRelationshipCreateOrConnectWithoutFinancialProfileInput | BankingRelationshipCreateOrConnectWithoutFinancialProfileInput[]
-    upsert?: BankingRelationshipUpsertWithWhereUniqueWithoutFinancialProfileInput | BankingRelationshipUpsertWithWhereUniqueWithoutFinancialProfileInput[]
-    createMany?: BankingRelationshipCreateManyFinancialProfileInputEnvelope
-    set?: BankingRelationshipWhereUniqueInput | BankingRelationshipWhereUniqueInput[]
-    disconnect?: BankingRelationshipWhereUniqueInput | BankingRelationshipWhereUniqueInput[]
-    delete?: BankingRelationshipWhereUniqueInput | BankingRelationshipWhereUniqueInput[]
-    connect?: BankingRelationshipWhereUniqueInput | BankingRelationshipWhereUniqueInput[]
-    update?: BankingRelationshipUpdateWithWhereUniqueWithoutFinancialProfileInput | BankingRelationshipUpdateWithWhereUniqueWithoutFinancialProfileInput[]
-    updateMany?: BankingRelationshipUpdateManyWithWhereWithoutFinancialProfileInput | BankingRelationshipUpdateManyWithWhereWithoutFinancialProfileInput[]
-    deleteMany?: BankingRelationshipScalarWhereInput | BankingRelationshipScalarWhereInput[]
-  }
-
-  export type AccountActivityUpdateManyWithoutFinancialProfileNestedInput = {
-    create?: XOR<AccountActivityCreateWithoutFinancialProfileInput, AccountActivityUncheckedCreateWithoutFinancialProfileInput> | AccountActivityCreateWithoutFinancialProfileInput[] | AccountActivityUncheckedCreateWithoutFinancialProfileInput[]
-    connectOrCreate?: AccountActivityCreateOrConnectWithoutFinancialProfileInput | AccountActivityCreateOrConnectWithoutFinancialProfileInput[]
-    upsert?: AccountActivityUpsertWithWhereUniqueWithoutFinancialProfileInput | AccountActivityUpsertWithWhereUniqueWithoutFinancialProfileInput[]
-    createMany?: AccountActivityCreateManyFinancialProfileInputEnvelope
-    set?: AccountActivityWhereUniqueInput | AccountActivityWhereUniqueInput[]
-    disconnect?: AccountActivityWhereUniqueInput | AccountActivityWhereUniqueInput[]
-    delete?: AccountActivityWhereUniqueInput | AccountActivityWhereUniqueInput[]
-    connect?: AccountActivityWhereUniqueInput | AccountActivityWhereUniqueInput[]
-    update?: AccountActivityUpdateWithWhereUniqueWithoutFinancialProfileInput | AccountActivityUpdateWithWhereUniqueWithoutFinancialProfileInput[]
-    updateMany?: AccountActivityUpdateManyWithWhereWithoutFinancialProfileInput | AccountActivityUpdateManyWithWhereWithoutFinancialProfileInput[]
-    deleteMany?: AccountActivityScalarWhereInput | AccountActivityScalarWhereInput[]
-  }
-
-  export type BankingRelationshipUncheckedUpdateManyWithoutFinancialProfileNestedInput = {
-    create?: XOR<BankingRelationshipCreateWithoutFinancialProfileInput, BankingRelationshipUncheckedCreateWithoutFinancialProfileInput> | BankingRelationshipCreateWithoutFinancialProfileInput[] | BankingRelationshipUncheckedCreateWithoutFinancialProfileInput[]
-    connectOrCreate?: BankingRelationshipCreateOrConnectWithoutFinancialProfileInput | BankingRelationshipCreateOrConnectWithoutFinancialProfileInput[]
-    upsert?: BankingRelationshipUpsertWithWhereUniqueWithoutFinancialProfileInput | BankingRelationshipUpsertWithWhereUniqueWithoutFinancialProfileInput[]
-    createMany?: BankingRelationshipCreateManyFinancialProfileInputEnvelope
-    set?: BankingRelationshipWhereUniqueInput | BankingRelationshipWhereUniqueInput[]
-    disconnect?: BankingRelationshipWhereUniqueInput | BankingRelationshipWhereUniqueInput[]
-    delete?: BankingRelationshipWhereUniqueInput | BankingRelationshipWhereUniqueInput[]
-    connect?: BankingRelationshipWhereUniqueInput | BankingRelationshipWhereUniqueInput[]
-    update?: BankingRelationshipUpdateWithWhereUniqueWithoutFinancialProfileInput | BankingRelationshipUpdateWithWhereUniqueWithoutFinancialProfileInput[]
-    updateMany?: BankingRelationshipUpdateManyWithWhereWithoutFinancialProfileInput | BankingRelationshipUpdateManyWithWhereWithoutFinancialProfileInput[]
-    deleteMany?: BankingRelationshipScalarWhereInput | BankingRelationshipScalarWhereInput[]
-  }
-
-  export type AccountActivityUncheckedUpdateManyWithoutFinancialProfileNestedInput = {
-    create?: XOR<AccountActivityCreateWithoutFinancialProfileInput, AccountActivityUncheckedCreateWithoutFinancialProfileInput> | AccountActivityCreateWithoutFinancialProfileInput[] | AccountActivityUncheckedCreateWithoutFinancialProfileInput[]
-    connectOrCreate?: AccountActivityCreateOrConnectWithoutFinancialProfileInput | AccountActivityCreateOrConnectWithoutFinancialProfileInput[]
-    upsert?: AccountActivityUpsertWithWhereUniqueWithoutFinancialProfileInput | AccountActivityUpsertWithWhereUniqueWithoutFinancialProfileInput[]
-    createMany?: AccountActivityCreateManyFinancialProfileInputEnvelope
-    set?: AccountActivityWhereUniqueInput | AccountActivityWhereUniqueInput[]
-    disconnect?: AccountActivityWhereUniqueInput | AccountActivityWhereUniqueInput[]
-    delete?: AccountActivityWhereUniqueInput | AccountActivityWhereUniqueInput[]
-    connect?: AccountActivityWhereUniqueInput | AccountActivityWhereUniqueInput[]
-    update?: AccountActivityUpdateWithWhereUniqueWithoutFinancialProfileInput | AccountActivityUpdateWithWhereUniqueWithoutFinancialProfileInput[]
-    updateMany?: AccountActivityUpdateManyWithWhereWithoutFinancialProfileInput | AccountActivityUpdateManyWithWhereWithoutFinancialProfileInput[]
-    deleteMany?: AccountActivityScalarWhereInput | AccountActivityScalarWhereInput[]
-  }
-
-  export type BankingRelationshipCreateaccountTypesInput = {
-    set: string[]
-  }
-
-  export type FinancialProfileCreateNestedOneWithoutBankingRelationshipsInput = {
-    create?: XOR<FinancialProfileCreateWithoutBankingRelationshipsInput, FinancialProfileUncheckedCreateWithoutBankingRelationshipsInput>
-    connectOrCreate?: FinancialProfileCreateOrConnectWithoutBankingRelationshipsInput
-    connect?: FinancialProfileWhereUniqueInput
-  }
-
-  export type BankingRelationshipUpdateaccountTypesInput = {
-    set?: string[]
-    push?: string | string[]
-  }
-
-  export type FinancialProfileUpdateOneRequiredWithoutBankingRelationshipsNestedInput = {
-    create?: XOR<FinancialProfileCreateWithoutBankingRelationshipsInput, FinancialProfileUncheckedCreateWithoutBankingRelationshipsInput>
-    connectOrCreate?: FinancialProfileCreateOrConnectWithoutBankingRelationshipsInput
-    upsert?: FinancialProfileUpsertWithoutBankingRelationshipsInput
-    connect?: FinancialProfileWhereUniqueInput
-    update?: XOR<XOR<FinancialProfileUpdateToOneWithWhereWithoutBankingRelationshipsInput, FinancialProfileUpdateWithoutBankingRelationshipsInput>, FinancialProfileUncheckedUpdateWithoutBankingRelationshipsInput>
-  }
-
-  export type FinancialProfileCreateNestedOneWithoutAccountActivitiesInput = {
-    create?: XOR<FinancialProfileCreateWithoutAccountActivitiesInput, FinancialProfileUncheckedCreateWithoutAccountActivitiesInput>
-    connectOrCreate?: FinancialProfileCreateOrConnectWithoutAccountActivitiesInput
-    connect?: FinancialProfileWhereUniqueInput
-  }
-
-  export type FinancialProfileUpdateOneRequiredWithoutAccountActivitiesNestedInput = {
-    create?: XOR<FinancialProfileCreateWithoutAccountActivitiesInput, FinancialProfileUncheckedCreateWithoutAccountActivitiesInput>
-    connectOrCreate?: FinancialProfileCreateOrConnectWithoutAccountActivitiesInput
-    upsert?: FinancialProfileUpsertWithoutAccountActivitiesInput
-    connect?: FinancialProfileWhereUniqueInput
-    update?: XOR<XOR<FinancialProfileUpdateToOneWithWhereWithoutAccountActivitiesInput, FinancialProfileUpdateWithoutAccountActivitiesInput>, FinancialProfileUncheckedUpdateWithoutAccountActivitiesInput>
-  }
-
   export type ProductCreatefeaturesInput = {
     set: string[]
+  }
+
+  export type ProductCreateeligibilityRulesInput = {
+    set: InputJsonValue[]
   }
 
   export type ProductSelectionCreateNestedManyWithoutProductInput = {
@@ -33284,29 +27582,11 @@ export namespace Prisma {
     connect?: ProductSelectionWhereUniqueInput | ProductSelectionWhereUniqueInput[]
   }
 
-  export type EligibilityRuleCreateNestedManyWithoutProductInput = {
-    create?: XOR<EligibilityRuleCreateWithoutProductInput, EligibilityRuleUncheckedCreateWithoutProductInput> | EligibilityRuleCreateWithoutProductInput[] | EligibilityRuleUncheckedCreateWithoutProductInput[]
-    connectOrCreate?: EligibilityRuleCreateOrConnectWithoutProductInput | EligibilityRuleCreateOrConnectWithoutProductInput[]
-    createMany?: EligibilityRuleCreateManyProductInputEnvelope
-    connect?: EligibilityRuleWhereUniqueInput | EligibilityRuleWhereUniqueInput[]
-  }
-
   export type ProductSelectionUncheckedCreateNestedManyWithoutProductInput = {
     create?: XOR<ProductSelectionCreateWithoutProductInput, ProductSelectionUncheckedCreateWithoutProductInput> | ProductSelectionCreateWithoutProductInput[] | ProductSelectionUncheckedCreateWithoutProductInput[]
     connectOrCreate?: ProductSelectionCreateOrConnectWithoutProductInput | ProductSelectionCreateOrConnectWithoutProductInput[]
     createMany?: ProductSelectionCreateManyProductInputEnvelope
     connect?: ProductSelectionWhereUniqueInput | ProductSelectionWhereUniqueInput[]
-  }
-
-  export type EligibilityRuleUncheckedCreateNestedManyWithoutProductInput = {
-    create?: XOR<EligibilityRuleCreateWithoutProductInput, EligibilityRuleUncheckedCreateWithoutProductInput> | EligibilityRuleCreateWithoutProductInput[] | EligibilityRuleUncheckedCreateWithoutProductInput[]
-    connectOrCreate?: EligibilityRuleCreateOrConnectWithoutProductInput | EligibilityRuleCreateOrConnectWithoutProductInput[]
-    createMany?: EligibilityRuleCreateManyProductInputEnvelope
-    connect?: EligibilityRuleWhereUniqueInput | EligibilityRuleWhereUniqueInput[]
-  }
-
-  export type EnumProductTypeFieldUpdateOperationsInput = {
-    set?: $Enums.ProductType
   }
 
   export type ProductUpdatefeaturesInput = {
@@ -33320,6 +27600,11 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type ProductUpdateeligibilityRulesInput = {
+    set?: InputJsonValue[]
+    push?: InputJsonValue | InputJsonValue[]
   }
 
   export type ProductSelectionUpdateManyWithoutProductNestedInput = {
@@ -33336,20 +27621,6 @@ export namespace Prisma {
     deleteMany?: ProductSelectionScalarWhereInput | ProductSelectionScalarWhereInput[]
   }
 
-  export type EligibilityRuleUpdateManyWithoutProductNestedInput = {
-    create?: XOR<EligibilityRuleCreateWithoutProductInput, EligibilityRuleUncheckedCreateWithoutProductInput> | EligibilityRuleCreateWithoutProductInput[] | EligibilityRuleUncheckedCreateWithoutProductInput[]
-    connectOrCreate?: EligibilityRuleCreateOrConnectWithoutProductInput | EligibilityRuleCreateOrConnectWithoutProductInput[]
-    upsert?: EligibilityRuleUpsertWithWhereUniqueWithoutProductInput | EligibilityRuleUpsertWithWhereUniqueWithoutProductInput[]
-    createMany?: EligibilityRuleCreateManyProductInputEnvelope
-    set?: EligibilityRuleWhereUniqueInput | EligibilityRuleWhereUniqueInput[]
-    disconnect?: EligibilityRuleWhereUniqueInput | EligibilityRuleWhereUniqueInput[]
-    delete?: EligibilityRuleWhereUniqueInput | EligibilityRuleWhereUniqueInput[]
-    connect?: EligibilityRuleWhereUniqueInput | EligibilityRuleWhereUniqueInput[]
-    update?: EligibilityRuleUpdateWithWhereUniqueWithoutProductInput | EligibilityRuleUpdateWithWhereUniqueWithoutProductInput[]
-    updateMany?: EligibilityRuleUpdateManyWithWhereWithoutProductInput | EligibilityRuleUpdateManyWithWhereWithoutProductInput[]
-    deleteMany?: EligibilityRuleScalarWhereInput | EligibilityRuleScalarWhereInput[]
-  }
-
   export type ProductSelectionUncheckedUpdateManyWithoutProductNestedInput = {
     create?: XOR<ProductSelectionCreateWithoutProductInput, ProductSelectionUncheckedCreateWithoutProductInput> | ProductSelectionCreateWithoutProductInput[] | ProductSelectionUncheckedCreateWithoutProductInput[]
     connectOrCreate?: ProductSelectionCreateOrConnectWithoutProductInput | ProductSelectionCreateOrConnectWithoutProductInput[]
@@ -33364,38 +27635,6 @@ export namespace Prisma {
     deleteMany?: ProductSelectionScalarWhereInput | ProductSelectionScalarWhereInput[]
   }
 
-  export type EligibilityRuleUncheckedUpdateManyWithoutProductNestedInput = {
-    create?: XOR<EligibilityRuleCreateWithoutProductInput, EligibilityRuleUncheckedCreateWithoutProductInput> | EligibilityRuleCreateWithoutProductInput[] | EligibilityRuleUncheckedCreateWithoutProductInput[]
-    connectOrCreate?: EligibilityRuleCreateOrConnectWithoutProductInput | EligibilityRuleCreateOrConnectWithoutProductInput[]
-    upsert?: EligibilityRuleUpsertWithWhereUniqueWithoutProductInput | EligibilityRuleUpsertWithWhereUniqueWithoutProductInput[]
-    createMany?: EligibilityRuleCreateManyProductInputEnvelope
-    set?: EligibilityRuleWhereUniqueInput | EligibilityRuleWhereUniqueInput[]
-    disconnect?: EligibilityRuleWhereUniqueInput | EligibilityRuleWhereUniqueInput[]
-    delete?: EligibilityRuleWhereUniqueInput | EligibilityRuleWhereUniqueInput[]
-    connect?: EligibilityRuleWhereUniqueInput | EligibilityRuleWhereUniqueInput[]
-    update?: EligibilityRuleUpdateWithWhereUniqueWithoutProductInput | EligibilityRuleUpdateWithWhereUniqueWithoutProductInput[]
-    updateMany?: EligibilityRuleUpdateManyWithWhereWithoutProductInput | EligibilityRuleUpdateManyWithWhereWithoutProductInput[]
-    deleteMany?: EligibilityRuleScalarWhereInput | EligibilityRuleScalarWhereInput[]
-  }
-
-  export type ProductCreateNestedOneWithoutEligibilityRulesInput = {
-    create?: XOR<ProductCreateWithoutEligibilityRulesInput, ProductUncheckedCreateWithoutEligibilityRulesInput>
-    connectOrCreate?: ProductCreateOrConnectWithoutEligibilityRulesInput
-    connect?: ProductWhereUniqueInput
-  }
-
-  export type EnumEligibilityOperatorFieldUpdateOperationsInput = {
-    set?: $Enums.EligibilityOperator
-  }
-
-  export type ProductUpdateOneRequiredWithoutEligibilityRulesNestedInput = {
-    create?: XOR<ProductCreateWithoutEligibilityRulesInput, ProductUncheckedCreateWithoutEligibilityRulesInput>
-    connectOrCreate?: ProductCreateOrConnectWithoutEligibilityRulesInput
-    upsert?: ProductUpsertWithoutEligibilityRulesInput
-    connect?: ProductWhereUniqueInput
-    update?: XOR<XOR<ProductUpdateToOneWithWhereWithoutEligibilityRulesInput, ProductUpdateWithoutEligibilityRulesInput>, ProductUncheckedUpdateWithoutEligibilityRulesInput>
-  }
-
   export type ProductSelectionCreateselectedFeaturesInput = {
     set: string[]
   }
@@ -33406,9 +27645,9 @@ export namespace Prisma {
     connect?: ApplicationWhereUniqueInput
   }
 
-  export type ProductCreateNestedOneWithoutSelectionsInput = {
-    create?: XOR<ProductCreateWithoutSelectionsInput, ProductUncheckedCreateWithoutSelectionsInput>
-    connectOrCreate?: ProductCreateOrConnectWithoutSelectionsInput
+  export type ProductCreateNestedOneWithoutProductSelectionsInput = {
+    create?: XOR<ProductCreateWithoutProductSelectionsInput, ProductUncheckedCreateWithoutProductSelectionsInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutProductSelectionsInput
     connect?: ProductWhereUniqueInput
   }
 
@@ -33425,18 +27664,24 @@ export namespace Prisma {
     update?: XOR<XOR<ApplicationUpdateToOneWithWhereWithoutProductSelectionsInput, ApplicationUpdateWithoutProductSelectionsInput>, ApplicationUncheckedUpdateWithoutProductSelectionsInput>
   }
 
-  export type ProductUpdateOneRequiredWithoutSelectionsNestedInput = {
-    create?: XOR<ProductCreateWithoutSelectionsInput, ProductUncheckedCreateWithoutSelectionsInput>
-    connectOrCreate?: ProductCreateOrConnectWithoutSelectionsInput
-    upsert?: ProductUpsertWithoutSelectionsInput
+  export type ProductUpdateOneRequiredWithoutProductSelectionsNestedInput = {
+    create?: XOR<ProductCreateWithoutProductSelectionsInput, ProductUncheckedCreateWithoutProductSelectionsInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutProductSelectionsInput
+    upsert?: ProductUpsertWithoutProductSelectionsInput
     connect?: ProductWhereUniqueInput
-    update?: XOR<XOR<ProductUpdateToOneWithWhereWithoutSelectionsInput, ProductUpdateWithoutSelectionsInput>, ProductUncheckedUpdateWithoutSelectionsInput>
+    update?: XOR<XOR<ProductUpdateToOneWithWhereWithoutProductSelectionsInput, ProductUpdateWithoutProductSelectionsInput>, ProductUncheckedUpdateWithoutProductSelectionsInput>
   }
 
   export type ApplicationCreateNestedOneWithoutDocumentsInput = {
     create?: XOR<ApplicationCreateWithoutDocumentsInput, ApplicationUncheckedCreateWithoutDocumentsInput>
     connectOrCreate?: ApplicationCreateOrConnectWithoutDocumentsInput
     connect?: ApplicationWhereUniqueInput
+  }
+
+  export type AdditionalSignerCreateNestedOneWithoutDocumentsInput = {
+    create?: XOR<AdditionalSignerCreateWithoutDocumentsInput, AdditionalSignerUncheckedCreateWithoutDocumentsInput>
+    connectOrCreate?: AdditionalSignerCreateOrConnectWithoutDocumentsInput
+    connect?: AdditionalSignerWhereUniqueInput
   }
 
   export type ApplicationUpdateOneRequiredWithoutDocumentsNestedInput = {
@@ -33447,14 +27692,20 @@ export namespace Prisma {
     update?: XOR<XOR<ApplicationUpdateToOneWithWhereWithoutDocumentsInput, ApplicationUpdateWithoutDocumentsInput>, ApplicationUncheckedUpdateWithoutDocumentsInput>
   }
 
+  export type AdditionalSignerUpdateOneWithoutDocumentsNestedInput = {
+    create?: XOR<AdditionalSignerCreateWithoutDocumentsInput, AdditionalSignerUncheckedCreateWithoutDocumentsInput>
+    connectOrCreate?: AdditionalSignerCreateOrConnectWithoutDocumentsInput
+    upsert?: AdditionalSignerUpsertWithoutDocumentsInput
+    disconnect?: AdditionalSignerWhereInput | boolean
+    delete?: AdditionalSignerWhereInput | boolean
+    connect?: AdditionalSignerWhereUniqueInput
+    update?: XOR<XOR<AdditionalSignerUpdateToOneWithWhereWithoutDocumentsInput, AdditionalSignerUpdateWithoutDocumentsInput>, AdditionalSignerUncheckedUpdateWithoutDocumentsInput>
+  }
+
   export type ApplicationCreateNestedOneWithoutKycVerificationInput = {
     create?: XOR<ApplicationCreateWithoutKycVerificationInput, ApplicationUncheckedCreateWithoutKycVerificationInput>
     connectOrCreate?: ApplicationCreateOrConnectWithoutKycVerificationInput
     connect?: ApplicationWhereUniqueInput
-  }
-
-  export type NullableBoolFieldUpdateOperationsInput = {
-    set?: boolean | null
   }
 
   export type ApplicationUpdateOneRequiredWithoutKycVerificationNestedInput = {
@@ -33465,10 +27716,38 @@ export namespace Prisma {
     update?: XOR<XOR<ApplicationUpdateToOneWithWhereWithoutKycVerificationInput, ApplicationUpdateWithoutKycVerificationInput>, ApplicationUncheckedUpdateWithoutKycVerificationInput>
   }
 
+  export type DocumentCreateNestedManyWithoutSignerInput = {
+    create?: XOR<DocumentCreateWithoutSignerInput, DocumentUncheckedCreateWithoutSignerInput> | DocumentCreateWithoutSignerInput[] | DocumentUncheckedCreateWithoutSignerInput[]
+    connectOrCreate?: DocumentCreateOrConnectWithoutSignerInput | DocumentCreateOrConnectWithoutSignerInput[]
+    createMany?: DocumentCreateManySignerInputEnvelope
+    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+  }
+
   export type ApplicationCreateNestedOneWithoutAdditionalSignersInput = {
     create?: XOR<ApplicationCreateWithoutAdditionalSignersInput, ApplicationUncheckedCreateWithoutAdditionalSignersInput>
     connectOrCreate?: ApplicationCreateOrConnectWithoutAdditionalSignersInput
     connect?: ApplicationWhereUniqueInput
+  }
+
+  export type DocumentUncheckedCreateNestedManyWithoutSignerInput = {
+    create?: XOR<DocumentCreateWithoutSignerInput, DocumentUncheckedCreateWithoutSignerInput> | DocumentCreateWithoutSignerInput[] | DocumentUncheckedCreateWithoutSignerInput[]
+    connectOrCreate?: DocumentCreateOrConnectWithoutSignerInput | DocumentCreateOrConnectWithoutSignerInput[]
+    createMany?: DocumentCreateManySignerInputEnvelope
+    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+  }
+
+  export type DocumentUpdateManyWithoutSignerNestedInput = {
+    create?: XOR<DocumentCreateWithoutSignerInput, DocumentUncheckedCreateWithoutSignerInput> | DocumentCreateWithoutSignerInput[] | DocumentUncheckedCreateWithoutSignerInput[]
+    connectOrCreate?: DocumentCreateOrConnectWithoutSignerInput | DocumentCreateOrConnectWithoutSignerInput[]
+    upsert?: DocumentUpsertWithWhereUniqueWithoutSignerInput | DocumentUpsertWithWhereUniqueWithoutSignerInput[]
+    createMany?: DocumentCreateManySignerInputEnvelope
+    set?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    disconnect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    delete?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    update?: DocumentUpdateWithWhereUniqueWithoutSignerInput | DocumentUpdateWithWhereUniqueWithoutSignerInput[]
+    updateMany?: DocumentUpdateManyWithWhereWithoutSignerInput | DocumentUpdateManyWithWhereWithoutSignerInput[]
+    deleteMany?: DocumentScalarWhereInput | DocumentScalarWhereInput[]
   }
 
   export type ApplicationUpdateOneRequiredWithoutAdditionalSignersNestedInput = {
@@ -33477,6 +27756,24 @@ export namespace Prisma {
     upsert?: ApplicationUpsertWithoutAdditionalSignersInput
     connect?: ApplicationWhereUniqueInput
     update?: XOR<XOR<ApplicationUpdateToOneWithWhereWithoutAdditionalSignersInput, ApplicationUpdateWithoutAdditionalSignersInput>, ApplicationUncheckedUpdateWithoutAdditionalSignersInput>
+  }
+
+  export type DocumentUncheckedUpdateManyWithoutSignerNestedInput = {
+    create?: XOR<DocumentCreateWithoutSignerInput, DocumentUncheckedCreateWithoutSignerInput> | DocumentCreateWithoutSignerInput[] | DocumentUncheckedCreateWithoutSignerInput[]
+    connectOrCreate?: DocumentCreateOrConnectWithoutSignerInput | DocumentCreateOrConnectWithoutSignerInput[]
+    upsert?: DocumentUpsertWithWhereUniqueWithoutSignerInput | DocumentUpsertWithWhereUniqueWithoutSignerInput[]
+    createMany?: DocumentCreateManySignerInputEnvelope
+    set?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    disconnect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    delete?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    update?: DocumentUpdateWithWhereUniqueWithoutSignerInput | DocumentUpdateWithWhereUniqueWithoutSignerInput[]
+    updateMany?: DocumentUpdateManyWithWhereWithoutSignerInput | DocumentUpdateManyWithWhereWithoutSignerInput[]
+    deleteMany?: DocumentScalarWhereInput | DocumentScalarWhereInput[]
+  }
+
+  export type RiskAssessmentCreatefactorsInput = {
+    set: InputJsonValue[]
   }
 
   export type RiskAssessmentCreaterecommendationsInput = {
@@ -33489,18 +27786,9 @@ export namespace Prisma {
     connect?: ApplicationWhereUniqueInput
   }
 
-  export type RiskFactorCreateNestedManyWithoutRiskAssessmentInput = {
-    create?: XOR<RiskFactorCreateWithoutRiskAssessmentInput, RiskFactorUncheckedCreateWithoutRiskAssessmentInput> | RiskFactorCreateWithoutRiskAssessmentInput[] | RiskFactorUncheckedCreateWithoutRiskAssessmentInput[]
-    connectOrCreate?: RiskFactorCreateOrConnectWithoutRiskAssessmentInput | RiskFactorCreateOrConnectWithoutRiskAssessmentInput[]
-    createMany?: RiskFactorCreateManyRiskAssessmentInputEnvelope
-    connect?: RiskFactorWhereUniqueInput | RiskFactorWhereUniqueInput[]
-  }
-
-  export type RiskFactorUncheckedCreateNestedManyWithoutRiskAssessmentInput = {
-    create?: XOR<RiskFactorCreateWithoutRiskAssessmentInput, RiskFactorUncheckedCreateWithoutRiskAssessmentInput> | RiskFactorCreateWithoutRiskAssessmentInput[] | RiskFactorUncheckedCreateWithoutRiskAssessmentInput[]
-    connectOrCreate?: RiskFactorCreateOrConnectWithoutRiskAssessmentInput | RiskFactorCreateOrConnectWithoutRiskAssessmentInput[]
-    createMany?: RiskFactorCreateManyRiskAssessmentInputEnvelope
-    connect?: RiskFactorWhereUniqueInput | RiskFactorWhereUniqueInput[]
+  export type RiskAssessmentUpdatefactorsInput = {
+    set?: InputJsonValue[]
+    push?: InputJsonValue | InputJsonValue[]
   }
 
   export type RiskAssessmentUpdaterecommendationsInput = {
@@ -33514,48 +27802,6 @@ export namespace Prisma {
     upsert?: ApplicationUpsertWithoutRiskAssessmentInput
     connect?: ApplicationWhereUniqueInput
     update?: XOR<XOR<ApplicationUpdateToOneWithWhereWithoutRiskAssessmentInput, ApplicationUpdateWithoutRiskAssessmentInput>, ApplicationUncheckedUpdateWithoutRiskAssessmentInput>
-  }
-
-  export type RiskFactorUpdateManyWithoutRiskAssessmentNestedInput = {
-    create?: XOR<RiskFactorCreateWithoutRiskAssessmentInput, RiskFactorUncheckedCreateWithoutRiskAssessmentInput> | RiskFactorCreateWithoutRiskAssessmentInput[] | RiskFactorUncheckedCreateWithoutRiskAssessmentInput[]
-    connectOrCreate?: RiskFactorCreateOrConnectWithoutRiskAssessmentInput | RiskFactorCreateOrConnectWithoutRiskAssessmentInput[]
-    upsert?: RiskFactorUpsertWithWhereUniqueWithoutRiskAssessmentInput | RiskFactorUpsertWithWhereUniqueWithoutRiskAssessmentInput[]
-    createMany?: RiskFactorCreateManyRiskAssessmentInputEnvelope
-    set?: RiskFactorWhereUniqueInput | RiskFactorWhereUniqueInput[]
-    disconnect?: RiskFactorWhereUniqueInput | RiskFactorWhereUniqueInput[]
-    delete?: RiskFactorWhereUniqueInput | RiskFactorWhereUniqueInput[]
-    connect?: RiskFactorWhereUniqueInput | RiskFactorWhereUniqueInput[]
-    update?: RiskFactorUpdateWithWhereUniqueWithoutRiskAssessmentInput | RiskFactorUpdateWithWhereUniqueWithoutRiskAssessmentInput[]
-    updateMany?: RiskFactorUpdateManyWithWhereWithoutRiskAssessmentInput | RiskFactorUpdateManyWithWhereWithoutRiskAssessmentInput[]
-    deleteMany?: RiskFactorScalarWhereInput | RiskFactorScalarWhereInput[]
-  }
-
-  export type RiskFactorUncheckedUpdateManyWithoutRiskAssessmentNestedInput = {
-    create?: XOR<RiskFactorCreateWithoutRiskAssessmentInput, RiskFactorUncheckedCreateWithoutRiskAssessmentInput> | RiskFactorCreateWithoutRiskAssessmentInput[] | RiskFactorUncheckedCreateWithoutRiskAssessmentInput[]
-    connectOrCreate?: RiskFactorCreateOrConnectWithoutRiskAssessmentInput | RiskFactorCreateOrConnectWithoutRiskAssessmentInput[]
-    upsert?: RiskFactorUpsertWithWhereUniqueWithoutRiskAssessmentInput | RiskFactorUpsertWithWhereUniqueWithoutRiskAssessmentInput[]
-    createMany?: RiskFactorCreateManyRiskAssessmentInputEnvelope
-    set?: RiskFactorWhereUniqueInput | RiskFactorWhereUniqueInput[]
-    disconnect?: RiskFactorWhereUniqueInput | RiskFactorWhereUniqueInput[]
-    delete?: RiskFactorWhereUniqueInput | RiskFactorWhereUniqueInput[]
-    connect?: RiskFactorWhereUniqueInput | RiskFactorWhereUniqueInput[]
-    update?: RiskFactorUpdateWithWhereUniqueWithoutRiskAssessmentInput | RiskFactorUpdateWithWhereUniqueWithoutRiskAssessmentInput[]
-    updateMany?: RiskFactorUpdateManyWithWhereWithoutRiskAssessmentInput | RiskFactorUpdateManyWithWhereWithoutRiskAssessmentInput[]
-    deleteMany?: RiskFactorScalarWhereInput | RiskFactorScalarWhereInput[]
-  }
-
-  export type RiskAssessmentCreateNestedOneWithoutFactorsInput = {
-    create?: XOR<RiskAssessmentCreateWithoutFactorsInput, RiskAssessmentUncheckedCreateWithoutFactorsInput>
-    connectOrCreate?: RiskAssessmentCreateOrConnectWithoutFactorsInput
-    connect?: RiskAssessmentWhereUniqueInput
-  }
-
-  export type RiskAssessmentUpdateOneRequiredWithoutFactorsNestedInput = {
-    create?: XOR<RiskAssessmentCreateWithoutFactorsInput, RiskAssessmentUncheckedCreateWithoutFactorsInput>
-    connectOrCreate?: RiskAssessmentCreateOrConnectWithoutFactorsInput
-    upsert?: RiskAssessmentUpsertWithoutFactorsInput
-    connect?: RiskAssessmentWhereUniqueInput
-    update?: XOR<XOR<RiskAssessmentUpdateToOneWithWhereWithoutFactorsInput, RiskAssessmentUpdateWithoutFactorsInput>, RiskAssessmentUncheckedUpdateWithoutFactorsInput>
   }
 
   export type DisclosureCreateapplicableForInput = {
@@ -33663,6 +27909,20 @@ export namespace Prisma {
     upsert?: ApplicationUpsertWithoutFundingSetupInput
     connect?: ApplicationWhereUniqueInput
     update?: XOR<XOR<ApplicationUpdateToOneWithWhereWithoutFundingSetupInput, ApplicationUpdateWithoutFundingSetupInput>, ApplicationUncheckedUpdateWithoutFundingSetupInput>
+  }
+
+  export type ApplicationCreateNestedOneWithoutAuditTrailInput = {
+    create?: XOR<ApplicationCreateWithoutAuditTrailInput, ApplicationUncheckedCreateWithoutAuditTrailInput>
+    connectOrCreate?: ApplicationCreateOrConnectWithoutAuditTrailInput
+    connect?: ApplicationWhereUniqueInput
+  }
+
+  export type ApplicationUpdateOneRequiredWithoutAuditTrailNestedInput = {
+    create?: XOR<ApplicationCreateWithoutAuditTrailInput, ApplicationUncheckedCreateWithoutAuditTrailInput>
+    connectOrCreate?: ApplicationCreateOrConnectWithoutAuditTrailInput
+    upsert?: ApplicationUpsertWithoutAuditTrailInput
+    connect?: ApplicationWhereUniqueInput
+    update?: XOR<XOR<ApplicationUpdateToOneWithWhereWithoutAuditTrailInput, ApplicationUpdateWithoutAuditTrailInput>, ApplicationUncheckedUpdateWithoutAuditTrailInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -33872,21 +28132,28 @@ export namespace Prisma {
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
 
-  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
   export type NestedJsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -33912,11 +28179,20 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type NestedEnumProductTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.ProductType | EnumProductTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumProductTypeFilter<$PrismaModel> | $Enums.ProductType
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type NestedFloatNullableFilter<$PrismaModel = never> = {
@@ -33928,16 +28204,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedEnumProductTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.ProductType | EnumProductTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ProductType[] | ListEnumProductTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumProductTypeWithAggregatesFilter<$PrismaModel> | $Enums.ProductType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumProductTypeFilter<$PrismaModel>
-    _max?: NestedEnumProductTypeFilter<$PrismaModel>
   }
 
   export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -33954,59 +28220,6 @@ export namespace Prisma {
     _sum?: NestedFloatNullableFilter<$PrismaModel>
     _min?: NestedFloatNullableFilter<$PrismaModel>
     _max?: NestedFloatNullableFilter<$PrismaModel>
-  }
-
-  export type NestedEnumEligibilityOperatorFilter<$PrismaModel = never> = {
-    equals?: $Enums.EligibilityOperator | EnumEligibilityOperatorFieldRefInput<$PrismaModel>
-    in?: $Enums.EligibilityOperator[] | ListEnumEligibilityOperatorFieldRefInput<$PrismaModel>
-    notIn?: $Enums.EligibilityOperator[] | ListEnumEligibilityOperatorFieldRefInput<$PrismaModel>
-    not?: NestedEnumEligibilityOperatorFilter<$PrismaModel> | $Enums.EligibilityOperator
-  }
-
-  export type NestedEnumEligibilityOperatorWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.EligibilityOperator | EnumEligibilityOperatorFieldRefInput<$PrismaModel>
-    in?: $Enums.EligibilityOperator[] | ListEnumEligibilityOperatorFieldRefInput<$PrismaModel>
-    notIn?: $Enums.EligibilityOperator[] | ListEnumEligibilityOperatorFieldRefInput<$PrismaModel>
-    not?: NestedEnumEligibilityOperatorWithAggregatesFilter<$PrismaModel> | $Enums.EligibilityOperator
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumEligibilityOperatorFilter<$PrismaModel>
-    _max?: NestedEnumEligibilityOperatorFilter<$PrismaModel>
-  }
-  export type NestedJsonFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
-
-  export type NestedJsonFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
-
-  export type NestedBoolNullableFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
-  }
-
-  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedBoolNullableFilter<$PrismaModel>
-    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type TokenCreateWithoutUserInput = {
@@ -34047,23 +28260,19 @@ export namespace Prisma {
     completedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    userAgent?: string | null
-    ipAddress?: string | null
-    sessionId?: string | null
-    startedAt?: Date | string | null
-    lastActivity?: Date | string | null
-    source?: string | null
+    metadata: JsonNullValueInput | InputJsonValue
     personalInfo?: PersonalInfoCreateNestedOneWithoutApplicationInput
     businessProfile?: BusinessProfileCreateNestedOneWithoutApplicationInput
     financialProfile?: FinancialProfileCreateNestedOneWithoutApplicationInput
     productSelections?: ProductSelectionCreateNestedManyWithoutApplicationInput
     documents?: DocumentCreateNestedManyWithoutApplicationInput
-    kycVerification?: KYCVerificationCreateNestedOneWithoutApplicationInput
     additionalSigners?: AdditionalSignerCreateNestedManyWithoutApplicationInput
+    kycVerification?: KYCVerificationCreateNestedOneWithoutApplicationInput
     riskAssessment?: RiskAssessmentCreateNestedOneWithoutApplicationInput
     agreements?: AgreementCreateNestedManyWithoutApplicationInput
     signatures?: ElectronicSignatureCreateNestedManyWithoutApplicationInput
     fundingSetup?: FundingSetupCreateNestedOneWithoutApplicationInput
+    auditTrail?: AuditTrailEntryCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationUncheckedCreateWithoutUserInput = {
@@ -34077,23 +28286,19 @@ export namespace Prisma {
     completedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    userAgent?: string | null
-    ipAddress?: string | null
-    sessionId?: string | null
-    startedAt?: Date | string | null
-    lastActivity?: Date | string | null
-    source?: string | null
+    metadata: JsonNullValueInput | InputJsonValue
     personalInfo?: PersonalInfoUncheckedCreateNestedOneWithoutApplicationInput
     businessProfile?: BusinessProfileUncheckedCreateNestedOneWithoutApplicationInput
     financialProfile?: FinancialProfileUncheckedCreateNestedOneWithoutApplicationInput
     productSelections?: ProductSelectionUncheckedCreateNestedManyWithoutApplicationInput
     documents?: DocumentUncheckedCreateNestedManyWithoutApplicationInput
-    kycVerification?: KYCVerificationUncheckedCreateNestedOneWithoutApplicationInput
     additionalSigners?: AdditionalSignerUncheckedCreateNestedManyWithoutApplicationInput
+    kycVerification?: KYCVerificationUncheckedCreateNestedOneWithoutApplicationInput
     riskAssessment?: RiskAssessmentUncheckedCreateNestedOneWithoutApplicationInput
     agreements?: AgreementUncheckedCreateNestedManyWithoutApplicationInput
     signatures?: ElectronicSignatureUncheckedCreateNestedManyWithoutApplicationInput
     fundingSetup?: FundingSetupUncheckedCreateNestedOneWithoutApplicationInput
+    auditTrail?: AuditTrailEntryUncheckedCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationCreateOrConnectWithoutUserInput = {
@@ -34165,16 +28370,11 @@ export namespace Prisma {
     completedAt?: DateTimeNullableFilter<"Application"> | Date | string | null
     createdAt?: DateTimeFilter<"Application"> | Date | string
     updatedAt?: DateTimeFilter<"Application"> | Date | string
-    userAgent?: StringNullableFilter<"Application"> | string | null
-    ipAddress?: StringNullableFilter<"Application"> | string | null
-    sessionId?: StringNullableFilter<"Application"> | string | null
-    startedAt?: DateTimeNullableFilter<"Application"> | Date | string | null
-    lastActivity?: DateTimeNullableFilter<"Application"> | Date | string | null
-    source?: StringNullableFilter<"Application"> | string | null
+    metadata?: JsonFilter<"Application">
     userId?: IntFilter<"Application"> | number
   }
 
-  export type UserCreateWithoutTokenInput = {
+  export type UserCreateWithoutTokensInput = {
     email: string
     name?: string | null
     password: string
@@ -34185,7 +28385,7 @@ export namespace Prisma {
     applications?: ApplicationCreateNestedManyWithoutUserInput
   }
 
-  export type UserUncheckedCreateWithoutTokenInput = {
+  export type UserUncheckedCreateWithoutTokensInput = {
     id?: number
     email: string
     name?: string | null
@@ -34197,23 +28397,23 @@ export namespace Prisma {
     applications?: ApplicationUncheckedCreateNestedManyWithoutUserInput
   }
 
-  export type UserCreateOrConnectWithoutTokenInput = {
+  export type UserCreateOrConnectWithoutTokensInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutTokenInput, UserUncheckedCreateWithoutTokenInput>
+    create: XOR<UserCreateWithoutTokensInput, UserUncheckedCreateWithoutTokensInput>
   }
 
-  export type UserUpsertWithoutTokenInput = {
-    update: XOR<UserUpdateWithoutTokenInput, UserUncheckedUpdateWithoutTokenInput>
-    create: XOR<UserCreateWithoutTokenInput, UserUncheckedCreateWithoutTokenInput>
+  export type UserUpsertWithoutTokensInput = {
+    update: XOR<UserUpdateWithoutTokensInput, UserUncheckedUpdateWithoutTokensInput>
+    create: XOR<UserCreateWithoutTokensInput, UserUncheckedCreateWithoutTokensInput>
     where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutTokenInput = {
+  export type UserUpdateToOneWithWhereWithoutTokensInput = {
     where?: UserWhereInput
-    data: XOR<UserUpdateWithoutTokenInput, UserUncheckedUpdateWithoutTokenInput>
+    data: XOR<UserUpdateWithoutTokensInput, UserUncheckedUpdateWithoutTokensInput>
   }
 
-  export type UserUpdateWithoutTokenInput = {
+  export type UserUpdateWithoutTokensInput = {
     email?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
@@ -34224,7 +28424,7 @@ export namespace Prisma {
     applications?: ApplicationUpdateManyWithoutUserNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutTokenInput = {
+  export type UserUncheckedUpdateWithoutTokensInput = {
     id?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
@@ -34234,34 +28434,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     applications?: ApplicationUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserCreateWithoutApplicationsInput = {
-    email: string
-    name?: string | null
-    password: string
-    role?: $Enums.Role
-    isEmailVerified?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    Token?: TokenCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutApplicationsInput = {
-    id?: number
-    email: string
-    name?: string | null
-    password: string
-    role?: $Enums.Role
-    isEmailVerified?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    Token?: TokenUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutApplicationsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutApplicationsInput, UserUncheckedCreateWithoutApplicationsInput>
   }
 
   export type PersonalInfoCreateWithoutApplicationInput = {
@@ -34274,22 +28446,12 @@ export namespace Prisma {
     ssn: string
     phone: string
     email: string
+    mailingAddress: JsonNullValueInput | InputJsonValue
+    physicalAddress?: NullableJsonNullValueInput | InputJsonValue
     employmentStatus: string
     occupation?: string | null
     employer?: string | null
     workPhone?: string | null
-    mailingStreet: string
-    mailingCity: string
-    mailingState: string
-    mailingZipCode: string
-    mailingCountry: string
-    mailingApartment?: string | null
-    physicalStreet?: string | null
-    physicalCity?: string | null
-    physicalState?: string | null
-    physicalZipCode?: string | null
-    physicalCountry?: string | null
-    physicalApartment?: string | null
   }
 
   export type PersonalInfoUncheckedCreateWithoutApplicationInput = {
@@ -34302,22 +28464,12 @@ export namespace Prisma {
     ssn: string
     phone: string
     email: string
+    mailingAddress: JsonNullValueInput | InputJsonValue
+    physicalAddress?: NullableJsonNullValueInput | InputJsonValue
     employmentStatus: string
     occupation?: string | null
     employer?: string | null
     workPhone?: string | null
-    mailingStreet: string
-    mailingCity: string
-    mailingState: string
-    mailingZipCode: string
-    mailingCountry: string
-    mailingApartment?: string | null
-    physicalStreet?: string | null
-    physicalCity?: string | null
-    physicalState?: string | null
-    physicalZipCode?: string | null
-    physicalCountry?: string | null
-    physicalApartment?: string | null
   }
 
   export type PersonalInfoCreateOrConnectWithoutApplicationInput = {
@@ -34333,26 +28485,16 @@ export namespace Prisma {
     entityType: string
     industryType: string
     dateEstablished: string
+    businessAddress: JsonNullValueInput | InputJsonValue
+    mailingAddress?: NullableJsonNullValueInput | InputJsonValue
     businessPhone: string
     businessEmail: string
     website?: string | null
     description: string
-    isCashIntensive: boolean
+    isCashIntensive?: boolean
     monthlyTransactionVolume: number
     monthlyTransactionCount: number
     expectedBalance: number
-    businessStreet: string
-    businessCity: string
-    businessState: string
-    businessZipCode: string
-    businessCountry: string
-    businessApartment?: string | null
-    mailingStreet?: string | null
-    mailingCity?: string | null
-    mailingState?: string | null
-    mailingZipCode?: string | null
-    mailingCountry?: string | null
-    mailingApartment?: string | null
   }
 
   export type BusinessProfileUncheckedCreateWithoutApplicationInput = {
@@ -34363,26 +28505,16 @@ export namespace Prisma {
     entityType: string
     industryType: string
     dateEstablished: string
+    businessAddress: JsonNullValueInput | InputJsonValue
+    mailingAddress?: NullableJsonNullValueInput | InputJsonValue
     businessPhone: string
     businessEmail: string
     website?: string | null
     description: string
-    isCashIntensive: boolean
+    isCashIntensive?: boolean
     monthlyTransactionVolume: number
     monthlyTransactionCount: number
     expectedBalance: number
-    businessStreet: string
-    businessCity: string
-    businessState: string
-    businessZipCode: string
-    businessCountry: string
-    businessApartment?: string | null
-    mailingStreet?: string | null
-    mailingCity?: string | null
-    mailingState?: string | null
-    mailingZipCode?: string | null
-    mailingCountry?: string | null
-    mailingApartment?: string | null
   }
 
   export type BusinessProfileCreateOrConnectWithoutApplicationInput = {
@@ -34397,8 +28529,8 @@ export namespace Prisma {
     employmentInfo?: NullableJsonNullValueInput | InputJsonValue
     assets: number
     liabilities: number
-    bankingRelationships?: BankingRelationshipCreateNestedManyWithoutFinancialProfileInput
-    accountActivities?: AccountActivityCreateNestedManyWithoutFinancialProfileInput
+    bankingRelationships?: FinancialProfileCreatebankingRelationshipsInput | InputJsonValue[]
+    accountActivities?: FinancialProfileCreateaccountActivitiesInput | InputJsonValue[]
   }
 
   export type FinancialProfileUncheckedCreateWithoutApplicationInput = {
@@ -34408,8 +28540,8 @@ export namespace Prisma {
     employmentInfo?: NullableJsonNullValueInput | InputJsonValue
     assets: number
     liabilities: number
-    bankingRelationships?: BankingRelationshipUncheckedCreateNestedManyWithoutFinancialProfileInput
-    accountActivities?: AccountActivityUncheckedCreateNestedManyWithoutFinancialProfileInput
+    bankingRelationships?: FinancialProfileCreatebankingRelationshipsInput | InputJsonValue[]
+    accountActivities?: FinancialProfileCreateaccountActivitiesInput | InputJsonValue[]
   }
 
   export type FinancialProfileCreateOrConnectWithoutApplicationInput = {
@@ -34421,7 +28553,7 @@ export namespace Prisma {
     id?: string
     selectedFeatures?: ProductSelectionCreateselectedFeaturesInput | string[]
     initialDeposit?: number | null
-    product: ProductCreateNestedOneWithoutSelectionsInput
+    product: ProductCreateNestedOneWithoutProductSelectionsInput
   }
 
   export type ProductSelectionUncheckedCreateWithoutApplicationInput = {
@@ -34449,12 +28581,8 @@ export namespace Prisma {
     mimeType: string
     uploadedAt?: Date | string
     verificationStatus?: string
-    verificationProvider?: string | null
-    verificationConfidence?: number | null
-    extractedData?: NullableJsonNullValueInput | InputJsonValue
-    verificationId?: string | null
-    verifiedAt?: Date | string | null
-    signerId?: string | null
+    verificationDetails?: NullableJsonNullValueInput | InputJsonValue
+    signer?: AdditionalSignerCreateNestedOneWithoutDocumentsInput
   }
 
   export type DocumentUncheckedCreateWithoutApplicationInput = {
@@ -34465,11 +28593,7 @@ export namespace Prisma {
     mimeType: string
     uploadedAt?: Date | string
     verificationStatus?: string
-    verificationProvider?: string | null
-    verificationConfidence?: number | null
-    extractedData?: NullableJsonNullValueInput | InputJsonValue
-    verificationId?: string | null
-    verifiedAt?: Date | string | null
+    verificationDetails?: NullableJsonNullValueInput | InputJsonValue
     signerId?: string | null
   }
 
@@ -34483,77 +28607,26 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type KYCVerificationCreateWithoutApplicationInput = {
-    id?: string
-    status?: string
-    provider: string
-    verificationId: string
-    confidence: number
-    verifiedAt?: Date | string | null
-    identityPassed?: boolean | null
-    identityConfidence?: number | null
-    addressPassed?: boolean | null
-    addressConfidence?: number | null
-    phonePassed?: boolean | null
-    phoneConfidence?: number | null
-    emailPassed?: boolean | null
-    emailConfidence?: number | null
-    ofacPassed?: boolean | null
-    ofacMatches?: NullableJsonNullValueInput | InputJsonValue
-  }
-
-  export type KYCVerificationUncheckedCreateWithoutApplicationInput = {
-    id?: string
-    status?: string
-    provider: string
-    verificationId: string
-    confidence: number
-    verifiedAt?: Date | string | null
-    identityPassed?: boolean | null
-    identityConfidence?: number | null
-    addressPassed?: boolean | null
-    addressConfidence?: number | null
-    phonePassed?: boolean | null
-    phoneConfidence?: number | null
-    emailPassed?: boolean | null
-    emailConfidence?: number | null
-    ofacPassed?: boolean | null
-    ofacMatches?: NullableJsonNullValueInput | InputJsonValue
-  }
-
-  export type KYCVerificationCreateOrConnectWithoutApplicationInput = {
-    where: KYCVerificationWhereUniqueInput
-    create: XOR<KYCVerificationCreateWithoutApplicationInput, KYCVerificationUncheckedCreateWithoutApplicationInput>
-  }
-
   export type AdditionalSignerCreateWithoutApplicationInput = {
     id?: string
+    personalInfo: JsonNullValueInput | InputJsonValue
     role: string
     relationshipToBusiness?: string | null
     beneficialOwnershipPercentage?: number | null
     hasSigningAuthority: boolean
     kycStatus?: string
-    firstName: string
-    lastName: string
-    dateOfBirth: string
-    ssn: string
-    phone: string
-    email: string
+    documents?: DocumentCreateNestedManyWithoutSignerInput
   }
 
   export type AdditionalSignerUncheckedCreateWithoutApplicationInput = {
     id?: string
+    personalInfo: JsonNullValueInput | InputJsonValue
     role: string
     relationshipToBusiness?: string | null
     beneficialOwnershipPercentage?: number | null
     hasSigningAuthority: boolean
     kycStatus?: string
-    firstName: string
-    lastName: string
-    dateOfBirth: string
-    ssn: string
-    phone: string
-    email: string
+    documents?: DocumentUncheckedCreateNestedManyWithoutSignerInput
   }
 
   export type AdditionalSignerCreateOrConnectWithoutApplicationInput = {
@@ -34566,26 +28639,51 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type KYCVerificationCreateWithoutApplicationInput = {
+    id?: string
+    status?: string
+    provider: string
+    verificationId: string
+    confidence: number
+    verifiedAt?: Date | string | null
+    results: JsonNullValueInput | InputJsonValue
+  }
+
+  export type KYCVerificationUncheckedCreateWithoutApplicationInput = {
+    id?: string
+    status?: string
+    provider: string
+    verificationId: string
+    confidence: number
+    verifiedAt?: Date | string | null
+    results: JsonNullValueInput | InputJsonValue
+  }
+
+  export type KYCVerificationCreateOrConnectWithoutApplicationInput = {
+    where: KYCVerificationWhereUniqueInput
+    create: XOR<KYCVerificationCreateWithoutApplicationInput, KYCVerificationUncheckedCreateWithoutApplicationInput>
+  }
+
   export type RiskAssessmentCreateWithoutApplicationInput = {
     id?: string
     overallRisk: string
     riskScore: number
+    factors?: RiskAssessmentCreatefactorsInput | InputJsonValue[]
     recommendations?: RiskAssessmentCreaterecommendationsInput | string[]
-    requiresManualReview: boolean
+    requiresManualReview?: boolean
     assessedAt?: Date | string
     assessedBy: string
-    factors?: RiskFactorCreateNestedManyWithoutRiskAssessmentInput
   }
 
   export type RiskAssessmentUncheckedCreateWithoutApplicationInput = {
     id?: string
     overallRisk: string
     riskScore: number
+    factors?: RiskAssessmentCreatefactorsInput | InputJsonValue[]
     recommendations?: RiskAssessmentCreaterecommendationsInput | string[]
-    requiresManualReview: boolean
+    requiresManualReview?: boolean
     assessedAt?: Date | string
     assessedBy: string
-    factors?: RiskFactorUncheckedCreateNestedManyWithoutRiskAssessmentInput
   }
 
   export type RiskAssessmentCreateOrConnectWithoutApplicationInput = {
@@ -34658,12 +28756,7 @@ export namespace Prisma {
     method: string
     amount: number
     status?: string
-    bankName?: string | null
-    accountNumber?: string | null
-    routingNumber?: string | null
-    accountType?: string | null
-    plaidAccountId?: string | null
-    wireInstructions?: NullableJsonNullValueInput | InputJsonValue
+    details: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     processedAt?: Date | string | null
   }
@@ -34673,12 +28766,7 @@ export namespace Prisma {
     method: string
     amount: number
     status?: string
-    bankName?: string | null
-    accountNumber?: string | null
-    routingNumber?: string | null
-    accountType?: string | null
-    plaidAccountId?: string | null
-    wireInstructions?: NullableJsonNullValueInput | InputJsonValue
+    details: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     processedAt?: Date | string | null
   }
@@ -34688,38 +28776,64 @@ export namespace Prisma {
     create: XOR<FundingSetupCreateWithoutApplicationInput, FundingSetupUncheckedCreateWithoutApplicationInput>
   }
 
-  export type UserUpsertWithoutApplicationsInput = {
-    update: XOR<UserUpdateWithoutApplicationsInput, UserUncheckedUpdateWithoutApplicationsInput>
+  export type UserCreateWithoutApplicationsInput = {
+    email: string
+    name?: string | null
+    password: string
+    role?: $Enums.Role
+    isEmailVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tokens?: TokenCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutApplicationsInput = {
+    id?: number
+    email: string
+    name?: string | null
+    password: string
+    role?: $Enums.Role
+    isEmailVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tokens?: TokenUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutApplicationsInput = {
+    where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutApplicationsInput, UserUncheckedCreateWithoutApplicationsInput>
-    where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutApplicationsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutApplicationsInput, UserUncheckedUpdateWithoutApplicationsInput>
+  export type AuditTrailEntryCreateWithoutApplicationInput = {
+    id?: string
+    action: string
+    description: string
+    performedBy: string
+    performedAt?: Date | string
+    ipAddress: string
+    userAgent: string
+    changes?: NullableJsonNullValueInput | InputJsonValue
   }
 
-  export type UserUpdateWithoutApplicationsInput = {
-    email?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Token?: TokenUpdateManyWithoutUserNestedInput
+  export type AuditTrailEntryUncheckedCreateWithoutApplicationInput = {
+    id?: string
+    action: string
+    description: string
+    performedBy: string
+    performedAt?: Date | string
+    ipAddress: string
+    userAgent: string
+    changes?: NullableJsonNullValueInput | InputJsonValue
   }
 
-  export type UserUncheckedUpdateWithoutApplicationsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Token?: TokenUncheckedUpdateManyWithoutUserNestedInput
+  export type AuditTrailEntryCreateOrConnectWithoutApplicationInput = {
+    where: AuditTrailEntryWhereUniqueInput
+    create: XOR<AuditTrailEntryCreateWithoutApplicationInput, AuditTrailEntryUncheckedCreateWithoutApplicationInput>
+  }
+
+  export type AuditTrailEntryCreateManyApplicationInputEnvelope = {
+    data: AuditTrailEntryCreateManyApplicationInput | AuditTrailEntryCreateManyApplicationInput[]
+    skipDuplicates?: boolean
   }
 
   export type PersonalInfoUpsertWithoutApplicationInput = {
@@ -34743,22 +28857,12 @@ export namespace Prisma {
     ssn?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    mailingAddress?: JsonNullValueInput | InputJsonValue
+    physicalAddress?: NullableJsonNullValueInput | InputJsonValue
     employmentStatus?: StringFieldUpdateOperationsInput | string
     occupation?: NullableStringFieldUpdateOperationsInput | string | null
     employer?: NullableStringFieldUpdateOperationsInput | string | null
     workPhone?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingStreet?: StringFieldUpdateOperationsInput | string
-    mailingCity?: StringFieldUpdateOperationsInput | string
-    mailingState?: StringFieldUpdateOperationsInput | string
-    mailingZipCode?: StringFieldUpdateOperationsInput | string
-    mailingCountry?: StringFieldUpdateOperationsInput | string
-    mailingApartment?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalStreet?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalCity?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalState?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalZipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalCountry?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalApartment?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PersonalInfoUncheckedUpdateWithoutApplicationInput = {
@@ -34771,22 +28875,12 @@ export namespace Prisma {
     ssn?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    mailingAddress?: JsonNullValueInput | InputJsonValue
+    physicalAddress?: NullableJsonNullValueInput | InputJsonValue
     employmentStatus?: StringFieldUpdateOperationsInput | string
     occupation?: NullableStringFieldUpdateOperationsInput | string | null
     employer?: NullableStringFieldUpdateOperationsInput | string | null
     workPhone?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingStreet?: StringFieldUpdateOperationsInput | string
-    mailingCity?: StringFieldUpdateOperationsInput | string
-    mailingState?: StringFieldUpdateOperationsInput | string
-    mailingZipCode?: StringFieldUpdateOperationsInput | string
-    mailingCountry?: StringFieldUpdateOperationsInput | string
-    mailingApartment?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalStreet?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalCity?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalState?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalZipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalCountry?: NullableStringFieldUpdateOperationsInput | string | null
-    physicalApartment?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BusinessProfileUpsertWithoutApplicationInput = {
@@ -34808,6 +28902,8 @@ export namespace Prisma {
     entityType?: StringFieldUpdateOperationsInput | string
     industryType?: StringFieldUpdateOperationsInput | string
     dateEstablished?: StringFieldUpdateOperationsInput | string
+    businessAddress?: JsonNullValueInput | InputJsonValue
+    mailingAddress?: NullableJsonNullValueInput | InputJsonValue
     businessPhone?: StringFieldUpdateOperationsInput | string
     businessEmail?: StringFieldUpdateOperationsInput | string
     website?: NullableStringFieldUpdateOperationsInput | string | null
@@ -34816,18 +28912,6 @@ export namespace Prisma {
     monthlyTransactionVolume?: FloatFieldUpdateOperationsInput | number
     monthlyTransactionCount?: IntFieldUpdateOperationsInput | number
     expectedBalance?: FloatFieldUpdateOperationsInput | number
-    businessStreet?: StringFieldUpdateOperationsInput | string
-    businessCity?: StringFieldUpdateOperationsInput | string
-    businessState?: StringFieldUpdateOperationsInput | string
-    businessZipCode?: StringFieldUpdateOperationsInput | string
-    businessCountry?: StringFieldUpdateOperationsInput | string
-    businessApartment?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingStreet?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingCity?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingState?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingZipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingCountry?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingApartment?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type BusinessProfileUncheckedUpdateWithoutApplicationInput = {
@@ -34838,6 +28922,8 @@ export namespace Prisma {
     entityType?: StringFieldUpdateOperationsInput | string
     industryType?: StringFieldUpdateOperationsInput | string
     dateEstablished?: StringFieldUpdateOperationsInput | string
+    businessAddress?: JsonNullValueInput | InputJsonValue
+    mailingAddress?: NullableJsonNullValueInput | InputJsonValue
     businessPhone?: StringFieldUpdateOperationsInput | string
     businessEmail?: StringFieldUpdateOperationsInput | string
     website?: NullableStringFieldUpdateOperationsInput | string | null
@@ -34846,18 +28932,6 @@ export namespace Prisma {
     monthlyTransactionVolume?: FloatFieldUpdateOperationsInput | number
     monthlyTransactionCount?: IntFieldUpdateOperationsInput | number
     expectedBalance?: FloatFieldUpdateOperationsInput | number
-    businessStreet?: StringFieldUpdateOperationsInput | string
-    businessCity?: StringFieldUpdateOperationsInput | string
-    businessState?: StringFieldUpdateOperationsInput | string
-    businessZipCode?: StringFieldUpdateOperationsInput | string
-    businessCountry?: StringFieldUpdateOperationsInput | string
-    businessApartment?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingStreet?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingCity?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingState?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingZipCode?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingCountry?: NullableStringFieldUpdateOperationsInput | string | null
-    mailingApartment?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type FinancialProfileUpsertWithoutApplicationInput = {
@@ -34878,8 +28952,8 @@ export namespace Prisma {
     employmentInfo?: NullableJsonNullValueInput | InputJsonValue
     assets?: FloatFieldUpdateOperationsInput | number
     liabilities?: FloatFieldUpdateOperationsInput | number
-    bankingRelationships?: BankingRelationshipUpdateManyWithoutFinancialProfileNestedInput
-    accountActivities?: AccountActivityUpdateManyWithoutFinancialProfileNestedInput
+    bankingRelationships?: FinancialProfileUpdatebankingRelationshipsInput | InputJsonValue[]
+    accountActivities?: FinancialProfileUpdateaccountActivitiesInput | InputJsonValue[]
   }
 
   export type FinancialProfileUncheckedUpdateWithoutApplicationInput = {
@@ -34889,8 +28963,8 @@ export namespace Prisma {
     employmentInfo?: NullableJsonNullValueInput | InputJsonValue
     assets?: FloatFieldUpdateOperationsInput | number
     liabilities?: FloatFieldUpdateOperationsInput | number
-    bankingRelationships?: BankingRelationshipUncheckedUpdateManyWithoutFinancialProfileNestedInput
-    accountActivities?: AccountActivityUncheckedUpdateManyWithoutFinancialProfileNestedInput
+    bankingRelationships?: FinancialProfileUpdatebankingRelationshipsInput | InputJsonValue[]
+    accountActivities?: FinancialProfileUpdateaccountActivitiesInput | InputJsonValue[]
   }
 
   export type ProductSelectionUpsertWithWhereUniqueWithoutApplicationInput = {
@@ -34947,62 +29021,9 @@ export namespace Prisma {
     mimeType?: StringFilter<"Document"> | string
     uploadedAt?: DateTimeFilter<"Document"> | Date | string
     verificationStatus?: StringFilter<"Document"> | string
-    verificationProvider?: StringNullableFilter<"Document"> | string | null
-    verificationConfidence?: FloatNullableFilter<"Document"> | number | null
-    extractedData?: JsonNullableFilter<"Document">
-    verificationId?: StringNullableFilter<"Document"> | string | null
-    verifiedAt?: DateTimeNullableFilter<"Document"> | Date | string | null
-    signerId?: StringNullableFilter<"Document"> | string | null
+    verificationDetails?: JsonNullableFilter<"Document">
     applicationId?: StringFilter<"Document"> | string
-  }
-
-  export type KYCVerificationUpsertWithoutApplicationInput = {
-    update: XOR<KYCVerificationUpdateWithoutApplicationInput, KYCVerificationUncheckedUpdateWithoutApplicationInput>
-    create: XOR<KYCVerificationCreateWithoutApplicationInput, KYCVerificationUncheckedCreateWithoutApplicationInput>
-    where?: KYCVerificationWhereInput
-  }
-
-  export type KYCVerificationUpdateToOneWithWhereWithoutApplicationInput = {
-    where?: KYCVerificationWhereInput
-    data: XOR<KYCVerificationUpdateWithoutApplicationInput, KYCVerificationUncheckedUpdateWithoutApplicationInput>
-  }
-
-  export type KYCVerificationUpdateWithoutApplicationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    provider?: StringFieldUpdateOperationsInput | string
-    verificationId?: StringFieldUpdateOperationsInput | string
-    confidence?: FloatFieldUpdateOperationsInput | number
-    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    identityPassed?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    identityConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    addressPassed?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    addressConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    phonePassed?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    phoneConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    emailPassed?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    emailConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    ofacPassed?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    ofacMatches?: NullableJsonNullValueInput | InputJsonValue
-  }
-
-  export type KYCVerificationUncheckedUpdateWithoutApplicationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    provider?: StringFieldUpdateOperationsInput | string
-    verificationId?: StringFieldUpdateOperationsInput | string
-    confidence?: FloatFieldUpdateOperationsInput | number
-    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    identityPassed?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    identityConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    addressPassed?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    addressConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    phonePassed?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    phoneConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    emailPassed?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    emailConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    ofacPassed?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    ofacMatches?: NullableJsonNullValueInput | InputJsonValue
+    signerId?: StringNullableFilter<"Document"> | string | null
   }
 
   export type AdditionalSignerUpsertWithWhereUniqueWithoutApplicationInput = {
@@ -35026,18 +29047,44 @@ export namespace Prisma {
     OR?: AdditionalSignerScalarWhereInput[]
     NOT?: AdditionalSignerScalarWhereInput | AdditionalSignerScalarWhereInput[]
     id?: StringFilter<"AdditionalSigner"> | string
+    personalInfo?: JsonFilter<"AdditionalSigner">
     role?: StringFilter<"AdditionalSigner"> | string
     relationshipToBusiness?: StringNullableFilter<"AdditionalSigner"> | string | null
     beneficialOwnershipPercentage?: FloatNullableFilter<"AdditionalSigner"> | number | null
     hasSigningAuthority?: BoolFilter<"AdditionalSigner"> | boolean
     kycStatus?: StringFilter<"AdditionalSigner"> | string
-    firstName?: StringFilter<"AdditionalSigner"> | string
-    lastName?: StringFilter<"AdditionalSigner"> | string
-    dateOfBirth?: StringFilter<"AdditionalSigner"> | string
-    ssn?: StringFilter<"AdditionalSigner"> | string
-    phone?: StringFilter<"AdditionalSigner"> | string
-    email?: StringFilter<"AdditionalSigner"> | string
     applicationId?: StringFilter<"AdditionalSigner"> | string
+  }
+
+  export type KYCVerificationUpsertWithoutApplicationInput = {
+    update: XOR<KYCVerificationUpdateWithoutApplicationInput, KYCVerificationUncheckedUpdateWithoutApplicationInput>
+    create: XOR<KYCVerificationCreateWithoutApplicationInput, KYCVerificationUncheckedCreateWithoutApplicationInput>
+    where?: KYCVerificationWhereInput
+  }
+
+  export type KYCVerificationUpdateToOneWithWhereWithoutApplicationInput = {
+    where?: KYCVerificationWhereInput
+    data: XOR<KYCVerificationUpdateWithoutApplicationInput, KYCVerificationUncheckedUpdateWithoutApplicationInput>
+  }
+
+  export type KYCVerificationUpdateWithoutApplicationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    provider?: StringFieldUpdateOperationsInput | string
+    verificationId?: StringFieldUpdateOperationsInput | string
+    confidence?: FloatFieldUpdateOperationsInput | number
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    results?: JsonNullValueInput | InputJsonValue
+  }
+
+  export type KYCVerificationUncheckedUpdateWithoutApplicationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    provider?: StringFieldUpdateOperationsInput | string
+    verificationId?: StringFieldUpdateOperationsInput | string
+    confidence?: FloatFieldUpdateOperationsInput | number
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    results?: JsonNullValueInput | InputJsonValue
   }
 
   export type RiskAssessmentUpsertWithoutApplicationInput = {
@@ -35055,22 +29102,22 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     overallRisk?: StringFieldUpdateOperationsInput | string
     riskScore?: IntFieldUpdateOperationsInput | number
+    factors?: RiskAssessmentUpdatefactorsInput | InputJsonValue[]
     recommendations?: RiskAssessmentUpdaterecommendationsInput | string[]
     requiresManualReview?: BoolFieldUpdateOperationsInput | boolean
     assessedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assessedBy?: StringFieldUpdateOperationsInput | string
-    factors?: RiskFactorUpdateManyWithoutRiskAssessmentNestedInput
   }
 
   export type RiskAssessmentUncheckedUpdateWithoutApplicationInput = {
     id?: StringFieldUpdateOperationsInput | string
     overallRisk?: StringFieldUpdateOperationsInput | string
     riskScore?: IntFieldUpdateOperationsInput | number
+    factors?: RiskAssessmentUpdatefactorsInput | InputJsonValue[]
     recommendations?: RiskAssessmentUpdaterecommendationsInput | string[]
     requiresManualReview?: BoolFieldUpdateOperationsInput | boolean
     assessedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     assessedBy?: StringFieldUpdateOperationsInput | string
-    factors?: RiskFactorUncheckedUpdateManyWithoutRiskAssessmentNestedInput
   }
 
   export type AgreementUpsertWithWhereUniqueWithoutApplicationInput = {
@@ -35149,12 +29196,7 @@ export namespace Prisma {
     method?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
-    bankName?: NullableStringFieldUpdateOperationsInput | string | null
-    accountNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    routingNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    accountType?: NullableStringFieldUpdateOperationsInput | string | null
-    plaidAccountId?: NullableStringFieldUpdateOperationsInput | string | null
-    wireInstructions?: NullableJsonNullValueInput | InputJsonValue
+    details?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
@@ -35164,14 +29206,74 @@ export namespace Prisma {
     method?: StringFieldUpdateOperationsInput | string
     amount?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
-    bankName?: NullableStringFieldUpdateOperationsInput | string | null
-    accountNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    routingNumber?: NullableStringFieldUpdateOperationsInput | string | null
-    accountType?: NullableStringFieldUpdateOperationsInput | string | null
-    plaidAccountId?: NullableStringFieldUpdateOperationsInput | string | null
-    wireInstructions?: NullableJsonNullValueInput | InputJsonValue
+    details?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type UserUpsertWithoutApplicationsInput = {
+    update: XOR<UserUpdateWithoutApplicationsInput, UserUncheckedUpdateWithoutApplicationsInput>
+    create: XOR<UserCreateWithoutApplicationsInput, UserUncheckedCreateWithoutApplicationsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutApplicationsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutApplicationsInput, UserUncheckedUpdateWithoutApplicationsInput>
+  }
+
+  export type UserUpdateWithoutApplicationsInput = {
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tokens?: TokenUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutApplicationsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isEmailVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tokens?: TokenUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type AuditTrailEntryUpsertWithWhereUniqueWithoutApplicationInput = {
+    where: AuditTrailEntryWhereUniqueInput
+    update: XOR<AuditTrailEntryUpdateWithoutApplicationInput, AuditTrailEntryUncheckedUpdateWithoutApplicationInput>
+    create: XOR<AuditTrailEntryCreateWithoutApplicationInput, AuditTrailEntryUncheckedCreateWithoutApplicationInput>
+  }
+
+  export type AuditTrailEntryUpdateWithWhereUniqueWithoutApplicationInput = {
+    where: AuditTrailEntryWhereUniqueInput
+    data: XOR<AuditTrailEntryUpdateWithoutApplicationInput, AuditTrailEntryUncheckedUpdateWithoutApplicationInput>
+  }
+
+  export type AuditTrailEntryUpdateManyWithWhereWithoutApplicationInput = {
+    where: AuditTrailEntryScalarWhereInput
+    data: XOR<AuditTrailEntryUpdateManyMutationInput, AuditTrailEntryUncheckedUpdateManyWithoutApplicationInput>
+  }
+
+  export type AuditTrailEntryScalarWhereInput = {
+    AND?: AuditTrailEntryScalarWhereInput | AuditTrailEntryScalarWhereInput[]
+    OR?: AuditTrailEntryScalarWhereInput[]
+    NOT?: AuditTrailEntryScalarWhereInput | AuditTrailEntryScalarWhereInput[]
+    id?: StringFilter<"AuditTrailEntry"> | string
+    action?: StringFilter<"AuditTrailEntry"> | string
+    description?: StringFilter<"AuditTrailEntry"> | string
+    performedBy?: StringFilter<"AuditTrailEntry"> | string
+    performedAt?: DateTimeFilter<"AuditTrailEntry"> | Date | string
+    ipAddress?: StringFilter<"AuditTrailEntry"> | string
+    userAgent?: StringFilter<"AuditTrailEntry"> | string
+    changes?: JsonNullableFilter<"AuditTrailEntry">
+    applicationId?: StringFilter<"AuditTrailEntry"> | string
   }
 
   export type ApplicationCreateWithoutPersonalInfoInput = {
@@ -35185,23 +29287,19 @@ export namespace Prisma {
     completedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    userAgent?: string | null
-    ipAddress?: string | null
-    sessionId?: string | null
-    startedAt?: Date | string | null
-    lastActivity?: Date | string | null
-    source?: string | null
-    user: UserCreateNestedOneWithoutApplicationsInput
+    metadata: JsonNullValueInput | InputJsonValue
     businessProfile?: BusinessProfileCreateNestedOneWithoutApplicationInput
     financialProfile?: FinancialProfileCreateNestedOneWithoutApplicationInput
     productSelections?: ProductSelectionCreateNestedManyWithoutApplicationInput
     documents?: DocumentCreateNestedManyWithoutApplicationInput
-    kycVerification?: KYCVerificationCreateNestedOneWithoutApplicationInput
     additionalSigners?: AdditionalSignerCreateNestedManyWithoutApplicationInput
+    kycVerification?: KYCVerificationCreateNestedOneWithoutApplicationInput
     riskAssessment?: RiskAssessmentCreateNestedOneWithoutApplicationInput
     agreements?: AgreementCreateNestedManyWithoutApplicationInput
     signatures?: ElectronicSignatureCreateNestedManyWithoutApplicationInput
     fundingSetup?: FundingSetupCreateNestedOneWithoutApplicationInput
+    user: UserCreateNestedOneWithoutApplicationsInput
+    auditTrail?: AuditTrailEntryCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationUncheckedCreateWithoutPersonalInfoInput = {
@@ -35215,23 +29313,19 @@ export namespace Prisma {
     completedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    userAgent?: string | null
-    ipAddress?: string | null
-    sessionId?: string | null
-    startedAt?: Date | string | null
-    lastActivity?: Date | string | null
-    source?: string | null
+    metadata: JsonNullValueInput | InputJsonValue
     userId: number
     businessProfile?: BusinessProfileUncheckedCreateNestedOneWithoutApplicationInput
     financialProfile?: FinancialProfileUncheckedCreateNestedOneWithoutApplicationInput
     productSelections?: ProductSelectionUncheckedCreateNestedManyWithoutApplicationInput
     documents?: DocumentUncheckedCreateNestedManyWithoutApplicationInput
-    kycVerification?: KYCVerificationUncheckedCreateNestedOneWithoutApplicationInput
     additionalSigners?: AdditionalSignerUncheckedCreateNestedManyWithoutApplicationInput
+    kycVerification?: KYCVerificationUncheckedCreateNestedOneWithoutApplicationInput
     riskAssessment?: RiskAssessmentUncheckedCreateNestedOneWithoutApplicationInput
     agreements?: AgreementUncheckedCreateNestedManyWithoutApplicationInput
     signatures?: ElectronicSignatureUncheckedCreateNestedManyWithoutApplicationInput
     fundingSetup?: FundingSetupUncheckedCreateNestedOneWithoutApplicationInput
+    auditTrail?: AuditTrailEntryUncheckedCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationCreateOrConnectWithoutPersonalInfoInput = {
@@ -35261,23 +29355,19 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastActivity?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    source?: NullableStringFieldUpdateOperationsInput | string | null
-    user?: UserUpdateOneRequiredWithoutApplicationsNestedInput
+    metadata?: JsonNullValueInput | InputJsonValue
     businessProfile?: BusinessProfileUpdateOneWithoutApplicationNestedInput
     financialProfile?: FinancialProfileUpdateOneWithoutApplicationNestedInput
     productSelections?: ProductSelectionUpdateManyWithoutApplicationNestedInput
     documents?: DocumentUpdateManyWithoutApplicationNestedInput
-    kycVerification?: KYCVerificationUpdateOneWithoutApplicationNestedInput
     additionalSigners?: AdditionalSignerUpdateManyWithoutApplicationNestedInput
+    kycVerification?: KYCVerificationUpdateOneWithoutApplicationNestedInput
     riskAssessment?: RiskAssessmentUpdateOneWithoutApplicationNestedInput
     agreements?: AgreementUpdateManyWithoutApplicationNestedInput
     signatures?: ElectronicSignatureUpdateManyWithoutApplicationNestedInput
     fundingSetup?: FundingSetupUpdateOneWithoutApplicationNestedInput
+    user?: UserUpdateOneRequiredWithoutApplicationsNestedInput
+    auditTrail?: AuditTrailEntryUpdateManyWithoutApplicationNestedInput
   }
 
   export type ApplicationUncheckedUpdateWithoutPersonalInfoInput = {
@@ -35291,23 +29381,19 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastActivity?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    source?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
     userId?: IntFieldUpdateOperationsInput | number
     businessProfile?: BusinessProfileUncheckedUpdateOneWithoutApplicationNestedInput
     financialProfile?: FinancialProfileUncheckedUpdateOneWithoutApplicationNestedInput
     productSelections?: ProductSelectionUncheckedUpdateManyWithoutApplicationNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutApplicationNestedInput
-    kycVerification?: KYCVerificationUncheckedUpdateOneWithoutApplicationNestedInput
     additionalSigners?: AdditionalSignerUncheckedUpdateManyWithoutApplicationNestedInput
+    kycVerification?: KYCVerificationUncheckedUpdateOneWithoutApplicationNestedInput
     riskAssessment?: RiskAssessmentUncheckedUpdateOneWithoutApplicationNestedInput
     agreements?: AgreementUncheckedUpdateManyWithoutApplicationNestedInput
     signatures?: ElectronicSignatureUncheckedUpdateManyWithoutApplicationNestedInput
     fundingSetup?: FundingSetupUncheckedUpdateOneWithoutApplicationNestedInput
+    auditTrail?: AuditTrailEntryUncheckedUpdateManyWithoutApplicationNestedInput
   }
 
   export type ApplicationCreateWithoutBusinessProfileInput = {
@@ -35321,23 +29407,19 @@ export namespace Prisma {
     completedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    userAgent?: string | null
-    ipAddress?: string | null
-    sessionId?: string | null
-    startedAt?: Date | string | null
-    lastActivity?: Date | string | null
-    source?: string | null
-    user: UserCreateNestedOneWithoutApplicationsInput
+    metadata: JsonNullValueInput | InputJsonValue
     personalInfo?: PersonalInfoCreateNestedOneWithoutApplicationInput
     financialProfile?: FinancialProfileCreateNestedOneWithoutApplicationInput
     productSelections?: ProductSelectionCreateNestedManyWithoutApplicationInput
     documents?: DocumentCreateNestedManyWithoutApplicationInput
-    kycVerification?: KYCVerificationCreateNestedOneWithoutApplicationInput
     additionalSigners?: AdditionalSignerCreateNestedManyWithoutApplicationInput
+    kycVerification?: KYCVerificationCreateNestedOneWithoutApplicationInput
     riskAssessment?: RiskAssessmentCreateNestedOneWithoutApplicationInput
     agreements?: AgreementCreateNestedManyWithoutApplicationInput
     signatures?: ElectronicSignatureCreateNestedManyWithoutApplicationInput
     fundingSetup?: FundingSetupCreateNestedOneWithoutApplicationInput
+    user: UserCreateNestedOneWithoutApplicationsInput
+    auditTrail?: AuditTrailEntryCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationUncheckedCreateWithoutBusinessProfileInput = {
@@ -35351,23 +29433,19 @@ export namespace Prisma {
     completedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    userAgent?: string | null
-    ipAddress?: string | null
-    sessionId?: string | null
-    startedAt?: Date | string | null
-    lastActivity?: Date | string | null
-    source?: string | null
+    metadata: JsonNullValueInput | InputJsonValue
     userId: number
     personalInfo?: PersonalInfoUncheckedCreateNestedOneWithoutApplicationInput
     financialProfile?: FinancialProfileUncheckedCreateNestedOneWithoutApplicationInput
     productSelections?: ProductSelectionUncheckedCreateNestedManyWithoutApplicationInput
     documents?: DocumentUncheckedCreateNestedManyWithoutApplicationInput
-    kycVerification?: KYCVerificationUncheckedCreateNestedOneWithoutApplicationInput
     additionalSigners?: AdditionalSignerUncheckedCreateNestedManyWithoutApplicationInput
+    kycVerification?: KYCVerificationUncheckedCreateNestedOneWithoutApplicationInput
     riskAssessment?: RiskAssessmentUncheckedCreateNestedOneWithoutApplicationInput
     agreements?: AgreementUncheckedCreateNestedManyWithoutApplicationInput
     signatures?: ElectronicSignatureUncheckedCreateNestedManyWithoutApplicationInput
     fundingSetup?: FundingSetupUncheckedCreateNestedOneWithoutApplicationInput
+    auditTrail?: AuditTrailEntryUncheckedCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationCreateOrConnectWithoutBusinessProfileInput = {
@@ -35397,23 +29475,19 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastActivity?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    source?: NullableStringFieldUpdateOperationsInput | string | null
-    user?: UserUpdateOneRequiredWithoutApplicationsNestedInput
+    metadata?: JsonNullValueInput | InputJsonValue
     personalInfo?: PersonalInfoUpdateOneWithoutApplicationNestedInput
     financialProfile?: FinancialProfileUpdateOneWithoutApplicationNestedInput
     productSelections?: ProductSelectionUpdateManyWithoutApplicationNestedInput
     documents?: DocumentUpdateManyWithoutApplicationNestedInput
-    kycVerification?: KYCVerificationUpdateOneWithoutApplicationNestedInput
     additionalSigners?: AdditionalSignerUpdateManyWithoutApplicationNestedInput
+    kycVerification?: KYCVerificationUpdateOneWithoutApplicationNestedInput
     riskAssessment?: RiskAssessmentUpdateOneWithoutApplicationNestedInput
     agreements?: AgreementUpdateManyWithoutApplicationNestedInput
     signatures?: ElectronicSignatureUpdateManyWithoutApplicationNestedInput
     fundingSetup?: FundingSetupUpdateOneWithoutApplicationNestedInput
+    user?: UserUpdateOneRequiredWithoutApplicationsNestedInput
+    auditTrail?: AuditTrailEntryUpdateManyWithoutApplicationNestedInput
   }
 
   export type ApplicationUncheckedUpdateWithoutBusinessProfileInput = {
@@ -35427,23 +29501,19 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastActivity?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    source?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
     userId?: IntFieldUpdateOperationsInput | number
     personalInfo?: PersonalInfoUncheckedUpdateOneWithoutApplicationNestedInput
     financialProfile?: FinancialProfileUncheckedUpdateOneWithoutApplicationNestedInput
     productSelections?: ProductSelectionUncheckedUpdateManyWithoutApplicationNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutApplicationNestedInput
-    kycVerification?: KYCVerificationUncheckedUpdateOneWithoutApplicationNestedInput
     additionalSigners?: AdditionalSignerUncheckedUpdateManyWithoutApplicationNestedInput
+    kycVerification?: KYCVerificationUncheckedUpdateOneWithoutApplicationNestedInput
     riskAssessment?: RiskAssessmentUncheckedUpdateOneWithoutApplicationNestedInput
     agreements?: AgreementUncheckedUpdateManyWithoutApplicationNestedInput
     signatures?: ElectronicSignatureUncheckedUpdateManyWithoutApplicationNestedInput
     fundingSetup?: FundingSetupUncheckedUpdateOneWithoutApplicationNestedInput
+    auditTrail?: AuditTrailEntryUncheckedUpdateManyWithoutApplicationNestedInput
   }
 
   export type ApplicationCreateWithoutFinancialProfileInput = {
@@ -35457,23 +29527,19 @@ export namespace Prisma {
     completedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    userAgent?: string | null
-    ipAddress?: string | null
-    sessionId?: string | null
-    startedAt?: Date | string | null
-    lastActivity?: Date | string | null
-    source?: string | null
-    user: UserCreateNestedOneWithoutApplicationsInput
+    metadata: JsonNullValueInput | InputJsonValue
     personalInfo?: PersonalInfoCreateNestedOneWithoutApplicationInput
     businessProfile?: BusinessProfileCreateNestedOneWithoutApplicationInput
     productSelections?: ProductSelectionCreateNestedManyWithoutApplicationInput
     documents?: DocumentCreateNestedManyWithoutApplicationInput
-    kycVerification?: KYCVerificationCreateNestedOneWithoutApplicationInput
     additionalSigners?: AdditionalSignerCreateNestedManyWithoutApplicationInput
+    kycVerification?: KYCVerificationCreateNestedOneWithoutApplicationInput
     riskAssessment?: RiskAssessmentCreateNestedOneWithoutApplicationInput
     agreements?: AgreementCreateNestedManyWithoutApplicationInput
     signatures?: ElectronicSignatureCreateNestedManyWithoutApplicationInput
     fundingSetup?: FundingSetupCreateNestedOneWithoutApplicationInput
+    user: UserCreateNestedOneWithoutApplicationsInput
+    auditTrail?: AuditTrailEntryCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationUncheckedCreateWithoutFinancialProfileInput = {
@@ -35487,76 +29553,24 @@ export namespace Prisma {
     completedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    userAgent?: string | null
-    ipAddress?: string | null
-    sessionId?: string | null
-    startedAt?: Date | string | null
-    lastActivity?: Date | string | null
-    source?: string | null
+    metadata: JsonNullValueInput | InputJsonValue
     userId: number
     personalInfo?: PersonalInfoUncheckedCreateNestedOneWithoutApplicationInput
     businessProfile?: BusinessProfileUncheckedCreateNestedOneWithoutApplicationInput
     productSelections?: ProductSelectionUncheckedCreateNestedManyWithoutApplicationInput
     documents?: DocumentUncheckedCreateNestedManyWithoutApplicationInput
-    kycVerification?: KYCVerificationUncheckedCreateNestedOneWithoutApplicationInput
     additionalSigners?: AdditionalSignerUncheckedCreateNestedManyWithoutApplicationInput
+    kycVerification?: KYCVerificationUncheckedCreateNestedOneWithoutApplicationInput
     riskAssessment?: RiskAssessmentUncheckedCreateNestedOneWithoutApplicationInput
     agreements?: AgreementUncheckedCreateNestedManyWithoutApplicationInput
     signatures?: ElectronicSignatureUncheckedCreateNestedManyWithoutApplicationInput
     fundingSetup?: FundingSetupUncheckedCreateNestedOneWithoutApplicationInput
+    auditTrail?: AuditTrailEntryUncheckedCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationCreateOrConnectWithoutFinancialProfileInput = {
     where: ApplicationWhereUniqueInput
     create: XOR<ApplicationCreateWithoutFinancialProfileInput, ApplicationUncheckedCreateWithoutFinancialProfileInput>
-  }
-
-  export type BankingRelationshipCreateWithoutFinancialProfileInput = {
-    id?: string
-    bankName: string
-    accountTypes?: BankingRelationshipCreateaccountTypesInput | string[]
-    yearsWithBank: number
-  }
-
-  export type BankingRelationshipUncheckedCreateWithoutFinancialProfileInput = {
-    id?: string
-    bankName: string
-    accountTypes?: BankingRelationshipCreateaccountTypesInput | string[]
-    yearsWithBank: number
-  }
-
-  export type BankingRelationshipCreateOrConnectWithoutFinancialProfileInput = {
-    where: BankingRelationshipWhereUniqueInput
-    create: XOR<BankingRelationshipCreateWithoutFinancialProfileInput, BankingRelationshipUncheckedCreateWithoutFinancialProfileInput>
-  }
-
-  export type BankingRelationshipCreateManyFinancialProfileInputEnvelope = {
-    data: BankingRelationshipCreateManyFinancialProfileInput | BankingRelationshipCreateManyFinancialProfileInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type AccountActivityCreateWithoutFinancialProfileInput = {
-    id?: string
-    activity: string
-    frequency: string
-    amount: number
-  }
-
-  export type AccountActivityUncheckedCreateWithoutFinancialProfileInput = {
-    id?: string
-    activity: string
-    frequency: string
-    amount: number
-  }
-
-  export type AccountActivityCreateOrConnectWithoutFinancialProfileInput = {
-    where: AccountActivityWhereUniqueInput
-    create: XOR<AccountActivityCreateWithoutFinancialProfileInput, AccountActivityUncheckedCreateWithoutFinancialProfileInput>
-  }
-
-  export type AccountActivityCreateManyFinancialProfileInputEnvelope = {
-    data: AccountActivityCreateManyFinancialProfileInput | AccountActivityCreateManyFinancialProfileInput[]
-    skipDuplicates?: boolean
   }
 
   export type ApplicationUpsertWithoutFinancialProfileInput = {
@@ -35581,23 +29595,19 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastActivity?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    source?: NullableStringFieldUpdateOperationsInput | string | null
-    user?: UserUpdateOneRequiredWithoutApplicationsNestedInput
+    metadata?: JsonNullValueInput | InputJsonValue
     personalInfo?: PersonalInfoUpdateOneWithoutApplicationNestedInput
     businessProfile?: BusinessProfileUpdateOneWithoutApplicationNestedInput
     productSelections?: ProductSelectionUpdateManyWithoutApplicationNestedInput
     documents?: DocumentUpdateManyWithoutApplicationNestedInput
-    kycVerification?: KYCVerificationUpdateOneWithoutApplicationNestedInput
     additionalSigners?: AdditionalSignerUpdateManyWithoutApplicationNestedInput
+    kycVerification?: KYCVerificationUpdateOneWithoutApplicationNestedInput
     riskAssessment?: RiskAssessmentUpdateOneWithoutApplicationNestedInput
     agreements?: AgreementUpdateManyWithoutApplicationNestedInput
     signatures?: ElectronicSignatureUpdateManyWithoutApplicationNestedInput
     fundingSetup?: FundingSetupUpdateOneWithoutApplicationNestedInput
+    user?: UserUpdateOneRequiredWithoutApplicationsNestedInput
+    auditTrail?: AuditTrailEntryUpdateManyWithoutApplicationNestedInput
   }
 
   export type ApplicationUncheckedUpdateWithoutFinancialProfileInput = {
@@ -35611,197 +29621,19 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastActivity?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    source?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
     userId?: IntFieldUpdateOperationsInput | number
     personalInfo?: PersonalInfoUncheckedUpdateOneWithoutApplicationNestedInput
     businessProfile?: BusinessProfileUncheckedUpdateOneWithoutApplicationNestedInput
     productSelections?: ProductSelectionUncheckedUpdateManyWithoutApplicationNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutApplicationNestedInput
-    kycVerification?: KYCVerificationUncheckedUpdateOneWithoutApplicationNestedInput
     additionalSigners?: AdditionalSignerUncheckedUpdateManyWithoutApplicationNestedInput
+    kycVerification?: KYCVerificationUncheckedUpdateOneWithoutApplicationNestedInput
     riskAssessment?: RiskAssessmentUncheckedUpdateOneWithoutApplicationNestedInput
     agreements?: AgreementUncheckedUpdateManyWithoutApplicationNestedInput
     signatures?: ElectronicSignatureUncheckedUpdateManyWithoutApplicationNestedInput
     fundingSetup?: FundingSetupUncheckedUpdateOneWithoutApplicationNestedInput
-  }
-
-  export type BankingRelationshipUpsertWithWhereUniqueWithoutFinancialProfileInput = {
-    where: BankingRelationshipWhereUniqueInput
-    update: XOR<BankingRelationshipUpdateWithoutFinancialProfileInput, BankingRelationshipUncheckedUpdateWithoutFinancialProfileInput>
-    create: XOR<BankingRelationshipCreateWithoutFinancialProfileInput, BankingRelationshipUncheckedCreateWithoutFinancialProfileInput>
-  }
-
-  export type BankingRelationshipUpdateWithWhereUniqueWithoutFinancialProfileInput = {
-    where: BankingRelationshipWhereUniqueInput
-    data: XOR<BankingRelationshipUpdateWithoutFinancialProfileInput, BankingRelationshipUncheckedUpdateWithoutFinancialProfileInput>
-  }
-
-  export type BankingRelationshipUpdateManyWithWhereWithoutFinancialProfileInput = {
-    where: BankingRelationshipScalarWhereInput
-    data: XOR<BankingRelationshipUpdateManyMutationInput, BankingRelationshipUncheckedUpdateManyWithoutFinancialProfileInput>
-  }
-
-  export type BankingRelationshipScalarWhereInput = {
-    AND?: BankingRelationshipScalarWhereInput | BankingRelationshipScalarWhereInput[]
-    OR?: BankingRelationshipScalarWhereInput[]
-    NOT?: BankingRelationshipScalarWhereInput | BankingRelationshipScalarWhereInput[]
-    id?: StringFilter<"BankingRelationship"> | string
-    bankName?: StringFilter<"BankingRelationship"> | string
-    accountTypes?: StringNullableListFilter<"BankingRelationship">
-    yearsWithBank?: IntFilter<"BankingRelationship"> | number
-    financialProfileId?: StringFilter<"BankingRelationship"> | string
-  }
-
-  export type AccountActivityUpsertWithWhereUniqueWithoutFinancialProfileInput = {
-    where: AccountActivityWhereUniqueInput
-    update: XOR<AccountActivityUpdateWithoutFinancialProfileInput, AccountActivityUncheckedUpdateWithoutFinancialProfileInput>
-    create: XOR<AccountActivityCreateWithoutFinancialProfileInput, AccountActivityUncheckedCreateWithoutFinancialProfileInput>
-  }
-
-  export type AccountActivityUpdateWithWhereUniqueWithoutFinancialProfileInput = {
-    where: AccountActivityWhereUniqueInput
-    data: XOR<AccountActivityUpdateWithoutFinancialProfileInput, AccountActivityUncheckedUpdateWithoutFinancialProfileInput>
-  }
-
-  export type AccountActivityUpdateManyWithWhereWithoutFinancialProfileInput = {
-    where: AccountActivityScalarWhereInput
-    data: XOR<AccountActivityUpdateManyMutationInput, AccountActivityUncheckedUpdateManyWithoutFinancialProfileInput>
-  }
-
-  export type AccountActivityScalarWhereInput = {
-    AND?: AccountActivityScalarWhereInput | AccountActivityScalarWhereInput[]
-    OR?: AccountActivityScalarWhereInput[]
-    NOT?: AccountActivityScalarWhereInput | AccountActivityScalarWhereInput[]
-    id?: StringFilter<"AccountActivity"> | string
-    activity?: StringFilter<"AccountActivity"> | string
-    frequency?: StringFilter<"AccountActivity"> | string
-    amount?: FloatFilter<"AccountActivity"> | number
-    financialProfileId?: StringFilter<"AccountActivity"> | string
-  }
-
-  export type FinancialProfileCreateWithoutBankingRelationshipsInput = {
-    id?: string
-    annualIncome: number
-    incomeSource?: FinancialProfileCreateincomeSourceInput | string[]
-    employmentInfo?: NullableJsonNullValueInput | InputJsonValue
-    assets: number
-    liabilities: number
-    application: ApplicationCreateNestedOneWithoutFinancialProfileInput
-    accountActivities?: AccountActivityCreateNestedManyWithoutFinancialProfileInput
-  }
-
-  export type FinancialProfileUncheckedCreateWithoutBankingRelationshipsInput = {
-    id?: string
-    annualIncome: number
-    incomeSource?: FinancialProfileCreateincomeSourceInput | string[]
-    employmentInfo?: NullableJsonNullValueInput | InputJsonValue
-    assets: number
-    liabilities: number
-    applicationId: string
-    accountActivities?: AccountActivityUncheckedCreateNestedManyWithoutFinancialProfileInput
-  }
-
-  export type FinancialProfileCreateOrConnectWithoutBankingRelationshipsInput = {
-    where: FinancialProfileWhereUniqueInput
-    create: XOR<FinancialProfileCreateWithoutBankingRelationshipsInput, FinancialProfileUncheckedCreateWithoutBankingRelationshipsInput>
-  }
-
-  export type FinancialProfileUpsertWithoutBankingRelationshipsInput = {
-    update: XOR<FinancialProfileUpdateWithoutBankingRelationshipsInput, FinancialProfileUncheckedUpdateWithoutBankingRelationshipsInput>
-    create: XOR<FinancialProfileCreateWithoutBankingRelationshipsInput, FinancialProfileUncheckedCreateWithoutBankingRelationshipsInput>
-    where?: FinancialProfileWhereInput
-  }
-
-  export type FinancialProfileUpdateToOneWithWhereWithoutBankingRelationshipsInput = {
-    where?: FinancialProfileWhereInput
-    data: XOR<FinancialProfileUpdateWithoutBankingRelationshipsInput, FinancialProfileUncheckedUpdateWithoutBankingRelationshipsInput>
-  }
-
-  export type FinancialProfileUpdateWithoutBankingRelationshipsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    annualIncome?: FloatFieldUpdateOperationsInput | number
-    incomeSource?: FinancialProfileUpdateincomeSourceInput | string[]
-    employmentInfo?: NullableJsonNullValueInput | InputJsonValue
-    assets?: FloatFieldUpdateOperationsInput | number
-    liabilities?: FloatFieldUpdateOperationsInput | number
-    application?: ApplicationUpdateOneRequiredWithoutFinancialProfileNestedInput
-    accountActivities?: AccountActivityUpdateManyWithoutFinancialProfileNestedInput
-  }
-
-  export type FinancialProfileUncheckedUpdateWithoutBankingRelationshipsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    annualIncome?: FloatFieldUpdateOperationsInput | number
-    incomeSource?: FinancialProfileUpdateincomeSourceInput | string[]
-    employmentInfo?: NullableJsonNullValueInput | InputJsonValue
-    assets?: FloatFieldUpdateOperationsInput | number
-    liabilities?: FloatFieldUpdateOperationsInput | number
-    applicationId?: StringFieldUpdateOperationsInput | string
-    accountActivities?: AccountActivityUncheckedUpdateManyWithoutFinancialProfileNestedInput
-  }
-
-  export type FinancialProfileCreateWithoutAccountActivitiesInput = {
-    id?: string
-    annualIncome: number
-    incomeSource?: FinancialProfileCreateincomeSourceInput | string[]
-    employmentInfo?: NullableJsonNullValueInput | InputJsonValue
-    assets: number
-    liabilities: number
-    application: ApplicationCreateNestedOneWithoutFinancialProfileInput
-    bankingRelationships?: BankingRelationshipCreateNestedManyWithoutFinancialProfileInput
-  }
-
-  export type FinancialProfileUncheckedCreateWithoutAccountActivitiesInput = {
-    id?: string
-    annualIncome: number
-    incomeSource?: FinancialProfileCreateincomeSourceInput | string[]
-    employmentInfo?: NullableJsonNullValueInput | InputJsonValue
-    assets: number
-    liabilities: number
-    applicationId: string
-    bankingRelationships?: BankingRelationshipUncheckedCreateNestedManyWithoutFinancialProfileInput
-  }
-
-  export type FinancialProfileCreateOrConnectWithoutAccountActivitiesInput = {
-    where: FinancialProfileWhereUniqueInput
-    create: XOR<FinancialProfileCreateWithoutAccountActivitiesInput, FinancialProfileUncheckedCreateWithoutAccountActivitiesInput>
-  }
-
-  export type FinancialProfileUpsertWithoutAccountActivitiesInput = {
-    update: XOR<FinancialProfileUpdateWithoutAccountActivitiesInput, FinancialProfileUncheckedUpdateWithoutAccountActivitiesInput>
-    create: XOR<FinancialProfileCreateWithoutAccountActivitiesInput, FinancialProfileUncheckedCreateWithoutAccountActivitiesInput>
-    where?: FinancialProfileWhereInput
-  }
-
-  export type FinancialProfileUpdateToOneWithWhereWithoutAccountActivitiesInput = {
-    where?: FinancialProfileWhereInput
-    data: XOR<FinancialProfileUpdateWithoutAccountActivitiesInput, FinancialProfileUncheckedUpdateWithoutAccountActivitiesInput>
-  }
-
-  export type FinancialProfileUpdateWithoutAccountActivitiesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    annualIncome?: FloatFieldUpdateOperationsInput | number
-    incomeSource?: FinancialProfileUpdateincomeSourceInput | string[]
-    employmentInfo?: NullableJsonNullValueInput | InputJsonValue
-    assets?: FloatFieldUpdateOperationsInput | number
-    liabilities?: FloatFieldUpdateOperationsInput | number
-    application?: ApplicationUpdateOneRequiredWithoutFinancialProfileNestedInput
-    bankingRelationships?: BankingRelationshipUpdateManyWithoutFinancialProfileNestedInput
-  }
-
-  export type FinancialProfileUncheckedUpdateWithoutAccountActivitiesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    annualIncome?: FloatFieldUpdateOperationsInput | number
-    incomeSource?: FinancialProfileUpdateincomeSourceInput | string[]
-    employmentInfo?: NullableJsonNullValueInput | InputJsonValue
-    assets?: FloatFieldUpdateOperationsInput | number
-    liabilities?: FloatFieldUpdateOperationsInput | number
-    applicationId?: StringFieldUpdateOperationsInput | string
-    bankingRelationships?: BankingRelationshipUncheckedUpdateManyWithoutFinancialProfileNestedInput
+    auditTrail?: AuditTrailEntryUncheckedUpdateManyWithoutApplicationNestedInput
   }
 
   export type ProductSelectionCreateWithoutProductInput = {
@@ -35828,32 +29660,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type EligibilityRuleCreateWithoutProductInput = {
-    id?: string
-    field: string
-    operator: $Enums.EligibilityOperator
-    value: JsonNullValueInput | InputJsonValue
-    description: string
-  }
-
-  export type EligibilityRuleUncheckedCreateWithoutProductInput = {
-    id?: string
-    field: string
-    operator: $Enums.EligibilityOperator
-    value: JsonNullValueInput | InputJsonValue
-    description: string
-  }
-
-  export type EligibilityRuleCreateOrConnectWithoutProductInput = {
-    where: EligibilityRuleWhereUniqueInput
-    create: XOR<EligibilityRuleCreateWithoutProductInput, EligibilityRuleUncheckedCreateWithoutProductInput>
-  }
-
-  export type EligibilityRuleCreateManyProductInputEnvelope = {
-    data: EligibilityRuleCreateManyProductInput | EligibilityRuleCreateManyProductInput[]
-    skipDuplicates?: boolean
-  }
-
   export type ProductSelectionUpsertWithWhereUniqueWithoutProductInput = {
     where: ProductSelectionWhereUniqueInput
     update: XOR<ProductSelectionUpdateWithoutProductInput, ProductSelectionUncheckedUpdateWithoutProductInput>
@@ -35870,110 +29676,6 @@ export namespace Prisma {
     data: XOR<ProductSelectionUpdateManyMutationInput, ProductSelectionUncheckedUpdateManyWithoutProductInput>
   }
 
-  export type EligibilityRuleUpsertWithWhereUniqueWithoutProductInput = {
-    where: EligibilityRuleWhereUniqueInput
-    update: XOR<EligibilityRuleUpdateWithoutProductInput, EligibilityRuleUncheckedUpdateWithoutProductInput>
-    create: XOR<EligibilityRuleCreateWithoutProductInput, EligibilityRuleUncheckedCreateWithoutProductInput>
-  }
-
-  export type EligibilityRuleUpdateWithWhereUniqueWithoutProductInput = {
-    where: EligibilityRuleWhereUniqueInput
-    data: XOR<EligibilityRuleUpdateWithoutProductInput, EligibilityRuleUncheckedUpdateWithoutProductInput>
-  }
-
-  export type EligibilityRuleUpdateManyWithWhereWithoutProductInput = {
-    where: EligibilityRuleScalarWhereInput
-    data: XOR<EligibilityRuleUpdateManyMutationInput, EligibilityRuleUncheckedUpdateManyWithoutProductInput>
-  }
-
-  export type EligibilityRuleScalarWhereInput = {
-    AND?: EligibilityRuleScalarWhereInput | EligibilityRuleScalarWhereInput[]
-    OR?: EligibilityRuleScalarWhereInput[]
-    NOT?: EligibilityRuleScalarWhereInput | EligibilityRuleScalarWhereInput[]
-    id?: StringFilter<"EligibilityRule"> | string
-    field?: StringFilter<"EligibilityRule"> | string
-    operator?: EnumEligibilityOperatorFilter<"EligibilityRule"> | $Enums.EligibilityOperator
-    value?: JsonFilter<"EligibilityRule">
-    description?: StringFilter<"EligibilityRule"> | string
-    productId?: StringFilter<"EligibilityRule"> | string
-  }
-
-  export type ProductCreateWithoutEligibilityRulesInput = {
-    id?: string
-    name: string
-    type: $Enums.ProductType
-    description: string
-    features?: ProductCreatefeaturesInput | string[]
-    minimumBalance: number
-    monthlyFee: number
-    interestRate?: number | null
-    isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    selections?: ProductSelectionCreateNestedManyWithoutProductInput
-  }
-
-  export type ProductUncheckedCreateWithoutEligibilityRulesInput = {
-    id?: string
-    name: string
-    type: $Enums.ProductType
-    description: string
-    features?: ProductCreatefeaturesInput | string[]
-    minimumBalance: number
-    monthlyFee: number
-    interestRate?: number | null
-    isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    selections?: ProductSelectionUncheckedCreateNestedManyWithoutProductInput
-  }
-
-  export type ProductCreateOrConnectWithoutEligibilityRulesInput = {
-    where: ProductWhereUniqueInput
-    create: XOR<ProductCreateWithoutEligibilityRulesInput, ProductUncheckedCreateWithoutEligibilityRulesInput>
-  }
-
-  export type ProductUpsertWithoutEligibilityRulesInput = {
-    update: XOR<ProductUpdateWithoutEligibilityRulesInput, ProductUncheckedUpdateWithoutEligibilityRulesInput>
-    create: XOR<ProductCreateWithoutEligibilityRulesInput, ProductUncheckedCreateWithoutEligibilityRulesInput>
-    where?: ProductWhereInput
-  }
-
-  export type ProductUpdateToOneWithWhereWithoutEligibilityRulesInput = {
-    where?: ProductWhereInput
-    data: XOR<ProductUpdateWithoutEligibilityRulesInput, ProductUncheckedUpdateWithoutEligibilityRulesInput>
-  }
-
-  export type ProductUpdateWithoutEligibilityRulesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    type?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
-    description?: StringFieldUpdateOperationsInput | string
-    features?: ProductUpdatefeaturesInput | string[]
-    minimumBalance?: FloatFieldUpdateOperationsInput | number
-    monthlyFee?: FloatFieldUpdateOperationsInput | number
-    interestRate?: NullableFloatFieldUpdateOperationsInput | number | null
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    selections?: ProductSelectionUpdateManyWithoutProductNestedInput
-  }
-
-  export type ProductUncheckedUpdateWithoutEligibilityRulesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    type?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
-    description?: StringFieldUpdateOperationsInput | string
-    features?: ProductUpdatefeaturesInput | string[]
-    minimumBalance?: FloatFieldUpdateOperationsInput | number
-    monthlyFee?: FloatFieldUpdateOperationsInput | number
-    interestRate?: NullableFloatFieldUpdateOperationsInput | number | null
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    selections?: ProductSelectionUncheckedUpdateManyWithoutProductNestedInput
-  }
-
   export type ApplicationCreateWithoutProductSelectionsInput = {
     id?: string
     status?: string
@@ -35985,23 +29687,19 @@ export namespace Prisma {
     completedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    userAgent?: string | null
-    ipAddress?: string | null
-    sessionId?: string | null
-    startedAt?: Date | string | null
-    lastActivity?: Date | string | null
-    source?: string | null
-    user: UserCreateNestedOneWithoutApplicationsInput
+    metadata: JsonNullValueInput | InputJsonValue
     personalInfo?: PersonalInfoCreateNestedOneWithoutApplicationInput
     businessProfile?: BusinessProfileCreateNestedOneWithoutApplicationInput
     financialProfile?: FinancialProfileCreateNestedOneWithoutApplicationInput
     documents?: DocumentCreateNestedManyWithoutApplicationInput
-    kycVerification?: KYCVerificationCreateNestedOneWithoutApplicationInput
     additionalSigners?: AdditionalSignerCreateNestedManyWithoutApplicationInput
+    kycVerification?: KYCVerificationCreateNestedOneWithoutApplicationInput
     riskAssessment?: RiskAssessmentCreateNestedOneWithoutApplicationInput
     agreements?: AgreementCreateNestedManyWithoutApplicationInput
     signatures?: ElectronicSignatureCreateNestedManyWithoutApplicationInput
     fundingSetup?: FundingSetupCreateNestedOneWithoutApplicationInput
+    user: UserCreateNestedOneWithoutApplicationsInput
+    auditTrail?: AuditTrailEntryCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationUncheckedCreateWithoutProductSelectionsInput = {
@@ -36015,23 +29713,19 @@ export namespace Prisma {
     completedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    userAgent?: string | null
-    ipAddress?: string | null
-    sessionId?: string | null
-    startedAt?: Date | string | null
-    lastActivity?: Date | string | null
-    source?: string | null
+    metadata: JsonNullValueInput | InputJsonValue
     userId: number
     personalInfo?: PersonalInfoUncheckedCreateNestedOneWithoutApplicationInput
     businessProfile?: BusinessProfileUncheckedCreateNestedOneWithoutApplicationInput
     financialProfile?: FinancialProfileUncheckedCreateNestedOneWithoutApplicationInput
     documents?: DocumentUncheckedCreateNestedManyWithoutApplicationInput
-    kycVerification?: KYCVerificationUncheckedCreateNestedOneWithoutApplicationInput
     additionalSigners?: AdditionalSignerUncheckedCreateNestedManyWithoutApplicationInput
+    kycVerification?: KYCVerificationUncheckedCreateNestedOneWithoutApplicationInput
     riskAssessment?: RiskAssessmentUncheckedCreateNestedOneWithoutApplicationInput
     agreements?: AgreementUncheckedCreateNestedManyWithoutApplicationInput
     signatures?: ElectronicSignatureUncheckedCreateNestedManyWithoutApplicationInput
     fundingSetup?: FundingSetupUncheckedCreateNestedOneWithoutApplicationInput
+    auditTrail?: AuditTrailEntryUncheckedCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationCreateOrConnectWithoutProductSelectionsInput = {
@@ -36039,39 +29733,35 @@ export namespace Prisma {
     create: XOR<ApplicationCreateWithoutProductSelectionsInput, ApplicationUncheckedCreateWithoutProductSelectionsInput>
   }
 
-  export type ProductCreateWithoutSelectionsInput = {
+  export type ProductCreateWithoutProductSelectionsInput = {
     id?: string
     name: string
-    type: $Enums.ProductType
+    type: string
     description: string
     features?: ProductCreatefeaturesInput | string[]
     minimumBalance: number
     monthlyFee: number
     interestRate?: number | null
     isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    eligibilityRules?: EligibilityRuleCreateNestedManyWithoutProductInput
+    eligibilityRules?: ProductCreateeligibilityRulesInput | InputJsonValue[]
   }
 
-  export type ProductUncheckedCreateWithoutSelectionsInput = {
+  export type ProductUncheckedCreateWithoutProductSelectionsInput = {
     id?: string
     name: string
-    type: $Enums.ProductType
+    type: string
     description: string
     features?: ProductCreatefeaturesInput | string[]
     minimumBalance: number
     monthlyFee: number
     interestRate?: number | null
     isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    eligibilityRules?: EligibilityRuleUncheckedCreateNestedManyWithoutProductInput
+    eligibilityRules?: ProductCreateeligibilityRulesInput | InputJsonValue[]
   }
 
-  export type ProductCreateOrConnectWithoutSelectionsInput = {
+  export type ProductCreateOrConnectWithoutProductSelectionsInput = {
     where: ProductWhereUniqueInput
-    create: XOR<ProductCreateWithoutSelectionsInput, ProductUncheckedCreateWithoutSelectionsInput>
+    create: XOR<ProductCreateWithoutProductSelectionsInput, ProductUncheckedCreateWithoutProductSelectionsInput>
   }
 
   export type ApplicationUpsertWithoutProductSelectionsInput = {
@@ -36096,23 +29786,19 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastActivity?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    source?: NullableStringFieldUpdateOperationsInput | string | null
-    user?: UserUpdateOneRequiredWithoutApplicationsNestedInput
+    metadata?: JsonNullValueInput | InputJsonValue
     personalInfo?: PersonalInfoUpdateOneWithoutApplicationNestedInput
     businessProfile?: BusinessProfileUpdateOneWithoutApplicationNestedInput
     financialProfile?: FinancialProfileUpdateOneWithoutApplicationNestedInput
     documents?: DocumentUpdateManyWithoutApplicationNestedInput
-    kycVerification?: KYCVerificationUpdateOneWithoutApplicationNestedInput
     additionalSigners?: AdditionalSignerUpdateManyWithoutApplicationNestedInput
+    kycVerification?: KYCVerificationUpdateOneWithoutApplicationNestedInput
     riskAssessment?: RiskAssessmentUpdateOneWithoutApplicationNestedInput
     agreements?: AgreementUpdateManyWithoutApplicationNestedInput
     signatures?: ElectronicSignatureUpdateManyWithoutApplicationNestedInput
     fundingSetup?: FundingSetupUpdateOneWithoutApplicationNestedInput
+    user?: UserUpdateOneRequiredWithoutApplicationsNestedInput
+    auditTrail?: AuditTrailEntryUpdateManyWithoutApplicationNestedInput
   }
 
   export type ApplicationUncheckedUpdateWithoutProductSelectionsInput = {
@@ -36126,64 +29812,56 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastActivity?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    source?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
     userId?: IntFieldUpdateOperationsInput | number
     personalInfo?: PersonalInfoUncheckedUpdateOneWithoutApplicationNestedInput
     businessProfile?: BusinessProfileUncheckedUpdateOneWithoutApplicationNestedInput
     financialProfile?: FinancialProfileUncheckedUpdateOneWithoutApplicationNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutApplicationNestedInput
-    kycVerification?: KYCVerificationUncheckedUpdateOneWithoutApplicationNestedInput
     additionalSigners?: AdditionalSignerUncheckedUpdateManyWithoutApplicationNestedInput
+    kycVerification?: KYCVerificationUncheckedUpdateOneWithoutApplicationNestedInput
     riskAssessment?: RiskAssessmentUncheckedUpdateOneWithoutApplicationNestedInput
     agreements?: AgreementUncheckedUpdateManyWithoutApplicationNestedInput
     signatures?: ElectronicSignatureUncheckedUpdateManyWithoutApplicationNestedInput
     fundingSetup?: FundingSetupUncheckedUpdateOneWithoutApplicationNestedInput
+    auditTrail?: AuditTrailEntryUncheckedUpdateManyWithoutApplicationNestedInput
   }
 
-  export type ProductUpsertWithoutSelectionsInput = {
-    update: XOR<ProductUpdateWithoutSelectionsInput, ProductUncheckedUpdateWithoutSelectionsInput>
-    create: XOR<ProductCreateWithoutSelectionsInput, ProductUncheckedCreateWithoutSelectionsInput>
+  export type ProductUpsertWithoutProductSelectionsInput = {
+    update: XOR<ProductUpdateWithoutProductSelectionsInput, ProductUncheckedUpdateWithoutProductSelectionsInput>
+    create: XOR<ProductCreateWithoutProductSelectionsInput, ProductUncheckedCreateWithoutProductSelectionsInput>
     where?: ProductWhereInput
   }
 
-  export type ProductUpdateToOneWithWhereWithoutSelectionsInput = {
+  export type ProductUpdateToOneWithWhereWithoutProductSelectionsInput = {
     where?: ProductWhereInput
-    data: XOR<ProductUpdateWithoutSelectionsInput, ProductUncheckedUpdateWithoutSelectionsInput>
+    data: XOR<ProductUpdateWithoutProductSelectionsInput, ProductUncheckedUpdateWithoutProductSelectionsInput>
   }
 
-  export type ProductUpdateWithoutSelectionsInput = {
+  export type ProductUpdateWithoutProductSelectionsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    type?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
+    type?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     features?: ProductUpdatefeaturesInput | string[]
     minimumBalance?: FloatFieldUpdateOperationsInput | number
     monthlyFee?: FloatFieldUpdateOperationsInput | number
     interestRate?: NullableFloatFieldUpdateOperationsInput | number | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    eligibilityRules?: EligibilityRuleUpdateManyWithoutProductNestedInput
+    eligibilityRules?: ProductUpdateeligibilityRulesInput | InputJsonValue[]
   }
 
-  export type ProductUncheckedUpdateWithoutSelectionsInput = {
+  export type ProductUncheckedUpdateWithoutProductSelectionsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    type?: EnumProductTypeFieldUpdateOperationsInput | $Enums.ProductType
+    type?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     features?: ProductUpdatefeaturesInput | string[]
     minimumBalance?: FloatFieldUpdateOperationsInput | number
     monthlyFee?: FloatFieldUpdateOperationsInput | number
     interestRate?: NullableFloatFieldUpdateOperationsInput | number | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    eligibilityRules?: EligibilityRuleUncheckedUpdateManyWithoutProductNestedInput
+    eligibilityRules?: ProductUpdateeligibilityRulesInput | InputJsonValue[]
   }
 
   export type ApplicationCreateWithoutDocumentsInput = {
@@ -36197,23 +29875,19 @@ export namespace Prisma {
     completedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    userAgent?: string | null
-    ipAddress?: string | null
-    sessionId?: string | null
-    startedAt?: Date | string | null
-    lastActivity?: Date | string | null
-    source?: string | null
-    user: UserCreateNestedOneWithoutApplicationsInput
+    metadata: JsonNullValueInput | InputJsonValue
     personalInfo?: PersonalInfoCreateNestedOneWithoutApplicationInput
     businessProfile?: BusinessProfileCreateNestedOneWithoutApplicationInput
     financialProfile?: FinancialProfileCreateNestedOneWithoutApplicationInput
     productSelections?: ProductSelectionCreateNestedManyWithoutApplicationInput
-    kycVerification?: KYCVerificationCreateNestedOneWithoutApplicationInput
     additionalSigners?: AdditionalSignerCreateNestedManyWithoutApplicationInput
+    kycVerification?: KYCVerificationCreateNestedOneWithoutApplicationInput
     riskAssessment?: RiskAssessmentCreateNestedOneWithoutApplicationInput
     agreements?: AgreementCreateNestedManyWithoutApplicationInput
     signatures?: ElectronicSignatureCreateNestedManyWithoutApplicationInput
     fundingSetup?: FundingSetupCreateNestedOneWithoutApplicationInput
+    user: UserCreateNestedOneWithoutApplicationsInput
+    auditTrail?: AuditTrailEntryCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationUncheckedCreateWithoutDocumentsInput = {
@@ -36227,28 +29901,51 @@ export namespace Prisma {
     completedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    userAgent?: string | null
-    ipAddress?: string | null
-    sessionId?: string | null
-    startedAt?: Date | string | null
-    lastActivity?: Date | string | null
-    source?: string | null
+    metadata: JsonNullValueInput | InputJsonValue
     userId: number
     personalInfo?: PersonalInfoUncheckedCreateNestedOneWithoutApplicationInput
     businessProfile?: BusinessProfileUncheckedCreateNestedOneWithoutApplicationInput
     financialProfile?: FinancialProfileUncheckedCreateNestedOneWithoutApplicationInput
     productSelections?: ProductSelectionUncheckedCreateNestedManyWithoutApplicationInput
-    kycVerification?: KYCVerificationUncheckedCreateNestedOneWithoutApplicationInput
     additionalSigners?: AdditionalSignerUncheckedCreateNestedManyWithoutApplicationInput
+    kycVerification?: KYCVerificationUncheckedCreateNestedOneWithoutApplicationInput
     riskAssessment?: RiskAssessmentUncheckedCreateNestedOneWithoutApplicationInput
     agreements?: AgreementUncheckedCreateNestedManyWithoutApplicationInput
     signatures?: ElectronicSignatureUncheckedCreateNestedManyWithoutApplicationInput
     fundingSetup?: FundingSetupUncheckedCreateNestedOneWithoutApplicationInput
+    auditTrail?: AuditTrailEntryUncheckedCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationCreateOrConnectWithoutDocumentsInput = {
     where: ApplicationWhereUniqueInput
     create: XOR<ApplicationCreateWithoutDocumentsInput, ApplicationUncheckedCreateWithoutDocumentsInput>
+  }
+
+  export type AdditionalSignerCreateWithoutDocumentsInput = {
+    id?: string
+    personalInfo: JsonNullValueInput | InputJsonValue
+    role: string
+    relationshipToBusiness?: string | null
+    beneficialOwnershipPercentage?: number | null
+    hasSigningAuthority: boolean
+    kycStatus?: string
+    application: ApplicationCreateNestedOneWithoutAdditionalSignersInput
+  }
+
+  export type AdditionalSignerUncheckedCreateWithoutDocumentsInput = {
+    id?: string
+    personalInfo: JsonNullValueInput | InputJsonValue
+    role: string
+    relationshipToBusiness?: string | null
+    beneficialOwnershipPercentage?: number | null
+    hasSigningAuthority: boolean
+    kycStatus?: string
+    applicationId: string
+  }
+
+  export type AdditionalSignerCreateOrConnectWithoutDocumentsInput = {
+    where: AdditionalSignerWhereUniqueInput
+    create: XOR<AdditionalSignerCreateWithoutDocumentsInput, AdditionalSignerUncheckedCreateWithoutDocumentsInput>
   }
 
   export type ApplicationUpsertWithoutDocumentsInput = {
@@ -36273,23 +29970,19 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastActivity?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    source?: NullableStringFieldUpdateOperationsInput | string | null
-    user?: UserUpdateOneRequiredWithoutApplicationsNestedInput
+    metadata?: JsonNullValueInput | InputJsonValue
     personalInfo?: PersonalInfoUpdateOneWithoutApplicationNestedInput
     businessProfile?: BusinessProfileUpdateOneWithoutApplicationNestedInput
     financialProfile?: FinancialProfileUpdateOneWithoutApplicationNestedInput
     productSelections?: ProductSelectionUpdateManyWithoutApplicationNestedInput
-    kycVerification?: KYCVerificationUpdateOneWithoutApplicationNestedInput
     additionalSigners?: AdditionalSignerUpdateManyWithoutApplicationNestedInput
+    kycVerification?: KYCVerificationUpdateOneWithoutApplicationNestedInput
     riskAssessment?: RiskAssessmentUpdateOneWithoutApplicationNestedInput
     agreements?: AgreementUpdateManyWithoutApplicationNestedInput
     signatures?: ElectronicSignatureUpdateManyWithoutApplicationNestedInput
     fundingSetup?: FundingSetupUpdateOneWithoutApplicationNestedInput
+    user?: UserUpdateOneRequiredWithoutApplicationsNestedInput
+    auditTrail?: AuditTrailEntryUpdateManyWithoutApplicationNestedInput
   }
 
   export type ApplicationUncheckedUpdateWithoutDocumentsInput = {
@@ -36303,23 +29996,52 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastActivity?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    source?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
     userId?: IntFieldUpdateOperationsInput | number
     personalInfo?: PersonalInfoUncheckedUpdateOneWithoutApplicationNestedInput
     businessProfile?: BusinessProfileUncheckedUpdateOneWithoutApplicationNestedInput
     financialProfile?: FinancialProfileUncheckedUpdateOneWithoutApplicationNestedInput
     productSelections?: ProductSelectionUncheckedUpdateManyWithoutApplicationNestedInput
-    kycVerification?: KYCVerificationUncheckedUpdateOneWithoutApplicationNestedInput
     additionalSigners?: AdditionalSignerUncheckedUpdateManyWithoutApplicationNestedInput
+    kycVerification?: KYCVerificationUncheckedUpdateOneWithoutApplicationNestedInput
     riskAssessment?: RiskAssessmentUncheckedUpdateOneWithoutApplicationNestedInput
     agreements?: AgreementUncheckedUpdateManyWithoutApplicationNestedInput
     signatures?: ElectronicSignatureUncheckedUpdateManyWithoutApplicationNestedInput
     fundingSetup?: FundingSetupUncheckedUpdateOneWithoutApplicationNestedInput
+    auditTrail?: AuditTrailEntryUncheckedUpdateManyWithoutApplicationNestedInput
+  }
+
+  export type AdditionalSignerUpsertWithoutDocumentsInput = {
+    update: XOR<AdditionalSignerUpdateWithoutDocumentsInput, AdditionalSignerUncheckedUpdateWithoutDocumentsInput>
+    create: XOR<AdditionalSignerCreateWithoutDocumentsInput, AdditionalSignerUncheckedCreateWithoutDocumentsInput>
+    where?: AdditionalSignerWhereInput
+  }
+
+  export type AdditionalSignerUpdateToOneWithWhereWithoutDocumentsInput = {
+    where?: AdditionalSignerWhereInput
+    data: XOR<AdditionalSignerUpdateWithoutDocumentsInput, AdditionalSignerUncheckedUpdateWithoutDocumentsInput>
+  }
+
+  export type AdditionalSignerUpdateWithoutDocumentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    personalInfo?: JsonNullValueInput | InputJsonValue
+    role?: StringFieldUpdateOperationsInput | string
+    relationshipToBusiness?: NullableStringFieldUpdateOperationsInput | string | null
+    beneficialOwnershipPercentage?: NullableFloatFieldUpdateOperationsInput | number | null
+    hasSigningAuthority?: BoolFieldUpdateOperationsInput | boolean
+    kycStatus?: StringFieldUpdateOperationsInput | string
+    application?: ApplicationUpdateOneRequiredWithoutAdditionalSignersNestedInput
+  }
+
+  export type AdditionalSignerUncheckedUpdateWithoutDocumentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    personalInfo?: JsonNullValueInput | InputJsonValue
+    role?: StringFieldUpdateOperationsInput | string
+    relationshipToBusiness?: NullableStringFieldUpdateOperationsInput | string | null
+    beneficialOwnershipPercentage?: NullableFloatFieldUpdateOperationsInput | number | null
+    hasSigningAuthority?: BoolFieldUpdateOperationsInput | boolean
+    kycStatus?: StringFieldUpdateOperationsInput | string
+    applicationId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ApplicationCreateWithoutKycVerificationInput = {
@@ -36333,13 +30055,7 @@ export namespace Prisma {
     completedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    userAgent?: string | null
-    ipAddress?: string | null
-    sessionId?: string | null
-    startedAt?: Date | string | null
-    lastActivity?: Date | string | null
-    source?: string | null
-    user: UserCreateNestedOneWithoutApplicationsInput
+    metadata: JsonNullValueInput | InputJsonValue
     personalInfo?: PersonalInfoCreateNestedOneWithoutApplicationInput
     businessProfile?: BusinessProfileCreateNestedOneWithoutApplicationInput
     financialProfile?: FinancialProfileCreateNestedOneWithoutApplicationInput
@@ -36350,6 +30066,8 @@ export namespace Prisma {
     agreements?: AgreementCreateNestedManyWithoutApplicationInput
     signatures?: ElectronicSignatureCreateNestedManyWithoutApplicationInput
     fundingSetup?: FundingSetupCreateNestedOneWithoutApplicationInput
+    user: UserCreateNestedOneWithoutApplicationsInput
+    auditTrail?: AuditTrailEntryCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationUncheckedCreateWithoutKycVerificationInput = {
@@ -36363,12 +30081,7 @@ export namespace Prisma {
     completedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    userAgent?: string | null
-    ipAddress?: string | null
-    sessionId?: string | null
-    startedAt?: Date | string | null
-    lastActivity?: Date | string | null
-    source?: string | null
+    metadata: JsonNullValueInput | InputJsonValue
     userId: number
     personalInfo?: PersonalInfoUncheckedCreateNestedOneWithoutApplicationInput
     businessProfile?: BusinessProfileUncheckedCreateNestedOneWithoutApplicationInput
@@ -36380,6 +30093,7 @@ export namespace Prisma {
     agreements?: AgreementUncheckedCreateNestedManyWithoutApplicationInput
     signatures?: ElectronicSignatureUncheckedCreateNestedManyWithoutApplicationInput
     fundingSetup?: FundingSetupUncheckedCreateNestedOneWithoutApplicationInput
+    auditTrail?: AuditTrailEntryUncheckedCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationCreateOrConnectWithoutKycVerificationInput = {
@@ -36409,13 +30123,7 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastActivity?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    source?: NullableStringFieldUpdateOperationsInput | string | null
-    user?: UserUpdateOneRequiredWithoutApplicationsNestedInput
+    metadata?: JsonNullValueInput | InputJsonValue
     personalInfo?: PersonalInfoUpdateOneWithoutApplicationNestedInput
     businessProfile?: BusinessProfileUpdateOneWithoutApplicationNestedInput
     financialProfile?: FinancialProfileUpdateOneWithoutApplicationNestedInput
@@ -36426,6 +30134,8 @@ export namespace Prisma {
     agreements?: AgreementUpdateManyWithoutApplicationNestedInput
     signatures?: ElectronicSignatureUpdateManyWithoutApplicationNestedInput
     fundingSetup?: FundingSetupUpdateOneWithoutApplicationNestedInput
+    user?: UserUpdateOneRequiredWithoutApplicationsNestedInput
+    auditTrail?: AuditTrailEntryUpdateManyWithoutApplicationNestedInput
   }
 
   export type ApplicationUncheckedUpdateWithoutKycVerificationInput = {
@@ -36439,12 +30149,7 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastActivity?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    source?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
     userId?: IntFieldUpdateOperationsInput | number
     personalInfo?: PersonalInfoUncheckedUpdateOneWithoutApplicationNestedInput
     businessProfile?: BusinessProfileUncheckedUpdateOneWithoutApplicationNestedInput
@@ -36456,6 +30161,41 @@ export namespace Prisma {
     agreements?: AgreementUncheckedUpdateManyWithoutApplicationNestedInput
     signatures?: ElectronicSignatureUncheckedUpdateManyWithoutApplicationNestedInput
     fundingSetup?: FundingSetupUncheckedUpdateOneWithoutApplicationNestedInput
+    auditTrail?: AuditTrailEntryUncheckedUpdateManyWithoutApplicationNestedInput
+  }
+
+  export type DocumentCreateWithoutSignerInput = {
+    id?: string
+    type: string
+    fileName: string
+    fileSize: number
+    mimeType: string
+    uploadedAt?: Date | string
+    verificationStatus?: string
+    verificationDetails?: NullableJsonNullValueInput | InputJsonValue
+    application: ApplicationCreateNestedOneWithoutDocumentsInput
+  }
+
+  export type DocumentUncheckedCreateWithoutSignerInput = {
+    id?: string
+    type: string
+    fileName: string
+    fileSize: number
+    mimeType: string
+    uploadedAt?: Date | string
+    verificationStatus?: string
+    verificationDetails?: NullableJsonNullValueInput | InputJsonValue
+    applicationId: string
+  }
+
+  export type DocumentCreateOrConnectWithoutSignerInput = {
+    where: DocumentWhereUniqueInput
+    create: XOR<DocumentCreateWithoutSignerInput, DocumentUncheckedCreateWithoutSignerInput>
+  }
+
+  export type DocumentCreateManySignerInputEnvelope = {
+    data: DocumentCreateManySignerInput | DocumentCreateManySignerInput[]
+    skipDuplicates?: boolean
   }
 
   export type ApplicationCreateWithoutAdditionalSignersInput = {
@@ -36469,13 +30209,7 @@ export namespace Prisma {
     completedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    userAgent?: string | null
-    ipAddress?: string | null
-    sessionId?: string | null
-    startedAt?: Date | string | null
-    lastActivity?: Date | string | null
-    source?: string | null
-    user: UserCreateNestedOneWithoutApplicationsInput
+    metadata: JsonNullValueInput | InputJsonValue
     personalInfo?: PersonalInfoCreateNestedOneWithoutApplicationInput
     businessProfile?: BusinessProfileCreateNestedOneWithoutApplicationInput
     financialProfile?: FinancialProfileCreateNestedOneWithoutApplicationInput
@@ -36486,6 +30220,8 @@ export namespace Prisma {
     agreements?: AgreementCreateNestedManyWithoutApplicationInput
     signatures?: ElectronicSignatureCreateNestedManyWithoutApplicationInput
     fundingSetup?: FundingSetupCreateNestedOneWithoutApplicationInput
+    user: UserCreateNestedOneWithoutApplicationsInput
+    auditTrail?: AuditTrailEntryCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationUncheckedCreateWithoutAdditionalSignersInput = {
@@ -36499,12 +30235,7 @@ export namespace Prisma {
     completedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    userAgent?: string | null
-    ipAddress?: string | null
-    sessionId?: string | null
-    startedAt?: Date | string | null
-    lastActivity?: Date | string | null
-    source?: string | null
+    metadata: JsonNullValueInput | InputJsonValue
     userId: number
     personalInfo?: PersonalInfoUncheckedCreateNestedOneWithoutApplicationInput
     businessProfile?: BusinessProfileUncheckedCreateNestedOneWithoutApplicationInput
@@ -36516,11 +30247,28 @@ export namespace Prisma {
     agreements?: AgreementUncheckedCreateNestedManyWithoutApplicationInput
     signatures?: ElectronicSignatureUncheckedCreateNestedManyWithoutApplicationInput
     fundingSetup?: FundingSetupUncheckedCreateNestedOneWithoutApplicationInput
+    auditTrail?: AuditTrailEntryUncheckedCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationCreateOrConnectWithoutAdditionalSignersInput = {
     where: ApplicationWhereUniqueInput
     create: XOR<ApplicationCreateWithoutAdditionalSignersInput, ApplicationUncheckedCreateWithoutAdditionalSignersInput>
+  }
+
+  export type DocumentUpsertWithWhereUniqueWithoutSignerInput = {
+    where: DocumentWhereUniqueInput
+    update: XOR<DocumentUpdateWithoutSignerInput, DocumentUncheckedUpdateWithoutSignerInput>
+    create: XOR<DocumentCreateWithoutSignerInput, DocumentUncheckedCreateWithoutSignerInput>
+  }
+
+  export type DocumentUpdateWithWhereUniqueWithoutSignerInput = {
+    where: DocumentWhereUniqueInput
+    data: XOR<DocumentUpdateWithoutSignerInput, DocumentUncheckedUpdateWithoutSignerInput>
+  }
+
+  export type DocumentUpdateManyWithWhereWithoutSignerInput = {
+    where: DocumentScalarWhereInput
+    data: XOR<DocumentUpdateManyMutationInput, DocumentUncheckedUpdateManyWithoutSignerInput>
   }
 
   export type ApplicationUpsertWithoutAdditionalSignersInput = {
@@ -36545,13 +30293,7 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastActivity?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    source?: NullableStringFieldUpdateOperationsInput | string | null
-    user?: UserUpdateOneRequiredWithoutApplicationsNestedInput
+    metadata?: JsonNullValueInput | InputJsonValue
     personalInfo?: PersonalInfoUpdateOneWithoutApplicationNestedInput
     businessProfile?: BusinessProfileUpdateOneWithoutApplicationNestedInput
     financialProfile?: FinancialProfileUpdateOneWithoutApplicationNestedInput
@@ -36562,6 +30304,8 @@ export namespace Prisma {
     agreements?: AgreementUpdateManyWithoutApplicationNestedInput
     signatures?: ElectronicSignatureUpdateManyWithoutApplicationNestedInput
     fundingSetup?: FundingSetupUpdateOneWithoutApplicationNestedInput
+    user?: UserUpdateOneRequiredWithoutApplicationsNestedInput
+    auditTrail?: AuditTrailEntryUpdateManyWithoutApplicationNestedInput
   }
 
   export type ApplicationUncheckedUpdateWithoutAdditionalSignersInput = {
@@ -36575,12 +30319,7 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastActivity?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    source?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
     userId?: IntFieldUpdateOperationsInput | number
     personalInfo?: PersonalInfoUncheckedUpdateOneWithoutApplicationNestedInput
     businessProfile?: BusinessProfileUncheckedUpdateOneWithoutApplicationNestedInput
@@ -36592,6 +30331,7 @@ export namespace Prisma {
     agreements?: AgreementUncheckedUpdateManyWithoutApplicationNestedInput
     signatures?: ElectronicSignatureUncheckedUpdateManyWithoutApplicationNestedInput
     fundingSetup?: FundingSetupUncheckedUpdateOneWithoutApplicationNestedInput
+    auditTrail?: AuditTrailEntryUncheckedUpdateManyWithoutApplicationNestedInput
   }
 
   export type ApplicationCreateWithoutRiskAssessmentInput = {
@@ -36605,23 +30345,19 @@ export namespace Prisma {
     completedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    userAgent?: string | null
-    ipAddress?: string | null
-    sessionId?: string | null
-    startedAt?: Date | string | null
-    lastActivity?: Date | string | null
-    source?: string | null
-    user: UserCreateNestedOneWithoutApplicationsInput
+    metadata: JsonNullValueInput | InputJsonValue
     personalInfo?: PersonalInfoCreateNestedOneWithoutApplicationInput
     businessProfile?: BusinessProfileCreateNestedOneWithoutApplicationInput
     financialProfile?: FinancialProfileCreateNestedOneWithoutApplicationInput
     productSelections?: ProductSelectionCreateNestedManyWithoutApplicationInput
     documents?: DocumentCreateNestedManyWithoutApplicationInput
-    kycVerification?: KYCVerificationCreateNestedOneWithoutApplicationInput
     additionalSigners?: AdditionalSignerCreateNestedManyWithoutApplicationInput
+    kycVerification?: KYCVerificationCreateNestedOneWithoutApplicationInput
     agreements?: AgreementCreateNestedManyWithoutApplicationInput
     signatures?: ElectronicSignatureCreateNestedManyWithoutApplicationInput
     fundingSetup?: FundingSetupCreateNestedOneWithoutApplicationInput
+    user: UserCreateNestedOneWithoutApplicationsInput
+    auditTrail?: AuditTrailEntryCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationUncheckedCreateWithoutRiskAssessmentInput = {
@@ -36635,58 +30371,24 @@ export namespace Prisma {
     completedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    userAgent?: string | null
-    ipAddress?: string | null
-    sessionId?: string | null
-    startedAt?: Date | string | null
-    lastActivity?: Date | string | null
-    source?: string | null
+    metadata: JsonNullValueInput | InputJsonValue
     userId: number
     personalInfo?: PersonalInfoUncheckedCreateNestedOneWithoutApplicationInput
     businessProfile?: BusinessProfileUncheckedCreateNestedOneWithoutApplicationInput
     financialProfile?: FinancialProfileUncheckedCreateNestedOneWithoutApplicationInput
     productSelections?: ProductSelectionUncheckedCreateNestedManyWithoutApplicationInput
     documents?: DocumentUncheckedCreateNestedManyWithoutApplicationInput
-    kycVerification?: KYCVerificationUncheckedCreateNestedOneWithoutApplicationInput
     additionalSigners?: AdditionalSignerUncheckedCreateNestedManyWithoutApplicationInput
+    kycVerification?: KYCVerificationUncheckedCreateNestedOneWithoutApplicationInput
     agreements?: AgreementUncheckedCreateNestedManyWithoutApplicationInput
     signatures?: ElectronicSignatureUncheckedCreateNestedManyWithoutApplicationInput
     fundingSetup?: FundingSetupUncheckedCreateNestedOneWithoutApplicationInput
+    auditTrail?: AuditTrailEntryUncheckedCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationCreateOrConnectWithoutRiskAssessmentInput = {
     where: ApplicationWhereUniqueInput
     create: XOR<ApplicationCreateWithoutRiskAssessmentInput, ApplicationUncheckedCreateWithoutRiskAssessmentInput>
-  }
-
-  export type RiskFactorCreateWithoutRiskAssessmentInput = {
-    id?: string
-    category: string
-    factor: string
-    weight: number
-    score: number
-    impact: string
-    description: string
-  }
-
-  export type RiskFactorUncheckedCreateWithoutRiskAssessmentInput = {
-    id?: string
-    category: string
-    factor: string
-    weight: number
-    score: number
-    impact: string
-    description: string
-  }
-
-  export type RiskFactorCreateOrConnectWithoutRiskAssessmentInput = {
-    where: RiskFactorWhereUniqueInput
-    create: XOR<RiskFactorCreateWithoutRiskAssessmentInput, RiskFactorUncheckedCreateWithoutRiskAssessmentInput>
-  }
-
-  export type RiskFactorCreateManyRiskAssessmentInputEnvelope = {
-    data: RiskFactorCreateManyRiskAssessmentInput | RiskFactorCreateManyRiskAssessmentInput[]
-    skipDuplicates?: boolean
   }
 
   export type ApplicationUpsertWithoutRiskAssessmentInput = {
@@ -36711,23 +30413,19 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastActivity?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    source?: NullableStringFieldUpdateOperationsInput | string | null
-    user?: UserUpdateOneRequiredWithoutApplicationsNestedInput
+    metadata?: JsonNullValueInput | InputJsonValue
     personalInfo?: PersonalInfoUpdateOneWithoutApplicationNestedInput
     businessProfile?: BusinessProfileUpdateOneWithoutApplicationNestedInput
     financialProfile?: FinancialProfileUpdateOneWithoutApplicationNestedInput
     productSelections?: ProductSelectionUpdateManyWithoutApplicationNestedInput
     documents?: DocumentUpdateManyWithoutApplicationNestedInput
-    kycVerification?: KYCVerificationUpdateOneWithoutApplicationNestedInput
     additionalSigners?: AdditionalSignerUpdateManyWithoutApplicationNestedInput
+    kycVerification?: KYCVerificationUpdateOneWithoutApplicationNestedInput
     agreements?: AgreementUpdateManyWithoutApplicationNestedInput
     signatures?: ElectronicSignatureUpdateManyWithoutApplicationNestedInput
     fundingSetup?: FundingSetupUpdateOneWithoutApplicationNestedInput
+    user?: UserUpdateOneRequiredWithoutApplicationsNestedInput
+    auditTrail?: AuditTrailEntryUpdateManyWithoutApplicationNestedInput
   }
 
   export type ApplicationUncheckedUpdateWithoutRiskAssessmentInput = {
@@ -36741,113 +30439,19 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastActivity?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    source?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
     userId?: IntFieldUpdateOperationsInput | number
     personalInfo?: PersonalInfoUncheckedUpdateOneWithoutApplicationNestedInput
     businessProfile?: BusinessProfileUncheckedUpdateOneWithoutApplicationNestedInput
     financialProfile?: FinancialProfileUncheckedUpdateOneWithoutApplicationNestedInput
     productSelections?: ProductSelectionUncheckedUpdateManyWithoutApplicationNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutApplicationNestedInput
-    kycVerification?: KYCVerificationUncheckedUpdateOneWithoutApplicationNestedInput
     additionalSigners?: AdditionalSignerUncheckedUpdateManyWithoutApplicationNestedInput
+    kycVerification?: KYCVerificationUncheckedUpdateOneWithoutApplicationNestedInput
     agreements?: AgreementUncheckedUpdateManyWithoutApplicationNestedInput
     signatures?: ElectronicSignatureUncheckedUpdateManyWithoutApplicationNestedInput
     fundingSetup?: FundingSetupUncheckedUpdateOneWithoutApplicationNestedInput
-  }
-
-  export type RiskFactorUpsertWithWhereUniqueWithoutRiskAssessmentInput = {
-    where: RiskFactorWhereUniqueInput
-    update: XOR<RiskFactorUpdateWithoutRiskAssessmentInput, RiskFactorUncheckedUpdateWithoutRiskAssessmentInput>
-    create: XOR<RiskFactorCreateWithoutRiskAssessmentInput, RiskFactorUncheckedCreateWithoutRiskAssessmentInput>
-  }
-
-  export type RiskFactorUpdateWithWhereUniqueWithoutRiskAssessmentInput = {
-    where: RiskFactorWhereUniqueInput
-    data: XOR<RiskFactorUpdateWithoutRiskAssessmentInput, RiskFactorUncheckedUpdateWithoutRiskAssessmentInput>
-  }
-
-  export type RiskFactorUpdateManyWithWhereWithoutRiskAssessmentInput = {
-    where: RiskFactorScalarWhereInput
-    data: XOR<RiskFactorUpdateManyMutationInput, RiskFactorUncheckedUpdateManyWithoutRiskAssessmentInput>
-  }
-
-  export type RiskFactorScalarWhereInput = {
-    AND?: RiskFactorScalarWhereInput | RiskFactorScalarWhereInput[]
-    OR?: RiskFactorScalarWhereInput[]
-    NOT?: RiskFactorScalarWhereInput | RiskFactorScalarWhereInput[]
-    id?: StringFilter<"RiskFactor"> | string
-    category?: StringFilter<"RiskFactor"> | string
-    factor?: StringFilter<"RiskFactor"> | string
-    weight?: FloatFilter<"RiskFactor"> | number
-    score?: IntFilter<"RiskFactor"> | number
-    impact?: StringFilter<"RiskFactor"> | string
-    description?: StringFilter<"RiskFactor"> | string
-    riskAssessmentId?: StringFilter<"RiskFactor"> | string
-  }
-
-  export type RiskAssessmentCreateWithoutFactorsInput = {
-    id?: string
-    overallRisk: string
-    riskScore: number
-    recommendations?: RiskAssessmentCreaterecommendationsInput | string[]
-    requiresManualReview: boolean
-    assessedAt?: Date | string
-    assessedBy: string
-    application: ApplicationCreateNestedOneWithoutRiskAssessmentInput
-  }
-
-  export type RiskAssessmentUncheckedCreateWithoutFactorsInput = {
-    id?: string
-    overallRisk: string
-    riskScore: number
-    recommendations?: RiskAssessmentCreaterecommendationsInput | string[]
-    requiresManualReview: boolean
-    assessedAt?: Date | string
-    assessedBy: string
-    applicationId: string
-  }
-
-  export type RiskAssessmentCreateOrConnectWithoutFactorsInput = {
-    where: RiskAssessmentWhereUniqueInput
-    create: XOR<RiskAssessmentCreateWithoutFactorsInput, RiskAssessmentUncheckedCreateWithoutFactorsInput>
-  }
-
-  export type RiskAssessmentUpsertWithoutFactorsInput = {
-    update: XOR<RiskAssessmentUpdateWithoutFactorsInput, RiskAssessmentUncheckedUpdateWithoutFactorsInput>
-    create: XOR<RiskAssessmentCreateWithoutFactorsInput, RiskAssessmentUncheckedCreateWithoutFactorsInput>
-    where?: RiskAssessmentWhereInput
-  }
-
-  export type RiskAssessmentUpdateToOneWithWhereWithoutFactorsInput = {
-    where?: RiskAssessmentWhereInput
-    data: XOR<RiskAssessmentUpdateWithoutFactorsInput, RiskAssessmentUncheckedUpdateWithoutFactorsInput>
-  }
-
-  export type RiskAssessmentUpdateWithoutFactorsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    overallRisk?: StringFieldUpdateOperationsInput | string
-    riskScore?: IntFieldUpdateOperationsInput | number
-    recommendations?: RiskAssessmentUpdaterecommendationsInput | string[]
-    requiresManualReview?: BoolFieldUpdateOperationsInput | boolean
-    assessedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    assessedBy?: StringFieldUpdateOperationsInput | string
-    application?: ApplicationUpdateOneRequiredWithoutRiskAssessmentNestedInput
-  }
-
-  export type RiskAssessmentUncheckedUpdateWithoutFactorsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    overallRisk?: StringFieldUpdateOperationsInput | string
-    riskScore?: IntFieldUpdateOperationsInput | number
-    recommendations?: RiskAssessmentUpdaterecommendationsInput | string[]
-    requiresManualReview?: BoolFieldUpdateOperationsInput | boolean
-    assessedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    assessedBy?: StringFieldUpdateOperationsInput | string
-    applicationId?: StringFieldUpdateOperationsInput | string
+    auditTrail?: AuditTrailEntryUncheckedUpdateManyWithoutApplicationNestedInput
   }
 
   export type AgreementCreateWithoutDisclosureInput = {
@@ -36905,23 +30509,19 @@ export namespace Prisma {
     completedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    userAgent?: string | null
-    ipAddress?: string | null
-    sessionId?: string | null
-    startedAt?: Date | string | null
-    lastActivity?: Date | string | null
-    source?: string | null
-    user: UserCreateNestedOneWithoutApplicationsInput
+    metadata: JsonNullValueInput | InputJsonValue
     personalInfo?: PersonalInfoCreateNestedOneWithoutApplicationInput
     businessProfile?: BusinessProfileCreateNestedOneWithoutApplicationInput
     financialProfile?: FinancialProfileCreateNestedOneWithoutApplicationInput
     productSelections?: ProductSelectionCreateNestedManyWithoutApplicationInput
     documents?: DocumentCreateNestedManyWithoutApplicationInput
-    kycVerification?: KYCVerificationCreateNestedOneWithoutApplicationInput
     additionalSigners?: AdditionalSignerCreateNestedManyWithoutApplicationInput
+    kycVerification?: KYCVerificationCreateNestedOneWithoutApplicationInput
     riskAssessment?: RiskAssessmentCreateNestedOneWithoutApplicationInput
     signatures?: ElectronicSignatureCreateNestedManyWithoutApplicationInput
     fundingSetup?: FundingSetupCreateNestedOneWithoutApplicationInput
+    user: UserCreateNestedOneWithoutApplicationsInput
+    auditTrail?: AuditTrailEntryCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationUncheckedCreateWithoutAgreementsInput = {
@@ -36935,23 +30535,19 @@ export namespace Prisma {
     completedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    userAgent?: string | null
-    ipAddress?: string | null
-    sessionId?: string | null
-    startedAt?: Date | string | null
-    lastActivity?: Date | string | null
-    source?: string | null
+    metadata: JsonNullValueInput | InputJsonValue
     userId: number
     personalInfo?: PersonalInfoUncheckedCreateNestedOneWithoutApplicationInput
     businessProfile?: BusinessProfileUncheckedCreateNestedOneWithoutApplicationInput
     financialProfile?: FinancialProfileUncheckedCreateNestedOneWithoutApplicationInput
     productSelections?: ProductSelectionUncheckedCreateNestedManyWithoutApplicationInput
     documents?: DocumentUncheckedCreateNestedManyWithoutApplicationInput
-    kycVerification?: KYCVerificationUncheckedCreateNestedOneWithoutApplicationInput
     additionalSigners?: AdditionalSignerUncheckedCreateNestedManyWithoutApplicationInput
+    kycVerification?: KYCVerificationUncheckedCreateNestedOneWithoutApplicationInput
     riskAssessment?: RiskAssessmentUncheckedCreateNestedOneWithoutApplicationInput
     signatures?: ElectronicSignatureUncheckedCreateNestedManyWithoutApplicationInput
     fundingSetup?: FundingSetupUncheckedCreateNestedOneWithoutApplicationInput
+    auditTrail?: AuditTrailEntryUncheckedCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationCreateOrConnectWithoutAgreementsInput = {
@@ -36965,8 +30561,8 @@ export namespace Prisma {
     title: string
     content: string
     version: string
-    effectiveDate: Date | string
-    required: boolean
+    effectiveDate: string
+    required?: boolean
     applicableFor?: DisclosureCreateapplicableForInput | string[]
   }
 
@@ -36976,8 +30572,8 @@ export namespace Prisma {
     title: string
     content: string
     version: string
-    effectiveDate: Date | string
-    required: boolean
+    effectiveDate: string
+    required?: boolean
     applicableFor?: DisclosureCreateapplicableForInput | string[]
   }
 
@@ -37008,23 +30604,19 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastActivity?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    source?: NullableStringFieldUpdateOperationsInput | string | null
-    user?: UserUpdateOneRequiredWithoutApplicationsNestedInput
+    metadata?: JsonNullValueInput | InputJsonValue
     personalInfo?: PersonalInfoUpdateOneWithoutApplicationNestedInput
     businessProfile?: BusinessProfileUpdateOneWithoutApplicationNestedInput
     financialProfile?: FinancialProfileUpdateOneWithoutApplicationNestedInput
     productSelections?: ProductSelectionUpdateManyWithoutApplicationNestedInput
     documents?: DocumentUpdateManyWithoutApplicationNestedInput
-    kycVerification?: KYCVerificationUpdateOneWithoutApplicationNestedInput
     additionalSigners?: AdditionalSignerUpdateManyWithoutApplicationNestedInput
+    kycVerification?: KYCVerificationUpdateOneWithoutApplicationNestedInput
     riskAssessment?: RiskAssessmentUpdateOneWithoutApplicationNestedInput
     signatures?: ElectronicSignatureUpdateManyWithoutApplicationNestedInput
     fundingSetup?: FundingSetupUpdateOneWithoutApplicationNestedInput
+    user?: UserUpdateOneRequiredWithoutApplicationsNestedInput
+    auditTrail?: AuditTrailEntryUpdateManyWithoutApplicationNestedInput
   }
 
   export type ApplicationUncheckedUpdateWithoutAgreementsInput = {
@@ -37038,23 +30630,19 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastActivity?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    source?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
     userId?: IntFieldUpdateOperationsInput | number
     personalInfo?: PersonalInfoUncheckedUpdateOneWithoutApplicationNestedInput
     businessProfile?: BusinessProfileUncheckedUpdateOneWithoutApplicationNestedInput
     financialProfile?: FinancialProfileUncheckedUpdateOneWithoutApplicationNestedInput
     productSelections?: ProductSelectionUncheckedUpdateManyWithoutApplicationNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutApplicationNestedInput
-    kycVerification?: KYCVerificationUncheckedUpdateOneWithoutApplicationNestedInput
     additionalSigners?: AdditionalSignerUncheckedUpdateManyWithoutApplicationNestedInput
+    kycVerification?: KYCVerificationUncheckedUpdateOneWithoutApplicationNestedInput
     riskAssessment?: RiskAssessmentUncheckedUpdateOneWithoutApplicationNestedInput
     signatures?: ElectronicSignatureUncheckedUpdateManyWithoutApplicationNestedInput
     fundingSetup?: FundingSetupUncheckedUpdateOneWithoutApplicationNestedInput
+    auditTrail?: AuditTrailEntryUncheckedUpdateManyWithoutApplicationNestedInput
   }
 
   export type DisclosureUpsertWithoutAgreementsInput = {
@@ -37074,7 +30662,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
-    effectiveDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    effectiveDate?: StringFieldUpdateOperationsInput | string
     required?: BoolFieldUpdateOperationsInput | boolean
     applicableFor?: DisclosureUpdateapplicableForInput | string[]
   }
@@ -37085,7 +30673,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
-    effectiveDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    effectiveDate?: StringFieldUpdateOperationsInput | string
     required?: BoolFieldUpdateOperationsInput | boolean
     applicableFor?: DisclosureUpdateapplicableForInput | string[]
   }
@@ -37101,23 +30689,19 @@ export namespace Prisma {
     completedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    userAgent?: string | null
-    ipAddress?: string | null
-    sessionId?: string | null
-    startedAt?: Date | string | null
-    lastActivity?: Date | string | null
-    source?: string | null
-    user: UserCreateNestedOneWithoutApplicationsInput
+    metadata: JsonNullValueInput | InputJsonValue
     personalInfo?: PersonalInfoCreateNestedOneWithoutApplicationInput
     businessProfile?: BusinessProfileCreateNestedOneWithoutApplicationInput
     financialProfile?: FinancialProfileCreateNestedOneWithoutApplicationInput
     productSelections?: ProductSelectionCreateNestedManyWithoutApplicationInput
     documents?: DocumentCreateNestedManyWithoutApplicationInput
-    kycVerification?: KYCVerificationCreateNestedOneWithoutApplicationInput
     additionalSigners?: AdditionalSignerCreateNestedManyWithoutApplicationInput
+    kycVerification?: KYCVerificationCreateNestedOneWithoutApplicationInput
     riskAssessment?: RiskAssessmentCreateNestedOneWithoutApplicationInput
     agreements?: AgreementCreateNestedManyWithoutApplicationInput
     fundingSetup?: FundingSetupCreateNestedOneWithoutApplicationInput
+    user: UserCreateNestedOneWithoutApplicationsInput
+    auditTrail?: AuditTrailEntryCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationUncheckedCreateWithoutSignaturesInput = {
@@ -37131,23 +30715,19 @@ export namespace Prisma {
     completedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    userAgent?: string | null
-    ipAddress?: string | null
-    sessionId?: string | null
-    startedAt?: Date | string | null
-    lastActivity?: Date | string | null
-    source?: string | null
+    metadata: JsonNullValueInput | InputJsonValue
     userId: number
     personalInfo?: PersonalInfoUncheckedCreateNestedOneWithoutApplicationInput
     businessProfile?: BusinessProfileUncheckedCreateNestedOneWithoutApplicationInput
     financialProfile?: FinancialProfileUncheckedCreateNestedOneWithoutApplicationInput
     productSelections?: ProductSelectionUncheckedCreateNestedManyWithoutApplicationInput
     documents?: DocumentUncheckedCreateNestedManyWithoutApplicationInput
-    kycVerification?: KYCVerificationUncheckedCreateNestedOneWithoutApplicationInput
     additionalSigners?: AdditionalSignerUncheckedCreateNestedManyWithoutApplicationInput
+    kycVerification?: KYCVerificationUncheckedCreateNestedOneWithoutApplicationInput
     riskAssessment?: RiskAssessmentUncheckedCreateNestedOneWithoutApplicationInput
     agreements?: AgreementUncheckedCreateNestedManyWithoutApplicationInput
     fundingSetup?: FundingSetupUncheckedCreateNestedOneWithoutApplicationInput
+    auditTrail?: AuditTrailEntryUncheckedCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationCreateOrConnectWithoutSignaturesInput = {
@@ -37177,23 +30757,19 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastActivity?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    source?: NullableStringFieldUpdateOperationsInput | string | null
-    user?: UserUpdateOneRequiredWithoutApplicationsNestedInput
+    metadata?: JsonNullValueInput | InputJsonValue
     personalInfo?: PersonalInfoUpdateOneWithoutApplicationNestedInput
     businessProfile?: BusinessProfileUpdateOneWithoutApplicationNestedInput
     financialProfile?: FinancialProfileUpdateOneWithoutApplicationNestedInput
     productSelections?: ProductSelectionUpdateManyWithoutApplicationNestedInput
     documents?: DocumentUpdateManyWithoutApplicationNestedInput
-    kycVerification?: KYCVerificationUpdateOneWithoutApplicationNestedInput
     additionalSigners?: AdditionalSignerUpdateManyWithoutApplicationNestedInput
+    kycVerification?: KYCVerificationUpdateOneWithoutApplicationNestedInput
     riskAssessment?: RiskAssessmentUpdateOneWithoutApplicationNestedInput
     agreements?: AgreementUpdateManyWithoutApplicationNestedInput
     fundingSetup?: FundingSetupUpdateOneWithoutApplicationNestedInput
+    user?: UserUpdateOneRequiredWithoutApplicationsNestedInput
+    auditTrail?: AuditTrailEntryUpdateManyWithoutApplicationNestedInput
   }
 
   export type ApplicationUncheckedUpdateWithoutSignaturesInput = {
@@ -37207,23 +30783,19 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastActivity?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    source?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
     userId?: IntFieldUpdateOperationsInput | number
     personalInfo?: PersonalInfoUncheckedUpdateOneWithoutApplicationNestedInput
     businessProfile?: BusinessProfileUncheckedUpdateOneWithoutApplicationNestedInput
     financialProfile?: FinancialProfileUncheckedUpdateOneWithoutApplicationNestedInput
     productSelections?: ProductSelectionUncheckedUpdateManyWithoutApplicationNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutApplicationNestedInput
-    kycVerification?: KYCVerificationUncheckedUpdateOneWithoutApplicationNestedInput
     additionalSigners?: AdditionalSignerUncheckedUpdateManyWithoutApplicationNestedInput
+    kycVerification?: KYCVerificationUncheckedUpdateOneWithoutApplicationNestedInput
     riskAssessment?: RiskAssessmentUncheckedUpdateOneWithoutApplicationNestedInput
     agreements?: AgreementUncheckedUpdateManyWithoutApplicationNestedInput
     fundingSetup?: FundingSetupUncheckedUpdateOneWithoutApplicationNestedInput
+    auditTrail?: AuditTrailEntryUncheckedUpdateManyWithoutApplicationNestedInput
   }
 
   export type ApplicationCreateWithoutFundingSetupInput = {
@@ -37237,23 +30809,19 @@ export namespace Prisma {
     completedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    userAgent?: string | null
-    ipAddress?: string | null
-    sessionId?: string | null
-    startedAt?: Date | string | null
-    lastActivity?: Date | string | null
-    source?: string | null
-    user: UserCreateNestedOneWithoutApplicationsInput
+    metadata: JsonNullValueInput | InputJsonValue
     personalInfo?: PersonalInfoCreateNestedOneWithoutApplicationInput
     businessProfile?: BusinessProfileCreateNestedOneWithoutApplicationInput
     financialProfile?: FinancialProfileCreateNestedOneWithoutApplicationInput
     productSelections?: ProductSelectionCreateNestedManyWithoutApplicationInput
     documents?: DocumentCreateNestedManyWithoutApplicationInput
-    kycVerification?: KYCVerificationCreateNestedOneWithoutApplicationInput
     additionalSigners?: AdditionalSignerCreateNestedManyWithoutApplicationInput
+    kycVerification?: KYCVerificationCreateNestedOneWithoutApplicationInput
     riskAssessment?: RiskAssessmentCreateNestedOneWithoutApplicationInput
     agreements?: AgreementCreateNestedManyWithoutApplicationInput
     signatures?: ElectronicSignatureCreateNestedManyWithoutApplicationInput
+    user: UserCreateNestedOneWithoutApplicationsInput
+    auditTrail?: AuditTrailEntryCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationUncheckedCreateWithoutFundingSetupInput = {
@@ -37267,23 +30835,19 @@ export namespace Prisma {
     completedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    userAgent?: string | null
-    ipAddress?: string | null
-    sessionId?: string | null
-    startedAt?: Date | string | null
-    lastActivity?: Date | string | null
-    source?: string | null
+    metadata: JsonNullValueInput | InputJsonValue
     userId: number
     personalInfo?: PersonalInfoUncheckedCreateNestedOneWithoutApplicationInput
     businessProfile?: BusinessProfileUncheckedCreateNestedOneWithoutApplicationInput
     financialProfile?: FinancialProfileUncheckedCreateNestedOneWithoutApplicationInput
     productSelections?: ProductSelectionUncheckedCreateNestedManyWithoutApplicationInput
     documents?: DocumentUncheckedCreateNestedManyWithoutApplicationInput
-    kycVerification?: KYCVerificationUncheckedCreateNestedOneWithoutApplicationInput
     additionalSigners?: AdditionalSignerUncheckedCreateNestedManyWithoutApplicationInput
+    kycVerification?: KYCVerificationUncheckedCreateNestedOneWithoutApplicationInput
     riskAssessment?: RiskAssessmentUncheckedCreateNestedOneWithoutApplicationInput
     agreements?: AgreementUncheckedCreateNestedManyWithoutApplicationInput
     signatures?: ElectronicSignatureUncheckedCreateNestedManyWithoutApplicationInput
+    auditTrail?: AuditTrailEntryUncheckedCreateNestedManyWithoutApplicationInput
   }
 
   export type ApplicationCreateOrConnectWithoutFundingSetupInput = {
@@ -37313,23 +30877,19 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastActivity?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    source?: NullableStringFieldUpdateOperationsInput | string | null
-    user?: UserUpdateOneRequiredWithoutApplicationsNestedInput
+    metadata?: JsonNullValueInput | InputJsonValue
     personalInfo?: PersonalInfoUpdateOneWithoutApplicationNestedInput
     businessProfile?: BusinessProfileUpdateOneWithoutApplicationNestedInput
     financialProfile?: FinancialProfileUpdateOneWithoutApplicationNestedInput
     productSelections?: ProductSelectionUpdateManyWithoutApplicationNestedInput
     documents?: DocumentUpdateManyWithoutApplicationNestedInput
-    kycVerification?: KYCVerificationUpdateOneWithoutApplicationNestedInput
     additionalSigners?: AdditionalSignerUpdateManyWithoutApplicationNestedInput
+    kycVerification?: KYCVerificationUpdateOneWithoutApplicationNestedInput
     riskAssessment?: RiskAssessmentUpdateOneWithoutApplicationNestedInput
     agreements?: AgreementUpdateManyWithoutApplicationNestedInput
     signatures?: ElectronicSignatureUpdateManyWithoutApplicationNestedInput
+    user?: UserUpdateOneRequiredWithoutApplicationsNestedInput
+    auditTrail?: AuditTrailEntryUpdateManyWithoutApplicationNestedInput
   }
 
   export type ApplicationUncheckedUpdateWithoutFundingSetupInput = {
@@ -37343,23 +30903,139 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastActivity?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    source?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
     userId?: IntFieldUpdateOperationsInput | number
     personalInfo?: PersonalInfoUncheckedUpdateOneWithoutApplicationNestedInput
     businessProfile?: BusinessProfileUncheckedUpdateOneWithoutApplicationNestedInput
     financialProfile?: FinancialProfileUncheckedUpdateOneWithoutApplicationNestedInput
     productSelections?: ProductSelectionUncheckedUpdateManyWithoutApplicationNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutApplicationNestedInput
-    kycVerification?: KYCVerificationUncheckedUpdateOneWithoutApplicationNestedInput
     additionalSigners?: AdditionalSignerUncheckedUpdateManyWithoutApplicationNestedInput
+    kycVerification?: KYCVerificationUncheckedUpdateOneWithoutApplicationNestedInput
     riskAssessment?: RiskAssessmentUncheckedUpdateOneWithoutApplicationNestedInput
     agreements?: AgreementUncheckedUpdateManyWithoutApplicationNestedInput
     signatures?: ElectronicSignatureUncheckedUpdateManyWithoutApplicationNestedInput
+    auditTrail?: AuditTrailEntryUncheckedUpdateManyWithoutApplicationNestedInput
+  }
+
+  export type ApplicationCreateWithoutAuditTrailInput = {
+    id?: string
+    status?: string
+    currentStep?: string
+    accountType: string
+    customerType?: string
+    applicantId: string
+    submittedAt?: Date | string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    metadata: JsonNullValueInput | InputJsonValue
+    personalInfo?: PersonalInfoCreateNestedOneWithoutApplicationInput
+    businessProfile?: BusinessProfileCreateNestedOneWithoutApplicationInput
+    financialProfile?: FinancialProfileCreateNestedOneWithoutApplicationInput
+    productSelections?: ProductSelectionCreateNestedManyWithoutApplicationInput
+    documents?: DocumentCreateNestedManyWithoutApplicationInput
+    additionalSigners?: AdditionalSignerCreateNestedManyWithoutApplicationInput
+    kycVerification?: KYCVerificationCreateNestedOneWithoutApplicationInput
+    riskAssessment?: RiskAssessmentCreateNestedOneWithoutApplicationInput
+    agreements?: AgreementCreateNestedManyWithoutApplicationInput
+    signatures?: ElectronicSignatureCreateNestedManyWithoutApplicationInput
+    fundingSetup?: FundingSetupCreateNestedOneWithoutApplicationInput
+    user: UserCreateNestedOneWithoutApplicationsInput
+  }
+
+  export type ApplicationUncheckedCreateWithoutAuditTrailInput = {
+    id?: string
+    status?: string
+    currentStep?: string
+    accountType: string
+    customerType?: string
+    applicantId: string
+    submittedAt?: Date | string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    metadata: JsonNullValueInput | InputJsonValue
+    userId: number
+    personalInfo?: PersonalInfoUncheckedCreateNestedOneWithoutApplicationInput
+    businessProfile?: BusinessProfileUncheckedCreateNestedOneWithoutApplicationInput
+    financialProfile?: FinancialProfileUncheckedCreateNestedOneWithoutApplicationInput
+    productSelections?: ProductSelectionUncheckedCreateNestedManyWithoutApplicationInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutApplicationInput
+    additionalSigners?: AdditionalSignerUncheckedCreateNestedManyWithoutApplicationInput
+    kycVerification?: KYCVerificationUncheckedCreateNestedOneWithoutApplicationInput
+    riskAssessment?: RiskAssessmentUncheckedCreateNestedOneWithoutApplicationInput
+    agreements?: AgreementUncheckedCreateNestedManyWithoutApplicationInput
+    signatures?: ElectronicSignatureUncheckedCreateNestedManyWithoutApplicationInput
+    fundingSetup?: FundingSetupUncheckedCreateNestedOneWithoutApplicationInput
+  }
+
+  export type ApplicationCreateOrConnectWithoutAuditTrailInput = {
+    where: ApplicationWhereUniqueInput
+    create: XOR<ApplicationCreateWithoutAuditTrailInput, ApplicationUncheckedCreateWithoutAuditTrailInput>
+  }
+
+  export type ApplicationUpsertWithoutAuditTrailInput = {
+    update: XOR<ApplicationUpdateWithoutAuditTrailInput, ApplicationUncheckedUpdateWithoutAuditTrailInput>
+    create: XOR<ApplicationCreateWithoutAuditTrailInput, ApplicationUncheckedCreateWithoutAuditTrailInput>
+    where?: ApplicationWhereInput
+  }
+
+  export type ApplicationUpdateToOneWithWhereWithoutAuditTrailInput = {
+    where?: ApplicationWhereInput
+    data: XOR<ApplicationUpdateWithoutAuditTrailInput, ApplicationUncheckedUpdateWithoutAuditTrailInput>
+  }
+
+  export type ApplicationUpdateWithoutAuditTrailInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    currentStep?: StringFieldUpdateOperationsInput | string
+    accountType?: StringFieldUpdateOperationsInput | string
+    customerType?: StringFieldUpdateOperationsInput | string
+    applicantId?: StringFieldUpdateOperationsInput | string
+    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: JsonNullValueInput | InputJsonValue
+    personalInfo?: PersonalInfoUpdateOneWithoutApplicationNestedInput
+    businessProfile?: BusinessProfileUpdateOneWithoutApplicationNestedInput
+    financialProfile?: FinancialProfileUpdateOneWithoutApplicationNestedInput
+    productSelections?: ProductSelectionUpdateManyWithoutApplicationNestedInput
+    documents?: DocumentUpdateManyWithoutApplicationNestedInput
+    additionalSigners?: AdditionalSignerUpdateManyWithoutApplicationNestedInput
+    kycVerification?: KYCVerificationUpdateOneWithoutApplicationNestedInput
+    riskAssessment?: RiskAssessmentUpdateOneWithoutApplicationNestedInput
+    agreements?: AgreementUpdateManyWithoutApplicationNestedInput
+    signatures?: ElectronicSignatureUpdateManyWithoutApplicationNestedInput
+    fundingSetup?: FundingSetupUpdateOneWithoutApplicationNestedInput
+    user?: UserUpdateOneRequiredWithoutApplicationsNestedInput
+  }
+
+  export type ApplicationUncheckedUpdateWithoutAuditTrailInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    currentStep?: StringFieldUpdateOperationsInput | string
+    accountType?: StringFieldUpdateOperationsInput | string
+    customerType?: StringFieldUpdateOperationsInput | string
+    applicantId?: StringFieldUpdateOperationsInput | string
+    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: JsonNullValueInput | InputJsonValue
+    userId?: IntFieldUpdateOperationsInput | number
+    personalInfo?: PersonalInfoUncheckedUpdateOneWithoutApplicationNestedInput
+    businessProfile?: BusinessProfileUncheckedUpdateOneWithoutApplicationNestedInput
+    financialProfile?: FinancialProfileUncheckedUpdateOneWithoutApplicationNestedInput
+    productSelections?: ProductSelectionUncheckedUpdateManyWithoutApplicationNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutApplicationNestedInput
+    additionalSigners?: AdditionalSignerUncheckedUpdateManyWithoutApplicationNestedInput
+    kycVerification?: KYCVerificationUncheckedUpdateOneWithoutApplicationNestedInput
+    riskAssessment?: RiskAssessmentUncheckedUpdateOneWithoutApplicationNestedInput
+    agreements?: AgreementUncheckedUpdateManyWithoutApplicationNestedInput
+    signatures?: ElectronicSignatureUncheckedUpdateManyWithoutApplicationNestedInput
+    fundingSetup?: FundingSetupUncheckedUpdateOneWithoutApplicationNestedInput
   }
 
   export type TokenCreateManyUserInput = {
@@ -37382,12 +31058,7 @@ export namespace Prisma {
     completedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    userAgent?: string | null
-    ipAddress?: string | null
-    sessionId?: string | null
-    startedAt?: Date | string | null
-    lastActivity?: Date | string | null
-    source?: string | null
+    metadata: JsonNullValueInput | InputJsonValue
   }
 
   export type TokenUpdateWithoutUserInput = {
@@ -37427,23 +31098,19 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastActivity?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    source?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
     personalInfo?: PersonalInfoUpdateOneWithoutApplicationNestedInput
     businessProfile?: BusinessProfileUpdateOneWithoutApplicationNestedInput
     financialProfile?: FinancialProfileUpdateOneWithoutApplicationNestedInput
     productSelections?: ProductSelectionUpdateManyWithoutApplicationNestedInput
     documents?: DocumentUpdateManyWithoutApplicationNestedInput
-    kycVerification?: KYCVerificationUpdateOneWithoutApplicationNestedInput
     additionalSigners?: AdditionalSignerUpdateManyWithoutApplicationNestedInput
+    kycVerification?: KYCVerificationUpdateOneWithoutApplicationNestedInput
     riskAssessment?: RiskAssessmentUpdateOneWithoutApplicationNestedInput
     agreements?: AgreementUpdateManyWithoutApplicationNestedInput
     signatures?: ElectronicSignatureUpdateManyWithoutApplicationNestedInput
     fundingSetup?: FundingSetupUpdateOneWithoutApplicationNestedInput
+    auditTrail?: AuditTrailEntryUpdateManyWithoutApplicationNestedInput
   }
 
   export type ApplicationUncheckedUpdateWithoutUserInput = {
@@ -37457,23 +31124,19 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastActivity?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    source?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
     personalInfo?: PersonalInfoUncheckedUpdateOneWithoutApplicationNestedInput
     businessProfile?: BusinessProfileUncheckedUpdateOneWithoutApplicationNestedInput
     financialProfile?: FinancialProfileUncheckedUpdateOneWithoutApplicationNestedInput
     productSelections?: ProductSelectionUncheckedUpdateManyWithoutApplicationNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutApplicationNestedInput
-    kycVerification?: KYCVerificationUncheckedUpdateOneWithoutApplicationNestedInput
     additionalSigners?: AdditionalSignerUncheckedUpdateManyWithoutApplicationNestedInput
+    kycVerification?: KYCVerificationUncheckedUpdateOneWithoutApplicationNestedInput
     riskAssessment?: RiskAssessmentUncheckedUpdateOneWithoutApplicationNestedInput
     agreements?: AgreementUncheckedUpdateManyWithoutApplicationNestedInput
     signatures?: ElectronicSignatureUncheckedUpdateManyWithoutApplicationNestedInput
     fundingSetup?: FundingSetupUncheckedUpdateOneWithoutApplicationNestedInput
+    auditTrail?: AuditTrailEntryUncheckedUpdateManyWithoutApplicationNestedInput
   }
 
   export type ApplicationUncheckedUpdateManyWithoutUserInput = {
@@ -37487,12 +31150,7 @@ export namespace Prisma {
     completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    sessionId?: NullableStringFieldUpdateOperationsInput | string | null
-    startedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    lastActivity?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    source?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
   }
 
   export type ProductSelectionCreateManyApplicationInput = {
@@ -37510,27 +31168,18 @@ export namespace Prisma {
     mimeType: string
     uploadedAt?: Date | string
     verificationStatus?: string
-    verificationProvider?: string | null
-    verificationConfidence?: number | null
-    extractedData?: NullableJsonNullValueInput | InputJsonValue
-    verificationId?: string | null
-    verifiedAt?: Date | string | null
+    verificationDetails?: NullableJsonNullValueInput | InputJsonValue
     signerId?: string | null
   }
 
   export type AdditionalSignerCreateManyApplicationInput = {
     id?: string
+    personalInfo: JsonNullValueInput | InputJsonValue
     role: string
     relationshipToBusiness?: string | null
     beneficialOwnershipPercentage?: number | null
     hasSigningAuthority: boolean
     kycStatus?: string
-    firstName: string
-    lastName: string
-    dateOfBirth: string
-    ssn: string
-    phone: string
-    email: string
   }
 
   export type AgreementCreateManyApplicationInput = {
@@ -37553,11 +31202,22 @@ export namespace Prisma {
     biometric?: NullableJsonNullValueInput | InputJsonValue
   }
 
+  export type AuditTrailEntryCreateManyApplicationInput = {
+    id?: string
+    action: string
+    description: string
+    performedBy: string
+    performedAt?: Date | string
+    ipAddress: string
+    userAgent: string
+    changes?: NullableJsonNullValueInput | InputJsonValue
+  }
+
   export type ProductSelectionUpdateWithoutApplicationInput = {
     id?: StringFieldUpdateOperationsInput | string
     selectedFeatures?: ProductSelectionUpdateselectedFeaturesInput | string[]
     initialDeposit?: NullableFloatFieldUpdateOperationsInput | number | null
-    product?: ProductUpdateOneRequiredWithoutSelectionsNestedInput
+    product?: ProductUpdateOneRequiredWithoutProductSelectionsNestedInput
   }
 
   export type ProductSelectionUncheckedUpdateWithoutApplicationInput = {
@@ -37582,12 +31242,8 @@ export namespace Prisma {
     mimeType?: StringFieldUpdateOperationsInput | string
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     verificationStatus?: StringFieldUpdateOperationsInput | string
-    verificationProvider?: NullableStringFieldUpdateOperationsInput | string | null
-    verificationConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    extractedData?: NullableJsonNullValueInput | InputJsonValue
-    verificationId?: NullableStringFieldUpdateOperationsInput | string | null
-    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    signerId?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationDetails?: NullableJsonNullValueInput | InputJsonValue
+    signer?: AdditionalSignerUpdateOneWithoutDocumentsNestedInput
   }
 
   export type DocumentUncheckedUpdateWithoutApplicationInput = {
@@ -37598,11 +31254,7 @@ export namespace Prisma {
     mimeType?: StringFieldUpdateOperationsInput | string
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     verificationStatus?: StringFieldUpdateOperationsInput | string
-    verificationProvider?: NullableStringFieldUpdateOperationsInput | string | null
-    verificationConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    extractedData?: NullableJsonNullValueInput | InputJsonValue
-    verificationId?: NullableStringFieldUpdateOperationsInput | string | null
-    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationDetails?: NullableJsonNullValueInput | InputJsonValue
     signerId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -37614,57 +31266,40 @@ export namespace Prisma {
     mimeType?: StringFieldUpdateOperationsInput | string
     uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     verificationStatus?: StringFieldUpdateOperationsInput | string
-    verificationProvider?: NullableStringFieldUpdateOperationsInput | string | null
-    verificationConfidence?: NullableFloatFieldUpdateOperationsInput | number | null
-    extractedData?: NullableJsonNullValueInput | InputJsonValue
-    verificationId?: NullableStringFieldUpdateOperationsInput | string | null
-    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationDetails?: NullableJsonNullValueInput | InputJsonValue
     signerId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AdditionalSignerUpdateWithoutApplicationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    personalInfo?: JsonNullValueInput | InputJsonValue
     role?: StringFieldUpdateOperationsInput | string
     relationshipToBusiness?: NullableStringFieldUpdateOperationsInput | string | null
     beneficialOwnershipPercentage?: NullableFloatFieldUpdateOperationsInput | number | null
     hasSigningAuthority?: BoolFieldUpdateOperationsInput | boolean
     kycStatus?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    dateOfBirth?: StringFieldUpdateOperationsInput | string
-    ssn?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    documents?: DocumentUpdateManyWithoutSignerNestedInput
   }
 
   export type AdditionalSignerUncheckedUpdateWithoutApplicationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    personalInfo?: JsonNullValueInput | InputJsonValue
     role?: StringFieldUpdateOperationsInput | string
     relationshipToBusiness?: NullableStringFieldUpdateOperationsInput | string | null
     beneficialOwnershipPercentage?: NullableFloatFieldUpdateOperationsInput | number | null
     hasSigningAuthority?: BoolFieldUpdateOperationsInput | boolean
     kycStatus?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    dateOfBirth?: StringFieldUpdateOperationsInput | string
-    ssn?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    documents?: DocumentUncheckedUpdateManyWithoutSignerNestedInput
   }
 
   export type AdditionalSignerUncheckedUpdateManyWithoutApplicationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    personalInfo?: JsonNullValueInput | InputJsonValue
     role?: StringFieldUpdateOperationsInput | string
     relationshipToBusiness?: NullableStringFieldUpdateOperationsInput | string | null
     beneficialOwnershipPercentage?: NullableFloatFieldUpdateOperationsInput | number | null
     hasSigningAuthority?: BoolFieldUpdateOperationsInput | boolean
     kycStatus?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    dateOfBirth?: StringFieldUpdateOperationsInput | string
-    ssn?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
   }
 
   export type AgreementUpdateWithoutApplicationInput = {
@@ -37727,60 +31362,37 @@ export namespace Prisma {
     biometric?: NullableJsonNullValueInput | InputJsonValue
   }
 
-  export type BankingRelationshipCreateManyFinancialProfileInput = {
-    id?: string
-    bankName: string
-    accountTypes?: BankingRelationshipCreateaccountTypesInput | string[]
-    yearsWithBank: number
-  }
-
-  export type AccountActivityCreateManyFinancialProfileInput = {
-    id?: string
-    activity: string
-    frequency: string
-    amount: number
-  }
-
-  export type BankingRelationshipUpdateWithoutFinancialProfileInput = {
+  export type AuditTrailEntryUpdateWithoutApplicationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    bankName?: StringFieldUpdateOperationsInput | string
-    accountTypes?: BankingRelationshipUpdateaccountTypesInput | string[]
-    yearsWithBank?: IntFieldUpdateOperationsInput | number
+    action?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    performedBy?: StringFieldUpdateOperationsInput | string
+    performedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ipAddress?: StringFieldUpdateOperationsInput | string
+    userAgent?: StringFieldUpdateOperationsInput | string
+    changes?: NullableJsonNullValueInput | InputJsonValue
   }
 
-  export type BankingRelationshipUncheckedUpdateWithoutFinancialProfileInput = {
+  export type AuditTrailEntryUncheckedUpdateWithoutApplicationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    bankName?: StringFieldUpdateOperationsInput | string
-    accountTypes?: BankingRelationshipUpdateaccountTypesInput | string[]
-    yearsWithBank?: IntFieldUpdateOperationsInput | number
+    action?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    performedBy?: StringFieldUpdateOperationsInput | string
+    performedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ipAddress?: StringFieldUpdateOperationsInput | string
+    userAgent?: StringFieldUpdateOperationsInput | string
+    changes?: NullableJsonNullValueInput | InputJsonValue
   }
 
-  export type BankingRelationshipUncheckedUpdateManyWithoutFinancialProfileInput = {
+  export type AuditTrailEntryUncheckedUpdateManyWithoutApplicationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    bankName?: StringFieldUpdateOperationsInput | string
-    accountTypes?: BankingRelationshipUpdateaccountTypesInput | string[]
-    yearsWithBank?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type AccountActivityUpdateWithoutFinancialProfileInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    activity?: StringFieldUpdateOperationsInput | string
-    frequency?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
-  }
-
-  export type AccountActivityUncheckedUpdateWithoutFinancialProfileInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    activity?: StringFieldUpdateOperationsInput | string
-    frequency?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
-  }
-
-  export type AccountActivityUncheckedUpdateManyWithoutFinancialProfileInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    activity?: StringFieldUpdateOperationsInput | string
-    frequency?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
+    action?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    performedBy?: StringFieldUpdateOperationsInput | string
+    performedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ipAddress?: StringFieldUpdateOperationsInput | string
+    userAgent?: StringFieldUpdateOperationsInput | string
+    changes?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ProductSelectionCreateManyProductInput = {
@@ -37788,14 +31400,6 @@ export namespace Prisma {
     selectedFeatures?: ProductSelectionCreateselectedFeaturesInput | string[]
     initialDeposit?: number | null
     applicationId: string
-  }
-
-  export type EligibilityRuleCreateManyProductInput = {
-    id?: string
-    field: string
-    operator: $Enums.EligibilityOperator
-    value: JsonNullValueInput | InputJsonValue
-    description: string
   }
 
   export type ProductSelectionUpdateWithoutProductInput = {
@@ -37819,68 +31423,52 @@ export namespace Prisma {
     applicationId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type EligibilityRuleUpdateWithoutProductInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    field?: StringFieldUpdateOperationsInput | string
-    operator?: EnumEligibilityOperatorFieldUpdateOperationsInput | $Enums.EligibilityOperator
-    value?: JsonNullValueInput | InputJsonValue
-    description?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type EligibilityRuleUncheckedUpdateWithoutProductInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    field?: StringFieldUpdateOperationsInput | string
-    operator?: EnumEligibilityOperatorFieldUpdateOperationsInput | $Enums.EligibilityOperator
-    value?: JsonNullValueInput | InputJsonValue
-    description?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type EligibilityRuleUncheckedUpdateManyWithoutProductInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    field?: StringFieldUpdateOperationsInput | string
-    operator?: EnumEligibilityOperatorFieldUpdateOperationsInput | $Enums.EligibilityOperator
-    value?: JsonNullValueInput | InputJsonValue
-    description?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type RiskFactorCreateManyRiskAssessmentInput = {
+  export type DocumentCreateManySignerInput = {
     id?: string
-    category: string
-    factor: string
-    weight: number
-    score: number
-    impact: string
-    description: string
+    type: string
+    fileName: string
+    fileSize: number
+    mimeType: string
+    uploadedAt?: Date | string
+    verificationStatus?: string
+    verificationDetails?: NullableJsonNullValueInput | InputJsonValue
+    applicationId: string
   }
 
-  export type RiskFactorUpdateWithoutRiskAssessmentInput = {
+  export type DocumentUpdateWithoutSignerInput = {
     id?: StringFieldUpdateOperationsInput | string
-    category?: StringFieldUpdateOperationsInput | string
-    factor?: StringFieldUpdateOperationsInput | string
-    weight?: FloatFieldUpdateOperationsInput | number
-    score?: IntFieldUpdateOperationsInput | number
-    impact?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    verificationStatus?: StringFieldUpdateOperationsInput | string
+    verificationDetails?: NullableJsonNullValueInput | InputJsonValue
+    application?: ApplicationUpdateOneRequiredWithoutDocumentsNestedInput
   }
 
-  export type RiskFactorUncheckedUpdateWithoutRiskAssessmentInput = {
+  export type DocumentUncheckedUpdateWithoutSignerInput = {
     id?: StringFieldUpdateOperationsInput | string
-    category?: StringFieldUpdateOperationsInput | string
-    factor?: StringFieldUpdateOperationsInput | string
-    weight?: FloatFieldUpdateOperationsInput | number
-    score?: IntFieldUpdateOperationsInput | number
-    impact?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    verificationStatus?: StringFieldUpdateOperationsInput | string
+    verificationDetails?: NullableJsonNullValueInput | InputJsonValue
+    applicationId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type RiskFactorUncheckedUpdateManyWithoutRiskAssessmentInput = {
+  export type DocumentUncheckedUpdateManyWithoutSignerInput = {
     id?: StringFieldUpdateOperationsInput | string
-    category?: StringFieldUpdateOperationsInput | string
-    factor?: StringFieldUpdateOperationsInput | string
-    weight?: FloatFieldUpdateOperationsInput | number
-    score?: IntFieldUpdateOperationsInput | number
-    impact?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    mimeType?: StringFieldUpdateOperationsInput | string
+    uploadedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    verificationStatus?: StringFieldUpdateOperationsInput | string
+    verificationDetails?: NullableJsonNullValueInput | InputJsonValue
+    applicationId?: StringFieldUpdateOperationsInput | string
   }
 
   export type AgreementCreateManyDisclosureInput = {

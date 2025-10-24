@@ -1,251 +1,84 @@
-// API-related types for the Digital Account Opening Portal
-
-export interface ApiResponse<T> {
-    data: T;
-    message?: string;
-    success: boolean;
-}
-
-export interface ApiError {
-    message: string;
-    code?: string;
-    details?: Record<string, any>;
-    field?: string;
-}
-
-export interface PaginatedResponse<T> {
+export type PaginatedResponse<T> = {
     results: T[];
     page: number;
     limit: number;
     totalPages: number;
     totalResults: number;
-}
+};
 
-export interface ApiErrorResponse {
-    error: {
-        message: string;
-        code?: string;
-        field?: string;
-        details?: Record<string, any>;
-    };
+export type ApiResponse<T> = {
+    success: boolean;
+    data: T;
+    message?: string;
+    errors?: string[];
+};
+
+export type ErrorResponse = {
     success: false;
-}
-
-// HTTP Methods
-export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
-
-// Query parameters for filtering and sorting
-export interface QueryParams {
-    page?: number;
-    limit?: number;
-    sortBy?: string;
-    order?: 'asc' | 'desc';
-    search?: string;
-    [key: string]: any;
-}
-
-// File upload response
-export interface FileUploadResponse {
-    id: string;
-    fileName: string;
-    fileSize: number;
-    mimeType: string;
-    uploadedAt: string;
-    url?: string;
-}
-
-// Validation response
-export interface ValidationResponse {
-    isValid: boolean;
-    errors: ValidationError[];
-    warnings?: ValidationWarning[];
-}
-
-export interface ValidationError {
-    field: string;
     message: string;
-    code: string;
-}
+    errors?: string[];
+    code?: string;
+};
 
-export interface ValidationWarning {
-    field: string;
-    message: string;
-    suggestion?: string;
-}
+// Account Opening API Types
+export type ApplicationStatus =
+    | 'draft'
+    | 'submitted'
+    | 'under_review'
+    | 'kyc_pending'
+    | 'kyc_failed'
+    | 'approved'
+    | 'rejected'
+    | 'completed'
+    | 'terminated';
 
-// Status response for operations
-export interface StatusResponse {
-    status: 'pending' | 'processing' | 'completed' | 'failed';
-    message?: string;
-    progress?: number;
-    details?: Record<string, any>;
-}
+export type ApplicationStep =
+    | 'account_type'
+    | 'personal_info'
+    | 'business_profile'
+    | 'financial_profile'
+    | 'product_selection'
+    | 'documents'
+    | 'identity_verification'
+    | 'additional_signers'
+    | 'risk_assessment'
+    | 'disclosures'
+    | 'signatures'
+    | 'funding'
+    | 'review'
+    | 'confirmation';
 
-// Common response types for specific operations
-export interface SubmitResponse {
-    submitted: boolean;
-    applicationId?: string;
-    message?: string;
-}
+export type AccountType = 'consumer' | 'commercial';
 
-export interface VerificationResponse {
-    verified: boolean;
-    confidence?: number;
-    provider?: string;
-    verificationId?: string;
-    message?: string;
-}
+export type CustomerType = 'new' | 'existing';
 
-// Admin-specific response types
-export interface AdminApplicationsResponse extends PaginatedResponse<AdminApplicationSummary> {
-    filters?: {
-        status: string[];
-        accountType: string[];
-        riskLevel: string[];
-        dateRange: {
-            from?: string;
-            to?: string;
-        };
-    };
-}
+export type IdentificationDocumentType =
+    | 'drivers_license'
+    | 'state_id'
+    | 'passport'
+    | 'utility_bill'
+    | 'bank_statement'
+    | 'articles_incorporation'
+    | 'articles_organization'
+    | 'certificate_partnership'
+    | 'ein_letter'
+    | 'business_tax_return';
 
-export interface AdminApplicationSummary {
-    id: string;
-    applicantName: string;
-    accountType: string;
-    status: string;
-    currentStep: string;
-    riskLevel: string;
-    submittedAt?: string;
-    lastActivity: string;
-    assignedTo?: string;
-}
+export type ProductType = 'checking' | 'savings' | 'money_market';
 
-// Audit trail types
-export interface AuditTrailEntry {
-    id: string;
-    applicationId: string;
-    action: string;
-    description: string;
-    performedBy: string;
-    performedAt: string;
-    ipAddress: string;
-    userAgent: string;
-    changes?: AuditChange;
-}
+export type KYCStatus = 'pending' | 'passed' | 'failed' | 'needs_review';
 
-export interface AuditChange {
-    field: string;
-    from: any;
-    to: any;
-}
+export type RiskLevel = 'low' | 'medium' | 'high';
 
-// Request/Response pairs for common operations
-export interface LoginRequest {
-    email: string;
-    password: string;
-}
+export type FundingMethod = 'ach' | 'wire' | 'check' | 'cash';
 
-export interface LoginResponse {
-    user: {
-        id: number;
-        email: string;
-        name: string;
-        role: string;
-        isEmailVerified: boolean;
-        createdAt: string;
-        updatedAt: string;
-    };
-    tokens: {
-        access: {
-            token: string;
-            expires: string;
-        };
-        refresh: {
-            token: string;
-            expires: string;
-        };
-    };
-}
+export type BusinessEntityType = 'corporation' | 'llc' | 'partnership' | 'sole_proprietorship' | 'nonprofit';
 
-export interface RefreshTokenRequest {
-    refreshToken: string;
-}
+export type EmploymentStatus = 'employed' | 'self_employed' | 'unemployed' | 'retired' | 'student';
 
-export interface RefreshTokenResponse {
-    access: {
-        token: string;
-        expires: string;
-    };
-    refresh: {
-        token: string;
-        expires: string;
-    };
-}
+export type IncomeSource = 'employment' | 'business' | 'investment' | 'retirement' | 'government' | 'other';
 
-export interface RegisterRequest {
-    name: string;
-    email: string;
-    password: string;
-}
+export type SignerRole = 'primary_signer' | 'authorized_signer' | 'beneficial_owner' | 'control_person';
 
-export interface RegisterResponse {
-    user: {
-        id: number;
-        email: string;
-        name: string;
-        role: string;
-        isEmailVerified: boolean;
-        createdAt: string;
-        updatedAt: string;
-    };
-    tokens: {
-        access: {
-            token: string;
-            expires: string;
-        };
-        refresh: {
-            token: string;
-            expires: string;
-        };
-    };
-}
-
-// API Client configuration
-export interface ApiConfig {
-    baseURL: string;
-    timeout: number;
-    withCredentials: boolean;
-    headers: Record<string, string>;
-}
-
-// Error handling types
-export interface NetworkError extends Error {
-    code: 'NETWORK_ERROR';
-    originalError: Error;
-}
-
-export interface HttpError extends Error {
-    code: 'HTTP_ERROR';
-    status: number;
-    statusText: string;
-    data?: any;
-}
-
-export interface TimeoutError extends Error {
-    code: 'TIMEOUT_ERROR';
-    timeout: number;
-}
-
-export type ApiClientError = NetworkError | HttpError | TimeoutError;
-
-// Request interceptor types
-export interface RequestInterceptor {
-    onRequest?: (config: any) => any | Promise<any>;
-    onRequestError?: (error: Error) => any | Promise<any>;
-}
-
-export interface ResponseInterceptor {
-    onResponse?: (response: any) => any | Promise<any>;
-    onResponseError?: (error: any) => any | Promise<any>;
-}
+// Configuration and Settings
+export type USE_MOCK_DATA = boolean;

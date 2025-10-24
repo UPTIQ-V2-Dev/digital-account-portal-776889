@@ -12,23 +12,6 @@ fi
 
 cd /app/project
 
-# Variable to track the server process ID
-SERVER_PID=""
-
-# Function to start/restart the server
-start_server() {
-    echo "Starting server..."
-    if [ -n "$START_COMMAND" ]; then
-        echo "Using custom start command: $START_COMMAND"
-        $START_COMMAND &
-    else
-        echo "Using default command: pnpm dev"
-        pnpm dev &
-    fi
-    SERVER_PID=$!
-    echo "Server started with PID: $SERVER_PID"
-}
-
 # background sync.
 while true; do
     rsync -a --exclude 'node_modules' ${PROJECT_PATH}/ /app/project
@@ -52,17 +35,8 @@ while true; do
         fi
 
         if [ "$NEEDS_INSTALL" = true ]; then
-            echo "Installing dependencies..."
             CI=true pnpm install
             openssl md5 -r package.json | awk '{print $1}' > "$CHECKSUM_FILE"
-            
-            # Restart server after successful dependency installation
-            if [ -n "$SERVER_PID" ] && kill -0 $SERVER_PID 2>/dev/null; then
-                echo "Restarting server after dependency installation..."
-                kill $SERVER_PID 2>/dev/null || true
-                sleep 2
-                start_server
-            fi
         fi
     else
         CI=true pnpm install
@@ -73,8 +47,9 @@ done &
 # Install dependencies
 pnpm install
 
-# Start the server using the function
-start_server
-
-# Keep the script running and wait for the server process
-wait $SERVER_PID
+# If we have a start command in environment variable, use it instead of dev
+if [ -n "$START_COMMAND" ]; then
+    $START_COMMAND
+else
+    pnpm dev
+fi

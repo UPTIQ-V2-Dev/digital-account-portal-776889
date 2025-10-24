@@ -12,7 +12,7 @@ import moment, { Moment } from 'moment';
  * Generate token
  * @param {number} userId
  * @param {Moment} expires
- * @param {string} type
+ * @param {TokenType} type
  * @param {string} [secret]
  * @returns {string}
  */
@@ -31,7 +31,7 @@ const generateToken = (userId: number, expires: Moment, type: TokenType, secret 
  * @param {string} token
  * @param {number} userId
  * @param {Moment} expires
- * @param {string} type
+ * @param {TokenType} type
  * @param {boolean} [blacklisted]
  * @returns {Promise<Token>}
  */
@@ -57,7 +57,7 @@ const saveToken = async (
 /**
  * Verify token and return token doc (or throw an error if it is not valid)
  * @param {string} token
- * @param {string} type
+ * @param {TokenType} type
  * @returns {Promise<Token>}
  */
 const verifyToken = async (token: string, type: TokenType): Promise<Token> => {
@@ -88,11 +88,11 @@ const generateAuthTokens = async (user: { id: number }): Promise<AuthTokensRespo
     return {
         access: {
             token: accessToken,
-            expires: accessTokenExpires.toDate()
+            expires: accessTokenExpires.toISOString()
         },
         refresh: {
             token: refreshToken,
-            expires: refreshTokenExpires.toDate()
+            expires: refreshTokenExpires.toISOString()
         }
     };
 };
@@ -105,7 +105,7 @@ const generateAuthTokens = async (user: { id: number }): Promise<AuthTokensRespo
 const generateResetPasswordToken = async (email: string): Promise<string> => {
     const user = await userService.getUserByEmail(email);
     if (!user) {
-        throw new ApiError(httpStatus.NOT_FOUND, 'No users found with this email');
+        throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
     }
     const expires = moment().add(config.jwt.resetPasswordExpirationMinutes, 'minutes');
     const resetPasswordToken = generateToken(user.id as number, expires, TokenType.RESET_PASSWORD);

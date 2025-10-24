@@ -1,9 +1,9 @@
 export interface TokenResponse {
     token: string;
-    expires: Date;
+    expires: string;
 }
 
 export interface AuthTokensResponse {
     access: TokenResponse;
-    refresh?: TokenResponse;
+    refresh: TokenResponse;
 }

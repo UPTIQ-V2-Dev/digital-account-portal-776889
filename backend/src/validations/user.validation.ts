@@ -4,45 +4,47 @@ import Joi from 'joi';
 
 const createUser = {
     body: Joi.object().keys({
+        name: Joi.string().required(),
         email: Joi.string().required().email(),
         password: Joi.string().required().custom(password),
-        name: Joi.string().required(),
-        role: Joi.string().required().valid(Role.USER, Role.ADMIN)
+        role: Joi.string()
+            .required()
+            .valid(...Object.values(Role))
     })
 };
 
 const getUsers = {
     query: Joi.object().keys({
         name: Joi.string(),
-        role: Joi.string(),
+        role: Joi.string().valid(...Object.values(Role)),
         sortBy: Joi.string(),
-        limit: Joi.number().integer(),
-        page: Joi.number().integer()
+        limit: Joi.number().integer().min(1).default(10),
+        page: Joi.number().integer().min(1).default(1)
     })
 };
 
 const getUser = {
     params: Joi.object().keys({
-        userId: Joi.number().integer()
+        userId: Joi.number().integer().required()
     })
 };
 
 const updateUser = {
     params: Joi.object().keys({
-        userId: Joi.number().integer()
+        userId: Joi.number().integer().required()
     }),
     body: Joi.object()
         .keys({
+            name: Joi.string(),
             email: Joi.string().email(),
-            password: Joi.string().custom(password),
-            name: Joi.string()
+            password: Joi.string().custom(password)
         })
         .min(1)
 };
 
 const deleteUser = {
     params: Joi.object().keys({
-        userId: Joi.number().integer()
+        userId: Joi.number().integer().required()
     })
 };
 

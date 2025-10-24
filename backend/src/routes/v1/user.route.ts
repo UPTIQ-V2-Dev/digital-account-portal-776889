@@ -14,9 +14,9 @@ router
 
 router
     .route('/:userId')
-    .get(auth('getUsers'), validate(userValidation.getUser), userController.getUser)
-    .patch(auth('manageUsers'), validate(userValidation.updateUser), userController.updateUser)
-    .delete(auth('manageUsers'), validate(userValidation.deleteUser), userController.deleteUser);
+    .get(auth(), validate(userValidation.getUser), userController.getUser)
+    .patch(auth(), validate(userValidation.updateUser), userController.updateUser)
+    .delete(auth(), validate(userValidation.deleteUser), userController.deleteUser);
 
 export default router;
 
@@ -149,19 +149,19 @@ export default router;
 
 /**
  * @swagger
- * /users/{id}:
+ * /users/{userId}:
  *   get:
- *     summary: Get a user
- *     description: Logged in users can fetch only their own user information. Only admins can fetch other users.
+ *     summary: Get specific user by ID
+ *     description: Users can get their own information or admins can get any user's information.
  *     tags: [Users]
  *     security:
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: userId
  *         required: true
  *         schema:
- *           type: string
+ *           type: integer
  *         description: User id
  *     responses:
  *       "200":
@@ -178,17 +178,17 @@ export default router;
  *         $ref: '#/components/responses/NotFound'
  *
  *   patch:
- *     summary: Update a user
- *     description: Logged in users can only update their own information. Only admins can update other users.
+ *     summary: Update user information
+ *     description: Users can update their own information or admins can update any user's information.
  *     tags: [Users]
  *     security:
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: userId
  *         required: true
  *         schema:
- *           type: string
+ *           type: integer
  *         description: User id
  *     requestBody:
  *       required: true
@@ -229,20 +229,20 @@ export default router;
  *         $ref: '#/components/responses/NotFound'
  *
  *   delete:
- *     summary: Delete a user
- *     description: Logged in users can delete only themselves. Only admins can delete other users.
+ *     summary: Delete user account
+ *     description: Users can delete their own account or admins can delete any user's account.
  *     tags: [Users]
  *     security:
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: userId
  *         required: true
  *         schema:
- *           type: string
+ *           type: integer
  *         description: User id
  *     responses:
- *       "200":
+ *       "204":
  *         description: No content
  *       "401":
  *         $ref: '#/components/responses/Unauthorized'

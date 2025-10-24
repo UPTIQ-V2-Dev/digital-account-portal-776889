@@ -1,195 +1,223 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import { Building2, User, ArrowRight, ArrowLeft } from 'lucide-react';
-
-import { Button } from '../components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
-import { LoadingSpinner } from '../components/ui/loading-spinner';
-
-import { useApplication } from '../context/ApplicationContext';
-import { useNotification } from '../context/NotificationContext';
-import { createApplication } from '../services/application';
-import { AccountType } from '../types/application';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Label } from '@/components/ui/label';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Badge } from '@/components/ui/badge';
+import { User, Building2, CheckCircle, ArrowRight, AlertTriangle } from 'lucide-react';
+import { useApplication } from '@/context/ApplicationContext';
+import { accountOpeningService } from '@/services/account-opening';
+import { AccountType } from '@/types/api';
+import { toast } from 'sonner';
 
 export const ApplicationTypePage = () => {
     const navigate = useNavigate();
-    const { setApplication, setCurrentStep } = useApplication();
-    const { showError } = useNotification();
+    const { setApplication, setCurrentStep, completeStep } = useApplication();
     const [selectedType, setSelectedType] = useState<AccountType | null>(null);
 
     const createApplicationMutation = useMutation({
-        mutationFn: createApplication,
-        onSuccess: application => {
-            setApplication(application);
-            setCurrentStep(application.accountType === 'consumer' ? 'personal_info' : 'business_profile');
-            navigate(application.accountType === 'consumer' ? '/personal-info' : '/business-profile');
+        mutationFn: (accountType: AccountType) => accountOpeningService.createApplication({ accountType }),
+        onSuccess: response => {
+            if (response.success) {
+                setApplication(response.data);
+                completeStep('account_type');
+
+                // Navigate to next step based on account type
+                if (selectedType === 'consumer') {
+                    setCurrentStep('personal_info');
+                    navigate('/personal-info');
+                } else {
+                    setCurrentStep('business_profile');
+                    navigate('/business-profile');
+                }
+
+                toast.success('Application started successfully!');
+            } else {
+                toast.error(response.message || 'Failed to start application');
+            }
         },
         onError: (error: any) => {
-            showError(error.message || 'Failed to create application. Please try again.');
+            console.error('Application creation failed:', error);
+            toast.error('Failed to start application. Please try again.');
         }
     });
 
-    const handleAccountTypeSelect = (accountType: AccountType) => {
-        setSelectedType(accountType);
-    };
-
     const handleContinue = () => {
-        if (!selectedType) return;
+        if (!selectedType) {
+            toast.error('Please select an account type to continue');
+            return;
+        }
 
-        createApplicationMutation.mutate({
-            accountType: selectedType
-        });
+        createApplicationMutation.mutate(selectedType);
     };
 
-    const handleBack = () => {
-        navigate('/');
-    };
+    const accountOptions = [
+        {
+            type: 'consumer' as AccountType,
+            icon: <User className='h-8 w-8' />,
+            title: 'Personal Account',
+            description: 'Individual checking, savings, and money market accounts',
+            features: [
+                'Personal checking and savings accounts',
+                'Online and mobile banking',
+                'Debit card and checks',
+                'Direct deposit and bill pay',
+                'No monthly fees with minimum balance'
+            ],
+            requirements: [
+                'Valid government-issued ID',
+                'Social Security Number',
+                'Proof of address',
+                'Initial deposit (varies by account type)'
+            ]
+        },
+        {
+            type: 'commercial' as AccountType,
+            icon: <Building2 className='h-8 w-8' />,
+            title: 'Business Account',
+            description: 'Commercial accounts for businesses and organizations',
+            features: [
+                'Business checking and savings accounts',
+                'Multiple authorized signers',
+                'Business online banking',
+                'Merchant services available',
+                'Commercial lending options'
+            ],
+            requirements: [
+                'Business registration documents',
+                'Federal Tax ID Number (EIN)',
+                'Business license (if applicable)',
+                'Beneficial ownership information',
+                'Operating agreement or bylaws'
+            ]
+        }
+    ];
 
     return (
-        <div className='container mx-auto px-4 py-8 max-w-4xl'>
-            <div className='text-center mb-8'>
-                <h1 className='text-3xl font-bold text-gray-900 mb-2'>Choose Your Account Type</h1>
-                <p className='text-gray-600'>Select the type of account that best fits your needs</p>
-            </div>
+        <div className='p-6 md:p-8'>
+            {/* Patriot Act Notice */}
+            <Alert className='mb-6 border-blue-200 bg-blue-50'>
+                <AlertTriangle className='h-4 w-4 text-blue-600' />
+                <AlertDescription className='text-blue-800'>
+                    <strong>Important Information Regarding the Patriot Act</strong>
+                    <br />
+                    To help the government fight the funding of terrorism and money laundering activities, Federal law
+                    requires all financial institutions to obtain, verify, and record information that identifies each
+                    person who opens an account. When you open an account, we will ask for your name, address, date of
+                    birth, and other information that will allow us to identify you. We may also ask to see your
+                    driver's license or other identifying documents.
+                </AlertDescription>
+            </Alert>
 
-            <div className='grid md:grid-cols-2 gap-8 mb-8'>
-                {/* Consumer Account */}
-                <Card
-                    className={`cursor-pointer transition-all duration-200 hover:shadow-lg ${
-                        selectedType === 'consumer'
-                            ? 'border-blue-500 ring-2 ring-blue-200 bg-blue-50'
-                            : 'border-gray-200 hover:border-blue-300'
-                    }`}
-                    onClick={() => handleAccountTypeSelect('consumer')}
+            {/* Account Type Selection */}
+            <div className='space-y-6'>
+                <div className='text-center mb-8'>
+                    <p className='text-gray-600'>
+                        This application is used by customers to request a new bank account. Please submit your
+                        application and all appropriate documentation. A representative of the bank will contact you
+                        regarding next steps.
+                    </p>
+                </div>
+
+                <RadioGroup
+                    value={selectedType || ''}
+                    onValueChange={value => setSelectedType(value as AccountType)}
+                    className='grid grid-cols-1 md:grid-cols-2 gap-6'
                 >
-                    <CardHeader className='text-center pb-4'>
-                        <div
-                            className={`mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full ${
-                                selectedType === 'consumer' ? 'bg-blue-600 text-white' : 'bg-blue-100 text-blue-600'
-                            }`}
-                        >
-                            <User className='h-8 w-8' />
-                        </div>
-                        <CardTitle className='text-xl'>Personal Banking</CardTitle>
-                        <CardDescription>Perfect for individuals and families</CardDescription>
-                    </CardHeader>
-                    <CardContent className='pt-0'>
-                        <div className='space-y-3'>
-                            <div className='text-sm font-medium text-gray-900'>Account Features:</div>
-                            <ul className='space-y-2 text-sm text-gray-600'>
-                                <li className='flex items-start gap-2'>
-                                    <span className='text-green-500 mt-0.5'>•</span>
-                                    Personal checking and savings accounts
-                                </li>
-                                <li className='flex items-start gap-2'>
-                                    <span className='text-green-500 mt-0.5'>•</span>
-                                    Debit card and online banking
-                                </li>
-                                <li className='flex items-start gap-2'>
-                                    <span className='text-green-500 mt-0.5'>•</span>
-                                    Mobile check deposit and transfers
-                                </li>
-                                <li className='flex items-start gap-2'>
-                                    <span className='text-green-500 mt-0.5'>•</span>
-                                    Personal financial management tools
-                                </li>
-                            </ul>
-                            <div className='pt-2 text-xs text-gray-500'>Minimum age: 18 years</div>
-                        </div>
-                    </CardContent>
-                </Card>
+                    {accountOptions.map(option => (
+                        <div key={option.type}>
+                            <Label
+                                htmlFor={option.type}
+                                className='cursor-pointer'
+                            >
+                                <Card
+                                    className={`transition-all hover:shadow-md ${
+                                        selectedType === option.type ? 'ring-2 ring-blue-600 border-blue-200' : ''
+                                    }`}
+                                >
+                                    <CardHeader className='pb-4'>
+                                        <div className='flex items-start gap-4'>
+                                            <div className='flex items-center space-x-2'>
+                                                <RadioGroupItem
+                                                    value={option.type}
+                                                    id={option.type}
+                                                />
+                                            </div>
+                                            <div className='text-blue-600 mt-1'>{option.icon}</div>
+                                            <div className='flex-1'>
+                                                <CardTitle className='text-xl mb-2'>{option.title}</CardTitle>
+                                                <CardDescription className='text-base'>
+                                                    {option.description}
+                                                </CardDescription>
+                                            </div>
+                                        </div>
+                                    </CardHeader>
 
-                {/* Commercial Account */}
-                <Card
-                    className={`cursor-pointer transition-all duration-200 hover:shadow-lg ${
-                        selectedType === 'commercial'
-                            ? 'border-blue-500 ring-2 ring-blue-200 bg-blue-50'
-                            : 'border-gray-200 hover:border-blue-300'
-                    }`}
-                    onClick={() => handleAccountTypeSelect('commercial')}
-                >
-                    <CardHeader className='text-center pb-4'>
-                        <div
-                            className={`mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full ${
-                                selectedType === 'commercial' ? 'bg-blue-600 text-white' : 'bg-blue-100 text-blue-600'
-                            }`}
-                        >
-                            <Building2 className='h-8 w-8' />
+                                    <CardContent className='space-y-6'>
+                                        {/* Features */}
+                                        <div>
+                                            <h4 className='font-semibold text-gray-900 mb-3 flex items-center gap-2'>
+                                                <CheckCircle className='h-4 w-4 text-green-600' />
+                                                Account Features
+                                            </h4>
+                                            <ul className='space-y-2'>
+                                                {option.features.map((feature, index) => (
+                                                    <li
+                                                        key={index}
+                                                        className='flex items-start gap-2 text-sm text-gray-600'
+                                                    >
+                                                        <CheckCircle className='h-4 w-4 text-green-600 mt-0.5 flex-shrink-0' />
+                                                        {feature}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+
+                                        {/* Requirements */}
+                                        <div>
+                                            <h4 className='font-semibold text-gray-900 mb-3'>
+                                                Required Documents & Information
+                                            </h4>
+                                            <div className='grid gap-2'>
+                                                {option.requirements.map((requirement, index) => (
+                                                    <Badge
+                                                        key={index}
+                                                        variant='outline'
+                                                        className='text-xs justify-start'
+                                                    >
+                                                        {requirement}
+                                                    </Badge>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            </Label>
                         </div>
-                        <CardTitle className='text-xl'>Business Banking</CardTitle>
-                        <CardDescription>Designed for businesses and organizations</CardDescription>
-                    </CardHeader>
-                    <CardContent className='pt-0'>
-                        <div className='space-y-3'>
-                            <div className='text-sm font-medium text-gray-900'>Account Features:</div>
-                            <ul className='space-y-2 text-sm text-gray-600'>
-                                <li className='flex items-start gap-2'>
-                                    <span className='text-green-500 mt-0.5'>•</span>
-                                    Business checking and savings accounts
-                                </li>
-                                <li className='flex items-start gap-2'>
-                                    <span className='text-green-500 mt-0.5'>•</span>
-                                    Multiple authorized signers
-                                </li>
-                                <li className='flex items-start gap-2'>
-                                    <span className='text-green-500 mt-0.5'>•</span>
-                                    Business debit cards and online banking
-                                </li>
-                                <li className='flex items-start gap-2'>
-                                    <span className='text-green-500 mt-0.5'>•</span>
-                                    Cash management and payroll services
-                                </li>
-                            </ul>
-                            <div className='pt-2 text-xs text-gray-500'>Requires business documentation</div>
-                        </div>
-                    </CardContent>
-                </Card>
-            </div>
+                    ))}
+                </RadioGroup>
 
-            {/* Action Buttons */}
-            <div className='flex justify-between'>
-                <Button
-                    variant='outline'
-                    onClick={handleBack}
-                    className='flex items-center gap-2'
-                >
-                    <ArrowLeft className='h-4 w-4' />
-                    Back to Welcome
-                </Button>
-
-                <Button
-                    onClick={handleContinue}
-                    disabled={!selectedType || createApplicationMutation.isPending}
-                    className='flex items-center gap-2 min-w-32'
-                >
-                    {createApplicationMutation.isPending ? (
-                        <LoadingSpinner size='sm' />
-                    ) : (
-                        <>
-                            Continue
-                            <ArrowRight className='h-4 w-4' />
-                        </>
-                    )}
-                </Button>
-            </div>
-
-            {/* Regulatory Notice */}
-            <div className='mt-12'>
-                <Card className='bg-gray-50 border-gray-200'>
-                    <CardHeader>
-                        <CardTitle className='text-sm'>Important Information</CardTitle>
-                    </CardHeader>
-                    <CardContent className='pt-0'>
-                        <p className='text-xs text-gray-600 leading-relaxed'>
-                            To help the government fight the funding of terrorism and money laundering activities,
-                            Federal law requires all financial institutions to obtain, verify, and record information
-                            that identifies each person who opens an account. We will ask for your name, address, date
-                            of birth, and other information that will allow us to identify you. We may also ask to see
-                            your driver's license or other identifying documents.
-                        </p>
-                    </CardContent>
-                </Card>
+                {/* Continue Button */}
+                <div className='flex justify-end pt-6'>
+                    <Button
+                        onClick={handleContinue}
+                        disabled={!selectedType || createApplicationMutation.isPending}
+                        size='lg'
+                        className='min-w-32'
+                    >
+                        {createApplicationMutation.isPending ? (
+                            'Starting...'
+                        ) : (
+                            <>
+                                Continue
+                                <ArrowRight className='ml-2 h-4 w-4' />
+                            </>
+                        )}
+                    </Button>
+                </div>
             </div>
         </div>
     );
