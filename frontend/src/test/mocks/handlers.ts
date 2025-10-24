@@ -22,6 +22,17 @@ export const handlers = [
         return HttpResponse.json({ message: 'Invalid email or password' }, { status: 401 });
     }),
 
+    // Alternative auth handlers without v1 prefix for testing
+    http.post('/api/auth/login', async ({ request }) => {
+        const loginData = (await request.json()) as LoginRequest;
+
+        if (loginData.email === 'test@example.com' && loginData.password === 'password') {
+            return HttpResponse.json(mockAuthResponse);
+        }
+
+        return HttpResponse.json({ message: 'Invalid credentials' }, { status: 401 });
+    }),
+
     http.post('/api/v1/auth/register', async ({ request }) => {
         const registerData = (await request.json()) as RegisterRequest;
 

@@ -1,2 +1,9 @@
 export { default as authController } from './auth.controller.ts';
 export { default as userController } from './user.controller.ts';
+export { default as applicationController } from './application.controller.ts';
+export { default as personalInfoController } from './personalInfo.controller.ts';
+export { default as businessProfileController } from './businessProfile.controller.ts';
+export { default as financialProfileController } from './financialProfile.controller.ts';
+export { default as productController } from './product.controller.ts';
+export { default as documentController } from './document.controller.ts';
+export { default as kycVerificationController } from './kycVerification.controller.ts';

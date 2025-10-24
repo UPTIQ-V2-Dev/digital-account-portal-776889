@@ -1,2 +1,9 @@
 export { default as authValidation } from './auth.validation.ts';
 export { default as userValidation } from './user.validation.ts';
+export { default as applicationValidation } from './application.validation.ts';
+export { default as personalInfoValidation } from './personalInfo.validation.ts';
+export { default as businessProfileValidation } from './businessProfile.validation.ts';
+export { default as financialProfileValidation } from './financialProfile.validation.ts';
+export { default as productValidation } from './product.validation.ts';
+export { default as documentValidation } from './document.validation.ts';
+export { default as kycVerificationValidation } from './kycVerification.validation.ts';

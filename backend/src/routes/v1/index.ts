@@ -3,6 +3,8 @@ import authRoute from './auth.route.ts';
 import docsRoute from './docs.route.ts';
 import mcpRoute from './mcp.route.ts';
 import userRoute from './user.route.ts';
+import applicationRoute from './application.route.ts';
+import productRoute from './product.route.ts';
 import express from 'express';
 
 const router = express.Router();
@@ -19,6 +21,14 @@ const defaultRoutes = [
     {
         path: '/mcp',
         route: mcpRoute
+    },
+    {
+        path: '/account-opening/applications',
+        route: applicationRoute
+    },
+    {
+        path: '/products',
+        route: productRoute
     }
 ];
 
